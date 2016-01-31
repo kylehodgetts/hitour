@@ -1,4 +1,8 @@
 class Demo extends React.Component {
+  static displayName = "Demo";
+  static propTypes = {
+    label: React.PropTypes.string
+  };
   render () {
     return (
       <div>
@@ -7,7 +11,3 @@ class Demo extends React.Component {
     );
   }
 }
-
-Demo.propTypes = {
-  label: React.PropTypes.string
-};
