@@ -1,0 +1,14 @@
+AllCops:
+  Include:
+    - config.ru
+  Exclude:
+    - db/**/*
+    - config/**/*
+    - script/**/*
+    - bin/**/*
+    - node_modules/**/*
+    - spec/*_helper.rb
+Documentation:
+  Enabled: true
+Rails:
+  Enabled: true
