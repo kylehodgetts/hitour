@@ -1,3 +1,5 @@
+port ?= 3000
+
 install:
 	bundle install
 	npm install
@@ -10,7 +12,11 @@ setup:
 
 start:
 	@echo 'Server starting...'
-	thin start --ssl
+	thin start --ssl -p ${port}
+
+test:
+	rspec
+	# Front end test command
 
 lint:
 	@echo 'Linting...'

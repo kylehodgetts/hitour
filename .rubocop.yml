@@ -12,6 +12,7 @@ Documentation:
   Enabled: true
 Rails:
   Enabled: true
-
-Style/Filename:
+Style/FileName:
+  Enabled: false
+Documentation:
   Enabled: false
