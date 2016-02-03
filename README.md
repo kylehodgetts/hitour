@@ -14,7 +14,7 @@
 * Ben
 
 ## Setup and Run
-To install dependenciures: `make install`
+To install dependencies: `make install`
 
 To setup:
   * Ensure you have [Postgresql](http://www.postgresql.org/download/) installed and running locally
