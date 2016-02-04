@@ -1,1 +1,1 @@
-web: thin start --ssl -p $PORT
+web: thin start -p $PORT
