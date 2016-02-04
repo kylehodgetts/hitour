@@ -25,6 +25,7 @@ module ProjectRunCms
 
     # Make sure the asset pipeline is disabled
     config.assets.enabled = false
+    config.assets.initialize_on_precompile = false
 
     # Stop generators from creating assets (js/css)
     config.generators do |g|
