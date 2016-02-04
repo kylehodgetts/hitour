@@ -18,6 +18,8 @@
   "homepage": "https://github.com/KyleHodgetts/project-run-cms",
   "devDependencies": {
     "babel-eslint": "^4.1.6",
-    "eslint-plugin-react": "^3.16.1"
+    "chai": "^3.5.0",
+    "eslint-plugin-react": "^3.16.1",
+    "mocha": "^2.4.5"
   }
 }
