@@ -11,6 +11,7 @@ gem 'react-rails', '~> 1.5.0'
 gem 'thin'
 gem 'rubocop'
 gem 'rspec-rails', '~> 3.0'
+gem 'rails_12factor', group: :production
 
 group :development do
   gem 'web-console', '~> 2.0'
