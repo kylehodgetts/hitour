@@ -3,7 +3,6 @@ deployment:
     branch: master
     commands:
       - heroku maintenance:on --app hitour
-      - heroku scale worker=0 --app hitour
       - git push git@heroku.com:hitour.git $CIRCLE_SHA1:refs/heads/master
       - heroku run rake db:migrate --app hitour
       - heroku maintenance:off --app hitour
