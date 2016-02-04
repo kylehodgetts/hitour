@@ -11,6 +11,9 @@ gem 'react-rails', '~> 1.5.0'
 gem 'thin'
 gem 'rubocop'
 gem 'rspec-rails', '~> 3.0'
+gem 'compass-rails'
+gem 'sprockets'
+gem 'sprockets-rails'
 
 group :development do
   gem 'web-console', '~> 2.0'
