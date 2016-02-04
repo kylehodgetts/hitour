@@ -10,6 +10,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'react-rails', '~> 1.5.0'
 gem 'thin'
 gem 'rubocop'
+gem 'rspec-rails', '~> 3.0'
 
 group :development do
   gem 'web-console', '~> 2.0'
@@ -18,5 +19,4 @@ end
 
 group :development, :test do
   gem 'spring'
-  gem 'rspec-rails', '~> 3.0'
 end
