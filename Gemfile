@@ -12,6 +12,7 @@ gem 'thin'
 gem 'rubocop'
 gem 'rspec-rails', '~> 3.0'
 gem 'rails_12factor', group: :production
+gem 'devise'
 
 group :development do
   gem 'web-console', '~> 2.0'
