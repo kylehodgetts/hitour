@@ -1,3 +1,3 @@
 class Point < ActiveRecord::Base
-	has_many :datum
+	has_many :datums
 end
