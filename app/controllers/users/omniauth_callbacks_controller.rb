@@ -8,7 +8,7 @@ module Users
         sign_in_and_redirect @user, event: :authentication
       else
         session['devise.google_data'] = request.env['omniauth.auth']
-        redirect_to '/403'
+        redirect_to '/'
       end
     end
 
