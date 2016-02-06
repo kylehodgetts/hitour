@@ -203,6 +203,6 @@ Devise.setup do |config|
   config.omniauth :google_oauth2,
     "282125992004-2brs0vcr7etvk9seabb79r782kbt67ig.apps.googleusercontent.com",
     "H9E-8e9UVPVcDphAwLBxK5_s",
-    { }
+    skip_jwt: true
 
 end

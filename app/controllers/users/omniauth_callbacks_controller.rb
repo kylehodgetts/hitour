@@ -7,13 +7,12 @@ module Users
       if @user
         sign_in_and_redirect @user, event: :authentication
       else
-        session['devise.google_data'] = request.env['omniauth.auth']
-        redirect_to '/'
+        redirect_to '/404'
       end
     end
 
     def failure
-      redirect_to root_path
+      redirect_to '/404'
     end
   end
 end
