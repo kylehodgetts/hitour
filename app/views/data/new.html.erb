@@ -1,7 +1,2 @@
 <h1>Data</h1>
-<%= form_for (@data) do |f| %>
-<%= f.text_field :title %>
-<%= f.text_area :description %>
-<%= f.file_field :file %>
-<%= f.submit %>
-<% end %>
+<%= react_component('DataUpload') %>
