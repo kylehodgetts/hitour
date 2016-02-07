@@ -6,12 +6,12 @@ module Users
       if @user
         sign_in_and_redirect @user, event: :authentication
       else
-        redirect_to '/404'
+        redirect_to logout_path
       end
     end
 
     def failure
-      redirect_to '/404'
+      redirect_to logout_path
     end
   end
 end
