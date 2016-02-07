@@ -1,0 +1,10 @@
+<h1>Data#index</h1>
+<p>Find me in app/views/data/index.html.erb</p>
+<% @data.each do |datum| %>
+<hr>
+<h2><%= datum.title %></h2>
+<p><%= datum.description %></p>
+<p><%= datum.url %></p>
+<%= link_to 'More Information', datum %>
+<hr>
+<% end %>

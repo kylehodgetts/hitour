@@ -4,7 +4,6 @@ class CreateData < ActiveRecord::Migration
       t.string :title
       t.text :description
       t.text :url
-      t.references :point
       t.timestamps null: false
     end
   end

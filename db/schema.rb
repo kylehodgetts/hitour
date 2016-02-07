@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 20160206160120) do
     t.string   "title"
     t.text     "description"
     t.text     "url"
-    t.integer  "point_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end

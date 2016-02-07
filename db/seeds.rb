@@ -5,3 +5,5 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+datum = Datum.create([{title:'Test Data',description:'Test Description',
+						url:'https://s3-us-west-2.amazonaws.com/hitourbucket/Notes.txt'}])

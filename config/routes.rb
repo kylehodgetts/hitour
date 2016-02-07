@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
+  get '/data' => 'data#index'
+
+  get '/data/show/:id' => 'data#show', as: :datum
+
+  get '/data/new' => 'data#new'
+
+  post '/data' => 'data#create'
+
   get 'welcome/index'
-  root 'welcome#index'
+  root 'data#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
