@@ -7,5 +7,9 @@ class CreateData < ActiveRecord::Migration
       t.references :point
       t.timestamps null: false
     end
+
+    def title
+    	:title
+    end
   end
 end

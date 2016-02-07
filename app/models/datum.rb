@@ -1,3 +1,3 @@
 class Datum < ActiveRecord::Base
-	belongs_to :point
+	has_many :points, through: :point_data
 end
