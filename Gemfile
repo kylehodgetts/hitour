@@ -1,9 +1,8 @@
 source 'https://rubygems.org'
 ruby '2.2.1'
 # For Amazon S3 Upload
-gem 'figaro'
 gem 'aws-sdk', '~> 2'
-
+gem 'tzinfo-data'
 gem 'rails', '4.2.3'
 gem 'pg'
 gem 'sass-rails', '~> 5.0'
