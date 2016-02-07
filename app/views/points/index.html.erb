@@ -1,0 +1,42 @@
+
+<h1> Listing all the points </h1>
+<table>
+	<tr>
+		<th>name</th>
+		<th></th>
+		<th>Data Matched to it</th>
+		<th></th>
+		<th> Link </th>
+	</tr>
+
+	<% @points.each do |point| %>
+	<tr>
+		<td><%= point.name %></td>
+		<td><%= point.id %></td>
+		<% @point_datums.each do |d| %>
+		<%if(point.id == d.point_id)%>
+			
+			<% @datums.each do|datum| 
+				if(datum.id == d.data_id)
+			%>
+				<td><%=datum.title %></td>
+				<td><%=datum.id %></td>
+				<td><%=datum.url %></td>
+				<%end%>
+			<%end%>
+			</td>
+			<%end%>
+		<%end%>
+
+		</tr>
+	<%end%>
+	<th> Data names</th>	
+	<% @datums.each do |d| %>
+		<tr>
+			<td><%= d.title %></td>
+			<td><%= d.id %></td>
+		</tr>
+	<%end%>
+
+</table>
+	
