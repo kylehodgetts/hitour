@@ -201,8 +201,8 @@ Devise.setup do |config|
   # up on your models and hooks.
   require 'omniauth-google-oauth2'
   config.omniauth :google_oauth2,
-    "282125992004-2brs0vcr7etvk9seabb79r782kbt67ig.apps.googleusercontent.com",
-    "H9E-8e9UVPVcDphAwLBxK5_s",
+    ENV["google_app_id"],
+    ENV["google_app_secret"],
     skip_jwt: true
 
 end
