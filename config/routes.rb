@@ -2,6 +2,14 @@ Rails.application.routes.draw do
   get 'welcome/index'
   root 'welcome#index'
 
+  devise_for :users, skip: :sessions, controllers: {
+    omniauth_callbacks: 'users/omniauth_callbacks'
+  }
+
+  devise_scope :user do
+    get 'logout', to: 'devise/sessions#destroy', as: 'logout'
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

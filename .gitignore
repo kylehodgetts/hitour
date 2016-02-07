@@ -281,3 +281,6 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
+
+# Ignore application configuration
+/config/application.yml
