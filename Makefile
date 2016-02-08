@@ -1,4 +1,5 @@
 port ?= 3000
+name ?= component
 
 install:
 	bundle install
@@ -13,6 +14,9 @@ setup:
 start:
 	@echo 'Server starting...'
 	thin start --ssl -p ${port}
+
+comp:
+	rails generate react:component ${name} --es6
 
 test:
 	rspec
