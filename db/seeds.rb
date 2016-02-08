@@ -5,9 +5,13 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-points= Point.create([{name:"MRI Imaging Scanner"},{name:"Angiography"}])
+points= Point.create(name:"MRI Imaging Scanner")
+
+point4 = Point.create(name:"Angiography")
+
 point3 = Point.create(name:"UltraSound")
-datum=Datum.create(title:"UltraSText",description:"You're pregnant",url:"http://google.com")
-point_data = PointDat.create([{point_id:point3.id,data_id:datum.id}])
+
+datum = Datum.create(title:"UltraSText",description:"You're pregnant",url:"http://google.com")
+point_data = PointDat.create(point_id:point3.id,data_id:datum.id)
 
 
