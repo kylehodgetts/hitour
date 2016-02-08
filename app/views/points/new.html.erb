@@ -1,0 +1,9 @@
+<%= form_for :point, url points_path do |f| %>
+	<p>
+	<% f.label :name %><br>
+	<%f.text_field :name%>
+	</p>
+	<p>
+	<%= f.submit %>
+	</p>
+	<%end%>

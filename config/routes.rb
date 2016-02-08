@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   post '/data', to: 'data#create'
 
   get 'welcome/index'
+  resources :points do
+    resources :datums
+  end
+
   root 'welcome#index'
 
   devise_for :users, skip: :sessions, controllers: {
