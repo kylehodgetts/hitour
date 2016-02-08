@@ -12,9 +12,18 @@
   </head>
 
   <body>
-    <div class="app">
-      <%= yield %>
-    </div>
+    <div class="row">
+      <div class="col s12 m4 l3">
+        <%= react_component('Sidebar',
+            {
+              username: current_user['email'],
+              logoutPath: logout_path
+            }) %>
+      </div>
 
+      <div class="col s12 m8 l9">
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>
