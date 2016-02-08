@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  get '/data' => 'data#index'
+  get '/data', to: data#index
 
-  get '/data/show/:id' => 'data#show', as: :datum
+  get '/data/show/:id', to: data#show, as: :datum
 
-  get '/data/new' => 'data#new'
+  get '/data/new', to: data#new
 
-  post '/data' => 'data#create'
+  post '/data', to: data#create
 
   get 'welcome/index'
   root 'welcome#index'
