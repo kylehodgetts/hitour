@@ -1,3 +1,6 @@
-p {
-  color: #CC3D43;
+.sideBar {
+  background-color: $dark-grey;
+}
+.sideBar--appTitle {
+  color: $primary-text-colour;
 }
