@@ -19,7 +19,10 @@ To install dependencies: `make install`
 To setup:
   * Ensure you have [Postgresql](http://www.postgresql.org/download/) installed and running locally
   * `make setup`
-  
+
+To make new React.js component:
+  * Make new component `make comp name=[COMPONENT_NAME]`
+
 To start server on port 3000: `make start`
 To start server on port of your choosing: `make start port=[PORTNUM]`
 
