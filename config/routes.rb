@@ -1,16 +1,25 @@
 Rails.application.routes.draw do
+  get '/points/new', to: 'points#new', as: :new_point
+
+  get '/points', to: 'points#index'
+
+  post '/points', to: 'points#create'
+
+  get '/points/show/:id', to: 'points#show', as: :point
+
   get '/data', to: 'data#index'
 
   get '/data/show/:id', to: 'data#show', as: :datum
 
-  get '/data/new', to: 'data#new'
+  get '/data/new', to: 'data#new', as: :new_datum
 
   post '/data', to: 'data#create'
 
   get 'welcome/index'
-  resources :points do
-    resources :datums
-  end
+
+  # resources :points do
+  #   resources :datums
+  # end
 
   root 'welcome#index'
 
