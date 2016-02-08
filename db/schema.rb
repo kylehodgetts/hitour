@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160208172233) do
+ActiveRecord::Schema.define(version: 20160208190210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "audiences", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "data", force: :cascade do |t|
     t.string   "title"
@@ -23,6 +29,16 @@ ActiveRecord::Schema.define(version: 20160208172233) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "data_audiences", force: :cascade do |t|
+    t.integer  "data_id"
+    t.integer  "audience_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "data_audiences", ["audience_id"], name: "index_data_audiences_on_audience_id", using: :btree
+  add_index "data_audiences", ["data_id"], name: "index_data_audiences_on_data_id", using: :btree
 
   create_table "point_dats", force: :cascade do |t|
     t.integer  "data_id"
@@ -46,6 +62,17 @@ ActiveRecord::Schema.define(version: 20160208172233) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "tour_points", force: :cascade do |t|
+    t.integer  "tour_id"
+    t.integer  "point_id"
+    t.integer  "rank"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "tour_points", ["point_id"], name: "index_tour_points_on_point_id", using: :btree
+  add_index "tour_points", ["tour_id"], name: "index_tour_points_on_tour_id", using: :btree
 
   create_table "tours", force: :cascade do |t|
     t.datetime "created_at", null: false
