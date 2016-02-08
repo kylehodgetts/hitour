@@ -1,7 +1,13 @@
 <h1>Data#show</h1>
 <p>Find me in app/views/data/show.html.erb</p>
 <hr>
+<p><b>Data ID: <%= @datum.id %></b></p>
 <h2><%= @datum.title %></h2>
 <p><%= @datum.description %></p>
 <p><%= @datum.url %></p>
+<% unless @audiences.nil?%>
+	<% @audiences.each do |audience| %>
+		<%= audience.audience.name %>
+	<% end %>
+<% end %>
 <hr>

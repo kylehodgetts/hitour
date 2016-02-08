@@ -5,6 +5,7 @@ class DataController < ApplicationController
 
   def show
   	@datum = Datum.find(params[:id])
+    @audiences = DataAudience.where(data_id: params[:id])
   end
 
   def new
