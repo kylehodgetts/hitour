@@ -1,4 +1,4 @@
-  class DataController < ApplicationController
+class DataController < ApplicationController
   def index
   	@data = Datum.all
   end
@@ -6,6 +6,19 @@
   def show
   	@datum = Datum.find(params[:id])
     @audiences = DataAudience.where(data_id: params[:id])
+  end
+
+  def edit
+    @datum = Datum.find(params[:id])
+  end
+
+  def update
+    @datum = Datum.find(params[:id])
+    if @datum.update_attributes(datum_params)
+      redirect_to @datum
+    else
+      render new
+    end
   end
 
   def new

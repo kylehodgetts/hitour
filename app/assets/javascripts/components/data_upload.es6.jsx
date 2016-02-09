@@ -4,13 +4,13 @@ class DataUpload extends React.Component {
 		<div>
 			<form id="uploadForm" encType="multipart/form-data" method="post" action={this.props.link_path}>
 				<label htmlFor="title">Title:</label>
-				<input id="title" type="text" name="title" />
+				<input id="title" type="text" name="title" value={this.props.title}/>
 				<br />
 				<label htmlFor="description">Description:</label>
-				<input type="text" id="description" name="description" />
+				<input type="text" id="description" name="description" value={this.props.description}/>
 				<br />
 				<label htmlFor="file">File To Upload:</label>
-				<input type="file" id="file" name="file"/>
+				<input type="file" id="file" name="file" value={this.props.url}/>
 				<br />
 				<input type="submit" value="Upload Data" />
 			</form>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # Points
   get '/points/new', to: 'points#new', as: :new_point
 
   get '/points', to: 'points#index', as: :points
@@ -6,6 +7,8 @@ Rails.application.routes.draw do
   post '/points', to: 'points#create'
 
   get '/points/show/:id', to: 'points#show', as: :point
+
+  # Data
 
   get '/data', to: 'data#index', as: :data
 
@@ -15,11 +18,19 @@ Rails.application.routes.draw do
 
   post '/data', to: 'data#create', as: :create_datum
 
+  get '/data/:id/edit', to: 'data#edit', as: :edit_datum
+
+  patch '/data/:id', to: 'data#update', as: :update_datum
+
+  # Data Audiences
+
   get '/data_audiences', to: 'data_audiences#new'
 
   get '/data_audiences/new', to: 'data_audiences#new', as: :new_data_audience
 
   post '/data_audiences', to: 'data_audiences#create'
+
+  # Audiences
 
   get '/audiences/show/:id', to: 'audiences#show', as: :audience
 
@@ -33,7 +44,7 @@ Rails.application.routes.draw do
 
   patch '/audiences/:id', to: 'audiences#update'
 
-  # patch '/audiences/show/:id', to: 'audiences#show'
+  # Tours
 
   get '/tours/show/:id', to: 'tours#show', as: :tour
 
