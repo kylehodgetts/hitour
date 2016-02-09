@@ -19,11 +19,14 @@ Rails.application.routes.draw do
 
   post '/data_audiences', to: 'data_audiences#create'
 
+  get '/audiences', to: 'audiences#index', as: :audiences
+
+  get '/audiences/new', to: 'audiences#new', as: :new_audience
+
+  post '/audiences', to: 'audiences#create'
+
   get 'welcome/index'
 
-  # resources :points do
-  #   resources :datums
-  # end
 
   root 'welcome#index'
 
