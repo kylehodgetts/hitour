@@ -1,0 +1,7 @@
+<%= form_for @audience,:url => {:action => "update"} do |f| %>
+Name of Audience:<%= f.text_field :name %>
+<%= f.submit %>
+<% end %>
+
+
+<%= link_to 'Back to audience show', @audience %>

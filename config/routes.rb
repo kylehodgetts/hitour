@@ -29,6 +29,12 @@ Rails.application.routes.draw do
 
   post '/audiences', to: 'audiences#create'
 
+  get '/audiences/:id/edit', to: 'audiences#edit', as: :edit_audience
+
+  patch '/audiences/:id', to: 'audiences#update'
+
+  # patch '/audiences/show/:id', to: 'audiences#show'
+
   get '/tours/show/:id', to: 'tours#show', as: :tour
 
   get '/tours/new', to: 'tours#new', as: :new_tour
