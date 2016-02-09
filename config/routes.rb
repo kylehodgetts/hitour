@@ -25,7 +25,11 @@ Rails.application.routes.draw do
 
   post '/audiences', to: 'audiences#create'
 
-  get 'welcome/index'
+  get '/tours/new', to: 'tours#new', as: :new_tour
+  
+  get '/tours', to: 'tours#index',as: :tours
+
+get 'welcome/index'
 
 
   root 'welcome#index'
