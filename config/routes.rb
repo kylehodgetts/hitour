@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   get '/data/new', to: 'data#new', as: :new_datum
 
-  post '/data', to: 'data#create'
+  post '/data', to: 'data#create', as: :create_datum
 
   get '/data_audiences/new', to: 'data_audiences#new', as: :new_data_audience
 
