@@ -8,6 +8,7 @@ class PointsController < ApplicationController
 
 		def show
 			@point = Point.find(params[:id])
+			@qrcode = RQRCode::QRCode.new(@point.id.to_s+"-"+@point.name)
 		end
 
 		def new 

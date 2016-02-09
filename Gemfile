@@ -3,6 +3,10 @@ ruby '2.2.1'
 # For Amazon S3 Upload
 gem 'aws-sdk', '~> 2'
 gem 'tzinfo-data'
+
+# For QR Generation
+gem 'rqrcode', '~> 0.9.0'
+
 gem 'rails', '4.2.3'
 gem 'pg'
 gem 'sass-rails', '~> 5.0'
