@@ -7,13 +7,17 @@ Rails.application.routes.draw do
 
   get '/points/show/:id', to: 'points#show', as: :point
 
-  get '/data', to: 'data#index'
+  get '/data', to: 'data#index', as: :data
 
   get '/data/show/:id', to: 'data#show', as: :datum
 
   get '/data/new', to: 'data#new', as: :new_datum
 
   post '/data', to: 'data#create'
+
+  get '/data_audiences/new', to: 'data_audiences#new', as: :new_data_audience
+
+  post '/data_audiences', to: 'data_audiences#create'
 
   get 'welcome/index'
 

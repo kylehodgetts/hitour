@@ -1,3 +1,10 @@
 <h2>NEW DATA AUDIENCE FORM</h2>
 <%= form_for (@data_audience) do |f| %>
+<p>Data</p>
+<%= f.select :data_id, options_for_select(@data_options) %>
+<br>
+<p>Audience</p>
+<%= f.select :audience_id,options_for_select(@audience_options) %>
+<br>
+<%= f.submit %>
 <% end %>
