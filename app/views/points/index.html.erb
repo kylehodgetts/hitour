@@ -1,10 +1,10 @@
 	<% @points.each do |point| %>
 	<p><%= point.name %></p>
 		<% @point_datums.each do |datum_point| %>
-			<%if datum_point.point_id == point.id %>
+			<% if datum_point.point_id == point.id %>
 				<p>Data Point</p>
-				<p>Data ID: <%= @datums.find(datum_point.data_id).id %></p>
-				<p><%= @datums.find(datum_point.data_id).title %></p>
+				<p>Data ID: <%= @datums.find(datum_point.datum_id).id %></p>
+				<p><%= @datums.find(datum_point.datum_id).title %></p>
 			<% end %>
 		<% end %>
 		<hr>

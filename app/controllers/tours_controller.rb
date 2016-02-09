@@ -4,6 +4,10 @@ class ToursController < ApplicationController
 	  @tours = Tour.all
 	end
 
+	def show
+	  @tour = Tour.find(params[:id])
+	end
+
 	def new
 	  @tour = Tour.new
 	  @audience_options = Audience.all.map{|audience| [audience.name,audience.id]}

@@ -1,5 +1,6 @@
 <% @audiences.each do |audience| %>
 <h2><%= audience.name %></h2>
+<%= link_to 'More Detail', audience %>
 <% end %>
-
+<br>
 <%= link_to 'New Audience', new_audience_path %>

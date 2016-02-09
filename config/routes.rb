@@ -15,15 +15,21 @@ Rails.application.routes.draw do
 
   post '/data', to: 'data#create', as: :create_datum
 
+  get '/data_audiences', to: 'data_audiences#new'
+
   get '/data_audiences/new', to: 'data_audiences#new', as: :new_data_audience
 
   post '/data_audiences', to: 'data_audiences#create'
+
+  get '/audiences/show/:id', to: 'audiences#show', as: :audience
 
   get '/audiences', to: 'audiences#index', as: :audiences
 
   get '/audiences/new', to: 'audiences#new', as: :new_audience
 
   post '/audiences', to: 'audiences#create'
+
+  get '/tours/show/:id', to: 'tours#show', as: :tour
 
   get '/tours/new', to: 'tours#new', as: :new_tour
   

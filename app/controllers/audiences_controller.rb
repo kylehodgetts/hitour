@@ -3,6 +3,10 @@ class AudiencesController < ApplicationController
 		@audiences = Audience.all
 	end
 
+	def show
+		@audience = Audience.find(params[:id])
+	end
+
 	def new 
 		@audience = Audience.new
 	end

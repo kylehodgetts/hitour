@@ -3,7 +3,7 @@ class PointsController < ApplicationController
 		def index
 			@points = Point.all
 			@datums = Datum.all
-			@point_datums = PointDat.all
+			@point_datums = PointDatum.all
 		end
 
 		def show
