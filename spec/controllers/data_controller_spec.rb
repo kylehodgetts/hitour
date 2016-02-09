@@ -10,10 +10,11 @@ RSpec.describe DataController, type: :controller do
   end
 
   describe "GET #show" do
-    # it "returns http success" do
-    #   get :show
-    #   expect(response).to have_http_status(:success)
-    # end
+    it "returns http success" do
+      datum = Datum.create(title:'Test Data',description:'Test Description',url:'https://s3-us-west-2.amazonaws.com/hitourbucket/Notes.txt')
+      get :show, {:id => datum.id}
+      expect(response).to have_http_status(:success)
+    end
   end
 
   describe "GET #new" do
