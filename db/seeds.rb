@@ -17,7 +17,7 @@ Point.create(name:"Angiography")
 point3 = Point.create(name:"UltraSound")
 
 datum = Datum.create(title:"UltraSText",description:"You're pregnant",url:"http://google.com")
-PointDat.create(point_id:point3.id,data_id:datum.id)
+# PointDat.create(point_id:point3.id,data_id:datum.id)
 
 alevelStudent = Audience.create(name:"A-Level")
 uniStudent = Audience.create(name:"Uni Student")
