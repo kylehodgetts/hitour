@@ -1,4 +1,4 @@
-class DataController < ApplicationController
+  class DataController < ApplicationController
   def index
   	@data = Datum.all
   end
@@ -39,5 +39,4 @@ class DataController < ApplicationController
   def datum_params
   	params.permit(:title,:description,:url)
   end
-
 end

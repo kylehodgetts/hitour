@@ -29,9 +29,8 @@ Rails.application.routes.draw do
   
   get '/tours', to: 'tours#index',as: :tours
 
-get 'welcome/index'
-
-
+  get 'welcome/index'
+  
   root 'welcome#index'
 
   devise_for :users, skip: :sessions, controllers: {

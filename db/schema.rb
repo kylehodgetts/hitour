@@ -38,11 +38,13 @@ ActiveRecord::Schema.define(version: 20160208190210) do
   end
 
   add_index "data_audiences", ["audience_id"], name: "index_data_audiences_on_audience_id", using: :btree
+  add_index "data_audiences", ["audience_id"], name: "index_tour_on_audience_id", using: :btree
   add_index "data_audiences", ["data_id"], name: "index_data_audiences_on_data_id", using: :btree
 
   create_table "point_dats", force: :cascade do |t|
     t.integer  "data_id"
     t.integer  "point_id"
+    t.integer  "rank"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -75,8 +77,10 @@ ActiveRecord::Schema.define(version: 20160208190210) do
   add_index "tour_points", ["tour_id"], name: "index_tour_points_on_tour_id", using: :btree
 
   create_table "tours", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name"
+    t.integer  "audience_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "users", force: :cascade do |t|
