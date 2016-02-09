@@ -7,5 +7,8 @@
 				<p><%= @datums.find(datum_point.datum_id).title %></p>
 			<% end %>
 		<% end %>
+		<%= link_to 'View QR', point %>
 		<hr>
 	<% end %>
+	<br>
+	<%= link_to 'New Point', new_point_path %>

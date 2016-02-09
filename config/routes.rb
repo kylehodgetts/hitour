@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get '/points/new', to: 'points#new', as: :new_point
 
-  get '/points', to: 'points#index'
+  get '/points', to: 'points#index', as: :points
 
   post '/points', to: 'points#create'
 
