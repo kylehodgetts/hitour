@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'points_data/new'
+
+  get 'tours_points/new'
+
   get '/points/new', to: 'points#new', as: :new_point
 
   get '/points', to: 'points#index', as: :points
@@ -34,6 +38,18 @@ Rails.application.routes.draw do
   get '/tours/new', to: 'tours#new', as: :new_tour
   
   get '/tours', to: 'tours#index',as: :tours
+
+  get '/tours_points', to: 'tours_points#new'
+
+  get '/tours_points/new', to: 'tours_points#new', as: :new_tours_points
+
+  post '/tours_points', to: 'tours_points#create'
+
+  get '/points_data', to: 'points_data#new'
+
+  get '/points_data/new', to: 'points_data#new', as: :new_points_data
+
+  post '/points_data', to: 'points_data#create'
 
   get 'welcome/index'
   

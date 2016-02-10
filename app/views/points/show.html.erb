@@ -5,6 +5,13 @@
 <br>
 <%= raw @qrcode.as_svg %>
 </p>
+	<% @point_datums.each do |datum_point| %>
+		<% if datum_point.point_id == @point.id %>
+			<p>Data Point</p>
+			<p>Data ID: <%= @datums.find(datum_point.datum_id).id %></p>
+			<p><%= @datums.find(datum_point.datum_id).title %></p>
+		<% end %>
+	<% end %>
 </body>
 </html>
 <br>

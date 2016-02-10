@@ -1,13 +1,8 @@
 	<% @points.each do |point| %>
 	<p><%= point.name %></p>
-		<% @point_datums.each do |datum_point| %>
-			<% if datum_point.point_id == point.id %>
-				<p>Data Point</p>
-				<p>Data ID: <%= @datums.find(datum_point.datum_id).id %></p>
-				<p><%= @datums.find(datum_point.datum_id).title %></p>
-			<% end %>
-		<% end %>
+	<%= link_to 'More Details',point %>				
 		<%= link_to 'View QR', point %>
+
 		<hr>
 	<% end %>
 	<br>
