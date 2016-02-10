@@ -13,7 +13,14 @@
   </head>
 
   <body>
-    <%= react_component('Header') %>
+    <%= react_component('Header',
+        {
+          rootPath: root_path,
+          toursPath: '#',
+          pointsPath: '#',
+          usersPath: '#',
+          logoutPath: '#'
+        }) %>
     <div class="app">
       <%= yield %>
     </div>
