@@ -12,11 +12,10 @@ gem 'thin'
 gem 'rubocop'
 gem 'rspec-rails', '~> 3.0'
 gem 'rails_12factor', group: :production
-
+gem 'materialize-sass'
+gem 'jquery-rails'
 # Authentications
-gem 'devise'
-gem 'omniauth-google-oauth2'
-
+gem 'bcrypt', require: 'bcrypt'
 # Environment
 gem 'figaro'
 

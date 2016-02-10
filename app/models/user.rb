@@ -1,16 +1,25 @@
+require 'bcrypt'
+
 class User < ActiveRecord::Base
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
+  include BCrypt
+  attr_accessor :password
+  has_secure_password
 
-  devise :database_authenticatable,
-         :registerable,
-         :recoverable,
-         :rememberable,
-         :trackable,
-         :validatable
-
+  before_create :encrypt_password
   before_save { self.email = email.downcase }
 
-  validates :email, presence: true,
-                    format:     { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sensitive: false }
+  private
+
+  def encrypt_password
+    self.password_digest = BCrypt::Engine
+  end
+
+  def password
+    @password ||= BCrypt::Password.new(password_digest)
+  end
+
+  def password=(new_password)
+    @password = Bcrypt::Password.create(new_password)
+    self.password_digest = @password
+  end
 end

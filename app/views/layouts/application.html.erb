@@ -7,12 +7,13 @@
     <title><%= content_for?(:title) ? yield(:title) : "Project Run" %></title>
 
     <%= stylesheet_link_tag    "application" %>
+    <%= stylesheet_link_tag    "https://fonts.googleapis.com/icon?family=Material+Icons" %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
 
   <body>
-    <div class="app">
+    <div class="container">
       <%= yield %>
     </div>
 
