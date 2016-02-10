@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     if user_signed_in?
       super
     else
-      redirect_to user_omniauth_authorize_url(provider: :google_oauth2)
+      # redirect_to signin
     end
   end
 end
