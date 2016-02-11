@@ -5,17 +5,20 @@ class Loginform extends React.Component {
         <form className="col s12" method="post">
           <div className="row">
             <div className="input-field col s12">
-              <input name="email" id="email" type="email" className="validate" />
+              <input name="email" id="email" type="email"
+                                  className="validate" />
               <label htmlFor="email">Email</label>
             </div>
           </div>
           <div className="row">
             <div className="input-field col s12">
-              <input name="password" id="password" type="password" className="validate" />
+              <input name="password" id="password" type="password"
+                                          className="validate" />
               <label htmlFor="password">Password</label>
             </div>
           </div>
-          <button className="btn waves-effect waves-light" type="submit" name="action">
+          <button className="btn waves-effect waves-light blue darken-1"
+                                            type="submit" name="action">
             Login
           </button>
         </form>
