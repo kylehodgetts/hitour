@@ -16,5 +16,9 @@
 //= require_tree .
 //= require jquery
 //= require jquery_ujs
-//= require materialize-sprockets
 //= require components
+//= require materialize-sprockets
+
+$(document).ready(function () {
+  $(".button-collapse").sideNav();
+});
