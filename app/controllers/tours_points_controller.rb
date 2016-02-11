@@ -1,16 +1,17 @@
 class ToursPointsController < ApplicationController
+	
   def new
 		@tour_point = TourPoint.new
 		@tour_options = Tour.all.map{|tour| [tour.name,tour.id]}
 		@point_options = Point.all.map{|point| [point.name,point.id]}
-	end
+  end
 
 	def create 
 		@tour_point = TourPoint.new(point_data_params)
 		if @tour_point.save
 			redirect_to tour_path
 		else
-			redirect_to new_tours_points_path
+			redirect_to new_tour_point_path
 		end
 	end
 

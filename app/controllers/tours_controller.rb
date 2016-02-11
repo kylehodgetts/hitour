@@ -14,7 +14,7 @@ class ToursController < ApplicationController
 	end
 
 	def create
-		@tour = Tour.new(tour_params,audience_params)
+		@tour = Tour.new(tour_params)
 		if @tour.save
 			redirect_to @tour
 		else

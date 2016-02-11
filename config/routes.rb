@@ -33,23 +33,23 @@ Rails.application.routes.draw do
 
   post '/audiences', to: 'audiences#create'
 
+  get '/tours', to: 'tours#index',as: :tours
+
   get '/tours/show/:id', to: 'tours#show', as: :tour
 
   get '/tours/new', to: 'tours#new', as: :new_tour
-  
-  get '/tours', to: 'tours#index',as: :tours
+
+  post '/tours', to: 'tours#create'
 
   get '/tours_points', to: 'tours_points#new'
 
   get '/tours_points/new', to: 'tours_points#new', as: :new_tours_points
 
-  post '/tours_points', to: 'tours_points#create'
+  post '/tour_points', to: 'tours_points#create'
 
-  get '/points_data', to: 'points_data#new'
+  get '/points_data', to: 'points_data#new', as: :new_points_data
 
-  get '/points_data/new', to: 'points_data#new', as: :new_points_data
-
-  post '/points_data', to: 'points_data#create'
+  post '/point_data', to: 'points_data#create'
 
   get 'welcome/index'
   
