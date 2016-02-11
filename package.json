@@ -19,5 +19,8 @@
   "devDependencies": {
     "babel-eslint": "^4.1.6",
     "eslint-plugin-react": "^3.16.1"
+  },
+  "engines": {
+    "node": ">= 0.10"
   }
 }
