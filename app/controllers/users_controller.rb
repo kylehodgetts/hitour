@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    redirect_to root_path unless @current_user.id == params[:id].to_i
     @user = current_user
   end
 
@@ -19,10 +20,15 @@ class UsersController < ApplicationController
   end
 
   def update
-    # Update a user
-    # Find the current user
-    # Take the new vaulues and save them for the current user
-    # Update the user db with the updated user
+    flash[:user_save] = 'false'
+    flash[:save_message] = 'Passwords must match and be non-empty!'
+    user = User.find_by(params[:email])
+    unless params[:password] != params[:cpassword]
+      user.password = params[:password]
+      flash[:user_save] = 'true' if user.save
+      flash[:save_message] = 'Profile updated successfully!'
+    end
+    redirect_to profile_path
   end
 
   def destroy

@@ -12,5 +12,5 @@ Rails.application.routes.draw do
   # Users
   get '/users', to: 'users#index', as: :all_users
   get '/users/:id', to: 'users#show', as: :profile
-  # put '/users/:id', to: ''
+  post '/users/:id', to: 'users#update', as: :update_profile
 end
