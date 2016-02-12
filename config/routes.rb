@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
+  # Point Data
+  get 'points_data/new'
   # Points
+
+  get 'tours_points/new'
+
   get '/points/new', to: 'points#new', as: :new_point
 
   get '/points', to: 'points#index', as: :points
@@ -45,12 +50,23 @@ Rails.application.routes.draw do
   patch '/audiences/:id', to: 'audiences#update'
 
   # Tours
+  get '/tours', to: 'tours#index',as: :tours
 
   get '/tours/show/:id', to: 'tours#show', as: :tour
 
   get '/tours/new', to: 'tours#new', as: :new_tour
-  
-  get '/tours', to: 'tours#index',as: :tours
+
+  post '/tours', to: 'tours#create'
+
+  get '/tours_points', to: 'tours_points#new'
+
+  get '/tours_points/new', to: 'tours_points#new', as: :new_tours_points
+
+  post '/tour_points', to: 'tours_points#create'
+
+  get '/points_data', to: 'points_data#new', as: :new_points_data
+
+  post '/point_data', to: 'points_data#create'
 
   get 'welcome/index'
   

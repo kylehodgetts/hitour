@@ -1,12 +1,12 @@
 <% @points.each do |point| %>
-<p>Name:<%= point.name %></p>
+	<p>Name:<%= point.name %></p>
 	<h4>Data Points</h4>
-	<% point.data.each do |datum| %>
-	<p>Title: <%= datum.title %></p>
-	<p>UR: <%= datum.url %></p>
-	<% end %>
+		<% point.data.each do |datum| %>
+			<p>Title: <%= datum.title %></p>
+			<p>URL: <%= datum.url %></p>
+		<% end %>
 	<%= link_to 'View QR', point %>
-<hr>
+	<hr>
 <% end %>
 <%= link_to 'New Point', new_point_path %>
 
