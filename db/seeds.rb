@@ -8,8 +8,6 @@
 Datum.create([{title:'Test Data',description:'Test Description',
 						url:'https://s3-us-west-2.amazonaws.com/hitourbucket/Notes.txt'}])
 
-User.create([{email:"tahmidul786@gmail.com"}])
-
 Point.create(name:"MRI Imaging Scanner")
 
 Point.create(name:"Angiography")
@@ -27,3 +25,6 @@ DataAudience.create(datum_id:datum.id,audience_id:alevelStudent.id)
 DataAudience.create(datum_id:datum.id,audience_id:uniStudent.id)
 
 Tour.create([{name:"Imaging Tour"}])
+
+User.create(email:"dev@mail.com",password:"password")
+
