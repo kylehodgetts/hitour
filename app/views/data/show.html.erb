@@ -1,11 +1,13 @@
-<h1>Data</h1>
-<%= link_to 'Add Audience to Data', new_data_audience_path(:datum_id => @datum.id, :datum_title => @datum.title) %>
-<hr>
-<p><b>Data ID: <%= @datum.id %></b></p>
+<div class="card-panel">
 <h2><%= @datum.title %></h2>
-<p><%= @datum.description %></p>
+<div class="card-panel">
+	Description:<br><%= @datum.description %>
+</div>
 <p><%= @datum.url %></p>
+<p><b>Data ID: <%= @datum.id %></b></p>
 <% @datum.audiences.each do |audience| %>
 	<p><%= audience.name %></p>
 <% end %>
 <hr>
+</div>
+<%= link_to 'Add Audience to Data', new_data_audience_path(:datum_id => @datum.id, :datum_title => @datum.title) %>

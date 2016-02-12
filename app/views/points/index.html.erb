@@ -2,7 +2,7 @@
 <%= link_to 'New Point', new_point_path, {:style => 'display:block;',class: 'center'}  %>
 <% @points.each do |point| %>
 	<br>
-	<div class="row">
+	<div class="row card-panel hoverable">
 		<div class="col s4">
 			<%= raw @points_qr[point.id].as_svg(
 					offset: 0, color: '000', 
@@ -24,6 +24,5 @@
 			<%= link_to 'View more info', point%>	
 		</div>
 	</div>
-	<hr>
 <% end %>
 
