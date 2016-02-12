@@ -1,7 +1,8 @@
 class DataAudiencesController < ApplicationController
 	def new
 		@data_audience = DataAudience.new
-		@data_options = Datum.all.map{|data| [data.title,data.id]}
+		@data_options = []
+		@data_options << [params[:datum_title],params[:datum_id]]
 		@audience_options = Audience.all.map{|audience| [audience.name,audience.id]}
 	end
 
