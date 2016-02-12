@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   # Point Data
   get 'points_data/new'
+
+  delete '/points_data/:id', to: 'points_data#destroy', as: :delete_points_data
   # Points
 
   get 'tours_points/new'

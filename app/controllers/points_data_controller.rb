@@ -14,6 +14,12 @@ class PointsDataController < ApplicationController
 		end
 	end
 
+	def destroy
+	    @point_datum = PointDatum.find_by point_id: params[:point_id], datum_id: params[:datum_id]
+	    @point_datum.destroy
+	    redirect_to controller: "points",action: 'show',id: @point_datum.point_id
+  	end
+
 	private 
 	def point_datum_params
 		params.require(:point_datum).permit(:point_id,:datum_id)
