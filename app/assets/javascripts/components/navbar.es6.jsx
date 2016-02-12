@@ -6,6 +6,8 @@ class Navbar extends React.Component {
         loggedIn = {this.props.loggedIn}
         toursPath = {this.props.toursPath}
         pointsPath = {this.props.pointsPath}
+        dataPath = {this.props.dataPath}
+        audiencesPath = {this.props.audiencesPath}
         usersPath = {this.props.usersPath}
         logoutPath = {this.props.logoutPath}
       />
@@ -36,6 +38,8 @@ Navbar.propTypes = {
   rootPath: React.PropTypes.string.isRequired,
   toursPath: React.PropTypes.string.isRequired,
   pointsPath: React.PropTypes.string.isRequired,
+  dataPath: React.PropTypes.string.isRequired,
+  audiencesPath: React.PropTypes.string.isRequired,
   usersPath: React.PropTypes.string.isRequired,
   logoutPath: React.PropTypes.string.isRequired
 }
