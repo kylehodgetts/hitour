@@ -2,6 +2,10 @@ class PointsController < ApplicationController
 
 		def index
 			@points = Point.includes(:data)
+			@points_qr = []
+			@points.each do |point|
+				@points_qr[point.id] = RQRCode::QRCode.new(point.id.to_s+"-"+point.name)
+			end
 		end
 
 		def show
