@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#destroy', as: :logout
 
   # Users
+  get '/users', to: 'users#index', as: :all_users
   get '/users/:id', to: 'users#show', as: :profile
   # put '/users/:id', to: ''
 end
