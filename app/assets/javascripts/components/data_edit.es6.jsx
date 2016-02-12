@@ -1,49 +1,7 @@
 class DataEdit extends React.Component {
-  checkIfVideo () {
-  	var videoExtensions = ["mp4","avi","mov","avchd","flv","mpg","mpeg-4","wmv"];
-  	for(var i = 0;i < videoExtensions.length;i++){
-  		if((this.props.url).indexOf(videoExtensions[i]) > -1){
-  			console.log('Contains: '+videoExtensions[i]);
-  			return true;
-  		}
-  	}
-  	return false;
-  }
-  checkIfImage () {
-  	var imageExtensions = ["jpg","png","gif"];
-  	for(var i = 0;i < imageExtensions.length;i++){
-  		if((this.props.url).indexOf(imageExtensions[i]) > -1){
-  			return true;
-  		}
-  	}
-  	return false;
-  }
-
   setValues () {
   	document.getElementById("title").value = this.props.title;
   	document.getElementById("description").value = this.props.description;
-
-  	//Check if video of photo
-  	var file_preview = $('.file-preview');
-  	var url = this.props.url;
-	
-	if(this.checkIfImage()){
-		console.log('Is an image');
-  		var img = $('<img />').attr('src',url);
-  		file_preview.append(img);
-	}else if(this.checkIfVideo()){
-		console.log('Is an video');
-  		console.log('Adding video');
-  		var video = $('<video />').attr('src',url);
-  		video.attr('controls','');
-  		video.attr('autoplay','');
-  		file_preview.append(video);
-	}else{
-		var a = $('<a />').attr('href',url);
-		a.text('Download File');
-		file_preview.append(a);
-	}
-
   }
   
   componentDidMount (){
@@ -61,7 +19,7 @@ class DataEdit extends React.Component {
 				<input type="text" id="description" name="description"/>
 				<br />
 				<label htmlFor="file">Current File:</label>
-				<p>{this.props.url}</p>
+				<DataViewer url={this.props.url} />
 				<br />
 				<input type="submit" value="Submit Changes" />
 			</form>

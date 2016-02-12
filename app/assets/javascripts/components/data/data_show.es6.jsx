@@ -1,14 +1,12 @@
 class DataShow extends React.Component {
-
   componentDidMount () {
   	var datum_audiences = $('.datum-audiences');
   	var audiences = this.props.audiences;
   	console.log(audiences);
   	for(var i = 0;i < audiences.length;i++){
   		var audience = audiences[i];
-  		datum_audiences.append($('<p />').text(audience['name']));
+  		datum_audiences.append($('<p />').text(audience.name));
   	}
-
   }
   render () {
     return (
@@ -17,7 +15,7 @@ class DataShow extends React.Component {
 	    	<div className="card-panel">
 	    		Description:<br />{this.props.datum.description}
 	    	</div>
-	    	<p>URL:{this.props.datum.url}</p>
+	    	<DataViewer url={this.props.datum.url} />
 	    	<p><b>Audience</b></p>
 	    	<div className="datum-audiences">
 	    	</div>
