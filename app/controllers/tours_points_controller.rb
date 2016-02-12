@@ -9,9 +9,9 @@ class ToursPointsController < ApplicationController
 	def create 
 		@tour_point = TourPoint.new(point_data_params)
 		if @tour_point.save
-			redirect_to tour_path
+			redirect_to controller: "tours",action: 'show',id: @tour_point.tour_id
 		else
-			redirect_to new_tour_point_path
+			redirect_to new_tours_points_path
 		end
 	end
 
