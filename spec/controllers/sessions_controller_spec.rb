@@ -11,14 +11,14 @@ RSpec.describe SessionsController, type: :controller do
       it 'should establish a session and redirect to root' do
         get :create, email: 'kyle@gmail.com', password: 'password'
         expect(session[:user_id]).to eq(@user.id)
-        response.should redirect_to '/'
+        expect(response).to redirect_to '/'
       end
     end
     context 'with an invalid user' do
       it 'should not establish a session and redirect to the log in page' do
         get :create, email: 'invalid@mail.com', password: 'password'
         expect(session[:user_id]).to be(nil)
-        response.should redirect_to '/login'
+        expect(response).to redirect_to '/login'
       end
     end
   end
@@ -26,7 +26,7 @@ RSpec.describe SessionsController, type: :controller do
     it 'should destroy any established session and redirect to root' do
       get :destroy
       expect(session[:user_id]).to be(nil)
-      response.should redirect_to '/'
+      expect(response).to redirect_to '/'
     end
   end
 end
