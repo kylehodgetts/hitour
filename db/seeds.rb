@@ -22,8 +22,8 @@ PointDatum.create(point_id:point3.id,datum_id:datum.id,rank:0)
 alevelStudent = Audience.create(name:"A-Level")
 uniStudent = Audience.create(name:"Uni Student")
 
-DataAudience.create(data_id:datum.id,audience_id:alevelStudent.id)
+DataAudience.create(datum_id:datum.id,audience_id:alevelStudent.id)
 
-DataAudience.create(data_id:datum.id,audience_id:uniStudent.id)
+DataAudience.create(datum_id:datum.id,audience_id:uniStudent.id)
 
 Tour.create([{name:"Imaging Tour"}])

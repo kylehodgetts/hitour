@@ -4,8 +4,7 @@ class DataController < ApplicationController
   end
 
   def show
-  	@datum = Datum.find(params[:id])
-    @audiences = DataAudience.where(data_id: params[:id])
+  	@datum = Datum.includes(:audiences).find(params[:id])
   end
 
   def edit

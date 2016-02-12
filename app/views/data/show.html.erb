@@ -5,9 +5,7 @@
 <h2><%= @datum.title %></h2>
 <p><%= @datum.description %></p>
 <p><%= @datum.url %></p>
-<% unless @audiences.nil?%>
-	<% @audiences.each do |audience| %>
-		<%= audience.audience.name %>
-	<% end %>
+<% @datum.audiences.each do |audience| %>
+	<p><%= audience.name %></p>
 <% end %>
 <hr>
