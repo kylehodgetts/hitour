@@ -11,6 +11,10 @@ Rails.application.routes.draw do
 
   get '/points', to: 'points#index', as: :points
 
+  get '/points/:id/edit', to: 'points#edit', as: :edit_point
+
+  patch '/points/:id', to: 'points#update', as: :update_point
+
   post '/points', to: 'points#create'
 
   get '/points/show/:id', to: 'points#show', as: :point

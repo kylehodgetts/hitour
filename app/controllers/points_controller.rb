@@ -15,6 +15,19 @@ class PointsController < ApplicationController
 			@point_datums = PointDatum.all	
 		end
 
+		def edit
+			@point = Point.find(params[:id])
+		end
+
+		def update
+			@point = Point.find(params[:id])
+		    if @point.update_attributes(point_params)
+		      redirect_to @point
+		    else
+		      render new
+		    end
+		end
+
 		def new 
 			@point = Point.new
 		end

@@ -1,5 +1,3 @@
-<html>
-<body>
 <p>
 <%= @point.name %>
 <br>
@@ -14,8 +12,8 @@
 			<%= link_to 'Delete datum from this point',delete_points_data_path(:datum_id => @datums.find(datum_point.datum_id).id, :point_id => datum_point.point_id),method: :delete %>
 		<% end %>
 	<% end %>
-</body>
-</html>
+<br>
+<%= link_to 'Edit Point', edit_point_path %>
 <br>
 <%= link_to 'View All Points', points_path %>
 
