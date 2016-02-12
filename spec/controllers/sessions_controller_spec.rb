@@ -1,6 +1,26 @@
 require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
+  describe 'GET new' do
+    context 'a logged in user' do
+      before(:each) do
+        User.delete(User.find_by(email: 'kyle@gmail.com'))
+        @user = User.create(email: 'kyle@gmail.com', password: 'password')
+        @user.save
+        get :create, email: @user.email, password: 'password'
+      end
+      it 'should redirect to the root' do
+        get :new
+        expect(response).to redirect_to '/'
+      end
+    end
+    context 'not logged in' do
+      it 'should redirect to the login' do
+        get :new
+        expect(response).to have_http_status '200'
+      end
+    end
+  end
   describe 'GET login' do
     context 'with a valid user' do
       before(:each) do
