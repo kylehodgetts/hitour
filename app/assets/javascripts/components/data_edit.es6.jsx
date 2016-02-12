@@ -1,11 +1,11 @@
 class DataEdit extends React.Component {
   checkIfVideo () {
   	var videoExtensions = ["mp4","avi","mov","avchd","flv","mpg","mpeg-4","wmv"];
-    return videoExtensions.contains(this.props.url);
+    return $.inArray(this.props.url,videoExtensions);
   }
   checkIfImage () {
   	var imageExtensions = ["jpg","png","gif"];
-    return imageExtensions.contains(this.props.url);
+    return $.inArray(this.props.url,imageExtensions);
   }
 
   setValues () {
