@@ -39,6 +39,12 @@ class DataController < ApplicationController
   	end
   end
 
+  def destroy
+    @datum = Datum.find(params[:id])
+    @datum.destroy
+    redirect_to data_path
+  end
+
 
   def uploadToS3 fileName,filePath
     s3 = Aws::S3::Resource.new

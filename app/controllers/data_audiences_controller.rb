@@ -17,7 +17,7 @@ class DataAudiencesController < ApplicationController
 
 	private 
 	def data_audience_params
-		params.require(:data_audience).permit(:data_id,:audience_id)
+		params.require(:data_audience).permit(:datum_id,:audience_id)
 	end
 
 end

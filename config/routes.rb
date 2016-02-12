@@ -27,6 +27,8 @@ Rails.application.routes.draw do
 
   patch '/data/:id', to: 'data#update', as: :update_datum
 
+  delete '/data/:id', to: 'data#destroy', as: :delete_datum
+
   # Data Audiences
 
   get '/data_audiences', to: 'data_audiences#new'
