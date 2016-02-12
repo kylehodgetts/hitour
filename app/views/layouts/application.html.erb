@@ -4,15 +4,25 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? yield(:title) : "Project Run" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "hiTour" %></title>
 
     <%= stylesheet_link_tag    "application" %>
+    <%= stylesheet_link_tag    "https://fonts.googleapis.com/icon?family=Material+Icons" %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
 
   <body>
-    <div class="app">
+    <%= react_component('Navbar',
+    {
+      loggedIn: current_user ? true : false,
+      rootPath: root_path,
+      toursPath: '#',
+      pointsPath: '#',
+      usersPath: '#',
+      logoutPath: logout_path
+    }) %>
+    <div class="container">
       <%= yield %>
     </div>
 
