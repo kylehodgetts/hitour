@@ -1,9 +1,7 @@
 class PointsController < ApplicationController
 
 		def index
-			@points = Point.all
-			@datums = Datum.all
-			@point_datums = PointDatum.all
+			@points = Point.includes(:data)
 		end
 
 		def show
