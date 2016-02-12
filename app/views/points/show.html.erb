@@ -5,6 +5,7 @@
 <br>
 <%= raw @qrcode.as_svg %>
 </p>
+ <%= link_to 'Add Data to Point', new_points_data_path(:point_id => @point.id, :point_name => @point.name) %>
 	<% @point_datums.each do |datum_point| %>
 		<% if datum_point.point_id == @point.id %>
 			<p>Data Point</p>

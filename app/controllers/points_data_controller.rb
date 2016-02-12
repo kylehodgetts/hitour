@@ -7,9 +7,8 @@ class PointsDataController < ApplicationController
 
 	def create 
 		@point_datum = PointDatum.new(point_datum_params)
-		@point = Point.find(@point_datum.point_id)
 		if @point_datum.save
-			redirect_to @point
+			redirect_to controller: "points",action: 'show',id: @point_datum.point_id
 		else
 			redirect_to new_points_data_path
 		end
