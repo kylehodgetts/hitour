@@ -10,7 +10,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'react-rails', '~> 1.5.0'
 gem 'thin'
 gem 'rubocop'
-gem 'rspec-rails', '~> 3.0'
 gem 'rails_12factor', group: :production
 gem 'materialize-sass'
 gem 'jquery-rails'
@@ -26,5 +25,6 @@ group :development do
 end
 
 group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
   gem 'spring'
 end
