@@ -24,7 +24,7 @@ class Navbar extends React.Component {
           <ul className="side-nav" id="mobile-nav">
           <Navlist
             loggedIn = {this.props.loggedIn}
-            currentUserPath = {this.props.currentUserPath}
+            currentUser = {this.props.currentUser}
             toursPath = {this.props.toursPath}
             pointsPath = {this.props.pointsPath}
             usersPath = {this.props.usersPath}
