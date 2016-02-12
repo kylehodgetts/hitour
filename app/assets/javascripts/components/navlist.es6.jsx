@@ -4,6 +4,7 @@ class Navlist extends React.Component {
     if(this.props.loggedIn) {
       return(
         <div>
+          <li><a href={this.props.currentUserPath}>My Profile</a></li>
           <li><a href={this.props.toursPath}>Tours</a></li>
           <li><a href={this.props.pointsPath}>Points</a></li>
           <li><a href={this.props.usersPath}>Users</a></li>
@@ -14,7 +15,7 @@ class Navlist extends React.Component {
     else {
       return(
         <div></div>
-      );  
+      );
     }
   }
 }
@@ -22,6 +23,7 @@ class Navlist extends React.Component {
 Navlist.displayName = "Navlist";
 Navlist.propTypes = {
   loggedIn: React.PropTypes.bool.isRequired,
+  currentUserPath: React.PropTypes.string.isRequired,
   toursPath: React.PropTypes.string.isRequired,
   pointsPath: React.PropTypes.string.isRequired,
   usersPath: React.PropTypes.string.isRequired,

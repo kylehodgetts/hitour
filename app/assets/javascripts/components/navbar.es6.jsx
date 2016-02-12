@@ -4,6 +4,7 @@ class Navbar extends React.Component {
     return (
       <Navlist
         loggedIn = {this.props.loggedIn}
+        currentUserPath = {this.props.currentUserPath}
         toursPath = {this.props.toursPath}
         pointsPath = {this.props.pointsPath}
         usersPath = {this.props.usersPath}
@@ -16,6 +17,11 @@ class Navbar extends React.Component {
     return (
       <nav>
         <div className="nav-wrapper  blue darken-1">
+          <ul className="left hide-on-med-and-down">
+            <li><a href={this.props.currentUserPath}>
+              {this.props.currentUser}
+            </a></li>
+          </ul>
           <a href={this.props.rootPath} id="logo" className="brand-logo center">hiTour</a>
           <a href="#" data-activates="mobile-nav" className="button-collapse"><i className="material-icons">menu</i></a>
           <ul className="right hide-on-med-and-down">
@@ -33,6 +39,8 @@ class Navbar extends React.Component {
 Navbar.displayName = "Header";
 Navbar.propTypes = {
   loggedIn: React.PropTypes.bool.isRequired,
+  currentUser: React.PropTypes.string.isRequired,
+  currentUserPath: React.PropTypes.string.isRequired,
   rootPath: React.PropTypes.string.isRequired,
   toursPath: React.PropTypes.string.isRequired,
   pointsPath: React.PropTypes.string.isRequired,

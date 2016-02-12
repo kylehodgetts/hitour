@@ -16,6 +16,8 @@
     <%= react_component('Navbar',
     {
       loggedIn: current_user ? true : false,
+      currentUser: @current_user.email,
+      currentUserPath: profile_path(@current_user.id),
       rootPath: root_path,
       toursPath: '#',
       pointsPath: '#',
