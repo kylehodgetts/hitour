@@ -1,8 +1,9 @@
 class PointsDataController < ApplicationController
 	def new
 		@point_datum = PointDatum.new
+		@point_id = params[:point_id]
+		@point_name = params[:point_name]
 		@data_options = Datum.all.map{|data| [data.title,data.id]}
-		@point_options = Point.all.map{|point| [point.name,point.id]}
 	end
 
 	def create 
