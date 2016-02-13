@@ -24,7 +24,7 @@ DataAudience.create(datum_id:datum.id,audience_id:alevelStudent.id)
 
 DataAudience.create(datum_id:datum.id,audience_id:uniStudent.id)
 
-Tour.create([{name:"Imaging Tour"}])
+Tour.create([{name:"Imaging Tour",audience_id:uniStudent.id}])
 
 User.create(email:"dev@mail.com",password:"password")
 
