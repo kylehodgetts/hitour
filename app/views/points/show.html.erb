@@ -1,19 +1,33 @@
-<p>
-<%= @point.name %>
-<br>
-<%= raw @qrcode.as_svg %>
-</p>
- <%= link_to 'Add Data to Point', new_points_data_path(:point_id => @point.id, :point_name => @point.name) %>
-	<% @point_datums.each do |datum_point| %>
-		<% if datum_point.point_id == @point.id %>
-			<p>Data Point</p>
-			<p>Data ID: <%= @datums.find(datum_point.datum_id).id %></p>
-			<p><%= @datums.find(datum_point.datum_id).title %></p>
-			<%= link_to 'Delete datum from this point',delete_points_data_path(:datum_id => @datums.find(datum_point.datum_id).id, :point_id => datum_point.point_id),method: :delete %>
-		<% end %>
-	<% end %>
-<br>
+<h2><%= @point.name %></h2>
 <%= link_to 'Edit Point', edit_point_path %>
 <br>
 <%= link_to 'View All Points', points_path %>
+<div class="row card-panel hoverable">
+	<div class="col s4">
+	<%= raw @qrcode.as_svg(offset: 0, color: '000', 
+                    shape_rendering: 'crispEdges', 
+                    module_size: 6) %>
+	</div>
+	<div class="col s8">
+	<h5>Attached Data | <%= link_to 'Add Data to Point', new_points_data_path(:point_id => @point.id, :point_name => @point.name) %></h5>
+	<% @point.data.each do |datum| %>
+		<div class="card-panel">
+		<p>Data Title: <%= datum.title %></p>
+		<p>Description: <%= datum.description %></p>
+		<p>Available to:
+		<% @data_audiences.each do |datum_audience| %>
+			<% datum_audience.audiences.each do |audience| %>
+				<%= audience.name %>  |
+			<% end %>
+		<% end %>
+		</p>
+		<%= react_component('DataViewer',{
+			url:datum.url
+		})%>
+		<%= link_to 'Delete datum from this point',delete_points_data_path(:datum_id => datum.id, :point_id => @point.id),method: :delete %>
+		</div>
+	<% end %>	
+	</div>
+</div>
+
 

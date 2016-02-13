@@ -9,10 +9,10 @@ class PointsController < ApplicationController
 		end
 
 		def show
-			@point = Point.find(params[:id])
+			@point = Point.includes(:data).find(params[:id])
+			@data_audiences = Datum.includes(:audiences)
 			@qrcode = RQRCode::QRCode.new(@point.id.to_s+"-"+@point.name)
-			@datums = Datum.all
-			@point_datums = PointDatum.all	
+			
 		end
 
 		def edit
