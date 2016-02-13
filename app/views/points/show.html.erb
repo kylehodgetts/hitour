@@ -14,6 +14,7 @@
 			<div class="card-panel">
 				<p>Data Title: <%= datum.title %></p>
 				<p>Description: <%= datum.description %></p>
+				<p>Rank: <%= @ranks[datum.id] %></p>
 				<p>Available to:
 				<% @data_audiences.each do |datum_audience| %>
 					<% datum_audience.audiences.each do |audience| %>
@@ -25,6 +26,7 @@
 					data_id:datum.id,
 					url:datum.url
 				})%>
+				<%= link_to 'Update rank',edit_points_datum_path(:point_id => @point.id,:datum_id => datum.id), :controller => :points_data %>
 				<%= link_to 'Delete datum from this point',delete_points_data_path(:datum_id => datum.id, :point_id => @point.id),method: :delete %>
 			</div>
 		<% end %>	

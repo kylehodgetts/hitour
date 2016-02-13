@@ -10,6 +10,11 @@ class PointsController < ApplicationController
 
 		def show
 			@point = Point.includes(:data).find(params[:id])
+			@datum_ranks = PointDatum.where('point_id' => params[:id])
+			@ranks = Hash.new
+			@datum_ranks.each do |datum_rank|
+				@ranks[datum_rank.datum.id] = datum_rank.rank
+			end
 			@data_audiences = Datum.includes(:audiences)
 			@qrcode = RQRCode::QRCode.new(@point.id.to_s+"-"+@point.name)
 			

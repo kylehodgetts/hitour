@@ -14,6 +14,19 @@ class PointsDataController < ApplicationController
 		end
 	end
 
+	def edit
+		@point_datum = PointDatum.find_by(point_id: params[:point_id], datum_id: params[:datum_id])
+	end
+
+	def update
+		@point_datum = PointDatum.find_by point_id: params[:point_datum][:point_id], datum_id: params[:point_datum][:datum_id]
+		if @point_datum.update_attributes(point_datum_params)
+			redirect_to Point.find_by(params[:point_id])
+		else
+			redirect_to edit_point_datum_path
+		end
+	end
+
 	def destroy
 	    @point_datum = PointDatum.find_by point_id: params[:point_id], datum_id: params[:datum_id]
 	    @point_datum.destroy
@@ -22,6 +35,6 @@ class PointsDataController < ApplicationController
 
 	private 
 	def point_datum_params
-		params.require(:point_datum).permit(:point_id,:datum_id)
+		params.require(:point_datum).permit(:point_id,:datum_id,:rank)
 	end
 end
