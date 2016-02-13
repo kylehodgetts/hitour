@@ -2,5 +2,8 @@
 Tour Name: <%= @tour.name %>
 <br>
  <%= link_to 'Add Points to Tour', new_tours_points_path(:tour_id => @tour.id, :tour_name => @tour.name) %>
+
+<%= link_to 'Add Audience to Tour', new_tours_audience_path(:tour_id => @tour.id, :tour_name => @tour.name) %>
+
 <br>
 <%= link_to 'View all tours',tours_path %>

@@ -15,9 +15,9 @@ class DataShow extends React.Component {
 	    	<div className="card-panel">
 	    		Description:<br />{this.props.datum.description}
 	    	</div>
+
 	    	<DataViewer url={this.props.datum.url} data_id={this.props.datum.id} />
-	    	<p><b>Audience</b></p>
-        <a href={this.props.add_audience_path}>Add Audience</a>
+	    	<p><b>Audience</b>&nbsp;|&nbsp;<a href={this.props.add_audience_path}><font size="2">Add Audience</font></a></p>
 	    	<div className="datum-audiences">
 	    	</div>
     	</div>

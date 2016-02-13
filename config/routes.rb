@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'tours_audiences/new'
+
   # Point Data
   get 'points_data/new'
 
@@ -7,8 +9,8 @@ Rails.application.routes.draw do
   get '/points_data/:id', to: 'points_data#edit', as: :edit_points_datum
 
   patch '/points_data/:id',to: 'points_data#update', as: :update_points_datum
-  # Points
 
+  # Points
   get 'tours_points/new'
 
   get '/points/new', to: 'points#new', as: :new_point
@@ -70,24 +72,37 @@ Rails.application.routes.draw do
 
   post '/tours', to: 'tours#create'
 
+  # Tours Points
   get '/tours_points', to: 'tours_points#new'
 
   get '/tours_points/new', to: 'tours_points#new', as: :new_tours_points
 
   post '/tour_points', to: 'tours_points#create'
 
+  # Points Data
   get '/points_data', to: 'points_data#new', as: :new_points_data
 
   post '/point_data', to: 'points_data#create'
 
+    # Tours Audiences
+
+  get '/tours_audiences', to: 'tours_audiences#new'
+
+  get '/tours_audiences/new', to: 'tours_audiences#new', as: :new_tours_audience
+
+  post '/tour_audiences', to: 'tours_audiences#create'
+
+    #General
+
   get 'welcome/index'
   
   root 'welcome#index'
+
   get 'welcome/index'
 
+    #Session handling 
   get 'register', to: 'users#new', as: :register
   resources :users
-
   get 'login', to: 'sessions#new', as: :login
   post 'login', to: 'sessions#create'
   get 'logout', to: 'sessions#destroy', as: :logout
