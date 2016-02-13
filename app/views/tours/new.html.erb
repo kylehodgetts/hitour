@@ -1,5 +1,6 @@
 <h2>NEW TOUR FORM</h2>
 <%= form_for (@tour) do |f| %>
 <%= f.text_field :name %>
+<%= f.select :audience_id,options_for_select(@audience_options) %>
 <%= f.submit %>
 <% end %>

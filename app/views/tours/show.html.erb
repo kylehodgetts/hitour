@@ -1,5 +1,6 @@
 <h2>Tour Show</h2>
 Tour Name: <%= @tour.name %>
+Audience Name: <%= @tour.audience.name %>
 <br>
  <%= link_to 'Add Points to Tour', new_tours_points_path(:tour_id => @tour.id, :tour_name => @tour.name) %>
 
