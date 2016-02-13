@@ -6,6 +6,7 @@ class ToursController < ApplicationController
 
 	def show
 	  @tour = Tour.find(params[:id])
+	  @audience = Audience.find(@tour.audience_id)
 	end
 
 	def new

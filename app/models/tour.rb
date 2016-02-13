@@ -1,4 +1,4 @@
 class Tour < ActiveRecord::Base
 	validates :name, uniqueness: true
-	has_one :audience
+	belongs_to :audience
 end
