@@ -21,7 +21,7 @@ class DataViewer extends React.Component {
 
   componentDidMount () {
   	var url = this.props.url;
-  	var datum_preview = $('.datum-preview');
+  	var datum_preview = $("."+this.props.data_id);
   	if(this.checkIfImage()){
     	console.log('Is an image');
 	    var img = $('<img />').attr('src',url);
@@ -41,7 +41,7 @@ class DataViewer extends React.Component {
   }
   render () {
     return (
-    	<div className="datum-preview">
+    	<div className={this.props.data_id}>
 
     	</div>
     );
