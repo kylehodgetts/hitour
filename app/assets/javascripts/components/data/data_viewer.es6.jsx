@@ -20,16 +20,17 @@ class DataViewer extends React.Component {
   }
 
   componentDidMount () {
-  	var url = this.props.url;
-  	var datum_preview = $("."+this.props.data_id);
-  	if(this.checkIfImage()){
-    	console.log('Is an image');
-	    var img = $('<img />').attr('src',url);
-	    datum_preview.append(img);
+    var url = this.props.url;
+    var datum_preview = $("."+this.props.data_id);
+    if(this.checkIfImage()){
+      console.log('Is an image');
+      var img = $('<img />').attr('src',url).addClass("responsive-img");
+      datum_preview.append(img);
     }else if(this.checkIfVideo()){
       console.log('Is an video');
         console.log('Adding video');
-        var video = $('<video />').attr('src',url);
+        var video = $('<video />').addClass("responsive-video");
+        video.append($('<source />').attr('src',url));
         video.attr('controls','');
         video.attr('autoplay','');
         datum_preview.append(video);
@@ -41,9 +42,9 @@ class DataViewer extends React.Component {
   }
   render () {
     return (
-    	<div className={this.props.data_id}>
+      <div className={this.props.data_id+" center"}>
 
-    	</div>
+      </div>
     );
   }
 };
