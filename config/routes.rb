@@ -79,6 +79,8 @@ Rails.application.routes.draw do
 
   post '/tour_points', to: 'tours_points#create'
 
+  delete '/tours_points/:id', to: 'tours_points#destroy', as: :delete_tours_points
+
   # Points Data
   get '/points_data', to: 'points_data#new', as: :new_points_data
 

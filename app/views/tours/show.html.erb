@@ -1,9 +1,10 @@
 <h2>Tour Show</h2>
-<b>Tour Name: </b><%= @tour.name %>
-| <b> Audience Name: </b> <%= @tour.audience.name %>
+<p> <b>Tour Name: </b><%= @tour.name %>
+| <b> Audience Name: </b> <%= @tour.audience.name %></p>
 <p><b> Different points Associated :</b></p>
 <% @tour_points.each do |tourpoint| %>
 <%=Point.find(tourpoint.point_id).name%>
+/ <%= link_to 'Remove Point', delete_tours_points_path(:tour_id => @tour.id, :point_id => tourpoint.point_id), method: :delete%>
 </br>
 <% end %>
 <br>

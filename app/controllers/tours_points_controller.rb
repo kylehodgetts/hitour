@@ -15,6 +15,11 @@ class ToursPointsController < ApplicationController
 		end
 	end
 
+	def destroy
+		@tour_point = TourPoint.find_by tour_id: params[:tour_id], point_id: params[:point_id]
+		@tour_point.destroy
+		redirect_to controller: "tours",action: 'show',id: @tour_point.tour_id
+  	end
 	private 
 	def point_data_params
 		params.require(:tour_point).permit(:tour_id,:point_id)
