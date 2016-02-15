@@ -18,14 +18,23 @@
       loggedIn: current_user ? true : false,
       currentUser: @current_user,
       rootPath: root_path,
-      toursPath: '#',
-      pointsPath: '#',
+      toursPath: tours_path,
+      pointsPath: points_path,
+      dataPath: data_path,
+      audiencesPath: audiences_path,
       usersPath: all_users_path,
       logoutPath: logout_path
     }) %>
     <div class="container">
       <%= yield %>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+          $(".button-collapse").sideNav();
+          $('select').material_select();
+          $('form').on('submit',checkForEmptyInputs);
+        });
+    </script>
 
   </body>
 </html>

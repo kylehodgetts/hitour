@@ -9,6 +9,8 @@ class Navlist extends React.Component {
         }
           <li><a href={this.props.toursPath}>Tours</a></li>
           <li><a href={this.props.pointsPath}>Points</a></li>
+          <li><a href={this.props.dataPath}>Data</a></li>
+          <li><a href={this.props.audiencesPath}>Audiences</a></li>
           <li><a href={this.props.usersPath}>Users</a></li>
           <li><a href={this.props.logoutPath}>Logout</a></li>
         </div>

@@ -1,0 +1,10 @@
+<h2>Add Audience to <%= @data_options[0][0].to_s %></h2>
+<%= form_for (@data_audience) do |f| %>
+<%= f.hidden_field(:datum_id,:value => @data_options[0][1]) %>
+<br>
+<p>Audience</p>
+<%= f.select :audience_id,options_for_select(@audience_options) %>
+<br>
+<%= f.submit %>
+<% end %>
+

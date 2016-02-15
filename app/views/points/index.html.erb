@@ -1,0 +1,28 @@
+<h2 class="center">Points</h2>
+<%= link_to 'New Point', new_point_path, {:style => 'display:block;',class: 'center'}  %>
+<% @points.each do |point| %>
+	<br>
+	<div class="row card-panel hoverable">
+		<div class="col s4">
+			<%= raw @points_qr[point.id].as_svg(
+					offset: 0, color: '000', 
+                    shape_rendering: 'crispEdges', 
+                    module_size: 6) %>
+		</div>
+		<div class="col s8">
+			<h4><%= point.name %></h4>
+			<% if point.data.length > 0 %>
+				<p><b>Attached Data:</b></p>
+			<% end %>
+			<% point.data.each do |datum| %>
+				<p>Title: <%= datum.title %></p>
+				<p>URL: <%= datum.url %></p>
+				<p><%= link_to "Learn more about "+datum.title,datum %>
+				<br>
+			<% end %>
+			<br>
+			<%= link_to 'View more info', point%>	
+		</div>
+	</div>
+<% end %>
+

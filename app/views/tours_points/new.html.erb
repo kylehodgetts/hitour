@@ -1,0 +1,11 @@
+<h1>ToursPoints#new</h1>
+<p>Find me in app/views/tours_points/new.html.erb</p>
+<%= form_for @tour_point do |f| %>
+<p>Tour</p>
+<%= f.select :tour_id,options_for_select(@tour_options) %>
+<br>
+<p>Point</p>
+<%= f.select :point_id,options_for_select(@point_options) %>
+<br>
+<%= f.submit %>
+<% end %>
