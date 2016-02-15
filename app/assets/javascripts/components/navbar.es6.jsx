@@ -32,6 +32,8 @@ class Navbar extends React.Component {
               loggedIn = {this.props.loggedIn}
               toursPath = {this.props.toursPath}
               pointsPath = {this.props.pointsPath}
+              dataPath = {this.props.dataPath}
+              audiencesPath = {this.props.audiencesPath}
               usersPath = {this.props.usersPath}
               logoutPath = {this.props.logoutPath}
             />
@@ -42,6 +44,8 @@ class Navbar extends React.Component {
             currentUser = {this.props.currentUser}
             toursPath = {this.props.toursPath}
             pointsPath = {this.props.pointsPath}
+            dataPath = {this.props.dataPath}
+            audiencesPath = {this.props.audiencesPath}
             usersPath = {this.props.usersPath}
             logoutPath = {this.props.logoutPath}
           />
