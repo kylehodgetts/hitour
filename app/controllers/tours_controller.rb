@@ -5,7 +5,7 @@ class ToursController < ApplicationController
 	end
 
 	def show
-	  @tour = Tour.find(params[:id])
+	  @tour = Tour.includes(:points).find(params[:id])
 	  @audience = Audience.find(@tour.audience_id)
 	  @tour_points = TourPoint.where('tour_id' => params[:id])
 	end
