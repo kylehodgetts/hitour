@@ -1,6 +1,10 @@
+<h2>Audiences</h2>
+<div class="collection">
 <% @audiences.each do |audience| %>
-<h2><%= audience.name %></h2>
-<%= link_to 'More Detail', audience %>
+<a class="collection-item" href=<%= audience_path(audience) %> ><%= audience.name %>
+</a>
 <% end %>
-<br>
+</div>
 <%= link_to 'New Audience', new_audience_path %>
+
+
