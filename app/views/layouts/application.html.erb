@@ -16,10 +16,11 @@
     <%= react_component('Navbar',
     {
       loggedIn: current_user ? true : false,
+      currentUser: @current_user,
       rootPath: root_path,
       toursPath: '#',
       pointsPath: '#',
-      usersPath: '#',
+      usersPath: all_users_path,
       logoutPath: logout_path
     }) %>
     <div class="container">
