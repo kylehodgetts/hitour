@@ -70,7 +70,13 @@ Rails.application.routes.draw do
 
   get '/tours/new', to: 'tours#new', as: :new_tour
 
+  delete '/tours/:id', to: 'tours#destroy', as: :delete_tour
+
+  get '/tours/:id/edit', to: 'tours#edit',as: :edit_tour
+
   post '/tours', to: 'tours#create'
+
+  patch '/tours/:id', to: 'tours#update', as: :update_tour
 
   # Tours Points
   get '/tours_points', to: 'tours_points#new'

@@ -1,6 +1,6 @@
 <h2>Tour Show</h2>
 <p> <b>Tour Name: </b><%= @tour.name %>
-| <b> Audience Name: </b> <%= @tour.audience.name %> (<%= link_to 'edit', './' %>)</p>
+| <b> Audience Name: </b> <%= @tour.audience.name %> (<%= link_to 'edit', edit_tour_path %>)</p>
 <p><b> Tour Points :</b></p>
 <% @tour.points.each do |point| %>
 <div class="card-panel">
@@ -12,4 +12,7 @@
 <br>
  <%= link_to 'Add Points to Tour', new_tours_points_path(:tour_id => @tour.id, :tour_name => @tour.name) %>
 <br>
+<%= link_to 'Delete Tour', delete_tour_path,method: :delete %>
+<br>
 <%= link_to 'View all tours',tours_path %>
+

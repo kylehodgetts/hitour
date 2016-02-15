@@ -15,6 +15,26 @@ class ToursController < ApplicationController
 	  @audience_options = Audience.all.map{|audience| [audience.name,audience.id]}
 	end
 
+	def edit
+		@tour = Tour.find(params[:id])
+		@audience_options = Audience.all.map{|audience| [audience.name,audience.id]}
+	end
+
+	def update
+		@tour = Tour.find(params[:id])
+		if @tour.update_attributes(tour_params)
+			redirect_to @tour
+		else
+			redirect_to new_tour_path
+		end
+	end
+
+	def destroy
+		@tour = Tour.find(params[:id])
+		@tour.destroy
+		redirect_to tours_path
+	end
+
 	def create
 		@tour = Tour.new(tour_params)
 		if @tour.save
