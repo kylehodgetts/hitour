@@ -1,5 +1,5 @@
 <%= form_for (@audience) do |f| %>
-Name of Audience:<%= f.text_field :name %>
+Name of Audience:<%= f.text_field :name, :required => true %>
 <%= f.submit %>
 <% end %>
 

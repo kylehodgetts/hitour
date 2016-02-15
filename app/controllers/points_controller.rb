@@ -43,6 +43,7 @@ class PointsController < ApplicationController
 				if @point.save
 					redirect_to @point
 				else
+					@message = "The name of the point has already been taken."
 					redirect_to new_point_path
 				end
 			else
