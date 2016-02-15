@@ -1,4 +1,5 @@
 class AudiencesController < ApplicationController
+	before_action :authenticate_user!
 	def index
 		@audiences = Audience.all
 	end

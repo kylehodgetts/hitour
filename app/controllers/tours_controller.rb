@@ -1,5 +1,5 @@
 class ToursController < ApplicationController
-
+	before_action :authenticate_user!
 	def index
 	  @tours = Tour.all
 	end

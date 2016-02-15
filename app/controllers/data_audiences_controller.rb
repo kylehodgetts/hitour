@@ -1,4 +1,5 @@
 class DataAudiencesController < ApplicationController
+	before_action :authenticate_user!
 	def new
 		@data_audience = DataAudience.new
 		@data_options = []
