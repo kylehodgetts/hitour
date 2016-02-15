@@ -16,3 +16,5 @@ Style/FileName:
   Enabled: false
 Documentation:
   Enabled: false
+AbcSize:
+  Enabled: false

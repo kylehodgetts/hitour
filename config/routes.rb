@@ -114,4 +114,9 @@ Rails.application.routes.draw do
   get 'login', to: 'sessions#new', as: :login
   post 'login', to: 'sessions#create'
   get 'logout', to: 'sessions#destroy', as: :logout
+
+  # Users
+  get '/users', to: 'users#index', as: :all_users
+  get '/users/:id', to: 'users#show', as: :profile
+  post '/users/:id', to: 'users#update', as: :update_profile
 end
