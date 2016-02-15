@@ -6,7 +6,13 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
-
+def create_user_session
+  # Create User, in order to create session
+  User.delete(User.find_by(email: 'dev@mail.com'))
+  @user = User.create(email:"dev@mail.com",password: 'password')
+  @user.save
+  session[:user_id] = @user.id
+end
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end

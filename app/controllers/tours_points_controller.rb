@@ -1,10 +1,10 @@
 class ToursPointsController < ApplicationController
-	
-  def new
+	before_action :authenticate_user!
+	def new
 		@tour_point = TourPoint.new
 		@tour_options = Tour.all.map{|tour| [tour.name,tour.id]}
 		@point_options = Point.all.map{|point| [point.name,point.id]}
-  end
+	end
 
 	def create 
 		@tour_point = TourPoint.new(point_data_params)

@@ -1,4 +1,5 @@
 class DataController < ApplicationController
+  before_action :authenticate_user!
   def index
   	@data = Datum.all
   end

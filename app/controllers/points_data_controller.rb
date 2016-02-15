@@ -1,4 +1,5 @@
 class PointsDataController < ApplicationController
+	before_action :authenticate_user!
 	def new
 		@point_datum = PointDatum.new
 		@point_id = params[:point_id]

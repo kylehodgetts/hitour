@@ -1,5 +1,5 @@
 class PointsController < ApplicationController
-
+	before_action :authenticate_user!
 		def index
 			@points = Point.includes(:data)
 			@points_qr = []
