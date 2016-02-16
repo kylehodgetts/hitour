@@ -26,18 +26,18 @@ class DataController < ApplicationController
   end
 
   def create
-    # Extract filename and filepath
-    fileName = params[:file].original_filename
-    filePath = params[:file].path
-    # Add FilePath to the params
-    params[:url] = uploadToS3 fileName,filePath
+    # Extract file_name and file_path
+    file_name = params[:file].original_file_name
+    file_path = params[:file].path
+    # Add file_path to the params
+    params[:url] = uploadToS3 file_name, file_path
 
-  	@datum = Datum.new(datum_params)
-  	if @datum.save
+    @datum = Datum.new(datum_params)
+    if @datum.save
   		redirect_to @datum
-  	else
+    else
   		render new
-  	end
+    end
   end
 
   def destroy
@@ -46,16 +46,16 @@ class DataController < ApplicationController
     redirect_to data_path
   end
 
-
-  def uploadToS3 fileName,filePath
+  def upload_to_s3(file_name, file_path)
     s3 = Aws::S3::Resource.new
-    obj = s3.bucket('hitourbucket').object(fileName)
-    obj.upload_file(filePath,acl: 'public-read')
-    return obj.public_url
+    obj = s3.bucket('hitourbucket').object(file_name)
+    obj.upload_file(file_path, acl: 'public-read')
+    obj.public_url
   end
 
-  private 
+  private
+
   def datum_params
-  	params.permit(:title,:description,:url)
+  	params.permit(:title, :description, :url)
   end
 end

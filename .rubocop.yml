@@ -18,3 +18,7 @@ Documentation:
   Enabled: false
 AbcSize:
   Enabled: false
+Style/Tab:
+  Enabled: false
+Style/IndentationWidth:
+  Enabled: false

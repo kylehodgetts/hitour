@@ -21,17 +21,15 @@
 
 var checkForEmptyInputs = function (event){
   var inputs = $(this).find("input");
-  for (var i = 0; i < inputs.length; i++) {
-       var input = inputs.eq(i);
-       if(input.val().trim() === "" || input.val() === null){
-       		var inputName = input.attr('name');
-       		if(inputName.indexOf('[') > 0){
-       			inputName = inputName.substring(inputName.indexOf('[')+1,inputName.indexOf(']'));
-       		}
-       		event.preventDefault();
-       		Materialize.toast('You haven\'t provided a value for '+inputName, 3000, 'rounded');
-       }
-  }
+  inputs.map(function(_) {
+    var input = inputs.eq(i);
+    if(input.val().trim() === "" || input.val() === null){
+      var inputName = input.attr('name');
+      if(inputName.indexOf('[') > 0){
+        inputName = inputName.substring(inputName.indexOf('[')+1,inputName.indexOf(']'));
+      }
+      event.preventDefault();
+      Materialize.toast('You haven\'t provided a value for '+inputName, 3000, 'rounded');
+    }
+  });
 };
-
-

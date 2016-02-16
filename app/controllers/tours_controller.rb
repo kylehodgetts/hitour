@@ -12,12 +12,16 @@ class ToursController < ApplicationController
 
 	def new
 	  @tour = Tour.new
-	  @audience_options = Audience.all.map{|audience| [audience.name,audience.id]}
+	  @audience_options = Audience.all.map do |audience|
+			[audience.name, audience.id]
+	  end
 	end
 
 	def edit
 		@tour = Tour.find(params[:id])
-		@audience_options = Audience.all.map{|audience| [audience.name,audience.id]}
+		@audience_options = Audience.all.map do |audience|
+			[audience.name, audience.id]
+		end
 	end
 
 	def update
@@ -44,8 +48,9 @@ class ToursController < ApplicationController
 		end
 	end
 
-	private 
+		private
+
 	def tour_params
-	  params.require(:tour).permit(:name,:audience_id)
+	  params.require(:tour).permit(:name, :audience_id)
 	end
 end

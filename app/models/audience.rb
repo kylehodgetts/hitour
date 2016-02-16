@@ -4,5 +4,5 @@ class Audience < ActiveRecord::Base
 	has_many :data, through: :data_audiences
 	has_many :data_audiences
 
-	auto_strip_attributes :name, :squish => true
+	auto_strip_attributes :name, squish: true
 end
