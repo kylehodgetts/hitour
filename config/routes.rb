@@ -100,6 +100,9 @@ Rails.application.routes.draw do
 
   post '/tour_audiences', to: 'tours_audiences#create'
 
+  # API Access
+  get '/api/:access_key/fetch/:table_name',to: 'api#fetch'
+
     #General
 
   get 'welcome/index'
