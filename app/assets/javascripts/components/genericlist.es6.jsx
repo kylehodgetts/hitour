@@ -6,13 +6,28 @@ class GenericList extends React.Component {
     };
   }
 
-  handleAddEntry() {
-    console.log("Added!");
+  componentDidMount() {
+    $("#form-list").on("submit", this.handleAddEntry);
+  }
+
+  handleAddEntry(e) {
+    e.preventDefault();
+    console.log($(this).serialize());
+    $.ajax({
+      url: link,
+      type: "POST",
+      data: $(this).serialize(),
+      success: function() {
+        this.setState({
+          items: this.state.items
+        })
+      }
+    });
   }
 
   render () {
     return (
-      <div className="col s12">
+      <form id="form-list" className="col s12">
         <div className="collection">
           {this.state.items.map(function(item) {
             return(
@@ -29,16 +44,16 @@ class GenericList extends React.Component {
         </div>
         <div className="input-field col s12">
           <div className="col s9">
-            <input id="data" type="text" />
+            <input name="entry" id="data" type="text" />
             <label htmlFor="data">New Entry</label>
-            <button className="btn blue right waves-effect waves-light col s3"
-                    onClick={this.handleAddEntry.bind(this)}>
+            <button type="submit"
+                    className="btn blue right waves-effect waves-light col s3">
               Add
               <i className="material-icons right">send</i>
             </button>
           </div>
         </div>
-      </div>
+      </form>
     );
   }
 }
