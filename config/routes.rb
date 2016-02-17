@@ -100,15 +100,18 @@ Rails.application.routes.draw do
 
   post '/tour_audiences', to: 'tours_audiences#create'
 
+  # API Access
+  get '/api/:access_key/fetch/:table_name',to: 'api#fetch'
+
     #General
 
   get 'welcome/index'
-  
+
   root 'welcome#index'
 
   get 'welcome/index'
 
-    #Session handling 
+    #Session handling
   get 'register', to: 'users#new', as: :register
   resources :users
   get 'login', to: 'sessions#new', as: :login
@@ -119,4 +122,15 @@ Rails.application.routes.draw do
   get '/users', to: 'users#index', as: :all_users
   get '/users/:id', to: 'users#show', as: :profile
   post '/users/:id', to: 'users#update', as: :update_profile
+
+  # API
+  namespace :api do
+    get ':access_key/audiences', to: 'api#audiences'
+    get ':access_key/tours', to: 'api#tours'
+    get ':access_key/points', to: 'api#points'
+    get ':access_key/data', to: 'api#data'
+    get ':access_key/tour_points', to: 'api#tour_points'
+    get ':access_key/point_data', to: 'api#point_data'
+    get ':access_key/data_audiences', to: 'api#data_audiences'
+  end
 end

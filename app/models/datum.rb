@@ -5,5 +5,5 @@ class Datum < ActiveRecord::Base
 	has_many :data_audiences
 	has_many :point_data
 
-	auto_strip_attributes :title, :squish => true
+	auto_strip_attributes :title, squish: true
 end
