@@ -6,9 +6,13 @@ class GenericList extends React.Component {
     };
   }
 
+  handleAddEntry() {
+    console.log("Added!");
+  }
+
   render () {
     return (
-      <div>
+      <div className="col s12">
         <div className="collection">
           {this.state.items.map(function(item) {
             return(
@@ -16,12 +20,23 @@ class GenericList extends React.Component {
                 <div>
                   {item.data}
                   <a href="#!" className="secondary-content">
-                    <i className="material-icons">delete_forever</i>
+                    <i className=" blue-text material-icons">delete_forever</i>
                   </a>
                 </div>
               </div>
             );
           })}
+        </div>
+        <div className="input-field col s12">
+          <div className="col s9">
+            <input id="data" type="text" />
+            <label htmlFor="data">New Entry</label>
+            <button className="btn blue right waves-effect waves-light col s3"
+                    onClick={this.handleAddEntry.bind(this)}>
+              Add
+              <i className="material-icons right">send</i>
+            </button>
+          </div>
         </div>
       </div>
     );
