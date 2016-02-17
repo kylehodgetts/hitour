@@ -22,13 +22,13 @@ class UsersController < ApplicationController
   def update
     flash[:user_save] = 'false'
     flash[:save_message] = 'Passwords must match and be non-empty!'
-    user = User.find_by(params[:email])
+    @user = User.find_by(params[:email])
     unless params[:password] != params[:cpassword]
-      user.password = params[:password]
-      flash[:user_save] = 'true' if user.save
+      @user.password = params[:password]
+      flash[:user_save] = 'true' if @user.save
       flash[:save_message] = 'Profile updated successfully!'
     end
-    redirect_to profile_path
+    redirect_to @user
   end
 
   def destroy
