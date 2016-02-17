@@ -1,7 +1,11 @@
 class AudiencesController < ApplicationController
   before_action :authenticate_user!
   def index
-    @audiences = Audience.all
+    items = Audience.all
+    @audiences = []
+    items.each do |item|
+      @audiences << { id: item.id, data: item.name }
+    end
   end
 
   def show

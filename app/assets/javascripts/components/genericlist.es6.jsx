@@ -1,14 +1,20 @@
-class Userlist extends React.Component {
+class GenericList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: this.props.items
+    };
+  }
 
   render () {
     return (
       <div>
         <div className="collection">
-          {this.props.users.map(function(user) {
+          {this.state.items.map(function(item) {
             return(
-              <div key={user.id} className="collection-item">
+              <div key={item.id} className="collection-item">
                 <div>
-                  {user.email}
+                  {item.data}
                   <a href="#!" className="secondary-content">
                     <i className="material-icons">delete_forever</i>
                   </a>
@@ -22,7 +28,7 @@ class Userlist extends React.Component {
   }
 }
 
-Userlist.displayName = "Userlist";
-Userlist.propTypes = {
-  users: React.PropTypes.array.isRequired
+GenericList.displayName = "List";
+GenericList.propTypes = {
+  items: React.PropTypes.array.isRequired
 }

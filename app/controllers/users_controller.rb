@@ -2,7 +2,11 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = User.all
+    items = User.all
+    @users = []
+    items.each do |item|
+      @users << { id: item.id, data: item.email }
+    end
   end
 
   def new
