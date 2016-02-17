@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'points#index'
+  root 'tours#index'
   get 'tours_audiences/new'
 
   # Point Data
