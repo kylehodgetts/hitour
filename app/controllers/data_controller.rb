@@ -1,5 +1,7 @@
 class DataController < ApplicationController
   before_action :authenticate_user!
+  require 'securerandom'
+
   def index
   	@data = Datum.all
   end
@@ -27,10 +29,10 @@ class DataController < ApplicationController
 
   def create
     # Extract file_name and file_path
-    file_name = params[:file].original_file_name
     file_path = params[:file].path
+    file_extension = File.extname(file_path)
     # Add file_path to the params
-    params[:url] = upload_to_s3 file_name, file_path
+    params[:url] = upload_to_s3 file_extension, file_path
 
     @datum = Datum.new(datum_params)
     if @datum.save
@@ -46,9 +48,9 @@ class DataController < ApplicationController
     redirect_to data_path
   end
 
-  def upload_to_s3(file_name, file_path)
+  def upload_to_s3(file_extension, file_path)
     s3 = Aws::S3::Resource.new
-    obj = s3.bucket('hitourbucket').object(file_name)
+    obj = s3.bucket('hitourbucket').object(SecureRandom.hex + file_extension)
     obj.upload_file(file_path, acl: 'public-read')
     obj.public_url
   end
@@ -57,9 +59,5 @@ class DataController < ApplicationController
 
   def datum_params
   	params.permit(:title, :description, :url)
-  end
-
-  def generate_file_string
-    # TODO
   end
 end
