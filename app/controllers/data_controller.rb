@@ -30,7 +30,7 @@ class DataController < ApplicationController
     file_name = params[:file].original_file_name
     file_path = params[:file].path
     # Add file_path to the params
-    params[:url] = uploadToS3 file_name, file_path
+    params[:url] = upload_to_s3 file_name, file_path
 
     @datum = Datum.new(datum_params)
     if @datum.save
@@ -57,5 +57,9 @@ class DataController < ApplicationController
 
   def datum_params
   	params.permit(:title, :description, :url)
+  end
+
+  def generate_file_string
+    # TODO
   end
 end
