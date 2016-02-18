@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-
   def index
     items = User.all
     @users = []
     items.each do |item|
       @users << { id: item.id, data: item.email }
     end
+    api_response(@users)
   end
 
   def new

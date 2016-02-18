@@ -20,16 +20,15 @@
 //= require materialize-sprockets
 
 var checkForEmptyInputs = function (event){
-  // var inputs = $(this).find("input");
-  // inputs.map(function(_) {
-  //   var input = inputs.eq(i);
-  //   if(input.val().trim() === "" || input.val() === null){
-  //     var inputName = input.attr('name');
-  //     if(inputName.indexOf('[') > 0){
-  //       inputName = inputName.substring(inputName.indexOf('[')+1,inputName.indexOf(']'));
-  //     }
-  //     event.preventDefault();
-  //     Materialize.toast('You haven\'t provided a value for '+inputName, 3000, 'rounded');
-  //   }
-  //});
+  var inputs = $(this).find("input");
+  inputs.map(function(input) {
+    if(input.val().trim() === "" || input.val() === null){
+      var inputName = input.attr('name');
+      if(inputName.indexOf('[') > 0){
+        inputName = inputName.substring(inputName.indexOf('[')+1,inputName.indexOf(']'));
+      }
+      event.preventDefault();
+      Materialize.toast('You haven\'t provided a value for '+inputName, 3000, 'rounded');
+    }
+  });
 };

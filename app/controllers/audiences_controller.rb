@@ -6,6 +6,7 @@ class AudiencesController < ApplicationController
     items.each do |item|
       @audiences << { id: item.id, data: item.name }
     end
+    api_response(@audiences)
   end
 
   def show
