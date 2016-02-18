@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   def index
-    items = User.all
+    items = User.where.not(id: session[:user_id])
     @users = []
     items.each do |item|
       @users << { id: item.id, data: item.email }

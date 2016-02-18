@@ -1,1 +1,2 @@
-<%= react_component('GenericList', url: audiences_path + '.json') %>
+<%= react_component('Audience', getUrl: audiences_path + '.json',
+                                postUrl: create_audience_path) %>
