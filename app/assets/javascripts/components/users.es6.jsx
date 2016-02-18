@@ -1,15 +1,14 @@
-class Audience extends React.Component {
-
+class Users extends React.Component {
   componentDidMount() {
     var postURL = this.props.postUrl;
-    $('#audienceForm').on('submit',function(e){
+    $('#userForm').on('submit',function(e){
       e.preventDefault();
       $.ajax({
         url: postURL,
         type: "POST",
         data: $(this).serialize(),
         success: function(data){
-          $('#audienceForm').trigger("reset");
+          $('#userForm').trigger("reset");
         },
         error: function(err){
           console.log(err);
@@ -23,9 +22,11 @@ class Audience extends React.Component {
       <div>
         <GenericList getUrl={this.props.getUrl}
                      deleteUrl={this.props.deleteUrl} />
-        <form id="audienceForm">
-          <label htmlFor="audience[name]">Audience Name</label>
-          <input type="text" name="audience[name]" />
+        <form id="userForm">
+          <label htmlFor="user[name]">User Email</label>
+          <input type="text" name="user[name]" />
+          <input disabled type="password" value="password" name="user[password]" />
+          <input disabled type="password" value="password" name="user[cpassword]" />
           <button className="btn right blue waves-effect waves-light"
                   type="submit" name="action">Submit
             <i className="material-icons right">send</i>
@@ -36,8 +37,8 @@ class Audience extends React.Component {
   }
 }
 
-Audience.displayName = "AddAudience";
-Audience.propTypes = {
+Users.displayName = "Users";
+Users.propTypes = {
   getUrl: React.PropTypes.string.isRequired,
   postUrl: React.PropTypes.string.isRequired,
   deleteUrl: React.PropTypes.string.isRequired

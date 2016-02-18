@@ -7,14 +7,14 @@ class GenericList extends React.Component {
     };
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.handleLoadDataFromServer();
     setInterval(this.handleLoadDataFromServer.bind(this), this.state.pollInterval);
   }
 
   handleLoadDataFromServer() {
     $.ajax({
-      url: this.props.url,
+      url: this.props.getUrl,
       type: "GET",
       dataType: "json",
       cache: false,
@@ -24,21 +24,35 @@ class GenericList extends React.Component {
     });
   }
 
+  handleDeleteDataFromServer(id) {
+    console.log(id);
+    $.ajax({
+      url: this.props.deleteUrl + "/" +id,
+      type: "POST",
+      data: {"_method":"delete"},
+      success: function(data){
+        console.log("Success " + data);
+      }.bind(this)
+    });
+  }
+
   render () {
+    var _this = this;
     return (
       <div className="collection">
-        {this.state.data.map(function(item) {
+        {this.state.data.map(function(item, i) {
           return (
             <div key={item.id} className="collection-item">
               <div>
                 {item.data}
-                <a href="#!" className="secondary-content">
+                <a href="" className="secondary-content" key={i}
+                             onClick={_this.handleDeleteDataFromServer.bind(this, i)}>
                   <i className=" blue-text material-icons">delete_forever</i>
                 </a>
               </div>
             </div>
           );
-        })}
+        }, this)}
       </div>
     );
   }
@@ -46,6 +60,7 @@ class GenericList extends React.Component {
 
 GenericList.displayName = "List";
 GenericList.propTypes = {
-  url: React.PropTypes.string.isRequired,
+  getUrl: React.PropTypes.string.isRequired,
+  deleteUrl: React.PropTypes.string.isRequired,
   pollInterval: React.PropTypes.number
 };

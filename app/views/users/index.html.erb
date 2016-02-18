@@ -1,1 +1,3 @@
-<%= react_component('GenericList', url: users_path+".json") %>
+<%= react_component('Users', getUrl: users_path+".json",
+                             postUrl: new_user_path,
+                             deleteUrl: users_path) %>

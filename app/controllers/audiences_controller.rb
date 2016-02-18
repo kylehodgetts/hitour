@@ -39,6 +39,11 @@ class AudiencesController < ApplicationController
     end
   end
 
+  def destroy
+    @audience = Audience.find(params[:id])
+    @audience.destroy
+  end
+
   private
 
   def audience_params
