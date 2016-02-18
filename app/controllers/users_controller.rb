@@ -32,7 +32,7 @@ class UsersController < ApplicationController
       flash[:user_save] = 'true' if @user.save
       flash[:save_message] = 'Profile updated successfully!'
     end
-    redirect_to @user
+    redirect_to user_path
   end
 
   def destroy

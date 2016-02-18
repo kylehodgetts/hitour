@@ -71,7 +71,7 @@ Rails.application.routes.draw do
 
   # Users
   get '/users', to: 'users#index', as: :users
-  get '/users/:id', to: 'users#show'
+  get '/users/:id', to: 'users#show', as: :user
   post '/users/create', to: 'users#create', as: :new_user
   post '/users/:id', to: 'users#update', as: :update_profile
 
