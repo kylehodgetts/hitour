@@ -37,8 +37,9 @@ class Audience extends React.Component {
   }
 }
 
-Audience.displayName = "AddAudience";
+Audience.displayName = "Audience";
 Audience.propTypes = {
   getUrl: React.PropTypes.string.isRequired,
   postUrl: React.PropTypes.string.isRequired,
+  deleteUrl: React.PropTypes.string.isRequired
 }

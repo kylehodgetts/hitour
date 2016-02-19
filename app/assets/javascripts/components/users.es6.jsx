@@ -8,6 +8,7 @@ class Users extends React.Component {
         type: "POST",
         data: $(this).serialize(),
         success: function(data){
+          Materialize.toast('Succesfully added new user!', 3000, 'rounded');
           $('#userForm').trigger("reset");
         },
         error: function(err){

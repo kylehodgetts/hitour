@@ -4,7 +4,11 @@ class UsersController < ApplicationController
     items = User.where.not(id: session[:user_id])
     @users = []
     items.each do |item|
-      @users << { id: item.id, data: item.email }
+      @users << {
+        id: item.id,
+        data: item.email,
+        deleteUrl: delete_user_path(item)
+      }
     end
     api_response(@users)
   end
@@ -21,6 +25,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.save
+    format.js
+    format.html { render action: 'index', notice: 'Update SUCCESSFUL!' }
   end
 
   def update

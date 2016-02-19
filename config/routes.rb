@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   get '/audiences/:id/edit', to: 'audiences#edit', as: :edit_audience
   post '/audiences', to: 'audiences#create', as: :create_audience
   patch '/audiences/:id', to: 'audiences#update'
-  delete '/audiences/:id', to: 'audiences#destroy', as: :delete_audience
+  post '/audiences/:id', to: 'audiences#destroy', as: :delete_audience
 
   # Tours
   get '/tours', to: 'tours#index',as: :tours
@@ -75,7 +75,7 @@ Rails.application.routes.draw do
   get '/users/:id', to: 'users#show', as: :user
   post '/users', to: 'users#create', as: :new_user
   post '/users/:id', to: 'users#update', as: :update_profile
-  delete '/users/:id', to: 'users#destroy'
+  post '/users/:id', to: 'users#destroy', as: :delete_user
   # API
   namespace :api do
     get ':access_key/users', to: 'api#users'

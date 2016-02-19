@@ -3,16 +3,21 @@ class GenericList extends React.Component {
     super(props);
     this.state =  {
       data: [],
-      pollInterval: this.props.pollInterval || 2000
+      pollInterval: this.props.pollInterval || 2000,
+      intervalId: 0
     };
   }
 
   componentDidMount() {
     this.handleLoadDataFromServer();
-    setInterval(
+    this.interval = setInterval(
       this.handleLoadDataFromServer.bind(this),
       this.state.pollInterval
     );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   handleLoadDataFromServer() {
@@ -29,11 +34,12 @@ class GenericList extends React.Component {
     });
   }
 
-  handleDeleteDataFromServer(deleteUrl) {
-    console.log("Requesting delete "+deleteUrl);
+  handleDeleteDataFromServer(deleteUrl, e) {
+    e.preventDefault();
     $.ajax({
       url: deleteUrl,
-      type: "DELETE",
+      type: "POST",
+      dataType: "html",
       success: function(data){
         Materialize.toast('Succesfully deleted!', 3000, 'rounded');
         console.log("Success " + data);
@@ -41,7 +47,7 @@ class GenericList extends React.Component {
       error: function(err){
         Materialize.toast('There was an issue deleting. Please contact admin.', 3000, 'rounded');
         console.log(err);
-      }
+      }.bind(this)
     });
   }
 
@@ -54,7 +60,7 @@ class GenericList extends React.Component {
             <div key={item.id} className="collection-item">
               <div>
                 {item.data}
-                <a href="" className="secondary-content" key={i}
+                <a id={item.id} href="" className="secondary-content" key={i}
                              onClick={_this.handleDeleteDataFromServer.bind(this, item.delete_url)}>
                   <i className=" blue-text material-icons">delete_forever</i>
                 </a>
