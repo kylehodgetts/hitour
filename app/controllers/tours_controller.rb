@@ -2,6 +2,7 @@ class ToursController < ApplicationController
 	before_action :authenticate_user!
 	def index
 	  @tours = Tour.all
+		api_response(@tours)
 	end
 
 	def show

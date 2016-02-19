@@ -32,12 +32,9 @@ Rails.application.routes.draw do
   post '/data_audiences', to: 'data_audiences#create'
 
   # Audiences
-  get '/audiences/show/:id', to: 'audiences#show', as: :audience
   get '/audiences', to: 'audiences#index', as: :audiences
-  get '/audiences/new', to: 'audiences#new', as: :new_audience
-  get '/audiences/:id/edit', to: 'audiences#edit', as: :edit_audience
-  post '/audiences', to: 'audiences#create'
-  patch '/audiences/:id', to: 'audiences#update'
+  post '/audiences', to: 'audiences#create', as: :create_audience
+  delete '/audiences/:id', to: 'audiences#destroy', as: :delete_audience
 
   # Tours
   get '/tours', to: 'tours#index',as: :tours
@@ -65,18 +62,20 @@ Rails.application.routes.draw do
   post '/tour_audiences', to: 'tours_audiences#create'
 
   #Session handling
-  get 'register', to: 'users#new', as: :register
-  resources :users
   get 'login', to: 'sessions#new', as: :login
   post 'login', to: 'sessions#create'
   get 'logout', to: 'sessions#destroy', as: :logout
 
   # Users
-  resources :users
-  post '/users/:id', to: 'users#update', as: :update_profile
+  get '/users', to: 'users#index', as: :users
+  get '/users/:id', to: 'users#show', as: :user
+  post '/users', to: 'users#create', as: :new_user
+  patch '/users/:id', to: 'users#update', as: :update_profile
+  delete '/users/:id', to: 'users#destroy', as: :delete_user
 
   # API
   namespace :api do
+    get ':access_key/users', to: 'api#users'
     get ':access_key/audiences', to: 'api#audiences'
     get ':access_key/tours', to: 'api#tours'
     get ':access_key/points', to: 'api#points'
