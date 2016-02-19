@@ -9,7 +9,10 @@ class GenericList extends React.Component {
 
   componentDidMount() {
     this.handleLoadDataFromServer();
-    setInterval(this.handleLoadDataFromServer.bind(this), this.state.pollInterval);
+    setInterval(
+      this.handleLoadDataFromServer.bind(this),
+      this.state.pollInterval
+    );
   }
 
   handleLoadDataFromServer() {
@@ -19,20 +22,26 @@ class GenericList extends React.Component {
       dataType: "json",
       cache: false,
       success: function(data){
-        this.setState({ data: data });
+        this.setState({
+          data: data
+        });
       }.bind(this)
     });
   }
 
-  handleDeleteDataFromServer(id) {
-    console.log(id);
+  handleDeleteDataFromServer(deleteUrl) {
+    console.log("Requesting delete "+deleteUrl);
     $.ajax({
-      url: this.props.deleteUrl + "/" +id,
-      type: "POST",
-      data: {"_method":"delete"},
+      url: deleteUrl,
+      type: "DELETE",
       success: function(data){
+        Materialize.toast('Succesfully deleted!', 3000, 'rounded');
         console.log("Success " + data);
-      }.bind(this)
+      }.bind(this),
+      error: function(err){
+        Materialize.toast('There was an issue deleting. Please contact admin.', 3000, 'rounded');
+        console.log(err);
+      }
     });
   }
 
@@ -46,7 +55,7 @@ class GenericList extends React.Component {
               <div>
                 {item.data}
                 <a href="" className="secondary-content" key={i}
-                             onClick={_this.handleDeleteDataFromServer.bind(this, i)}>
+                             onClick={_this.handleDeleteDataFromServer.bind(this, item.delete_url)}>
                   <i className=" blue-text material-icons">delete_forever</i>
                 </a>
               </div>
@@ -61,6 +70,5 @@ class GenericList extends React.Component {
 GenericList.displayName = "List";
 GenericList.propTypes = {
   getUrl: React.PropTypes.string.isRequired,
-  deleteUrl: React.PropTypes.string.isRequired,
   pollInterval: React.PropTypes.number
 };

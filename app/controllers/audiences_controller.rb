@@ -4,7 +4,10 @@ class AudiencesController < ApplicationController
     items = Audience.all
     @audiences = []
     items.each do |item|
-      @audiences << { id: item.id, data: item.name }
+      @audiences << {
+        id: item.id,
+        data: item.name,
+        delete_url: delete_audience_path(item) }
     end
     api_response(@audiences)
   end
@@ -40,8 +43,9 @@ class AudiencesController < ApplicationController
   end
 
   def destroy
-    @audience = Audience.find(params[:id])
-    @audience.destroy
+    audience = Audience.find(params[:id])
+    audience.destroy
+    render json: 'Successfully deleted audience'
   end
 
   private

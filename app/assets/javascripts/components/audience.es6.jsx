@@ -9,6 +9,7 @@ class Audience extends React.Component {
         type: "POST",
         data: $(this).serialize(),
         success: function(data){
+          Materialize.toast('Succesfully created new audience!', 3000, 'rounded');
           $('#audienceForm').trigger("reset");
         },
         error: function(err){
@@ -40,5 +41,4 @@ Audience.displayName = "AddAudience";
 Audience.propTypes = {
   getUrl: React.PropTypes.string.isRequired,
   postUrl: React.PropTypes.string.isRequired,
-  deleteUrl: React.PropTypes.string.isRequired
 }
