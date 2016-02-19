@@ -29,10 +29,10 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
-    password_params = params[:user]
-    if password_params[:password].eql? password_params[:cpassword]
-      @user.password = params[:password]
+    @user = User.find(params['id'])
+    password_params = params['user']
+    if password_params['password'].eql? password_params['cpassword']
+      @user.password = params['password']
       @user.save
       render json: ['Successfully updated password'], status: 200
     else
