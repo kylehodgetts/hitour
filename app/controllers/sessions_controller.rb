@@ -14,8 +14,10 @@ class SessionsController < ApplicationController
       session[:user_id] = @user.id
       if (!@user.activated)
         @user.update_attribute(:activated, true)
-      end
+        redirect_to update_profile_path(@user.id)
+      else
       redirect_to root_path
+      end
     else
       redirect_to login_path
     end
