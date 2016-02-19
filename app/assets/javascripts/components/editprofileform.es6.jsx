@@ -2,8 +2,6 @@ class Editprofileform extends React.Component {
   componentDidMount() {
     var patchUrl = this.props.patchUrl;
     $('#updateForm').on('submit',function(e){
-      console.log("Requesting: " + patchUrl);
-      console.log($(this).serialize());
       e.preventDefault();
       $.ajax({
         url: patchUrl,
@@ -12,13 +10,13 @@ class Editprofileform extends React.Component {
         data: $(this).serialize(),
         success: function(data){
           Materialize.toast(data, 3000, 'rounded');
-          $('#userForm').trigger("reset");
         },
         error: function(err){
           console.log("Error" + err);
-          Materialize.toast(err, 3000, 'rounded');
         }
       });
+      $('#updateForm').trigger("reset");
+      document.getElementById('password').focus();
     });
   }
 
@@ -37,12 +35,15 @@ class Editprofileform extends React.Component {
           </div>
           <div className="row">
             <div className="input-field col s6">
-              <input name="user[password]" id="password" type="password" className="validate" />
+              <input name="user[password]" id="password" type="password"
+                     className="validate" />
               <label data-error="Password must be at least 6 characters long"
                      htmlFor="password">New Password</label>
             </div>
             <div className="input-field col s6">
-              <input name="user[cpassword]" pattern=".{6,}" required id="confirm-password" type="password" className="validate" />
+              <input name="user[cpassword]" pattern=".{6,}"
+                     required id="confirm-password" type="password"
+                     className="validate" />
               <label data-error="Password must be at least 6 characters long"
                      htmlFor="confirm-password">Confirm Password</label>
             </div>
