@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       # Create a user session and redirect to main page
       session[:user_id] = @user.id
       if (!@user.activated)
-      @user.activated = true
+        @user.update_attribute(:activated, true)
       end
       redirect_to root_path
     else
