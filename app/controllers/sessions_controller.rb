@@ -12,6 +12,9 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(params[:password])
       # Create a user session and redirect to main page
       session[:user_id] = @user.id
+      if (!@user.activated)
+      @user.activated = true
+      end
       redirect_to root_path
     else
       redirect_to login_path

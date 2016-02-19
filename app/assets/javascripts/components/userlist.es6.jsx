@@ -8,7 +8,7 @@ class Userlist extends React.Component {
             return(
               <div key={user.id} className="collection-item">
                 <div>
-                  {user.email}
+                  {user.email} &nbsp;&nbsp; Activated: {(user.activated?<b>true</b>:<b>false</b>)}
                   <a href="#!" className="secondary-content">
                     <i className="material-icons">delete_forever</i>
                   </a>

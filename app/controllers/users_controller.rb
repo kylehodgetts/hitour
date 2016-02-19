@@ -23,8 +23,9 @@ class UsersController < ApplicationController
 
   def create
     randomSequence= [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
-    params[:user][:password] = ""+(0...50).map { randomSequence[rand(randomSequence.length)] }.join
+    params[:user][:password] = ""+(0...25).map { randomSequence[rand(randomSequence.length)] }.join
     @user = User.new(user_params)
+    @user.activated = false
     welcomeHtml = "<h2> You have received an invitation to join the HiTour CMS. </h2></br>"
     emailHtml = "<h3>Use your Email address : </br><b>#{@user.email}</b> </h5>"
     passwordHtml = "<h3> and the following password:</h3></br><b>#{@user.password}</b>"
@@ -59,6 +60,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:email, :password, :activated)
   end
 end
