@@ -21,7 +21,7 @@ class UsersController < ApplicationController
      m.to      = :email
      m.from    = 'services@Hitour.com'
      m.subject = 'Sending with SendGrid is Fun'
-     m.html = 'your password is : '+:password
+     m.html = 'your password is : '+:password.to_s
      end
   $sendgrid.send(email)
     @user.save
