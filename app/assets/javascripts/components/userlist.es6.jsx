@@ -17,6 +17,7 @@ class Userlist extends React.Component {
             );
           })}
         </div>
+      <a href={this.props.link_path}>Add a user you trust to the <b>HiTour CMS</b> .</a>
       </div>
     );
   }
@@ -24,5 +25,6 @@ class Userlist extends React.Component {
 
 Userlist.displayName = "Userlist";
 Userlist.propTypes = {
-  users: React.PropTypes.array.isRequired
+  users: React.PropTypes.array.isRequired,
+  link_path: React.PropTypes.array.isRequired
 }

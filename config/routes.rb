@@ -73,6 +73,8 @@ Rails.application.routes.draw do
 
   # Users
   resources :users
+
+  get '/users', to: 'users#index', as: :usersi
   get '/users', to: 'users#new'
   post '/users', to: 'users#create', as: :create_user
   post '/users/:id', to: 'users#update', as: :update_profile

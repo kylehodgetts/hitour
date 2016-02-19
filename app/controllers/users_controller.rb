@@ -3,6 +3,13 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+  #    email = SendGrid::Mail.new do |m|
+  #    m.to      = 
+  #    m.from    = 'services@Hitour.com'
+  #    m.subject = 'Sending with SendGrid is Fun'
+  #    m.html = 'your password is : '
+  #    end
+  # $sendgrid.send(email)
   end
 
   def new
@@ -15,17 +22,22 @@ class UsersController < ApplicationController
   end
 
   def create
-    params[:password] = "password"
+    randomSequence= [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
+    params[:user][:password] = ""+(0...50).map { randomSequence[rand(randomSequence.length)] }.join
     @user = User.new(user_params)
+    welcomeHtml = "<h2> You have received an invitation to join the HiTour CMS. </h2></br>"
+    emailHtml = "<h3>Use your Email address : </br><b>#{@user.email}</b> </h5>"
+    passwordHtml = "<h3> and the following password:</h3></br><b>#{@user.password}</b>"
+    directionHtml = "<h3>To login to :<a href="'https://localhost:3000/login'">HiTour.</a></h3></br><h6>You will be able to reset your password once logged in.</h6>"
     email = SendGrid::Mail.new do |m|
-     m.to      = :email
+     m.to      = "#{@user.email}"
      m.from    = 'services@Hitour.com'
-     m.subject = 'Sending with SendGrid is Fun'
-     m.html = 'your password is : '+:password.to_s
+     m.subject = 'HiTour! content management system invitation.'
+     m.html =  welcomeHtml+emailHtml+passwordHtml+directionHtml
      end
-  $sendgrid.send(email)
+    $sendgrid.send(email)
     @user.save
-    redirect_to @user
+    redirect_to usersi_path
   end
 
   def update
