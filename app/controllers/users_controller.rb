@@ -19,7 +19,6 @@ class UsersController < ApplicationController
 
   def show
     redirect_to root_path unless @current_user.id == params[:id].to_i
-    @user = current_user
   end
 
   def create
@@ -30,15 +29,15 @@ class UsersController < ApplicationController
   end
 
   def update
-    flash[:user_save] = 'false'
-    flash[:save_message] = 'Passwords must match and be non-empty!'
-    @user = User.find_by(params[:email])
-    unless params[:password] != params[:cpassword]
-      @user.password = params[:password]
-      flash[:user_save] = 'true' if @user.save
-      flash[:save_message] = 'Profile updated successfully!'
+    @user = User.find(params['id'])
+    password_params = params['user']
+    if password_params['password'].eql? password_params['cpassword']
+      @user.password = params['password']
+      @user.save
+      render json: ['Successfully updated password'], status: 200
+    else
+      render json: ['Passwords must be non empty and match'], status: 200
     end
-    redirect_to user_path
   end
 
   def destroy
