@@ -36,12 +36,13 @@ class GenericList extends React.Component {
 
   handleDeleteDataFromServer(deleteUrl, e) {
     e.preventDefault();
+    console.log("Requesting " + deleteUrl);
     $.ajax({
       url: deleteUrl,
       type: "POST",
       dataType: "html",
       success: function(data){
-        Materialize.toast('Succesfully deleted!', 3000, 'rounded');
+        Materialize.toast(data, 3000, 'rounded');
         console.log("Success " + data);
       }.bind(this),
       error: function(err){

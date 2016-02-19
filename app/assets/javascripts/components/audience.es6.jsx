@@ -22,8 +22,7 @@ class Audience extends React.Component {
   render () {
     return (
       <div>
-        <GenericList getUrl={this.props.getUrl}
-                     deleteUrl={this.props.deleteUrl} />
+        <GenericList getUrl={this.props.getUrl} />
         <form id="audienceForm">
           <label htmlFor="audience[name]">Audience Name</label>
           <input type="text" name="audience[name]" />
@@ -40,6 +39,5 @@ class Audience extends React.Component {
 Audience.displayName = "Audience";
 Audience.propTypes = {
   getUrl: React.PropTypes.string.isRequired,
-  postUrl: React.PropTypes.string.isRequired,
-  deleteUrl: React.PropTypes.string.isRequired
+  postUrl: React.PropTypes.string.isRequired
 }

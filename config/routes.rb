@@ -76,6 +76,7 @@ Rails.application.routes.draw do
   post '/users', to: 'users#create', as: :new_user
   post '/users/:id', to: 'users#update', as: :update_profile
   post '/users/:id', to: 'users#destroy', as: :delete_user
+
   # API
   namespace :api do
     get ':access_key/users', to: 'api#users'

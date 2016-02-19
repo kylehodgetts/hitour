@@ -7,7 +7,7 @@ class UsersController < ApplicationController
       @users << {
         id: item.id,
         data: item.email,
-        deleteUrl: delete_user_path(item)
+        delete_url: delete_user_path(item)
       }
     end
     api_response(@users)
@@ -23,10 +23,10 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    # Temporary until mailer is set up
+    @user = User.new(email: params[:user][:name], password: 'password')
     @user.save
-    format.js
-    format.html { render action: 'index', notice: 'Update SUCCESSFUL!' }
+    render json: 'Successfully added user', status: 200
   end
 
   def update
@@ -43,12 +43,13 @@ class UsersController < ApplicationController
 
   def destroy
     user = User.find(params[:id])
-    user.destroy
+    user.delete
+    render json: 'Successfully deleted user', status: 200
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:email)
   end
 end

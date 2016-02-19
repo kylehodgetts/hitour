@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
   def api_response(items)
     respond_to do |format|
       format.html
+      format.js
       format.json do
         render json: items
       end
