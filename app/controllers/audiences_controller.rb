@@ -45,7 +45,7 @@ class AudiencesController < ApplicationController
   def destroy
     audience = Audience.find(params[:id])
     audience.destroy
-    render json: 'Successfully deleted audience', status: 200
+    render json: ['Successfully deleted audience'], status: 200
   end
 
   private

@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   get '/audiences/:id/edit', to: 'audiences#edit', as: :edit_audience
   post '/audiences', to: 'audiences#create', as: :create_audience
   patch '/audiences/:id', to: 'audiences#update'
-  post '/audiences/:id', to: 'audiences#destroy', as: :delete_audience
+  delete '/audiences/:id', to: 'audiences#destroy', as: :delete_audience
 
   # Tours
   get '/tours', to: 'tours#index',as: :tours
