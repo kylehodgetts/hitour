@@ -24,6 +24,7 @@ class Editprofileform extends React.Component {
     return (
       <div className="row">
         <form id="updateForm" className="col s12" method="post">
+          <input type="hidden" name="_method" value="patch" />
           <div className="row">
             <div className="input-field col s12">
               <input name="user[email]" disabled value={this.props.currentUser.email}
