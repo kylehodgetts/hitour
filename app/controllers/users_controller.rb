@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     # Temporary until mailer is set up
     @user = User.new(email: params[:user][:name], password: 'password')
     @user.save
-    render json: 'Successfully added user', status: 200
+    render json: ['Successfully added user'], status: 200
   end
 
   def update
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   def destroy
     user = User.find(params[:id])
     user.delete
-    render json: 'Successfully deleted user', status: 200
+    render json: ['Successfully deleted user'], status: 200
   end
 
   private

@@ -74,8 +74,8 @@ Rails.application.routes.draw do
   get '/users', to: 'users#index', as: :users
   get '/users/:id', to: 'users#show', as: :user
   post '/users', to: 'users#create', as: :new_user
-  post '/users/:id', to: 'users#update', as: :update_profile
-  post '/users/:id', to: 'users#destroy', as: :delete_user
+  patch '/users/:id', to: 'users#update', as: :update_profile
+  delete '/users/:id', to: 'users#destroy', as: :delete_user
 
   # API
   namespace :api do

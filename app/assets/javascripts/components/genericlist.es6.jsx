@@ -39,8 +39,8 @@ class GenericList extends React.Component {
     console.log("Requesting " + deleteUrl);
     $.ajax({
       url: deleteUrl,
-      type: "POST",
-      dataType: "html",
+      type: "DELETE",
+      dataType: "json",
       success: function(data){
         Materialize.toast(data, 3000, 'rounded');
         console.log("Success " + data);

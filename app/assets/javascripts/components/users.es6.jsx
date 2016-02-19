@@ -7,7 +7,7 @@ class Users extends React.Component {
       $.ajax({
         url: postURL,
         type: "POST",
-        dataType: "html",
+        dataType: "json",
         data: $(this).serialize(),
         success: function(data){
           Materialize.toast(data, 3000, 'rounded');
