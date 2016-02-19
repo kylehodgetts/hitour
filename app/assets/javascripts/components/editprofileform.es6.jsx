@@ -29,7 +29,7 @@ class Editprofileform extends React.Component {
             <div className="input-field col s12">
               <input name="user[email]" disabled value={this.props.currentUser.email}
                      id="email" type="email" className="validate" />
-              <label htmlFor="email" data-error="wrong" data-success="right">
+              <label htmlFor="email" className="active" data-error="wrong" data-success="right">
                 Email
               </label>
             </div>
