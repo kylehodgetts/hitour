@@ -19,6 +19,7 @@ class Editprofileform extends React.Component {
           this.renderFlash()
         }
         <form className="col s12" method="post">
+          <input type="hidden" name="_method" value="patch" />
           <div className="row">
             <div className="input-field col s12">
               <input name="email" disabled value={this.props.currentUser.email}
@@ -56,6 +57,6 @@ class Editprofileform extends React.Component {
 Editprofileform.displayName = "Editprofileform"
 Editprofileform.propTypes = {
   currentUser: React.PropTypes.object.isRequired,
-  saveSucc: React.PropTypes.bool,
+  saveSucc: React.PropTypes.string,
   saveMessage: React.PropTypes.string
 }
