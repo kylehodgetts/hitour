@@ -15,8 +15,17 @@ class UsersController < ApplicationController
   end
 
   def create
+    params[:password] = "password"
     @user = User.new(user_params)
+    email = SendGrid::Mail.new do |m|
+     m.to      = :email
+     m.from    = 'services@Hitour.com'
+     m.subject = 'Sending with SendGrid is Fun'
+     m.html = 'your password is : '+:password
+     end
+  $sendgrid.send(email)
     @user.save
+    redirect_to @user
   end
 
   def update
