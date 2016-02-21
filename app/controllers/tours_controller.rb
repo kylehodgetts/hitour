@@ -1,14 +1,40 @@
 class ToursController < ApplicationController
 	before_action :authenticate_user!
 	def index
-	  @tours = Tour.all
-		api_response(@tours)
+	  items = Tour.includes(:points)
+	  @tours = []
+	  items.each do |item|
+	    @tours << {
+	      id: item.id,
+	      data: item.name,
+	      delete_url: delete_tour_path(item),
+	      show_url: tour_path(item) }
+	  end
+	  @audiences = Audience.all.map do |audience|
+	  	  [audience.name, audience.id]
+	  end
+	  api_response(@tours)
 	end
 
 	def show
-	  @tour = Tour.includes(:points).find(params[:id])
+	  @tour = Tour.find(params[:id])
 	  @audience = Audience.find(@tour.audience_id)
-	  @tour_points = TourPoint.where('tour_id' => params[:id])
+	  @tour_points = TourPoint.where('tour_id' => params[:id]).map do |tp|
+	  		{
+	  			id:tp.point.id,
+	  			name:tp.point.name,
+	  			rank:tp.rank,
+	  			show_url: point_path(tp.point),
+	  			delete_url: delete_tour_point_path(tp)
+	  		}
+	  end
+	  @tour_points = [] if @tour_points.nil?
+	  items = [
+	  	tour:@tour,
+      	audience:@audience,
+      	points: @tour_points
+	  ]
+	  api_response(items)
 	end
 
 	def new
@@ -37,7 +63,7 @@ class ToursController < ApplicationController
 	def destroy
 		@tour = Tour.find(params[:id])
 		@tour.destroy
-		redirect_to tours_path
+    	render json: ['Successfully deleted tour'], status: 200
 	end
 
 	def create

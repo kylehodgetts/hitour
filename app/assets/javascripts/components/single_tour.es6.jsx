@@ -1,0 +1,99 @@
+class SingleTour extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state =  {
+      tour: [],
+      audience: [],
+      points: [],
+      pollInterval: this.props.pollInterval || 2000,
+      intervalId: 0
+    };
+  }
+
+  componentDidMount() {
+    this.handleLoadDataFromServer();
+    this.interval = setInterval(
+      this.handleLoadDataFromServer.bind(this),
+      this.state.pollInterval
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  handleLoadDataFromServer() {
+    $.ajax({
+      url: this.props.showUrl,
+      type: "GET",
+      dataType: "json",
+      cache: false,
+      success: function(data){
+        console.log(data);
+        this.setState({
+          tour: data[0]["tour"],
+          audience: data[0]["audience"],
+          points: data[0]["points"]
+        });
+      }.bind(this)
+    });
+  }
+
+  handleDeleteDataFromServer(deleteUrl, e) {
+    e.preventDefault();
+    console.log("Requesting " + deleteUrl);
+    $.ajax({
+      url: deleteUrl,
+      type: "DELETE",
+      dataType: "json",
+      success: function(data){
+        Materialize.toast(data, 3000, 'rounded');
+        console.log("Success " + data);
+      }.bind(this),
+      error: function(err){
+        Materialize.toast('There was an issue deleting. Please contact admin.', 3000, 'rounded');
+        console.log(err);
+      }.bind(this)
+    });
+  }
+
+  render () {
+    var _this = this;
+    return (
+      <div>
+        <h2>{this.state.tour["name"]}</h2>
+        <h4>Points</h4>
+        <div className="collection">
+          {this.state.points.map(function(point) {
+            return (
+              <div key={point.id} className="collection-item">
+                <div>
+                  {point.name} with rank {point.rank}
+                  <a id={point.id} href={point.delete_url} className="secondary-content" key={point.id}
+                             onClick={_this.handleDeleteDataFromServer.bind(this, point.delete_url)}>
+                  <i className=" blue-text material-icons">delete_forever</i>
+                  </a>
+                  <a id={point.id} href={point.show_url} className="secondary-content">
+                    <i className=" blue-text material-icons">launch</i>
+                  </a>
+                </div>
+              </div>
+            );
+          }, this)}
+        </div>
+        <NewTourPoint
+          tour_id={this.props.tour_id}
+          points_url={this.props.points_url}
+          new_tour_point_url={this.props.new_tour_point_url}
+          />
+      </div>
+    );
+  }
+}
+
+SingleTour.displayName = "SingleTour";
+SingleTour.propTypes = {
+  showUrl: React.PropTypes.string.isRequired,
+  points_url:React.PropTypes.string.isRequired,
+  tour_id: React.PropTypes.number.isRequired
+}

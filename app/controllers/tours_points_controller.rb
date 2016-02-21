@@ -13,22 +13,21 @@ class ToursPointsController < ApplicationController
 	def create
 		@tour_point = TourPoint.new(point_data_params)
 		if @tour_point.save
-			redirect_to controller: 'tours', action: 'show', id: @tour_point.tour_id
+			render json: ['Succesfully added link between tour and point']
 		else
-			redirect_to new_tours_points_path
+			render json: ['There was an issue adding the point to the tour']
 		end
 	end
 
 	def destroy
-		@tour_point = TourPoint.find_by(tour_id: params[:tour_id],
-																		point_id: params[:point_id])
+		@tour_point = TourPoint.find(params[:id])
 		@tour_point.destroy
-		redirect_to controller: 'tours', action: 'show', id: @tour_point.tour_id
+		render json: ['Succesfully deleted link between tour and point']
 	end
 
 		private
 
 	def point_data_params
-		params.require(:tour_point).permit(:tour_id, :point_id)
+		params.require(:tour_point).permit(:tour_id, :point_id,:rank)
 	end
 end

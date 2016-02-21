@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   get '/points/:id/edit', to: 'points#edit', as: :edit_point
   get '/points/show/:id', to: 'points#show', as: :point
   patch '/points/:id', to: 'points#update', as: :update_point
-  post '/points', to: 'points#create'
+  post '/points', to: 'points#create', as: :create_point
+  delete '/points/:id', to: 'points#destroy', as: :delete_point
+
 
   # Data
   get '/data', to: 'data#index', as: :data
@@ -42,14 +44,14 @@ Rails.application.routes.draw do
   get '/tours/new', to: 'tours#new', as: :new_tour
   delete '/tours/:id', to: 'tours#destroy', as: :delete_tour
   get '/tours/:id/edit', to: 'tours#edit',as: :edit_tour
-  post '/tours', to: 'tours#create'
+  post '/tours', to: 'tours#create', as: :create_tour
   patch '/tours/:id', to: 'tours#update', as: :update_tour
 
   # Tours Points
   get '/tours_points', to: 'tours_points#new'
   get '/tours_points/new', to: 'tours_points#new', as: :new_tours_points
-  post '/tour_points', to: 'tours_points#create'
-  delete '/tours_points/:id', to: 'tours_points#destroy', as: :delete_tours_points
+  post '/tour_points', to: 'tours_points#create', as: :create_tour_point
+  delete '/tours_points/:id', to: 'tours_points#destroy', as: :delete_tour_point
 
   # Points Data
   resources :points_data, only: [:new, :create]

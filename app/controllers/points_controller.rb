@@ -7,6 +7,14 @@ class PointsController < ApplicationController
 		@points.each do |point|
 			@points_qr[point.id] = QRCode.new('#{point.id.to_s} - #{point.name}')
 		end
+	    @points_json = []
+	    @points.each do |item|
+	      @points_json << {
+	        id: item.id,
+	        data: item.name,
+	        delete_url: delete_point_path(item) }
+	    end
+	    api_response(@points_json)
 	end
 
 	def show
@@ -31,6 +39,12 @@ class PointsController < ApplicationController
 		else
 			render new
 		end
+	end
+
+	def destroy
+		@point = Point.find(params[:id])
+		@point.destroy
+		render json: ['Succesfully deleted point']
 	end
 
 	def new

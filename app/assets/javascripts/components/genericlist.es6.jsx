@@ -65,6 +65,9 @@ class GenericList extends React.Component {
                              onClick={_this.handleDeleteDataFromServer.bind(this, item.delete_url)}>
                   <i className=" blue-text material-icons">delete_forever</i>
                 </a>
+                <a id={item.id} href={item.show_url} className="secondary-content">
+                  <i className=" blue-text material-icons">launch</i>
+                </a>
               </div>
             </div>
           );
