@@ -19,4 +19,7 @@ class ApplicationController < ActionController::Base
     render json: 'API access key is invalid' unless
                                     params[:access_key].eql?(ENV['ACCESS_KEY'])
   end
+
+
+
 end

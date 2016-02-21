@@ -38,7 +38,7 @@ class UsersController < ApplicationController
      end
     $sendgrid.send(email)
     @user.save
-    redirect_to usersi_path
+    redirect_to users_path
   end
 
   def update
