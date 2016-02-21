@@ -36,14 +36,12 @@ class GenericList extends React.Component {
 
   handleDeleteDataFromServer(deleteUrl, e) {
     e.preventDefault();
-    console.log("Requesting " + deleteUrl);
     $.ajax({
       url: deleteUrl,
       type: "DELETE",
       dataType: "json",
       success: function(data){
         Materialize.toast(data, 3000, 'rounded');
-        console.log("Success " + data);
       }.bind(this),
       error: function(err){
         Materialize.toast('There was an issue deleting. Please contact admin.', 3000, 'rounded');

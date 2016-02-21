@@ -29,7 +29,6 @@ class SingleTour extends React.Component {
       dataType: "json",
       cache: false,
       success: function(data){
-        console.log(data);
         this.setState({
           tour: data[0]["tour"],
           audience: data[0]["audience"],
@@ -41,7 +40,6 @@ class SingleTour extends React.Component {
 
   handleDeleteDataFromServer(deleteUrl, e) {
     e.preventDefault();
-    console.log("Requesting " + deleteUrl);
     $.ajax({
       url: deleteUrl,
       type: "DELETE",

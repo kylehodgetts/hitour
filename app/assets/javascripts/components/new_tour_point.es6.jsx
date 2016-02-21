@@ -17,7 +17,6 @@ class NewTourPoint extends React.Component {
     var postUrl = this.props.new_tour_point_url;
     $('#tourPointForm').on('submit',function(e){
       e.preventDefault();
-      console.log($(this).serialize());
       $.ajax({
         url: postUrl,
         type: "POST",
@@ -25,7 +24,6 @@ class NewTourPoint extends React.Component {
         dataType: "json",
         success: function(data){
           Materialize.toast(data, 3000, 'rounded');
-          console.log("Successfully added point " + data);
         }.bind(this),
         error: function(err){
           Materialize.toast('There was an issue adding the point. Please contact admin.', 3000, 'rounded');
@@ -47,8 +45,6 @@ class NewTourPoint extends React.Component {
       cache: false,
       success: function(data){
         $('select').material_select();
-        console.log("POINTS DATA");
-        console.log(data);
         this.setState({
           points: data
         });
