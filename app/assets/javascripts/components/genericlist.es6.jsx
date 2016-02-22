@@ -23,8 +23,8 @@ class GenericList extends React.Component {
   handleLoadDataFromServer() {
     $.ajax({
       url: this.props.getUrl,
+      context: document.body,
       type: "GET",
-      dataType: "json",
       cache: false,
       success: function(data){
         this.setState({
@@ -40,7 +40,6 @@ class GenericList extends React.Component {
     $.ajax({
       url: deleteUrl,
       type: "DELETE",
-      dataType: "json",
       success: function(data){
         Materialize.toast(data, 3000, 'rounded');
         console.log("Success " + data);
