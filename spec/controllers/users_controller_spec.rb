@@ -47,22 +47,26 @@ RSpec.describe UsersController, type: :controller do
     describe 'with password not matching confirm password' do
       it 'should not update the user entry' do
         password = 'new_password'
-        patch :update, id: @user.id,
-                       user: @user,
-                       password: password,
-                       cpassword: 'password1'
+        patch :update, id: @user.id, user:
+          {
+            email: @user.email,
+            password: password,
+            cpassword: 'password'
+          }
         parsed_body = JSON.parse(response.body)
-        expect(parsed_body[0]).to eq('Successfully updated password')
+        expect(parsed_body[0]).to eq('Passwords must be non empty and match')
       end
     end
 
     describe 'with password matching confirm password' do
       it 'should update the user entry' do
         password = 'new_password'
-        patch :update, id: @user.id,
-                       user: @user,
-                       password: password,
-                       cpassword: password
+        patch :update, id: @user.id, user:
+          {
+            email: @user.email,
+            password: password,
+            cpassword: password
+          }
         parsed_body = JSON.parse(response.body)
         expect(parsed_body[0]).to eq('Successfully updated password')
       end
