@@ -3,13 +3,6 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-  #    email = SendGrid::Mail.new do |m|
-  #    m.to      = 
-  #    m.from    = 'services@Hitour.com'
-  #    m.subject = 'Sending with SendGrid is Fun'
-  #    m.html = 'your password is : '
-  #    end
-  # $sendgrid.send(email)
   end
 
   def new

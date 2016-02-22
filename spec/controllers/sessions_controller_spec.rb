@@ -49,7 +49,7 @@ RSpec.describe SessionsController, type: :controller do
       expect(response).to redirect_to '/'
     end
   end
-    describe 'GET login' do
+    describe 'POST login' do
     context 'with a valid new user' do
       before(:each) do
         User.delete(User.find_by(email: 'kyle@gmail.com'))
@@ -57,10 +57,14 @@ RSpec.describe SessionsController, type: :controller do
         @user.save
       end
       it 'should establish a session and redirect to manage user profile' do
-        get :create, email: 'kyle@gmail.com', password: 'password'
+        post :create,
+            email: 'kyle@gmail.com', 
+            password: 'password'
         expect(session[:user_id]).to eq(@user.id)
-         # expect(@user).to receive(:update_attribute).with(:activated,true).and_return(true)
         expect(response).to redirect_to update_profile_path(@user.id)
+        # Refetch user for updated attributes
+        @user = User.find(@user.id)
+        expect(@user.activated).to eq(true)
        end
     end
     context 'with an invalid user' do

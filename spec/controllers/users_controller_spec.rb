@@ -13,6 +13,7 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+  
   describe 'GET #show' do
     context 'while signed in' do
       before(:each) do
