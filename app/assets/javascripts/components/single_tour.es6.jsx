@@ -106,7 +106,6 @@ class SingleTour extends React.Component {
           tour_id={this.props.tour_id}
           points_url={this.props.points_url}
           new_tour_point_url={this.props.new_tour_point_url}
-          max_rank_url={this.props.max_rank_url}
           />
       </div>
     );

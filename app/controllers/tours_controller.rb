@@ -39,12 +39,6 @@ class ToursController < ApplicationController
 	  api_response(items)
 	end
 
-	def max_rank
-		tour = Tour.find(params[:id])
-		rank = TourPoint.where('tour_id' => tour.id).maximum('rank')
-		render text: rank.to_i + 1
-	end
-
 	def new
 	  @tour = Tour.new
 	  @audience_options = Audience.all.map do |audience|

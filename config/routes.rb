@@ -46,7 +46,6 @@ Rails.application.routes.draw do
   get '/tours/:id/edit', to: 'tours#edit',as: :edit_tour
   post '/tours', to: 'tours#create', as: :create_tour
   patch '/tours/:id', to: 'tours#update', as: :update_tour
-  get '/tours/max_rank/:id', to: 'tours#max_rank', as: :tour_max_rank
 
   # Tours Points
   get '/tours_points', to: 'tours_points#new'

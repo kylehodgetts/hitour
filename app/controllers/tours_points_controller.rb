@@ -10,7 +10,17 @@ class ToursPointsController < ApplicationController
 		end
 	end
 
+	# Returns the max rank for
+	# Specific Tour
+	def max_rank(tour_id)
+		tour = Tour.find(tour_id)
+		rank = TourPoint.where('tour_id' => tour.id).maximum('rank')
+		rank.to_i + 1
+	end
+
 	def create
+		tour_id = params[:tour_point][:tour_id]
+		params[:tour_point][:rank] = max_rank(Tour.find(tour_id))
 		@tour_point = TourPoint.new(point_data_params)
 		if @tour_point.save
 			render json: ['Succesfully added link between tour and point']

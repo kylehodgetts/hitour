@@ -51,18 +51,6 @@ class NewTourPoint extends React.Component {
         });
       }.bind(this)
     });
-    //Get Max Rank for specific tour
-    $.ajax({
-      url: this.props.max_rank_url,
-      type: "GET",
-      dataType: "json",
-      cache: false,
-      success: function(data){
-        this.setState({
-          max_rank: data
-        });
-      }.bind(this)
-    });
   }
 
   render () {
@@ -77,14 +65,13 @@ class NewTourPoint extends React.Component {
                 <select name="tour_point[point_id]">
                   {this.state.points.map(function(point) {
                     return (
-                      <option value={point.id} key={point.id}>{point.data}</option>
+                      <option value={point.id} key={point.id} >{point.data}</option>
                     );
                   }, this)}
                 </select>
                 <label>Point Name</label>
               </div>
             </div>
-            <input value={this.state.max_rank} type="hidden" name="tour_point[rank]" />
             <button className="btn right blue waves-effect waves-light"
                     type="submit" name="action">Submit
               <i className="material-icons right">send</i>
