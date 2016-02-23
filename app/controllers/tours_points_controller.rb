@@ -31,6 +31,13 @@ class ToursPointsController < ApplicationController
 
 	def destroy
 		@tour_point = TourPoint.find(params[:id])
+		# Update ranks of other tour_points
+		TourPoint.where(tour_id: @tour_point.tour.id).each do |tp|
+			if tp.rank.to_i > @tour_point.rank.to_i
+				tp.rank = tp.rank - 1
+				tp.save
+			end
+		end
 		@tour_point.destroy
 		render json: ['Succesfully deleted link between tour and point']
 	end
