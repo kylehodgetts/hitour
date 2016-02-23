@@ -25,9 +25,53 @@ class ToursPointsController < ApplicationController
 		render json: ['Succesfully deleted link between tour and point']
 	end
 
+	def increase_rank
+		tour_point = TourPoint.find(params[:id])
+		# Check if tour point has rank + 1
+		# If so - swap them
+		updated = false
+		TourPoint.where('tour_id' => tour_point.tour.id).each do |tp|
+			if tp.rank == tour_point.rank + 1
+				tp.rank = tour_point.rank
+				tour_point.rank = tour_point.rank + 1
+				tp.save
+				tour_point.save
+				updated = true
+				break
+			end
+		end
+		if updated
+			render json: ["Succesfully increased rank to #{tour_point.rank}"]
+		else
+			render json: ['No change in rank']
+		end
+	end
+
+	def decrease_rank
+		tour_point = TourPoint.find(params[:id])
+		# Check if tour point has rank - 1
+		# If so - swap them
+		updated = false
+		TourPoint.where('tour_id' => tour_point.tour.id).each do |tp|
+			if tp.rank == tour_point.rank - 1
+				tp.rank = tour_point.rank
+				tour_point.rank = tour_point.rank - 1
+				tp.save
+				tour_point.save
+				updated = true
+				break
+			end
+		end
+		if updated
+			render json: ["Succesfully decreased rank to #{tour_point.rank}"]
+		else
+			render json: ['Couldnt update rank']
+		end
+	end
+
 		private
 
 	def point_data_params
-		params.require(:tour_point).permit(:tour_id, :point_id,:rank)
+		params.require(:tour_point).permit(:tour_id, :point_id, :rank)
 	end
 end

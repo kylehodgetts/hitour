@@ -38,6 +38,7 @@ class NewTourPoint extends React.Component {
   }
 
   handleLoadDataFromServer() {
+    //Get All Points
     $.ajax({
       url: this.props.points_url,
       type: "GET",
@@ -50,6 +51,18 @@ class NewTourPoint extends React.Component {
         });
       }.bind(this)
     });
+    //Get Max Rank for specific tour
+    $.ajax({
+      url: this.props.max_rank_url,
+      type: "GET",
+      dataType: "json",
+      cache: false,
+      success: function(data){
+        this.setState({
+          max_rank: data
+        });
+      }.bind(this)
+    });
   }
 
   render () {
@@ -58,7 +71,7 @@ class NewTourPoint extends React.Component {
         <div className="card">
           <span className="card-title">Add Points</span>
           <form id="tourPointForm" className="card-content">
-            <input value={this.props.tour_id} className="active" type="hidden" name="tour_point[tour_id]" />
+            <input value={this.props.tour_id} type="hidden" name="tour_point[tour_id]" />
             <div className="row">
               <div className="input-field col s12">
                 <select name="tour_point[point_id]">
@@ -71,13 +84,7 @@ class NewTourPoint extends React.Component {
                 <label>Point Name</label>
               </div>
             </div>
-            <div className="row">
-              <div className="input-field col s12">
-                <p className="range-field">
-                  Rank<input type="range" name="tour_point[rank]" min="0" max="50"/>
-                </p>
-              </div>
-            </div>
+            <input value={this.state.max_rank} type="hidden" name="tour_point[rank]" />
             <button className="btn right blue waves-effect waves-light"
                     type="submit" name="action">Submit
               <i className="material-icons right">send</i>

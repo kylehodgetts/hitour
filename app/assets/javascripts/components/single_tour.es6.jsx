@@ -55,6 +55,23 @@ class SingleTour extends React.Component {
     });
   }
 
+  handlePostDataToServer(rankUrl,e) {
+    e.preventDefault();
+    $.ajax({
+      url: rankUrl,
+      type: "POST",
+      dataType: "json",
+      success: function(data){
+        Materialize.toast(data, 3000, 'rounded');
+        console.log("Success " + data);
+      }.bind(this),
+      error: function(err){
+        Materialize.toast('There was an issue updating rank. Please contact admin.', 3000, 'rounded');
+        console.log(err);
+      }.bind(this)
+    });
+  }
+
   render () {
     var _this = this;
     return (
@@ -66,7 +83,13 @@ class SingleTour extends React.Component {
             return (
               <div key={point.id} className="collection-item">
                 <div>
-                  {point.name} with rank {point.rank}
+                  <a id={point.id} href="#" onClick={_this.handlePostDataToServer.bind(this, point.increase_url)}  className="secondary-content">
+                    <i className=" blue-text material-icons">call_received</i>
+                  </a>
+                  <a id={point.id} href="#" onClick={_this.handlePostDataToServer.bind(this, point.decrease_url)} className="secondary-content">
+                    <i className=" blue-text material-icons">call_made</i>
+                  </a>
+                  {point.name}
                   <a id={point.id} href={point.delete_url} className="secondary-content" key={point.id}
                              onClick={_this.handleDeleteDataFromServer.bind(this, point.delete_url)}>
                   <i className=" blue-text material-icons">delete_forever</i>
@@ -83,6 +106,7 @@ class SingleTour extends React.Component {
           tour_id={this.props.tour_id}
           points_url={this.props.points_url}
           new_tour_point_url={this.props.new_tour_point_url}
+          max_rank_url={this.props.max_rank_url}
           />
       </div>
     );

@@ -19,13 +19,15 @@ class ToursController < ApplicationController
 	def show
 	  @tour = Tour.find(params[:id])
 	  @audience = Audience.find(@tour.audience_id)
-	  @tour_points = TourPoint.where('tour_id' => params[:id]).map do |tp|
+	  @tour_points = TourPoint.where('tour_id' => params[:id]).order("rank").map do |tp|
 	  		{
 	  			id:tp.point.id,
 	  			name:tp.point.name,
 	  			rank:tp.rank,
 	  			show_url: point_path(tp.point),
-	  			delete_url: delete_tour_point_path(tp)
+	  			delete_url: delete_tour_point_path(tp),
+	  			increase_url: increase_tour_point_path(tp),
+	  			decrease_url: decrease_tour_point_path(tp)
 	  		}
 	  end
 	  @tour_points = [] if @tour_points.nil?
@@ -35,6 +37,12 @@ class ToursController < ApplicationController
       	points: @tour_points
 	  ]
 	  api_response(items)
+	end
+
+	def max_rank
+		tour = Tour.find(params[:id])
+		rank = TourPoint.where('tour_id' => tour.id).maximum('rank')
+		render text: rank.to_i + 1
 	end
 
 	def new
