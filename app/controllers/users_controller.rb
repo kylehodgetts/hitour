@@ -30,7 +30,7 @@ class UsersController < ApplicationController
      m.html =  welcomeHtml+emailHtml+passwordHtml+directionHtml
      end
     $sendgrid.send(email)
-    @user.save
+    flash[:user_save] = 'true' if @user.save
     redirect_to users_path
   end
 
