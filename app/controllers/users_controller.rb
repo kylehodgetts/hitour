@@ -32,8 +32,8 @@ class UsersController < ApplicationController
     @user = User.find(params['id'])
     password_params = params['user']
     if password_params['password'].eql? password_params['cpassword']
-      @user.password = params['password']
-      @user.save
+      params[:user][:password] = password_params['cpassword']
+      @user.update_attributes(user_params)
       render json: ['Successfully updated password'], status: 200
     else
       render json: ['Passwords must be non empty and match'], status: 200
@@ -49,6 +49,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email)
+    params.require(:user).permit(:email,:password)
   end
 end

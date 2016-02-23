@@ -3,7 +3,7 @@ class GenericList extends React.Component {
     super(props);
     this.state =  {
       data: [],
-      pollInterval: this.props.pollInterval || 2000,
+      pollInterval: this.props.pollInterval || 1000,
       intervalId: 0
     };
   }
@@ -24,7 +24,6 @@ class GenericList extends React.Component {
     $.ajax({
       url: this.props.getUrl,
       type: "GET",
-      dataType: "json",
       cache: false,
       success: function(data){
         this.setState({
@@ -39,7 +38,6 @@ class GenericList extends React.Component {
     $.ajax({
       url: deleteUrl,
       type: "DELETE",
-      dataType: "json",
       success: function(data){
         Materialize.toast(data, 3000, 'rounded');
       }.bind(this),
