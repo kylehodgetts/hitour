@@ -13,6 +13,21 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+    # describe 'POST #create' do
+    #   it 'should create the user entry' do
+    #     User.delete(User.find_by(email:'phileas.hocquard@gmail.com'))
+    #     post :create, user:
+    #       {
+    #         email: 'phileas.hocquard@gmail.com'
+    #       }
+    #       @user = User.find_by(email:'phileas.hocquard@gmail.com')
+    ## I should somehow get the actual password of user which is a random key of size 25.
+    #   expect(:password.length).to eq 25
+    #   expect(flash[:user_save]).to eq 'true'
+    #   end
+    # end
+
+
   
   describe 'GET #show' do
     context 'while signed in' do
