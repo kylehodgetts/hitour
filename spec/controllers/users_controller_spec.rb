@@ -13,6 +13,27 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+  describe 'POST #create' do
+      before(:each) do
+        # MUST create a user session to access controller
+        create_user_session
+        User.delete(User.find_by(email:'someone@gmail.com'))
+        post :create, user:
+          {
+            email: 'someone@gmail.com'
+          }
+        @user = User.find_by(email: 'someone@gmail.com')
+      end
+      describe 'add an unactivated user' do
+        it 'should have a password of size 60 and the user should be saved' do
+          expect(@user.password_digest.length).to eq 60
+          expect(response).to have_http_status  '200'
+          parsed_body = JSON.parse(response.body)
+          expect(parsed_body[0]).to eq('Added user!')
+        end
+      end
+  end
+
   describe 'GET #show' do
     context 'while signed in' do
       before(:each) do

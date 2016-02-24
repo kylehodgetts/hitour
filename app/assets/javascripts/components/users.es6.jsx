@@ -14,6 +14,7 @@ class Users extends React.Component {
         },
         error: function(err){
           console.log("Error" + err);
+          console.log(err);
           Materialize.toast('ERR: Succesfully added new user!', 3000, 'rounded');
         }
       });
@@ -25,8 +26,8 @@ class Users extends React.Component {
       <div>
         <GenericList getUrl={this.props.getUrl} />
         <form id="userForm">
-          <label htmlFor="user[name]">User Email</label>
-          <input type="text" name="user[name]" />
+          <label htmlFor="user[email]">User Email</label>
+          <input type="text" name="user[email]" id="user[email]" />
           <button className="btn right blue waves-effect waves-light"
                   type="submit" name="action">Submit
             <i className="material-icons right">send</i>
