@@ -22,18 +22,19 @@ class UsersController < ApplicationController
   end
 
   def create
-    randomSequence= [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
+    randomSequence= [('A'..'Z')].map { |i| i.to_a }.flatten
     params[:user][:password] = ""+(0...25).map { randomSequence[rand(randomSequence.length)] }.join
     @user = User.new(user_params)
     @user.activated = false
-    welcomeHtml = "<h2> You have received an invitation to join the HiTour CMS. </h2></br>"
-    emailHtml = "<h3>Use your Email address : </br><b>#{@user.email}</b> </h5>"
-    passwordHtml = "<h3> and the following password:</h3></br><b>#{@user.password}</b>"
-    directionHtml = "<h3>To login to :<a href="'https://localhost:3000/login'">HiTour.</a></h3></br><h6>You will be able to reset your password once logged in.</h6>"
+    welcomeHtml = "<h3> HiTour - Please Activate Your Account</h3></br></br>"
+    emailHtml ="<h3>Email: <b><a href="'#'" style="'text-decoration:none !important; text-decoration:none;'">#{@user.email.upcase}</b> </h3>"
+    passwordHtml = "</br><h3>Password: <b>#{@user.password}</b></h3>"
+    url= '<a href="'+request.original_url+'">Activate Account</a>'
+    directionHtml ="<h3>"+url+" (Please set a password, once activated.)</h3></br>"
     email = SendGrid::Mail.new do |m|
      m.to      = "#{@user.email}"
      m.from    = 'services@Hitour.com'
-     m.subject = 'HiTour! content management system invitation.'
+     m.subject = 'HiTour - Email Activation'
      m.html =  welcomeHtml+emailHtml+passwordHtml+directionHtml
      end
     $sendgrid.send(email)
