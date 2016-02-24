@@ -2,7 +2,7 @@ class DataViewer extends React.Component {
   checkIfVideo () {
     var videoExtensions = ["mp4","avi","mov","avchd","flv","mpg","mpeg-4","wmv"];
     for(var i = 0;i < videoExtensions.length;i++){
-      if((this.props.url).indexOf(videoExtensions[i]) > -1){
+      if((this.props.url).toLowerCase().indexOf(videoExtensions[i]) > -1){
         console.log('Contains: '+videoExtensions[i]);
         return true;
       }
@@ -12,7 +12,7 @@ class DataViewer extends React.Component {
   checkIfImage () {
     var imageExtensions = ["jpg","png","gif"];
     for(var i = 0;i < imageExtensions.length;i++){
-      if((this.props.url).indexOf(imageExtensions[i]) > -1){
+      if((this.props.url).toLowerCase().indexOf(imageExtensions[i]) > -1){
         return true;
       }
     }
