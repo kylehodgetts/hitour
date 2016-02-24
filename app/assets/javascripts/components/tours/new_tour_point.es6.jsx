@@ -56,8 +56,8 @@ class NewTourPoint extends React.Component {
   render () {
     return (
       <div>
-        <div className="card">
-          <span className="card-title">Add Points</span>
+        <div>
+          <span>Add Points</span>
           <form id="tourPointForm" className="card-content">
             <input value={this.props.tour_id} type="hidden" name="tour_point[tour_id]" />
             <div className="row">
@@ -86,5 +86,7 @@ class NewTourPoint extends React.Component {
 NewTourPoint.displayName = "NewTourPoint";
 NewTourPoint.propTypes = {
   new_tour_point_url:React.PropTypes.string.isRequired,
-  points_url: React.PropTypes.string.isRequired
+  points_url: React.PropTypes.string.isRequired,
+  pollInterval: React.PropTypes.number,
+  tour_id: React.PropTypes.string
 }

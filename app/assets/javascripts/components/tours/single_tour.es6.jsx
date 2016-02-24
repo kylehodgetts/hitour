@@ -55,7 +55,7 @@ class SingleTour extends React.Component {
     });
   }
 
-  handlePostDataToServer(rankUrl,e) {
+  handlePostDataToServer(rankUrl, e) {
     e.preventDefault();
     $.ajax({
       url: rankUrl,
