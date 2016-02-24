@@ -26,9 +26,11 @@ class UsersController < ApplicationController
     params[:user][:password] = ""+(0...25).map { randomSequence[rand(randomSequence.length)] }.join
     @user = User.new(user_params)
     @user.activated = false
+    #This will require to be changed to make it more convenient and esthetic.
     welcomeHtml = "<h2> You have received an invitation to join the HiTour CMS. </h2></br>"
     emailHtml = "<h3>Use your Email address : </br><b>#{@user.email}</b> </h5>"
     passwordHtml = "<h3> and the following password:</h3></br><b>#{@user.password}</b>"
+                                                        #change the url
     directionHtml = "<h3>To login to :<a href="'https://localhost:3000/login'">HiTour.</a></h3></br><h6>You will be able to reset your password once logged in.</h6>"
     email = SendGrid::Mail.new do |m|
      m.to      = "#{@user.email}"
@@ -37,8 +39,7 @@ class UsersController < ApplicationController
      m.html =  welcomeHtml+emailHtml+passwordHtml+directionHtml
      end
     $sendgrid.send(email)
-    flash[:user_save] = 'true' if @user.save
-    render json: ['Added user!']
+    render json: ['Added user!'], status: 200 if @user.save
   end
 
   def update
