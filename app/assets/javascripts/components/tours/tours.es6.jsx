@@ -65,5 +65,6 @@ class Tours extends React.Component {
 Tours.displayName = "Tours";
 Tours.propTypes = {
   getUrl: React.PropTypes.string.isRequired,
-  postUrl: React.PropTypes.string.isRequired
+  postUrl: React.PropTypes.string.isRequired,
+  audiences: React.PropTypes.object
 }

@@ -83,12 +83,6 @@ class SingleTour extends React.Component {
             return (
               <div key={point.id} className="collection-item">
                 <div>
-                  <a id={point.id} href="#" onClick={_this.handlePostDataToServer.bind(this, point.increase_url)}  className="secondary-content">
-                    <i className=" blue-text material-icons">call_received</i>
-                  </a>
-                  <a id={point.id} href="#" onClick={_this.handlePostDataToServer.bind(this, point.decrease_url)} className="secondary-content">
-                    <i className=" blue-text material-icons">call_made</i>
-                  </a>
                   {point.name}
                   <a id={point.id} href={point.delete_url} className="secondary-content" key={point.id}
                              onClick={_this.handleDeleteDataFromServer.bind(this, point.delete_url)}>
@@ -96,6 +90,12 @@ class SingleTour extends React.Component {
                   </a>
                   <a id={point.id} href={point.show_url} className="secondary-content">
                     <i className=" blue-text material-icons">launch</i>
+                  </a>
+                  <a id={point.id} href="#" onClick={_this.handlePostDataToServer.bind(this, point.increase_url)}  className="secondary-content">
+                    <i className=" blue-text material-icons">call_received</i>
+                  </a>
+                  <a id={point.id} href="#" onClick={_this.handlePostDataToServer.bind(this, point.decrease_url)} className="secondary-content">
+                    <i className=" blue-text material-icons">call_made</i>
                   </a>
                 </div>
               </div>
@@ -114,7 +114,9 @@ class SingleTour extends React.Component {
 
 SingleTour.displayName = "SingleTour";
 SingleTour.propTypes = {
+  new_tour_point_url: React.PropTypes.string.isRequired,
   showUrl: React.PropTypes.string.isRequired,
   points_url:React.PropTypes.string.isRequired,
-  tour_id: React.PropTypes.number.isRequired
+  tour_id: React.PropTypes.number.isRequired,
+  pollInterval: React.PropTypes.number
 }
