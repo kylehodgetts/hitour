@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   post '/points', to: 'points#create', as: :create_point
   delete '/points/:id', to: 'points#destroy', as: :delete_point
 
-
   # Data
   get '/data', to: 'data#index', as: :data
   get '/data/show/:id', to: 'data#show', as: :datum
@@ -74,7 +73,6 @@ Rails.application.routes.draw do
   # Users
   resources :users
   get '/users', to: 'users#index'
-  get '/users', to: 'users#new'
   post '/users', to: 'users#create', as: :create_user
   post '/users/:id', to: 'users#update', as: :update_profile
   delete '/users/:id', to: 'users#destroy', as: :delete_user
