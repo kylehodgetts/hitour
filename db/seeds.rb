@@ -72,24 +72,24 @@ point5 = Point.create(name: 'Nuclear Medicine')
 
 # Point Data
 # For Point 1
-PointDatum.create(point_id: point1.id, datum_id: datum1.id)
-PointDatum.create(point_id: point1.id, datum_id: datum2.id)
+PointDatum.create(point_id: point1.id, datum_id: datum1.id, rank: '1')
+PointDatum.create(point_id: point1.id, datum_id: datum2.id, rank: '2')
 
 # For Point 2
-PointDatum.create(point_id: point2.id, datum_id: datum3.id)
-PointDatum.create(point_id: point2.id, datum_id: datum4.id)
+PointDatum.create(point_id: point2.id, datum_id: datum3.id, rank: '1')
+PointDatum.create(point_id: point2.id, datum_id: datum4.id, rank: '2')
 
 # For Point 3
-PointDatum.create(point_id: point3.id, datum_id: datum5.id)
-PointDatum.create(point_id: point3.id, datum_id: datum6.id)
+PointDatum.create(point_id: point3.id, datum_id: datum5.id, rank: '1')
+PointDatum.create(point_id: point3.id, datum_id: datum6.id, rank: '2')
 
 # For Point 4
-PointDatum.create(point_id: point4.id, datum_id: datum7.id)
-PointDatum.create(point_id: point4.id, datum_id: datum8.id)
+PointDatum.create(point_id: point4.id, datum_id: datum7.id, rank: '1')
+PointDatum.create(point_id: point4.id, datum_id: datum8.id, rank: '2')
 
 # For Point 5
-PointDatum.create(point_id: point5.id, datum_id: datum9.id)
-PointDatum.create(point_id: point5.id, datum_id: datum10.id)
+PointDatum.create(point_id: point5.id, datum_id: datum9.id, rank: '1')
+PointDatum.create(point_id: point5.id, datum_id: datum10.id, rank: '2')
 
 # Tours - With Point assignments
 tour1 = Tour.create(name: 'Imaging Tour: A-Level', audience_id: alevel.id)
