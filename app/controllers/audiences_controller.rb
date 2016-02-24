@@ -1,7 +1,15 @@
 class AudiencesController < ApplicationController
   before_action :authenticate_user!
   def index
-    @audiences = Audience.all
+    items = Audience.all
+    @audiences = []
+    items.each do |item|
+      @audiences << {
+        id: item.id,
+        data: item.name,
+        delete_url: delete_audience_path(item) }
+    end
+    api_response(@audiences)
   end
 
   def show
@@ -32,6 +40,12 @@ class AudiencesController < ApplicationController
     else
       redirect_to new_audience_path
     end
+  end
+
+  def destroy
+    audience = Audience.find(params[:id])
+    audience.destroy
+    render json: ['Successfully deleted audience'], status: 200
   end
 
   private

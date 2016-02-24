@@ -1,41 +1,50 @@
 class Editprofileform extends React.Component {
-  renderFlash() {
-    var colorClass = "card-panel red lighten-1";
-    if(this.props.saveSucc == "true") {
-      colorClass = "card-panel teal lighten-2";
-    }
-    return(
-      <div className={colorClass}>
-        <h6 className="white-text center-align flow-text">
-          {this.props.saveMessage}
-        </h6>
-      </div>
-    );
+  componentDidMount() {
+    var patchUrl = this.props.patchUrl;
+    $('#updateForm').on('submit',function(e){
+      e.preventDefault();
+      $.ajax({
+        url: patchUrl,
+        type: "POST",
+        dataType: "json",
+        data: $(this).serialize(),
+        success: function(data){
+          Materialize.toast(data, 3000, 'rounded');
+        },
+        error: function(err){
+          console.log("Error" + err);
+        }
+      });
+      $('#updateForm').trigger("reset");
+      document.getElementById('password').focus();
+    });
   }
+
   render () {
     return (
       <div className="row">
-        {this.props.saveMessage &&
-          this.renderFlash()
-        }
-        <form className="col s12" method="post">
+        <form id="updateForm" className="col s12" method="post">
+          <input type="hidden" name="_method" value="patch" />
           <div className="row">
             <div className="input-field col s12">
-              <input name="email" disabled value={this.props.currentUser.email}
+              <input name="user[email]" disabled value={this.props.currentUser.email}
                      id="email" type="email" className="validate" />
-              <label htmlFor="email" data-error="wrong" data-success="right">
+              <label htmlFor="email" className="active" data-error="wrong" data-success="right">
                 Email
               </label>
             </div>
           </div>
           <div className="row">
             <div className="input-field col s6">
-              <input name="password" id="password" type="password" className="validate" />
+              <input name="user[password]" id="password" type="password"
+                     className="validate" />
               <label data-error="Password must be at least 6 characters long"
                      htmlFor="password">New Password</label>
             </div>
             <div className="input-field col s6">
-              <input name="cpassword" pattern=".{6,}" required id="confirm-password" type="password" className="validate" />
+              <input name="user[cpassword]" pattern=".{6,}"
+                     required id="confirm-password" type="password"
+                     className="validate" />
               <label data-error="Password must be at least 6 characters long"
                      htmlFor="confirm-password">Confirm Password</label>
             </div>
@@ -56,6 +65,5 @@ class Editprofileform extends React.Component {
 Editprofileform.displayName = "Editprofileform"
 Editprofileform.propTypes = {
   currentUser: React.PropTypes.object.isRequired,
-  saveSucc: React.PropTypes.bool,
-  saveMessage: React.PropTypes.string
+  patchUrl: React.PropTypes.string.isRequired
 }

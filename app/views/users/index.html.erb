@@ -1,1 +1,2 @@
-<%= react_component('Userlist', users: @users, link_path: new_user_path) %>
+<%= react_component('Users', getUrl: users_path+".json",
+                             postUrl: create_user_path) %>

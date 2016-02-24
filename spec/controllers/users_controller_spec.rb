@@ -56,7 +56,7 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  describe 'POST #update' do
+  describe 'PATCH #update' do
     before(:each) do
       User.delete(User.find_by(email: 'kyle@gmail.com'))
       @user = User.create(email: 'kyle@gmail.com', password: 'password')
@@ -66,23 +66,28 @@ RSpec.describe UsersController, type: :controller do
     describe 'with password not matching confirm password' do
       it 'should not update the user entry' do
         password = 'new_password'
-        post :update, id: @user.id,
-                      user: @user,
-                      password: password,
-                      cpassword: 'password1'
-        expect(flash[:user_save]).to eq 'false'
+        patch :update, id: @user.id, user:
+          {
+            email: @user.email,
+            password: password,
+            cpassword: 'password'
+          }
+        parsed_body = JSON.parse(response.body)
+        expect(parsed_body[0]).to eq('Passwords must be non empty and match')
       end
     end
 
     describe 'with password matching confirm password' do
       it 'should update the user entry' do
         password = 'new_password'
-        post :update, id: @user.id,
-                      user: @user,
-                      password: password,
-                      cpassword: password
-        @user.save
-        expect(flash[:user_save]).to eq 'true'
+        patch :update, id: @user.id, user:
+          {
+            email: @user.email,
+            password: password,
+            cpassword: password
+          }
+        parsed_body = JSON.parse(response.body)
+        expect(parsed_body[0]).to eq('Successfully updated password')
       end
     end
   end

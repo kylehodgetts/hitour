@@ -1,8 +1,16 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-
   def index
-    @users = User.all
+    items = User.where.not(id: session[:user_id])
+    @users = []
+    items.each do |item|
+      @users << {
+        id: item.id,
+        data: item.email + ' Activated:' + item.activated.to_s,
+        delete_url: delete_user_path(item)
+      }
+    end
+    api_response(@users)
   end
 
   def new
@@ -11,7 +19,6 @@ class UsersController < ApplicationController
 
   def show
     redirect_to root_path unless @current_user.id == params[:id].to_i
-    @user = current_user
   end
 
   def create
@@ -31,23 +38,25 @@ class UsersController < ApplicationController
      end
     $sendgrid.send(email)
     flash[:user_save] = 'true' if @user.save
-    redirect_to users_path
+    render json: ['Added user!']
   end
 
   def update
-    flash[:user_save] = 'false'
-    flash[:save_message] = 'Passwords must match and be non-empty!'
-    @user = User.find_by(params[:email])
-    unless params[:password] != params[:cpassword]
-      @user.password = params[:password]
-      flash[:user_save] = 'true' if @user.save
-      flash[:save_message] = 'Profile updated successfully!'
+    @user = User.find(params['id'])
+    password_params = params['user']
+    if password_params['password'].eql? password_params['cpassword']
+      params[:user][:password] = password_params['cpassword']
+      @user.update_attributes(user_params)
+      render json: ['Successfully updated password'], status: 200
+    else
+      render json: ['Passwords must be non empty and match'], status: 200
     end
-    redirect_to @user
   end
 
   def destroy
-    # Delete a user
+    user = User.find(params[:id])
+    user.delete
+    render json: ['Successfully deleted user'], status: 200
   end
 
   private

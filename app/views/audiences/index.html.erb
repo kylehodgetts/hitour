@@ -1,10 +1,2 @@
-<h2>Audiences</h2>
-<div class="collection">
-<% @audiences.each do |audience| %>
-<a class="collection-item" href=<%= audience_path(audience) %> ><%= audience.name %>
-</a>
-<% end %>
-</div>
-<%= link_to 'New Audience', new_audience_path %>
-
-
+<%= react_component('Audience', getUrl: audiences_path + '.json',
+                                postUrl: create_audience_path) %>

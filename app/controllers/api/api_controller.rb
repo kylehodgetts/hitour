@@ -1,6 +1,7 @@
 module Api
   class ApiController < ApplicationController
     before_action :api_authenticate!
+
     def audiences
       render json: Audience.all
     end

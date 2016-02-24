@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'points_data/new'
   delete '/points_data/:id', to: 'points_data#destroy', as: :delete_points_data
   get '/points_data/:id', to: 'points_data#edit', as: :edit_points_datum
-  patch '/points_data/:id',to: 'points_data#update', as: :update_points_datum
+  patch '/points_data/:id', to: 'points_data#update', as: :update_points_datum
 
   # Points
   get 'tours_points/new'
@@ -32,19 +32,16 @@ Rails.application.routes.draw do
   post '/data_audiences', to: 'data_audiences#create'
 
   # Audiences
-  get '/audiences/show/:id', to: 'audiences#show', as: :audience
   get '/audiences', to: 'audiences#index', as: :audiences
-  get '/audiences/new', to: 'audiences#new', as: :new_audience
-  get '/audiences/:id/edit', to: 'audiences#edit', as: :edit_audience
-  post '/audiences', to: 'audiences#create'
-  patch '/audiences/:id', to: 'audiences#update'
+  post '/audiences', to: 'audiences#create', as: :create_audience
+  delete '/audiences/:id', to: 'audiences#destroy', as: :delete_audience
 
   # Tours
-  get '/tours', to: 'tours#index',as: :tours
+  get '/tours', to: 'tours#index', as: :tours
   get '/tours/show/:id', to: 'tours#show', as: :tour
   get '/tours/new', to: 'tours#new', as: :new_tour
   delete '/tours/:id', to: 'tours#destroy', as: :delete_tour
-  get '/tours/:id/edit', to: 'tours#edit',as: :edit_tour
+  get '/tours/:id/edit', to: 'tours#edit', as: :edit_tour
   post '/tours', to: 'tours#create'
   patch '/tours/:id', to: 'tours#update', as: :update_tour
 
@@ -64,7 +61,7 @@ Rails.application.routes.draw do
   get '/tours_audiences/new', to: 'tours_audiences#new', as: :new_tours_audience
   post '/tour_audiences', to: 'tours_audiences#create'
 
-  #Session handling
+  # Session handling
   get 'register', to: 'users#new', as: :register
   get 'login', to: 'sessions#new', as: :login
   post 'login', to: 'sessions#create'
@@ -76,9 +73,11 @@ Rails.application.routes.draw do
   get '/users', to: 'users#new'
   post '/users', to: 'users#create', as: :create_user
   post '/users/:id', to: 'users#update', as: :update_profile
+  delete '/users/:id', to: 'users#destroy', as: :delete_user
 
   # API
   namespace :api do
+    get ':access_key/users', to: 'api#users'
     get ':access_key/audiences', to: 'api#audiences'
     get ':access_key/tours', to: 'api#tours'
     get ':access_key/points', to: 'api#points'

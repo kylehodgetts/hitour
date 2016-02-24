@@ -1,6 +1,5 @@
 <%= react_component('Editprofileform',
                     {
-                      currentUser: @current_user,
-                      saveSucc: flash[:user_save],
-                      saveMessage: flash[:save_message]
+                      currentUser: current_user,
+                      patchUrl: update_profile_path(current_user)
                     })%>
