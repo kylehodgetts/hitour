@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'points_data/new'
   delete '/points_data/:id', to: 'points_data#destroy', as: :delete_points_data
   get '/points_data/:id', to: 'points_data#edit', as: :edit_points_datum
-  patch '/points_data/:id',to: 'points_data#update', as: :update_points_datum
+  patch '/points_data/:id', to: 'points_data#update', as: :update_points_datum
 
   # Points
   get 'tours_points/new'
@@ -39,11 +39,11 @@ Rails.application.routes.draw do
   delete '/audiences/:id', to: 'audiences#destroy', as: :delete_audience
 
   # Tours
-  get '/tours', to: 'tours#index',as: :tours
+  get '/tours', to: 'tours#index', as: :tours
   get '/tours/show/:id', to: 'tours#show', as: :tour
   get '/tours/new', to: 'tours#new', as: :new_tour
   delete '/tours/:id', to: 'tours#destroy', as: :delete_tour
-  get '/tours/:id/edit', to: 'tours#edit',as: :edit_tour
+  get '/tours/:id/edit', to: 'tours#edit', as: :edit_tour
   post '/tours', to: 'tours#create', as: :create_tour
   patch '/tours/:id', to: 'tours#update', as: :update_tour
 
@@ -65,16 +65,18 @@ Rails.application.routes.draw do
   get '/tours_audiences/new', to: 'tours_audiences#new', as: :new_tours_audience
   post '/tour_audiences', to: 'tours_audiences#create'
 
-  #Session handling
+  # Session handling
+  get 'register', to: 'users#new', as: :register
   get 'login', to: 'sessions#new', as: :login
   post 'login', to: 'sessions#create'
   get 'logout', to: 'sessions#destroy', as: :logout
 
   # Users
-  get '/users', to: 'users#index', as: :users
-  get '/users/:id', to: 'users#show', as: :user
-  post '/users', to: 'users#create', as: :new_user
-  patch '/users/:id', to: 'users#update', as: :update_profile
+  resources :users
+  get '/users', to: 'users#index'
+  get '/users', to: 'users#new'
+  post '/users', to: 'users#create', as: :create_user
+  post '/users/:id', to: 'users#update', as: :update_profile
   delete '/users/:id', to: 'users#destroy', as: :delete_user
 
   # API
