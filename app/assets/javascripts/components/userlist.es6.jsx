@@ -9,6 +9,7 @@ class Userlist extends React.Component {
               <div key={user.id} className="collection-item">
                 <div>
                   {user.email} &nbsp;&nbsp; Activated: {(user.activated?<b>true</b>:<b>false</b>)}
+                  //Should add a confirmation box
                   <a href="#!" className="secondary-content">
                     <i className="material-icons">delete_forever</i>
                   </a>

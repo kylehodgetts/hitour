@@ -26,11 +26,11 @@ class UsersController < ApplicationController
     params[:user][:password] = ""+(0...25).map { randomSequence[rand(randomSequence.length)] }.join
     @user = User.new(user_params)
     @user.activated = false
-    #This will require to be changed to make it more convenient and esthetic.
+    # TODO This will require to be changed to make it more convenient and esthetic.
     welcomeHtml = "<h2> You have received an invitation to join the HiTour CMS. </h2></br>"
     emailHtml = "<h3>Use your Email address : </br><b>#{@user.email}</b> </h5>"
     passwordHtml = "<h3> and the following password:</h3></br><b>#{@user.password}</b>"
-                                                        #change the url
+                                                       # TODO change the url
     directionHtml = "<h3>To login to :<a href="'https://localhost:3000/login'">HiTour.</a></h3></br><h6>You will be able to reset your password once logged in.</h6>"
     email = SendGrid::Mail.new do |m|
      m.to      = "#{@user.email}"
@@ -55,6 +55,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    #TODO only give the ability to remove a user it has been added by himself or if the user is still unactivated
     user = User.find(params[:id])
     user.delete
     render json: ['Successfully deleted user'], status: 200
