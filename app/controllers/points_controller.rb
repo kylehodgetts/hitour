@@ -7,33 +7,36 @@ class PointsController < ApplicationController
 		@points.each do |point|
 			@points_qr[point.id] = QRCode.new('#{point.id.to_s} - #{point.name}')
 		end
-	    @points_json = []
-	    @points.each do |item|
-	      @points_json << {
-	        id: item.id,
-	        data: item.name,
-	        delete_url: delete_point_path(item) }
-	    end
-	    api_response(@points_json)
+	  @points_json = []
+	  @points.each do |item|
+		  @points_json << {
+		  	id: item.id,
+		    data: item.name,
+		    delete_url: delete_point_path(item)
+			}
+	  end
+	  api_response(@points_json)
 	end
 
 	def show
 		@point = Point.includes(:data).find(params[:id])
-		@point_data = PointDatum.where(point_id: params[:id]).order("rank").map do |pd|
+		point_data = PointDatum.where(point_id: params[:id]).order("rank").map do |pd|
 			{
-				id: pd.id,
+				id:	pd.id,
 				title: pd.datum.title,
 				url: pd.datum.url,
 				rank: pd.rank,
 				description: pd.datum.description,
 				audiences: pd.datum.audiences,
 				datum_show_url: datum_path(pd.datum),
-				delete_url: delete_points_data_path(pd)
+				delete_url: delete_points_data_path(pd),
+				increase_url: increase_point_datum_path(pd),
+				decrease_url: decrease_point_datum_path(pd)
 			}
 		end
 		items = {
-			point:@point,
-			point_data:@point_data
+		  point: @point,
+		  point_data: point_data
 		}
 		api_response(items)
 	end

@@ -3,7 +3,7 @@ class SinglePoint extends React.Component {
     super(props);
     this.state =  {
       point: [],
-      point_data: [],
+      pointData: [],
       pollInterval: this.props.pollInterval || 2000,
       intervalId: 0
     };
@@ -50,14 +50,50 @@ class SinglePoint extends React.Component {
         $('select').material_select();
         console.log(data);
         this.setState({
-          point: data["point"],
-          point_data: data["point_data"]
+          point: data.point,
+          pointData: data.point_data
         });
       }.bind(this)
     });
   }
 
+  handleDeleteDataFromServer(deleteUrl, e) {
+    e.preventDefault();
+    $.ajax({
+      url: deleteUrl,
+      type: "DELETE",
+      dataType: "json",
+      success: function(data){
+        Materialize.toast(data, 3000, 'rounded');
+        console.log("Success " + data);
+      }.bind(this),
+      error: function(err){
+        Materialize.toast('There was an issue deleting. Please contact admin.', 3000, 'rounded');
+        console.log(err);
+      }.bind(this)
+    });
+  }
+
+  handlePostDataToServer(rankUrl, e) {
+    e.preventDefault();
+    $.ajax({
+      url: rankUrl,
+      type: "POST",
+      dataType: "json",
+      success: function(data){
+        Materialize.toast(data, 3000, 'rounded');
+        console.log("Success " + data);
+      }.bind(this),
+      error: function(err){
+        Materialize.toast('There was an issue updating rank. Please contact admin.', 3000, 'rounded');
+        console.log(err);
+      }.bind(this)
+    });
+  }
+
   render() {
+    console.log(this.state.pointData);
+    var _this = this;
     return (
       <div>
         <div className="row">
@@ -69,19 +105,38 @@ class SinglePoint extends React.Component {
         </div>
         <div className="row">
           <ul className="collapsible" data-collapsible="accordion">
-            {this.state.point_data.map(function(point_data) {
-            return (
-              <li key={point_data.id}>
-                <div className="collapsible-header">
-                  {point_data.rank+". "+point_data.title}
-                </div>
-                <div className="collapsible-body">
-                    <p>{point_data.description}</p>
-                   <DataViewer url={point_data.url} data_id={point_data.id} />
-                </div>
-              </li>
-            );
-          }, this)}
+            {this.state.pointData.map(function(pointData) {
+              return (
+                <li key={pointData.id}>
+                  <div className="collapsible-header">
+                    {pointData.rank+". "+pointData.title}
+                    <a id={pointData.id} href={pointData.delete_url}
+                       className="secondary-content" key={pointData.id}
+                       onClick={_this.handleDeleteDataFromServer.bind(this, pointData.delete_url)}>
+                    <i className=" blue-text material-icons">delete_forever</i>
+                    </a>
+                    <a id={pointData.id} href={pointData.show_url}
+                       className="secondary-content">
+                      <i className=" blue-text material-icons">launch</i>
+                    </a>
+                    <a id={pointData.id} href="#"
+                       onClick={_this.handlePostDataToServer.bind(this, pointData.increase_url)}
+                       className="secondary-content">
+                      <i className=" blue-text material-icons">call_made</i>
+                    </a>
+                    <a id={pointData.id} href="#"
+                       onClick={_this.handlePostDataToServer.bind(this, pointData.decrease_url)}
+                       className="secondary-content">
+                      <i className=" blue-text material-icons">call_received</i>
+                    </a>
+                  </div>
+                  <div className="collapsible-body">
+                      <p>{pointData.description}</p>
+                     <DataViewer url={pointData.url} data_id={pointData.id} />
+                  </div>
+                </li>
+              );
+            }, this)}
           </ul>
         </div>
       </div>
@@ -90,6 +145,7 @@ class SinglePoint extends React.Component {
 }
 SinglePoint.displayName = "SinglePoint";
 SinglePoint.propTypes = {
+  pollInterval: React.PropTypes.number,
   qrCode: React.PropTypes.any,
   getUrl: React.PropTypes.string.isRequired,
   new_point_datum_url: React.PropTypes.string.isRequired
