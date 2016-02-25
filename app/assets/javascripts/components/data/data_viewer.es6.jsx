@@ -32,7 +32,6 @@ class DataViewer extends React.Component {
         var video = $('<video />').addClass("responsive-video");
         video.append($('<source />').attr('src',url));
         video.attr('controls','');
-        video.attr('autoplay','');
         datum_preview.append(video);
     }else{
       var a = $('<a />').attr('href',url);

@@ -88,5 +88,5 @@ NewTourPoint.propTypes = {
   new_tour_point_url:React.PropTypes.string.isRequired,
   points_url: React.PropTypes.string.isRequired,
   pollInterval: React.PropTypes.number,
-  tour_id: React.PropTypes.string
+  tour_id: React.PropTypes.number.isRequired
 }

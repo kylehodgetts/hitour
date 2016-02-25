@@ -19,13 +19,23 @@ class PointsController < ApplicationController
 
 	def show
 		@point = Point.includes(:data).find(params[:id])
-		@datum_ranks = PointDatum.where('point_id' => params[:id])
-		@ranks = {}
-		@datum_ranks.each do |datum_rank|
-			@ranks[datum_rank.datum.id] = datum_rank.rank
+		@point_data = PointDatum.where(point_id: params[:id]).order("rank").map do |pd|
+			{
+				id: pd.id,
+				title: pd.datum.title,
+				url: pd.datum.url,
+				rank: pd.rank,
+				description: pd.datum.description,
+				audiences: pd.datum.audiences,
+				datum_show_url: datum_path(pd.datum),
+				delete_url: delete_points_data_path(pd)
+			}
 		end
-		@data_audiences = Datum.includes(:audiences)
-		@qrcode = QRCode.new('#{@point.id.to_s} - #{@point.name}')
+		items = {
+			point:@point,
+			point_data:@point_data
+		}
+		api_response(items)
 	end
 
 	def edit

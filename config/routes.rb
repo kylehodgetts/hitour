@@ -57,7 +57,7 @@ Rails.application.routes.draw do
   # Points Data
   resources :points_data, only: [:new, :create]
   get '/points_data', to: 'points_data#new', as: :new_points_data
-  post '/point_data', to: 'points_data#create'
+  post '/point_data', to: 'points_data#create', as: :create_point_datum
 
   # Tours Audiences
   get '/tours_audiences', to: 'tours_audiences#new'
