@@ -21,4 +21,3 @@ Newuserform.displayName = "Newuserform";
 Newuserform.propTypes = {
   link_path: React.PropTypes.string.isRequired
 };
-

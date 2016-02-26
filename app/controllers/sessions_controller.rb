@@ -20,10 +20,10 @@ class SessionsController < ApplicationController
       end
 
     elsif @user && !@user.temporarypassword.empty? && (params[:password].eql?@user.temporarypassword)
-      #Reset the password of the user to the resetpassword and remove the previously given temporarypassword.
+      #Reset the password of the user to the temporarypassword and remove the previously given temporarypassword.
           @user.update_attribute(:password,params[:password]) 
-          @user.update_attribute(:temporarypassword,"")
-          @user.authenticate(:temporarypassword)
+          @user.update_attribute(:temporarypassword,'')
+          @user.authenticate(params[:password])
            session[:user_id] = @user.id
           redirect_to update_profile_path(@user.id)
     else
