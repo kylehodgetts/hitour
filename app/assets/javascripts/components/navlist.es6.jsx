@@ -30,6 +30,8 @@ Navlist.propTypes = {
   currentUser: React.PropTypes.object,
   toursPath: React.PropTypes.string.isRequired,
   pointsPath: React.PropTypes.string.isRequired,
+  dataPath: React.PropTypes.string.isRequired,
+  audiencesPath: React.PropTypes.string.isRequired,
   usersPath: React.PropTypes.string.isRequired,
   logoutPath: React.PropTypes.string.isRequired
 }
