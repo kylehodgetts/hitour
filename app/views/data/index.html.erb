@@ -1,11 +1,5 @@
 <h1>Data</h1>
 
-<% @data.each do |datum| %>
-<div class="card-panel hoverable">
-<h2><%= datum.title %></h2>
-<div class="card-panel"><%= datum.description %></div>
-<p><%= datum.url %></p>
-<%= link_to 'More Information', datum %>
-</div>
-<% end %>
-<%= link_to 'New Datum', new_datum_path %>
+<%= react_component('Data', getUrl: data_path + '.json',
+                                postUrl: create_datum_path) %>
+

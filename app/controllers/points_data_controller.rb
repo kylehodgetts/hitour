@@ -8,9 +8,10 @@ class PointsDataController < ApplicationController
 	end
 
 	def create
+		params[:point_datum][:rank] = max_rank(Point.find(params[:point_datum][:point_id]))
 		@point_datum = PointDatum.new(point_datum_params)
 		if @point_datum.save
-			redirect_to controller: 'points', action:	'show', id: @point_datum.point_id
+			render
 		else
 			redirect_to new_points_data_path
 		end
@@ -32,8 +33,8 @@ class PointsDataController < ApplicationController
 	end
 
 	def destroy
-	  @point_datum = PointDatum.find(params[:id])
-	  @point_datum.destroy
+	  	@point_datum = PointDatum.find(params[:id])
+	  	@point_datum.destroy
 		render json: ['Succesfully deleted datum from point']
 	end
 
