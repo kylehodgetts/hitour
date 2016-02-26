@@ -24,8 +24,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    randomSequence= [('A'..'Z')].map { |i| i.to_a }.flatten
-    params[:user][:password] = ""+(0...25).map { randomSequence[rand(randomSequence.length)] }.join
+    params[:user][:password] = SecureRandom.hex(25)
     @user = User.new(user_params)
     @user.activated = false
     mailingInvitation = Mailing.new(@user,request.original_url)
