@@ -39,20 +39,7 @@ class PointsDataController < ApplicationController
 
 	def increase_rank
 		point_datum = PointDatum.find(params[:id])
-		# Check if tour point has rank + 1
-		# If so - swap them
-		updated = false
-		PointDatum.where('point_id' => point_datum.point.id).each do |pd|
-			if pd.rank == point_datum.rank + 1
-				pd.rank = point_datum.rank
-				point_datum.rank = point_datum.rank + 1
-				pd.save
-				point_datum.save
-				updated = true
-				break
-			end
-		end
-		if updated
+		if update_rank(point_datum, point_datum.rank + 1)
 			render json: ["Succesfully increased rank to #{point_datum.rank}"]
 		else
 			render json: ['Couldnt increase rank']
@@ -61,20 +48,7 @@ class PointsDataController < ApplicationController
 
 	def decrease_rank
 		point_datum = PointDatum.find(params[:id])
-		# Check if tour point has rank - 1
-		# If so - swap them
-		updated = false
-		PointDatum.where('point_id' => point_datum.point.id).each do |pd|
-			if pd.rank == point_datum.rank - 1
-				pd.rank = point_datum.rank
-				point_datum.rank = point_datum.rank - 1
-				pd.save
-				point_datum.save
-				updated = true
-				break
-			end
-		end
-		if updated
+		if update_rank(point_datum, point_datum.rank - 1)
 			render json: ["Succesfully decreased rank to #{point_datum.rank}"]
 		else
 			render json: ['Couldnt decrease rank']
@@ -93,5 +67,20 @@ class PointsDataController < ApplicationController
 		point = Point.find(point_id)
 		rank = PointDatum.where('point_id' => point.id).maximum('rank')
 		rank.to_i + 1
+	end
+
+	def update_rank(point_datum, new_rank)
+		updated = false
+		PointDatum.where(point_id: point_datum.point.id).each do |pd|
+			if pd.rank == new_rank
+				pd.rank = point_datum.rank
+				point_datum.rank = new_rank
+				pd.save
+				point_datum.save
+				updated = true
+				break
+			end
+		end
+		return updated
 	end
 end

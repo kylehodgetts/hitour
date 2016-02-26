@@ -36,20 +36,7 @@ class ToursPointsController < ApplicationController
 
 	def increase_rank
 		tour_point = TourPoint.find(params[:id])
-		# Check if tour point has rank + 1
-		# If so - swap them
-		updated = false
-		TourPoint.where('tour_id' => tour_point.tour.id).each do |tp|
-			if tp.rank == tour_point.rank + 1
-				tp.rank = tour_point.rank
-				tour_point.rank = tour_point.rank + 1
-				tp.save
-				tour_point.save
-				updated = true
-				break
-			end
-		end
-		if updated
+		if update_rank(tour_point, tour_point.rank + 1)
 			render json: ["Succesfully increased rank to #{tour_point.rank}"]
 		else
 			render json: ['No change in rank']
@@ -58,20 +45,7 @@ class ToursPointsController < ApplicationController
 
 	def decrease_rank
 		tour_point = TourPoint.find(params[:id])
-		# Check if tour point has rank - 1
-		# If so - swap them
-		updated = false
-		TourPoint.where('tour_id' => tour_point.tour.id).each do |tp|
-			if tp.rank == tour_point.rank - 1
-				tp.rank = tour_point.rank
-				tour_point.rank = tour_point.rank - 1
-				tp.save
-				tour_point.save
-				updated = true
-				break
-			end
-		end
-		if updated
+		if update_rank(tour_point, tour_point.rank - 1)
 			render json: ["Succesfully decreased rank to #{tour_point.rank}"]
 		else
 			render json: ['Couldnt update rank']
@@ -90,5 +64,20 @@ class ToursPointsController < ApplicationController
 		tour = Tour.find(tour_id)
 		rank = TourPoint.where('tour_id' => tour.id).maximum('rank')
 		rank.to_i + 1
+	end
+
+	def update_rank(tour_point, new_rank)
+		updated = false
+		TourPoint.where(tour_id: tour_point.tour.id).each do |tp|
+			if tp.rank == new_rank
+				tp.rank = tour_point.rank
+				tour_point.rank = new_rank
+				tp.save
+				tour_point.save
+				updated = true
+				break
+			end
+		end
+		updated
 	end
 end
