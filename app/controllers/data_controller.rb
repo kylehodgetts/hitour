@@ -3,7 +3,20 @@ class DataController < ApplicationController
   require 'securerandom'
 
   def index
-  	@data = Datum.all
+  	@data = []
+    items = Datum.all
+    items.each do |item|
+      @data << {
+          id: item.id,
+          data: item.title,
+          title: item.title,
+          description: item.description,
+          url: item.url,
+          delete_url: delete_datum_path(item),
+          show_url: datum_path(item)
+      }
+    end
+    api_response(@data)
   end
 
   def show

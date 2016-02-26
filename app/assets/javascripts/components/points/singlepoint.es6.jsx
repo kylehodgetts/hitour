@@ -138,6 +138,11 @@ class SinglePoint extends React.Component {
             }, this)}
           </ul>
         </div>
+        <NewPointDatum
+          point_id={this.props.point_id}
+          data_url={this.props.data_url}
+          new_point_datum_url={this.props.new_point_datum_url}
+          />
       </div>
     );
   }
@@ -147,5 +152,7 @@ SinglePoint.propTypes = {
   pollInterval: React.PropTypes.number,
   qrCode: React.PropTypes.any,
   getUrl: React.PropTypes.string.isRequired,
-  new_point_datum_url: React.PropTypes.string.isRequired
+  new_point_datum_url: React.PropTypes.string.isRequired,
+  data_url: React.PropTypes.string.isRequired,
+  point_id: React.PropTypes.number.isRequired
 }
