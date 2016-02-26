@@ -30,12 +30,11 @@ class Tours extends React.Component {
     return (
       <div>
         <GenericList getUrl={this.props.getUrl} />
-        <div className="card">
-          <span className="card-title">Create a new tour</span>
-          <form id="tourForm" className="card-content">
+        <div>
+          <form id="tourForm">
             <div className="row">
               <div className="input-field col s12">
-                <label htmlFor="tour[name]">Tour Name</label>
+                <label htmlFor="tour[name]">New Tour Name</label>
                 <input type="text" name="tour[name]" />
               </div>
             </div>

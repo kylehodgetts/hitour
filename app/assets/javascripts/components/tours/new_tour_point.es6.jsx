@@ -57,8 +57,8 @@ class NewTourPoint extends React.Component {
     return (
       <div>
         <div>
-          <span>Add Points</span>
-          <form id="tourPointForm" className="card-content">
+          <span>Add a Point</span>
+          <form id="tourPointForm">
             <input value={this.props.tour_id} type="hidden" name="tour_point[tour_id]" />
             <div className="row">
               <div className="input-field col s12">
