@@ -24,7 +24,7 @@ class Data extends React.Component {
       <div>
         <GenericList getUrl={this.props.getUrl} />
         <form id="dataForm">
-          <label htmlFor="audience[name]">Audience Name</label>
+          <label htmlFor="audience[name]">Data Name</label>
           <input type="text" name="audience[name]" />
           <button className="btn right blue waves-effect waves-light"
                   type="submit" name="action">Submit

@@ -19,7 +19,8 @@ class SingleTour extends React.Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval);
+    this.interval && clearInterval(this.interval);
+    this.interval = false;
   }
 
   handleLoadDataFromServer() {
