@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
   # Log a user in
   def create
     # Find the user in the database by the email given
-    @user = User.find_by_email(params[:email])
+    @user = User.find_by_email(params[:email].downcase)
 
     # If the user is not nil and the given password matches
     if @user && @user.authenticate(params[:password])
@@ -18,8 +18,16 @@ class SessionsController < ApplicationController
       else
       redirect_to root_path
       end
+
+    elsif @user && !@user.temporarypassword.empty? && (params[:password].eql?@user.temporarypassword)
+      #Reset the password of the user to the resetpassword and remove the previously given temporarypassword.
+          @user.update_attribute(:password,params[:password]) 
+          @user.update_attribute(:temporarypassword,"")
+          @user.authenticate(:temporarypassword)
+           session[:user_id] = @user.id
+          redirect_to update_profile_path(@user.id)
     else
-      redirect_to login_path
+    redirect_to root_path 
     end
   end
 

@@ -75,6 +75,10 @@ Rails.application.routes.draw do
   post '/users/:id', to: 'users#update', as: :update_profile
   delete '/users/:id', to: 'users#destroy', as: :delete_user
 
+  #Password reset
+  get 'password_reset', to: 'password_reset#new', as: :password_reset
+  post 'password_reset', to: 'password_reset#create', as: :add_password_reset
+  
   # API
   namespace :api do
     get ':access_key/users', to: 'api#users'
