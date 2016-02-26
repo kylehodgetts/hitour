@@ -115,7 +115,7 @@ class SinglePoint extends React.Component {
                        onClick={_this.handleDeleteDataFromServer.bind(this, pointData.delete_url)}>
                     <i className=" blue-text material-icons">delete_forever</i>
                     </a>
-                    <a id={pointData.id} href={pointData.show_url}
+                    <a id={pointData.id} href={pointData.datum_show_url}
                        className="secondary-content">
                       <i className=" blue-text material-icons">launch</i>
                     </a>
