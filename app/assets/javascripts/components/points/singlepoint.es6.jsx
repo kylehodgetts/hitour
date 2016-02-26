@@ -40,7 +40,7 @@ class SinglePoint extends React.Component {
 
   handleLoadDataFromServer() {
     //Get All Point and Data
-    console.log("Requesting: "+this.props.getUrl);
+    // console.log("Requesting: "+this.props.getUrl);
     $.ajax({
       url: this.props.getUrl,
       type: "GET",
@@ -48,7 +48,7 @@ class SinglePoint extends React.Component {
       cache: false,
       success: function(data){
         $('select').material_select();
-        console.log(data);
+        // console.log(data);
         this.setState({
           point: data.point,
           pointData: data.point_data
@@ -92,7 +92,6 @@ class SinglePoint extends React.Component {
   }
 
   render() {
-    console.log(this.state.pointData);
     var _this = this;
     return (
       <div>
@@ -120,12 +119,12 @@ class SinglePoint extends React.Component {
                       <i className=" blue-text material-icons">launch</i>
                     </a>
                     <a id={pointData.id} href="#"
-                       onClick={_this.handlePostDataToServer.bind(this, pointData.increase_url)}
+                       onClick={_this.handlePostDataToServer.bind(this, pointData.decrease_url)}
                        className="secondary-content">
                       <i className=" blue-text material-icons">call_made</i>
                     </a>
                     <a id={pointData.id} href="#"
-                       onClick={_this.handlePostDataToServer.bind(this, pointData.decrease_url)}
+                       onClick={_this.handlePostDataToServer.bind(this, pointData.increase_url)}
                        className="secondary-content">
                       <i className=" blue-text material-icons">call_received</i>
                     </a>

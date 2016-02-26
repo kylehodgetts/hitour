@@ -34,7 +34,7 @@ class PointsDataController < ApplicationController
 	def destroy
 	  @point_datum = PointDatum.find(params[:id])
 	  @point_datum.destroy
-		render json: ['Succesfully datum from point']
+		render json: ['Succesfully deleted datum from point']
 	end
 
 	def increase_rank
