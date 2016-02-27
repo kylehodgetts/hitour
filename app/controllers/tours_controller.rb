@@ -49,7 +49,9 @@ class ToursController < ApplicationController
 	  			id:tp.point.id,
 	  			name:tp.point.name,
 	  			rank:tp.rank,
-	  			qr_code: QRCode.new("POINT-#{tp.point.id}",size: 3)
+	  			qr_code: QRCode.new("POINT-#{tp.point.id}",size: 3),
+	  			description: tp.point.description,
+	  			url: tp.point.url
 	  		}
 		end
 		render pdf: "#{@tour.name}"

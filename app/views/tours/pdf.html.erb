@@ -39,6 +39,10 @@
 			<%= tp[:rank].to_s + ". " + tp[:name] %>
 			<%= raw tp[:qr_code].as_html %>
 			<div>
+				<h4>Description</h4>
+				<p><%= tp[:description] %></p>
+			</div>
+			<div>
 				<h4>Notes:</h4>
 				<p>Notes will go here</p>
 			</div>
