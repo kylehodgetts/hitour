@@ -2,12 +2,6 @@ Rails.application.routes.draw do
   root 'tours#index'
   get 'tours_audiences/new'
 
-  # Point Data
-  get 'points_data/new'
-  delete '/points_data/:id', to: 'points_data#destroy', as: :delete_points_data
-  get '/points_data/:id', to: 'points_data#edit', as: :edit_points_datum
-  patch '/points_data/:id', to: 'points_data#update', as: :update_points_datum
-
   # Points
   get 'tours_points/new'
   get '/points/new', to: 'points#new', as: :new_point
@@ -15,7 +9,8 @@ Rails.application.routes.draw do
   get '/points/:id/edit', to: 'points#edit', as: :edit_point
   get '/points/show/:id', to: 'points#show', as: :point
   patch '/points/:id', to: 'points#update', as: :update_point
-  post '/points', to: 'points#create'
+  post '/points', to: 'points#create', as: :create_point
+  delete '/points/:id', to: 'points#destroy', as: :delete_point
 
   # Data
   get '/data', to: 'data#index', as: :data
@@ -29,7 +24,8 @@ Rails.application.routes.draw do
   # Data Audiences
   get '/data_audiences', to: 'data_audiences#new'
   get '/data_audiences/new', to: 'data_audiences#new', as: :new_data_audience
-  post '/data_audiences', to: 'data_audiences#create'
+  post '/data_audiences', to: 'data_audiences#create', as: :create_datum_audience
+  delete '/data_audiences/:id', to: 'data_audiences#destroy', as: :delete_datum_audience
 
   # Audiences
   get '/audiences', to: 'audiences#index', as: :audiences
@@ -42,19 +38,25 @@ Rails.application.routes.draw do
   get '/tours/new', to: 'tours#new', as: :new_tour
   delete '/tours/:id', to: 'tours#destroy', as: :delete_tour
   get '/tours/:id/edit', to: 'tours#edit', as: :edit_tour
-  post '/tours', to: 'tours#create'
+  post '/tours', to: 'tours#create', as: :create_tour
   patch '/tours/:id', to: 'tours#update', as: :update_tour
 
   # Tours Points
   get '/tours_points', to: 'tours_points#new'
   get '/tours_points/new', to: 'tours_points#new', as: :new_tours_points
-  post '/tour_points', to: 'tours_points#create'
-  delete '/tours_points/:id', to: 'tours_points#destroy', as: :delete_tours_points
+  post '/tour_points', to: 'tours_points#create', as: :create_tour_point
+  post '/tour_points/increase_rank/:id',to: 'tours_points#increase_rank', as: :increase_tour_point
+  post '/tour_points/decrease_rank/:id',to: 'tours_points#decrease_rank', as: :decrease_tour_point
+  delete '/tours_points/:id', to: 'tours_points#destroy', as: :delete_tour_point
 
   # Points Data
-  resources :points_data, only: [:new, :create]
   get '/points_data', to: 'points_data#new', as: :new_points_data
-  post '/point_data', to: 'points_data#create'
+  post '/point_data', to: 'points_data#create', as: :create_point_datum
+  delete '/points_data/:id', to: 'points_data#destroy', as: :delete_points_data
+  get '/points_data/:id', to: 'points_data#edit', as: :edit_points_datum
+  patch '/points_data/:id', to: 'points_data#update', as: :update_points_datum
+  post '/points_data/increase_rank/:id',to: 'points_data#increase_rank', as: :increase_point_datum
+  post '/points_data/decrease_rank/:id',to: 'points_data#decrease_rank', as: :decrease_point_datum
 
   # Tours Audiences
   get '/tours_audiences', to: 'tours_audiences#new'
@@ -70,7 +72,6 @@ Rails.application.routes.draw do
   # Users
   resources :users
   get '/users', to: 'users#index'
-  get '/users', to: 'users#new'
   post '/users', to: 'users#create', as: :create_user
   post '/users/:id', to: 'users#update', as: :update_profile
   delete '/users/:id', to: 'users#destroy', as: :delete_user

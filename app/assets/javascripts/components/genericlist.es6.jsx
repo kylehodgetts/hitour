@@ -40,7 +40,6 @@ class GenericList extends React.Component {
       type: "DELETE",
       success: function(data){
         Materialize.toast(data, 3000, 'rounded');
-        console.log("Success " + data);
       }.bind(this),
       error: function(err){
         Materialize.toast('There was an issue deleting. Please contact admin.', 3000, 'rounded');
@@ -62,6 +61,11 @@ class GenericList extends React.Component {
                              onClick={_this.handleDeleteDataFromServer.bind(this, item.delete_url)}>
                   <i className=" blue-text material-icons">delete_forever</i>
                 </a>
+                {item.show_url &&
+                  <a id={item.id} href={item.show_url} className="secondary-content">
+                    <i className=" blue-text material-icons">launch</i>
+                  </a>
+                }
               </div>
             </div>
           );

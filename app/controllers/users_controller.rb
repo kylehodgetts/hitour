@@ -13,10 +13,6 @@ class UsersController < ApplicationController
     api_response(@users)
   end
 
-  def new
-    @user = User.new
-  end
-
   def show
     redirect_to root_path unless @current_user.id == params[:id].to_i
   end

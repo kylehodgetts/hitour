@@ -16,4 +16,3 @@ class PointEdit extends React.Component {
 	);
   }
 }
-
