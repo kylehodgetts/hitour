@@ -13,10 +13,9 @@ class GenericEdit extends React.Component {
     });
   }
 
-  handleOnChange(event) {
-    if (event.which == 13 || event.keyCode == 13) {
-      event.preventDefault();
-      console.log("SAVING");
+  handleOnChange(e) {
+    if (e.which == 13 || e.keyCode == 13) {
+      e.preventDefault();
       var postURL = this.props.postUrl;
       var newKey = this.props.attributeName;
       var newValue = document.getElementById(newKey).value;
