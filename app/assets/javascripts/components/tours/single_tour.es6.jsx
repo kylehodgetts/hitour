@@ -77,8 +77,10 @@ class SingleTour extends React.Component {
     var _this = this;
     return (
       <div>
-        <h2>{this.state.tour.name}</h2>
-        <h5>{this.state.audience.name}</h5>
+        <div>
+          <Title mTitle={this.state.tour.name} />
+          <h5>{this.state.audience.name}</h5>
+        </div>
         <br />
         <h4>Points</h4>
         <div className="collection">
