@@ -10,6 +10,10 @@ gem 'rqrcode', '~> 0.9.0'
 # For Trimming Params
 gem "auto_strip_attributes", "~> 2.0"
 
+# For PDF Generation
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
 gem 'rails', '4.2.3'
 gem 'pg'
 gem 'sass-rails', '~> 5.0'

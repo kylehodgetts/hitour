@@ -78,6 +78,7 @@ class SingleTour extends React.Component {
     return (
       <div>
         <h2>{this.state.tour["name"]}</h2>
+        <a href={this.props.pdfUrl} >Download PDF</a>
         <h4>Points</h4>
         <div className="collection">
           {this.state.points.map(function(point) {
@@ -119,5 +120,6 @@ SingleTour.propTypes = {
   showUrl: React.PropTypes.string.isRequired,
   points_url:React.PropTypes.string.isRequired,
   tour_id: React.PropTypes.number.isRequired,
-  pollInterval: React.PropTypes.number
+  pollInterval: React.PropTypes.number,
+  pdfUrl: React.PropTypes.string.isRequired
 }

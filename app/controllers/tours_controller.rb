@@ -1,4 +1,5 @@
 class ToursController < ApplicationController
+	include RQRCode
 	before_action :authenticate_user!
 	def index
 	  items = Tour.includes(:points)
@@ -27,7 +28,8 @@ class ToursController < ApplicationController
 	  			show_url: point_path(tp.point),
 	  			delete_url: delete_tour_point_path(tp),
 	  			increase_url: increase_tour_point_path(tp),
-	  			decrease_url: decrease_tour_point_path(tp)
+	  			decrease_url: decrease_tour_point_path(tp),
+	  			pdf_url: tour_pdf_path(tp)
 	  		}
 	  end
 	  @tour_points = [] if @tour_points.nil?
@@ -37,6 +39,20 @@ class ToursController < ApplicationController
       	points: @tour_points
 	  ]
 	  api_response(items)
+	end
+
+	def pdf
+		@tour = Tour.find(params[:id])
+		@audience = Audience.find(@tour.audience_id)
+		@tour_points = TourPoint.where('tour_id' => params[:id]).order("rank").map do |tp|
+	  		{
+	  			id:tp.point.id,
+	  			name:tp.point.name,
+	  			rank:tp.rank,
+	  			qr_code: QRCode.new("POINT-#{tp.point.id}",size: 3)
+	  		}
+		end
+		render pdf: "#{@tour.name}"
 	end
 
 	def new

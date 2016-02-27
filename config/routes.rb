@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   get '/tours/:id/edit', to: 'tours#edit', as: :edit_tour
   post '/tours', to: 'tours#create', as: :create_tour
   patch '/tours/:id', to: 'tours#update', as: :update_tour
+  get '/tours/:id/pdf', to: 'tours#pdf', as: :tour_pdf
 
   # Tours Points
   get '/tours_points', to: 'tours_points#new'
