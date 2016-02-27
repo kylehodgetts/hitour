@@ -42,17 +42,14 @@ class DataController < ApplicationController
 
   def create
     # Extract file_name and file_path
-    file_path = params[:datum][:file].path
+    file_path = params[:file].path
     file_extension = File.extname(file_path)
     # Add file_path to the params
-    params[:datum][:url] = upload_to_s3 file_extension, file_path
+    params[:url] = upload_to_s3 file_extension, file_path
 
     @datum = Datum.new(datum_params)
-    if @datum.save
-  		redirect_to @datum
-    else
-  		render new
-    end
+    @datum.save
+    redirect_to data_path
   end
 
   def destroy
@@ -71,6 +68,6 @@ class DataController < ApplicationController
   private
 
   def datum_params
-  	params.permit(:datum).require(:title, :description, :url)
+  	params.permit(:title, :description, :url)
   end
 end

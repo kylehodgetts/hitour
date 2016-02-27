@@ -1,45 +1,26 @@
 class Data extends React.Component {
 
-  componentDidMount() {
-    var postURL = this.props.postUrl;
-    $('#datumForm').on('submit',function(e){
-      e.preventDefault();
-      $.ajax({
-        url: postURL,
-        type: "POST",
-        data: $(this).serialize(),
-        success: function(data){
-          Materialize.toast('Succesfully created new audience!', 3000, 'rounded');
-          $('#audienceForm').trigger("reset");
-        },
-        error: function(err){
-          console.log(err);
-        }
-      });
-    });
-  }
-
   render () {
     return (
       <div>
         <GenericList getUrl={this.props.getUrl} />
-        <form id="datumForm" className="col s12">
-          <div className="row">
+        <form id="datumForm" className="col s12" encType="multipart/form-data" action={this.props.post_url} method="post" >
+                  <div className="row">
             <div className="input-field col s12">
-                <input id="datum[title]" type="text" name="datum[title]" className="validate" />
+                <input id="datum[title]" type="text" name="title" className="validate" />
                 <label htmlFor="datum[title]">Title</label>
             </div>
           </div>
           <div className="row">
             <div className="input-field col s12">
-                <textarea name="datum[description]" id="datum[description]" className="materialize-textarea"></textarea>
+                <textarea name="description" id="datum[description]" className="materialize-textarea"></textarea>
                 <label htmlFor="datum[description]">Description</label>
             </div>
           </div>
           <div className="file-field input-field">
             <div className="btn">
               <span>File</span>
-              <input type="file" name="datum[file]"/>
+              <input type="file" name="file" id="datum[file]" />
             </div>
             <div className="file-path-wrapper">
               <input className="file-path validate" type="text" placeholder="Upload your file here" />
