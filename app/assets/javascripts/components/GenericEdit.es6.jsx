@@ -33,7 +33,7 @@ class GenericEdit extends React.Component {
         }.bind(this),
         error: function(err){
           console.log("Error" + err);
-          Materialize.toast('Error updating title!', 3000, 'rounded');
+          Materialize.toast('Error updating entry!', 3000, 'rounded');
         }
       });
     }
@@ -41,7 +41,10 @@ class GenericEdit extends React.Component {
 
   renderSetTitle() {
     return (
-      <h2 onClick={this.handleClick.bind(this)}>{this.state.title}</h2>
+      <span style={{fontSize: this.props.fontSize || '50px'}}
+        onClick={this.handleClick.bind(this)}>
+          {this.state.title}
+      </span>
     );
   }
 
@@ -51,7 +54,8 @@ class GenericEdit extends React.Component {
                 className="materialize-textarea"
                 defaultValue={this.state.title}
                 onKeyPress={this.handleOnChange.bind(this)}
-                style={{fontSize: '50px'}}></textarea>
+                style={{fontSize: this.props.fontSize || '50px'}}>
+      </textarea>
     );
   }
 
@@ -72,5 +76,6 @@ class GenericEdit extends React.Component {
 GenericEdit.displayName = "GenericEdit";
 GenericEdit.propTypes = {
   title: React.PropTypes.string.isRequired,
-  postUrl: React.PropTypes.string.isRequired
+  postUrl: React.PropTypes.string.isRequired,
+  fontSize: React.PropTypes.string
 }

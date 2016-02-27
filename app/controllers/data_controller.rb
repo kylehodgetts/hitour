@@ -43,11 +43,8 @@ class DataController < ApplicationController
 
   def update
     @datum = Datum.find(params[:id])
-    if @datum.update_attributes(datum_params)
-      redirect_to @datum
-    else
-      render new
-    end
+    @datum.description = params[:name]
+    render json: ['Successfully updated description'], status: 200 if @datum.save
   end
 
   def new
