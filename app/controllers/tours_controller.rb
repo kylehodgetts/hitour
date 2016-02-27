@@ -55,7 +55,7 @@ class ToursController < ApplicationController
 
 	def update
 		@tour = Tour.find(params[:id])
-		if @tour.update_attributes(params)
+		if @tour.update_attributes(tour_params)
 			render json: ['Successfully updated tour'], status: 200 if @tour.save
 		else
 			render json: ['Unable to update tour']

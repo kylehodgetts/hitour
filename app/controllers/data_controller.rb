@@ -43,11 +43,10 @@ class DataController < ApplicationController
 
   def update
     @datum = Datum.find(params[:id])
-    binding.pry
-    if @datum.update_attributes(params)
+    if @datum.update_attributes(datum_params)
 			render json: ['Successfully updated media'], status: 200
     else
-			render json: ['Unable to update media']
+			render json: ['Unable to update media '+params[:datum][:title]]
     end
   end
 
@@ -83,6 +82,6 @@ class DataController < ApplicationController
   private
 
   def datum_params
-  	params.permit(:title, :description, :url)
+  	params.require(:datum).permit(:title, :description, :url)
   end
 end
