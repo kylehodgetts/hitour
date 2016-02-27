@@ -17,6 +17,11 @@ class DataShow extends React.Component {
     );
   }
 
+  componentWillUnmount() {
+    this.interval && clearInterval(this.interval);
+    this.interval = false;
+  }
+
   handleLoadDataFromServer() {
     //Get All Information about datum
     $.ajax({
@@ -46,11 +51,6 @@ class DataShow extends React.Component {
         console.log(err);
       }.bind(this)
     });
-  }
-
-  componentWillUnmount() {
-    this.interval && clearInterval(this.interval);
-    this.interval = false;
   }
 
   render () {
@@ -95,10 +95,9 @@ class DataShow extends React.Component {
 
 DataShow.displayName = "DataShow";
 DataShow.propTypes = {
+  pollInterval: React.PropTypes.number,
   getUrl: React.PropTypes.string.isRequired,
   audiencesUrl: React.PropTypes.string.isRequired,
   createDatumAudienceUrl: React.PropTypes.string.isRequired,
   datumID: React.PropTypes.number.isRequired
 };
-
-
