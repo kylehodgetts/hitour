@@ -11,9 +11,9 @@ class PointsDataController < ApplicationController
 		params[:point_datum][:rank] = max_rank(Point.find(params[:point_datum][:point_id]))
 		@point_datum = PointDatum.new(point_datum_params)
 		if @point_datum.save
-			render
+			render json: ['Succesfully added media to point']
 		else
-			redirect_to new_points_data_path
+			render json: ['Could not add media to point']
 		end
 	end
 

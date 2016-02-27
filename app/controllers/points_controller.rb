@@ -12,7 +12,8 @@ class PointsController < ApplicationController
 		  @points_json << {
 		  	id: item.id,
 		    data: item.name,
-		    delete_url: delete_point_path(item)
+		    delete_url: delete_point_path(item),
+		    show_url: point_path(item)
 			}
 	  end
 	  api_response(@points_json)
@@ -65,17 +66,25 @@ class PointsController < ApplicationController
 	end
 
 	def create
-		if Point.find_by(name: params[:name])
-			render new
-		else
-			create_point
-		end
+		# Extract file_name and file_path
+	    file_path = params[:file].path
+	    file_extension = File.extname(file_path)
+	    # Add file_path to the params
+	    params[:url] = upload_to_s3 file_extension, file_path
+
+	    @point = Point.new(
+	    	name: params[:name],
+	    	description: params[:description],
+	    	url: params[:url]
+    	)
+	    @point.save
+	    redirect_to points_path
 	end
 
 		private
 
 	def point_params
-		params.require(:point).permit(:name)
+		params.require(:point).permit(:name, :description, :url)
 	end
 
 	def create_point

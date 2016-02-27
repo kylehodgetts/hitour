@@ -72,13 +72,6 @@ class DataController < ApplicationController
     render json: ["Succesfully deleted #{@datum.title}"]
   end
 
-  def upload_to_s3(file_extension, file_path)
-    s3 = Aws::S3::Resource.new
-    obj = s3.bucket('hitourbucket').object(SecureRandom.hex + file_extension)
-    obj.upload_file(file_path, acl: 'public-read')
-    obj.public_url
-  end
-
   private
 
   def datum_params

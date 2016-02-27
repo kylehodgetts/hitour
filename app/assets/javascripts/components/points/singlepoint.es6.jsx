@@ -33,6 +33,11 @@ class SinglePoint extends React.Component {
       success: function(data){
         // $('select').material_select();
         // console.log(data);
+        $('body').css('background-image',"url("+"'"+data.point.url+"'"+")");
+        $('body').css('background-size','cover');
+        $('body').css('background-repeat','no-repeat');
+        $('body').css('background-postion','center center');
+        $('.point-card').css('opacity','0.92');
         this.setState({
           point: data.point,
           pointData: data.point_data
@@ -78,12 +83,13 @@ class SinglePoint extends React.Component {
   render() {
     var _this = this;
     return (
-      <div>
+      <div className="card-panel point-card">
         <div className="row">
           <div className="col s6">
           </div>
           <div className="col s6">
             <h2>{this.state.point.name}</h2>
+            <p>{this.state.point.description}</p>
           </div>
         </div>
         <div className="row">
