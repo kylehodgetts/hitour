@@ -24,7 +24,8 @@ Rails.application.routes.draw do
   # Data Audiences
   get '/data_audiences', to: 'data_audiences#new'
   get '/data_audiences/new', to: 'data_audiences#new', as: :new_data_audience
-  post '/data_audiences', to: 'data_audiences#create'
+  post '/data_audiences', to: 'data_audiences#create', as: :create_datum_audience
+  delete '/data_audiences/:id', to: 'data_audiences#destroy', as: :delete_datum_audience
 
   # Audiences
   get '/audiences', to: 'audiences#index', as: :audiences

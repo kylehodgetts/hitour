@@ -20,7 +20,21 @@ class DataController < ApplicationController
   end
 
   def show
-  	@datum = Datum.includes(:audiences).find(params[:id])
+    @datum = Datum.includes(:audiences).find(params[:id])
+    datum_audiences = DataAudience.where(datum_id: params[:id]).map do |da|
+      {
+        id: da.id,
+        data: da.audience.name,
+        delete_url: delete_datum_audience_path(da)
+      }
+    end
+    items = {
+      datum: @datum,
+      datum_audiences: datum_audiences
+    }
+    api_response(items)
+
+  	# @datum = Datum.includes(:audiences).find(params[:id])
   end
 
   def edit

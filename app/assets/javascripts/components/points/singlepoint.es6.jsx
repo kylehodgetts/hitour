@@ -15,23 +15,6 @@ class SinglePoint extends React.Component {
       this.handleLoadDataFromServer.bind(this),
       this.state.pollInterval
     );
-    // var postUrl = this.props.new_point_datum_url;
-    // $('#tourPointForm').on('submit',function(e){
-    //   e.preventDefault();
-    //   $.ajax({
-    //     url: postUrl,
-    //     type: "POST",
-    //     data: $(this).serialize(),
-    //     dataType: "json",
-    //     success: function(data){
-    //       Materialize.toast(data, 3000, 'rounded');
-    //     }.bind(this),
-    //     error: function(err){
-    //       Materialize.toast('There was an issue adding the point. Please contact admin.', 3000, 'rounded');
-    //       console.log(err);
-    //     }.bind(this)
-    //   });
-    // });
   }
 
   componentWillUnmount() {
@@ -48,7 +31,7 @@ class SinglePoint extends React.Component {
       dataType: "json",
       cache: false,
       success: function(data){
-        $('select').material_select();
+        // $('select').material_select();
         // console.log(data);
         this.setState({
           point: data.point,

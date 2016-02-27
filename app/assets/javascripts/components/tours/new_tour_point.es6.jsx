@@ -37,6 +37,13 @@ class NewTourPoint extends React.Component {
     clearInterval(this.interval);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+      var check = JSON.stringify(prevState) === JSON.stringify(this.state);
+      if(!check || this.state.data == []){
+        $('select').material_select();
+      }
+  }
+
   handleLoadDataFromServer() {
     //Get All Points
     $.ajax({
@@ -45,7 +52,6 @@ class NewTourPoint extends React.Component {
       dataType: "json",
       cache: false,
       success: function(data){
-        $('select').material_select();
         this.setState({
           points: data
         });

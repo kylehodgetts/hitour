@@ -1,8 +1,8 @@
-class NewPointDatum extends React.Component {
+class NewDatumAudience extends React.Component {
   constructor (props) {
     super(props);
     this.state =  {
-      data: [],
+      audiences: [],
       pollInterval: this.props.pollInterval || 2000,
       intervalId: 0
     };
@@ -14,8 +14,8 @@ class NewPointDatum extends React.Component {
       this.handleLoadDataFromServer.bind(this),
       this.state.pollInterval
     );
-    var postUrl = this.props.new_point_datum_url;
-    $('#pointDatumForm').on('submit',function(e){
+    var postUrl = this.props.createDatumAudienceUrl;
+    $('#datumAudienceForm').on('submit',function(e){
       e.preventDefault();
       $.ajax({
         url: postUrl,
@@ -40,13 +40,13 @@ class NewPointDatum extends React.Component {
   handleLoadDataFromServer() {
     //Get All Data
     $.ajax({
-      url: this.props.data_url,
+      url: this.props.audiencesUrl,
       type: "GET",
       dataType: "json",
       cache: false,
       success: function(data){
         this.setState({
-          data: data
+          audiences: data
         });
       }.bind(this)
     });
@@ -63,23 +63,21 @@ class NewPointDatum extends React.Component {
     return (
       <div>
         <div>
-          <span>Add Data to point</span>
-          <form id="pointDatumForm" className="card-content">
-            <input value={this.props.point_id} type="hidden" name="point_datum[point_id]" />
+          <form id="datumAudienceForm">
+            <input value={this.props.datumID} type="hidden" name="data_audience[datum_id]" />
             <div className="row">
               <div className="input-field col s12">
-                <select name="point_datum[datum_id]">
-                  {this.state.data.map(function(datum) {
+                <select name="data_audience[audience_id]">
+                  {this.state.audiences.map(function(audience) {
                     return (
-                      <option value={datum.id} key={datum.id} >{datum.data}</option>
+                      <option value={audience.id} key={audience.id} >{audience.data}</option>
                     );
                   }, this)}
                 </select>
-                <label>Data Name</label>
               </div>
             </div>
             <button className="btn right blue waves-effect waves-light"
-                    type="submit" name="action">Submit
+                    type="submit" name="action">Add Audience
               <i className="material-icons right">send</i>
             </button>
           </form>
@@ -89,10 +87,9 @@ class NewPointDatum extends React.Component {
   }
 }
 
-NewPointDatum.displayName = "NewPointDatum";
-NewPointDatum.propTypes = {
-  new_point_datum_url:React.PropTypes.string.isRequired,
-  data_url: React.PropTypes.string.isRequired,
-  pollInterval: React.PropTypes.number,
-  point_id: React.PropTypes.number.isRequired
+NewDatumAudience.displayName = "NewDatumAudience";
+NewDatumAudience.propTypes = {
+  datumID: React.PropTypes.number.isRequired,
+  audiencesUrl: React.PropTypes.string.isRequired,
+  createDatumAudienceUrl: React.PropTypes.string.isRequired
 }
