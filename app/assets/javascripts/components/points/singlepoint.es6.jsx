@@ -80,11 +80,10 @@ class SinglePoint extends React.Component {
     return (
       <div>
         <div className="row">
-          <div className="col s6">
-          </div>
-          <div className="col s6">
-            <h2>{this.state.point.name}</h2>
-          </div>
+          {this.state.point.name &&
+            <GenericEdit title={this.state.point.name}
+                         postUrl={this.props.update_point_url}/>
+          }
         </div>
         <div className="row">
           <ul className="collapsible" data-collapsible="accordion">
@@ -137,6 +136,7 @@ SinglePoint.propTypes = {
   qrCode: React.PropTypes.any,
   getUrl: React.PropTypes.string.isRequired,
   new_point_datum_url: React.PropTypes.string.isRequired,
+  update_point_url: React.PropTypes.string.isRequired,
   data_url: React.PropTypes.string.isRequired,
   point_id: React.PropTypes.number.isRequired
 }

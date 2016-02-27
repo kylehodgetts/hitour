@@ -47,11 +47,8 @@ class PointsController < ApplicationController
 
 	def update
 		@point = Point.find(params[:id])
-		if @point.update_attributes(point_params)
-			redirect_to @point
-		else
-			render new
-		end
+		@point.name = params[:name]
+		render json: ['Successfully updated point'], status: 200 if @point.save
 	end
 
 	def destroy
