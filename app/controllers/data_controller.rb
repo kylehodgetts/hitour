@@ -43,8 +43,12 @@ class DataController < ApplicationController
 
   def update
     @datum = Datum.find(params[:id])
-    @datum.description = params[:name]
-    render json: ['Successfully updated description'], status: 200 if @datum.save
+    binding.pry
+    if @datum.update_attributes(params)
+			render json: ['Successfully updated media'], status: 200
+    else
+			render json: ['Unable to update media']
+    end
   end
 
   def new
