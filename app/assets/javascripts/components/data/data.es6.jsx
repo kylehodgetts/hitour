@@ -2,7 +2,7 @@ class Data extends React.Component {
 
   componentDidMount() {
     var postURL = this.props.postUrl;
-    $('#audienceForm').on('submit',function(e){
+    $('#datumForm').on('submit',function(e){
       e.preventDefault();
       $.ajax({
         url: postURL,
@@ -23,9 +23,28 @@ class Data extends React.Component {
     return (
       <div>
         <GenericList getUrl={this.props.getUrl} />
-        <form id="dataForm">
-          <label htmlFor="audience[name]">Data Name</label>
-          <input type="text" name="audience[name]" />
+        <form id="datumForm" className="col s12">
+          <div className="row">
+            <div className="input-field col s12">
+                <input id="datum[title]" type="text" name="datum[title]" className="validate" />
+                <label htmlFor="datum[title]">Title</label>
+            </div>
+          </div>
+          <div className="row">
+            <div className="input-field col s12">
+                <textarea name="datum[description]" id="datum[description]" className="materialize-textarea"></textarea>
+                <label htmlFor="datum[description]">Description</label>
+            </div>
+          </div>
+          <div className="file-field input-field">
+            <div className="btn">
+              <span>File</span>
+              <input type="file" name="datum[file]"/>
+            </div>
+            <div className="file-path-wrapper">
+              <input className="file-path validate" type="text" placeholder="Upload your file here" />
+            </div>
+          </div>
           <button className="btn right blue waves-effect waves-light"
                   type="submit" name="action">Submit
             <i className="material-icons right">send</i>
