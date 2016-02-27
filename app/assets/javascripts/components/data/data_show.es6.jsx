@@ -10,17 +10,28 @@ class DataShow extends React.Component {
   }
   render () {
     return (
-    	<div className="card-panel">
-    		<h2>{this.props.datum.title}</h2>
-	    	<div className="card-panel">
-	    		Description:<br />{this.props.datum.description}
-	    	</div>
+      <div className="row">
+        <div className="col s10 m8 offset-s1 offset-m2">
+          <div className="card hoverable">
+            <div className="card-image">
+              <DataViewer url={this.props.datum.url} data_id={this.props.datum.id} />
+            </div>
+            <div className="card-content">
+              <span className="card-title activator grey-text text-darken-4">{this.props.datum.title}<i className="material-icons right">more_vert</i></span>
+              <p>{this.props.datum.description}</p>
+            </div>
+            <div className="card-action">
+              <a href="#">Delete Datum</a>
+            </div>
+            <div className="card-reveal">
+              <span className="card-title grey-text text-darken-4">Audiences<i className="material-icons right">close</i></span>
+              <div className="datum-audiences">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-	    	<DataViewer url={this.props.datum.url} data_id={this.props.datum.id} />
-	    	<p><b>Audience</b>&nbsp;|&nbsp;<a href={this.props.add_audience_path}><font size="2">Add Audience</font></a></p>
-	    	<div className="datum-audiences">
-	    	</div>
-    	</div>
 	);
   }
 }
