@@ -38,6 +38,7 @@ class UsersController < ApplicationController
     if password_params['password'].eql? password_params['cpassword']
       params[:user][:password] = password_params['cpassword']
       @user.update_attributes(user_params)
+      @user.update_attribute(:activated, true)
       render json: ['Successfully updated password'], status: 200
     else
       render json: ['Passwords must be non empty and match'], status: 200
