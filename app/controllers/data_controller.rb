@@ -58,7 +58,7 @@ class DataController < ApplicationController
   def destroy
     @datum = Datum.find(params[:id])
     @datum.destroy
-    redirect_to data_path
+    render json: ["Succesfully deleted #{@datum.title}"]
   end
 
   def upload_to_s3(file_extension, file_path)
