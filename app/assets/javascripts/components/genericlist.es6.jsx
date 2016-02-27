@@ -47,7 +47,24 @@ class GenericList extends React.Component {
       }.bind(this)
     });
   }
-
+  renderVerified(item) {
+    if(item.activated) {
+      return(
+        <i title="Verified User"
+           className="secondary-content green-text material-icons">
+          verified_user
+        </i>
+      );
+    }
+    else {
+      return(
+        <i title="Unverified User"
+           className="secondary-content orange-text material-icons">
+          info
+        </i>
+      );
+    }
+  }
   render () {
     var _this = this;
     return (
@@ -66,6 +83,9 @@ class GenericList extends React.Component {
                     <i className=" blue-text material-icons">launch</i>
                   </a>
                 }
+                {this.props.users &&
+                  this.renderVerified(item)
+                }
               </div>
             </div>
           );
@@ -78,5 +98,6 @@ class GenericList extends React.Component {
 GenericList.displayName = "List";
 GenericList.propTypes = {
   getUrl: React.PropTypes.string.isRequired,
-  pollInterval: React.PropTypes.number
+  pollInterval: React.PropTypes.number,
+  users: React.PropTypes.bool
 };

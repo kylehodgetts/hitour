@@ -24,7 +24,7 @@ class Users extends React.Component {
   render () {
     return (
       <div>
-        <GenericList getUrl={this.props.getUrl} />
+        <GenericList getUrl={this.props.getUrl} users />
         <form id="userForm">
           <label htmlFor="user[email]">User Email</label>
           <input type="text" name="user[email]" id="user[email]" />
