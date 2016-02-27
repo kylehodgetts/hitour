@@ -77,8 +77,16 @@ class SingleTour extends React.Component {
     var _this = this;
     return (
       <div>
-        <h2>{this.state.tour["name"]}</h2>
-        <a href={this.props.pdfUrl} >Download PDF</a>
+        <div>
+          {this.state.tour.name &&
+            <GenericEdit value={this.state.tour.name}
+                  			 postUrl={this.props.update_tour_url}
+                  			 attributeName="tour[name]"/>
+          }
+          <h5>{this.state.audience.name}</h5>
+          <a href={this.props.pdfUrl} >Download PDF</a>
+        </div>
+        <br />
         <h4>Points</h4>
         <div className="collection">
           {this.state.points.map(function(point) {
@@ -118,6 +126,7 @@ SingleTour.displayName = "SingleTour";
 SingleTour.propTypes = {
   new_tour_point_url: React.PropTypes.string.isRequired,
   showUrl: React.PropTypes.string.isRequired,
+  update_tour_url: React.PropTypes.string.isRequired,
   points_url:React.PropTypes.string.isRequired,
   tour_id: React.PropTypes.number.isRequired,
   pollInterval: React.PropTypes.number,

@@ -31,9 +31,7 @@ class SinglePoint extends React.Component {
       dataType: "json",
       cache: false,
       success: function(data){
-        // $('select').material_select();
-        // console.log(data);
-        //Sets Points Cover Photo as backgroun
+        //Sets Points Cover Photo as background
         $('body').css('background-image',"url("+"'"+data.point.url+"'"+")");
         $('body').css('background-size','cover');
         $('body').css('background-repeat','no-repeat');
@@ -47,6 +45,13 @@ class SinglePoint extends React.Component {
         });
       }.bind(this)
     });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+      var check = JSON.stringify(prevState) === JSON.stringify(this.state);
+      if(!check || this.state.pointData == []){
+        $('.collapsible').collapsible(); 
+      }
   }
 
   handleDeleteDataFromServer(deleteUrl, e) {
@@ -88,9 +93,19 @@ class SinglePoint extends React.Component {
     return (
       <div className="card-panel point-card">
         <div className="row">
-          <div className="col s6">
-            <h2>{this.state.point.name}</h2>
-            <p>{this.state.point.description}</p>
+          <div className="col s12">
+            {this.state.point.name &&
+            <GenericEdit value={this.state.point.name}
+                         postUrl={this.props.update_point_url}
+                         attributeName="point[name]"/>
+            }
+          </div>
+          <div className="col s12">
+            {this.state.point.description &&
+            <GenericEdit value={this.state.point.description}
+                         postUrl={this.props.update_point_url}
+                         attributeName="point[description]"/>
+            }
           </div>
         </div>
         <div className="row">
@@ -146,6 +161,7 @@ SinglePoint.propTypes = {
   qrCode: React.PropTypes.any,
   getUrl: React.PropTypes.string.isRequired,
   new_point_datum_url: React.PropTypes.string.isRequired,
+  update_point_url: React.PropTypes.string.isRequired,
   data_url: React.PropTypes.string.isRequired,
   point_id: React.PropTypes.number.isRequired
 }
