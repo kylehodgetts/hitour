@@ -48,7 +48,11 @@ class PointsController < ApplicationController
 	def update
 		@point = Point.find(params[:id])
 		@point.name = params[:name]
-		render json: ['Successfully updated point'], status: 200 if @point.save
+		if @point.save
+			render json: ['Successfully updated point'], status: 200
+		else
+			render json: ['Could not update point']
+		end
 	end
 
 	def destroy

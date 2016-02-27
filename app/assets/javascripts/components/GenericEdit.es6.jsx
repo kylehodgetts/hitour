@@ -3,7 +3,7 @@ class GenericEdit extends React.Component {
     super(props);
     this.state = {
       editing: false,
-      title: this.props.title
+      value: this.props.value
     }
   }
 
@@ -18,21 +18,23 @@ class GenericEdit extends React.Component {
       event.preventDefault();
       console.log("SAVING");
       var postURL = this.props.postUrl;
+      var newKey = this.props.attributeName;
+      var newValue = document.getElementById(newKey).value;
+      var formData = new FormData();
+      formData.append(newKey, newValue);
       $.ajax({
         url: postURL,
         type: "PATCH",
-        data: {
-          name: document.getElementById("title[name]").value
-        },
+        data: formData,
         success: function(data){
           Materialize.toast(data, 3000, 'rounded');
           this.setState({
-            title: document.getElementById("title[name]").value,
-            editing: false,
+            value: newValue,
+            editing: false
           });
         }.bind(this),
         error: function(err){
-          console.log("Error" + err);
+          console.log(err);
           Materialize.toast('Error updating entry!', 3000, 'rounded');
         }
       });
@@ -43,16 +45,17 @@ class GenericEdit extends React.Component {
     return (
       <span style={{fontSize: this.props.fontSize || '50px'}}
         onClick={this.handleClick.bind(this)}>
-          {this.state.title}
+          {this.state.value}
       </span>
     );
   }
 
   renderEditableTitle() {
     return (
-      <textarea name="title[name]" id="title[name]"
+      <textarea name={this.props.attributeName}
+                id={this.props.attributeName}
                 className="materialize-textarea"
-                defaultValue={this.state.title}
+                defaultValue={this.state.value}
                 onKeyPress={this.handleOnChange.bind(this)}
                 style={{fontSize: this.props.fontSize || '50px'}}>
       </textarea>
@@ -75,7 +78,8 @@ class GenericEdit extends React.Component {
 
 GenericEdit.displayName = "GenericEdit";
 GenericEdit.propTypes = {
-  title: React.PropTypes.string.isRequired,
+  value: React.PropTypes.string.isRequired,
   postUrl: React.PropTypes.string.isRequired,
-  fontSize: React.PropTypes.string
+  fontSize: React.PropTypes.string,
+  attributeName: React.PropTypes.string.isRequired
 }

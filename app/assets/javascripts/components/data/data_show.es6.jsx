@@ -63,10 +63,19 @@ class DataShow extends React.Component {
                 {this.state.datum.url && <DataViewer url={this.state.datum.url} data_id={this.props.datumID} /> }
             </div>
             <div className="card-content">
-              <span className="card-title activator grey-text text-darken-4">{this.state.datum.title}<i className="material-icons right">more_vert</i></span>
+              <span className="card-title activator grey-text text-darken-4">
+                {this.state.datum.title &&
+                  <GenericEdit value={this.state.datum.title}
+                               postUrl={this.props.update_datum_url}
+                               attributeName="datum[title]"
+                               fontSize="20px"/>
+                }
+                <i className="material-icons right">more_vert</i>
+              </span>
               {this.state.datum.description &&
-                <GenericEdit title={this.state.datum.description}
+                <GenericEdit value={this.state.datum.description}
                              postUrl={this.props.update_datum_url}
+                             attributeName="datum[description]"
                              fontSize="15px"/>
               }
             </div>

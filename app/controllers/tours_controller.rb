@@ -55,8 +55,11 @@ class ToursController < ApplicationController
 
 	def update
 		@tour = Tour.find(params[:id])
-		@tour.name = params[:name]
-		render json: ['Successfully updated tour'], status: 200 if @tour.save
+		if @tour.update_attributes(params)
+			render json: ['Successfully updated tour'], status: 200 if @tour.save
+		else
+			render json: ['Unable to update tour']
+		end
 	end
 
 	def destroy
