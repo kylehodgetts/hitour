@@ -31,14 +31,19 @@ class SinglePoint extends React.Component {
       dataType: "json",
       cache: false,
       success: function(data){
-        // $('select').material_select();
-        // console.log(data);
         this.setState({
           point: data.point,
           pointData: data.point_data
         });
       }.bind(this)
     });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+      var check = JSON.stringify(prevState) === JSON.stringify(this.state);
+      if(!check || this.state.pointData == []){
+        $('.collapsible').collapsible(); 
+      }
   }
 
   handleDeleteDataFromServer(deleteUrl, e) {
@@ -81,8 +86,9 @@ class SinglePoint extends React.Component {
       <div>
         <div className="row">
           {this.state.point.name &&
-            <GenericEdit title={this.state.point.name}
-                         postUrl={this.props.update_point_url}/>
+            <GenericEdit value={this.state.point.name}
+                         postUrl={this.props.update_point_url}
+                         attributeName="point[name]"/>
           }
         </div>
         <div className="row">

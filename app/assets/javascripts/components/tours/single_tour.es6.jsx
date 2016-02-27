@@ -79,7 +79,9 @@ class SingleTour extends React.Component {
       <div>
         <div>
           {this.state.tour.name &&
-            <GenericEdit title={this.state.tour.name} postUrl={this.props.update_tour_url}/> 
+            <GenericEdit value={this.state.tour.name} 
+            			 postUrl={this.props.update_tour_url}
+            			 attributeName="tour[name]"/> 
           }
           <h5>{this.state.audience.name}</h5>
         </div>

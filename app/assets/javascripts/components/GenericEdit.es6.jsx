@@ -20,8 +20,8 @@ class GenericEdit extends React.Component {
       var postURL = this.props.postUrl;
       var newKey = this.props.attributeName;
       var newValue = document.getElementById(newKey).value;
-      var formData = new FormData();
-      formData.append(newKey, newValue);
+      var formData = {};
+      formData[newKey] = newValue;
       $.ajax({
         url: postURL,
         type: "PATCH",
