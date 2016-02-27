@@ -37,7 +37,8 @@ class PointsController < ApplicationController
 		end
 		items = {
 		  point: @point,
-		  point_data: point_data
+		  point_data: point_data,
+		  qr_code: (QRCode.new("POINT-#{@point.id}",size: 3).as_svg)
 		}
 		api_response(items)
 	end

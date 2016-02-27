@@ -33,11 +33,14 @@ class SinglePoint extends React.Component {
       success: function(data){
         // $('select').material_select();
         // console.log(data);
+        //Sets Points Cover Photo as backgroun
         $('body').css('background-image',"url("+"'"+data.point.url+"'"+")");
         $('body').css('background-size','cover');
         $('body').css('background-repeat','no-repeat');
         $('body').css('background-postion','center center');
         $('.point-card').css('opacity','0.92');
+        var qrCode = $(data.qr_code);
+        $('.point-qr-holder').html(qrCode);
         this.setState({
           point: data.point,
           pointData: data.point_data
@@ -86,13 +89,13 @@ class SinglePoint extends React.Component {
       <div className="card-panel point-card">
         <div className="row">
           <div className="col s6">
-          </div>
-          <div className="col s6">
             <h2>{this.state.point.name}</h2>
             <p>{this.state.point.description}</p>
           </div>
         </div>
         <div className="row">
+          <div className="point-qr-holder center-align">
+          </div>
           <ul className="collapsible" data-collapsible="accordion">
             {this.state.pointData.map(function(pointData) {
               return (
