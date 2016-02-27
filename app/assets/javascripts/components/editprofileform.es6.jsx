@@ -18,10 +18,6 @@ class Editprofileform extends React.Component {
       $('#updateForm').trigger("reset");
       document.getElementById('password').focus();
     });
-    // var instruction;
-    // if(this.props.currentUser.activated){
-    //   instruction = <h1>this is a test</h1>;
-    // }
   }
 
   render () {
