@@ -19,7 +19,7 @@ class ToursController < ApplicationController
 	def show
 	  @tour = Tour.find(params[:id])
 	  @audience = Audience.find(@tour.audience_id)
-	  @tour_points = TourPoint.where('tour_id' => params[:id]).order("rank").map do |tp|
+	  @tour_points = TourPoint.where('tour_id' => params[:id]).order('rank').map do |tp|
 	  	{
 	  			id: tp.point.id,
 	  			name: tp.point.name,
@@ -28,13 +28,13 @@ class ToursController < ApplicationController
 		  		delete_url: delete_tour_point_path(tp),
 		  		increase_url: increase_tour_point_path(tp),
 		  		decrease_url: decrease_tour_point_path(tp)
-	  	}
+			}
 	  end
 	  @tour_points = [] if @tour_points.nil?
 	  items = [
-	  		tour: @tour,
-				audience: @audience,
-				points:  @tour_points
+		  tour: @tour,
+		  audience: @audience,
+			points:  @tour_points
 	  ]
 	  api_response(items)
 	end
@@ -55,11 +55,8 @@ class ToursController < ApplicationController
 
 	def update
 		@tour = Tour.find(params[:id])
-		if @tour.update_attributes(tour_params)
-			redirect_to @tour
-		else
-			redirect_to new_tour_path
-		end
+		@tour.name = params[:name]
+		render json: ['Successfully updated tour'], status: 200 if @tour.save
 	end
 
 	def destroy

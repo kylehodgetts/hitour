@@ -78,7 +78,9 @@ class SingleTour extends React.Component {
     return (
       <div>
         <div>
-          <Title mTitle={this.state.tour.name} />
+          {this.state.tour.name &&
+            <GenericEdit title={this.state.tour.name} postUrl={this.props.update_tour_url}/> 
+          }
           <h5>{this.state.audience.name}</h5>
         </div>
         <br />
@@ -121,6 +123,7 @@ SingleTour.displayName = "SingleTour";
 SingleTour.propTypes = {
   new_tour_point_url: React.PropTypes.string.isRequired,
   showUrl: React.PropTypes.string.isRequired,
+  update_tour_url: React.PropTypes.string.isRequired,
   points_url:React.PropTypes.string.isRequired,
   tour_id: React.PropTypes.number.isRequired,
   pollInterval: React.PropTypes.number
