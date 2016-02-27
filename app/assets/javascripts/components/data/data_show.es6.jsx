@@ -64,7 +64,11 @@ class DataShow extends React.Component {
             </div>
             <div className="card-content">
               <span className="card-title activator grey-text text-darken-4">{this.state.datum.title}<i className="material-icons right">more_vert</i></span>
-              <p>{this.state.datum.description}</p>
+              {this.state.datum.description &&
+                <GenericEdit title={this.state.datum.description}
+                             postUrl={this.props.update_datum_url}
+                             fontSize="15px"/>
+              }
             </div>
             <div className="card-reveal">
               <span className="card-title grey-text text-darken-4">Audiences<i className="material-icons right">close</i></span>
@@ -97,6 +101,7 @@ DataShow.displayName = "DataShow";
 DataShow.propTypes = {
   pollInterval: React.PropTypes.number,
   getUrl: React.PropTypes.string.isRequired,
+  update_datum_url: React.PropTypes.string.isRequired,
   audiencesUrl: React.PropTypes.string.isRequired,
   createDatumAudienceUrl: React.PropTypes.string.isRequired,
   datumID: React.PropTypes.number.isRequired
