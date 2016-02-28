@@ -79,16 +79,18 @@ class SingleTour extends React.Component {
       <div>
         <div>
           {this.state.tour.name &&
-            <GenericEdit value={this.state.tour.name}
+            <GenericEdit
+                   value={this.state.tour.name}
             			 postUrl={this.props.update_tour_url}
-            			 attributeName="tour[name]"/>
+            			 attributeName="tour[name]"
+            />
           }
           {this.state.audience.name &&
             <SelectEdit
               selected={this.state.audience.name}
               options={this.props.audiences}
               postUrl={this.props.update_tour_url}
-              attributeName="tour[audience]"
+              attributeName="tour[audience_id]"
             />
           }
         </div>

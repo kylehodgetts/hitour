@@ -8,6 +8,16 @@ class SelectEdit extends React.Component {
     }
   }
 
+  componentDidMount() {
+    $(document).click(function(e) {
+      if(this.state.editing) {
+        if(!$('select').is(e.target)) {
+          this.handlePost();
+        }
+      }
+    }.bind(this));
+  }
+
   componentDidUpdate(prevProps, prevState) {
     var check = JSON.stringify(prevState) === JSON.stringify(this.state);
     if(!check || this.state.options == []){
@@ -21,12 +31,39 @@ class SelectEdit extends React.Component {
     });
   }
 
+  handlePost() {
+    var postURL = this.props.postUrl;
+    var newKey = this.props.attributeName;
+    var elem = document.getElementById(newKey);
+    var value = elem.options[elem.selectedIndex].value;
+    var newValueId = elem.options[elem.selectedIndex].id;
+    var formData = {};
+    formData[newKey] = newValueId;
+    $.ajax({
+      url: postURL,
+      type: "PATCH",
+      data: formData,
+      success: function(data){
+        Materialize.toast(data, 3000, 'rounded');
+        this.setState({
+          selected: value,
+          editing: false
+        });
+      }.bind(this),
+      error: function(err){
+        console.log(err);
+        Materialize.toast('Error updating entry!', 3000, 'rounded');
+      }
+    });
+  }
+
   renderEditableSelected() {
     return (
-        <select selected={this.state.selected}>
+        <select
+            id={this.props.attributeName}>
           {this.state.options.map(function(o) {
             return (
-              <option value={o.name} key={o.id}>{o.name}</option>
+              <option id={o.id} value={o.name} key={o.id}>{o.name}</option>
             );
           })}
         </select>
