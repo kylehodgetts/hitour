@@ -94,6 +94,7 @@ class SingleTour extends React.Component {
             />
           }
         </div>
+        <a href={this.props.pdfUrl}>Download PDF</a>
         <br />
         <h4>Points</h4>
         <div className="collection">
