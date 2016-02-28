@@ -3,11 +3,38 @@ class DataController < ApplicationController
   require 'securerandom'
 
   def index
-  	@data = Datum.all
+  	@data = []
+    items = Datum.all
+    items.each do |item|
+      @data << {
+          id: item.id,
+          data: item.title,
+          title: item.title,
+          description: item.description,
+          url: item.url,
+          delete_url: delete_datum_path(item),
+          show_url: datum_path(item)
+      }
+    end
+    api_response(@data)
   end
 
   def show
-  	@datum = Datum.includes(:audiences).find(params[:id])
+    @datum = Datum.includes(:audiences).find(params[:id])
+    datum_audiences = DataAudience.where(datum_id: params[:id]).map do |da|
+      {
+        id: da.id,
+        data: da.audience.name,
+        delete_url: delete_datum_audience_path(da)
+      }
+    end
+    items = {
+      datum: @datum,
+      datum_audiences: datum_audiences
+    }
+    api_response(items)
+
+  	# @datum = Datum.includes(:audiences).find(params[:id])
   end
 
   def edit
@@ -35,17 +62,14 @@ class DataController < ApplicationController
     params[:url] = upload_to_s3 file_extension, file_path
 
     @datum = Datum.new(datum_params)
-    if @datum.save
-  		redirect_to @datum
-    else
-  		render new
-    end
+    @datum.save
+    redirect_to data_path
   end
 
   def destroy
     @datum = Datum.find(params[:id])
     @datum.destroy
-    redirect_to data_path
+    render json: ["Succesfully deleted #{@datum.title}"]
   end
 
   def upload_to_s3(file_extension, file_path)

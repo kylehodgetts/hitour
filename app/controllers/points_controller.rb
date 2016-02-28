@@ -7,17 +7,38 @@ class PointsController < ApplicationController
 		@points.each do |point|
 			@points_qr[point.id] = QRCode.new('#{point.id.to_s} - #{point.name}')
 		end
+	  @points_json = []
+	  @points.each do |item|
+		  @points_json << {
+		  	id: item.id,
+		    data: item.name,
+		    delete_url: delete_point_path(item)
+			}
+	  end
+	  api_response(@points_json)
 	end
 
 	def show
 		@point = Point.includes(:data).find(params[:id])
-		@datum_ranks = PointDatum.where('point_id' => params[:id])
-		@ranks = {}
-		@datum_ranks.each do |datum_rank|
-			@ranks[datum_rank.datum.id] = datum_rank.rank
+		point_data = PointDatum.where(point_id: params[:id]).order("rank").map do |pd|
+			{
+				id:	pd.id,
+				title: pd.datum.title,
+				url: pd.datum.url,
+				rank: pd.rank,
+				description: pd.datum.description,
+				audiences: pd.datum.audiences,
+				datum_show_url: datum_path(pd.datum),
+				delete_url: delete_points_data_path(pd),
+				increase_url: increase_point_datum_path(pd),
+				decrease_url: decrease_point_datum_path(pd)
+			}
 		end
-		@data_audiences = Datum.includes(:audiences)
-		@qrcode = QRCode.new('#{@point.id.to_s} - #{@point.name}')
+		items = {
+		  point: @point,
+		  point_data: point_data
+		}
+		api_response(items)
 	end
 
 	def edit
@@ -31,6 +52,12 @@ class PointsController < ApplicationController
 		else
 			render new
 		end
+	end
+
+	def destroy
+		@point = Point.find(params[:id])
+		@point.destroy
+		render json: ['Succesfully deleted point']
 	end
 
 	def new

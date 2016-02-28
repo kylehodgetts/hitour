@@ -1,11 +1,7 @@
 <%= react_component('DataShow',{
-	datum:@datum,
-	audiences:@datum.audiences,
-	add_audience_path:new_data_audience_path(:datum_id => @datum.id, :datum_title => @datum.title)
+	datumID: @datum.id,
+	audiencesUrl: audiences_path,
+	getUrl: datum_path(@datum),
+	createDatumAudienceUrl: create_datum_audience_path
 })%>
-<%= link_to 'Edit Datum', edit_datum_path %>
-<br>
-<%= link_to 'Delete Datum', delete_datum_path, method: :delete %>
-<br>
-<%= link_to 'Add Audience to Data', new_data_audience_path(:datum_id => @datum.id, :datum_title => @datum.title) %>
 

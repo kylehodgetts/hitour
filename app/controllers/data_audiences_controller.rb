@@ -13,10 +13,19 @@ class DataAudiencesController < ApplicationController
   def create
 		@data_audience = DataAudience.new(data_audience_params)
 		if @data_audience.save
-			redirect_to data_path
+			render json: ['Succesfully created link between datum and audience']
 		else
-			redirect_to new_data_audience_path
+			render json: ['Couldnt create link between datum and audience']
 		end
+  end
+
+  def destroy
+  	@data_audience = DataAudience.find(params[:id])
+  	if @data_audience.destroy
+  		render json: ['Succesfully deleted link between data and audience']
+  	else
+  		render json: ['Couldnt delete link between data and audience']
+  	end
   end
 
   private

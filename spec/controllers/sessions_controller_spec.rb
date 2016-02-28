@@ -5,7 +5,9 @@ RSpec.describe SessionsController, type: :controller do
     context 'a logged in user' do
       before(:each) do
         User.delete(User.find_by(email: 'kyle@gmail.com'))
-        @user = User.create(email: 'kyle@gmail.com', password: 'password', activated: true)
+        @user = User.create(email: 'kyle@gmail.com',
+                            password: 'password',
+                            activated: true)
         @user.save
         get :create, email: @user.email, password: 'password'
       end
@@ -25,7 +27,9 @@ RSpec.describe SessionsController, type: :controller do
     context 'with a valid user' do
       before(:each) do
         User.delete(User.find_by(email: 'kyle@gmail.com'))
-        @user = User.create(email: 'kyle@gmail.com', password: 'password', activated: true,temporarypassword: '')
+        @user = User.create(email: 'kyle@gmail.com',
+                            password: 'password',
+                            activated: true)
         @user.save
       end
       it 'should establish a session and redirect to root' do
@@ -49,22 +53,24 @@ RSpec.describe SessionsController, type: :controller do
       expect(response).to redirect_to '/'
     end
   end
-    describe 'POST login' do
+  describe 'POST login' do
     context 'with a valid new user' do
       before(:each) do
         User.delete(User.find_by(email: 'kyle@gmail.com'))
-        @user = User.create(email: 'kyle@gmail.com', password: 'password',activated: false)
+        @user = User.create(email: 'kyle@gmail.com',
+                            password: 'password',
+                            activated: false)
         @user.save
       end
       it 'should establish a session and redirect to manage user profile' do
-        post :create,
-            email: 'kyle@gmail.com', 
-            password: 'password',
-            temporarypassword: ''
-
+        post :create, email: 'kyle@gmail.com',
+                      password: 'password'
         expect(session[:user_id]).to eq(@user.id)
         expect(response).to redirect_to update_profile_path(@user.id)
-       end
+        # Refetch user for updated attributes
+        @user = User.find(@user.id)
+        expect(@user.activated).to eq(true)
+      end
     end
     context 'with an invalid user' do
       it 'should not establish a session and redirect to the log in page' do
@@ -78,11 +84,12 @@ RSpec.describe SessionsController, type: :controller do
     context 'with a temporarypassword' do
       before(:each) do
         User.delete(User.find_by(email: 'phileas.hocquard@gmail.com'))
-        @user = User.create(email: 'phileas.hocquard@gmail.com', password: 'forgottenpassword',temporarypassword: 'workingpass')
+        @user = User.create(email: 'phileas.hocquard@gmail.com',
+                            password: 'forgottenpassword',
+                            temporarypassword: 'workingpass')
         @user.save
       end
       it 'should establish a session,remove temporary password and redirect to update profile' do
-
         expect(@user.temporarypassword).to eq('workingpass')
          get :create,email: 'phileas.hocquard@gmail.com',password: 'workingpass'
         expect(response).to redirect_to update_profile_path(@user.id)

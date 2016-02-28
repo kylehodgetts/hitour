@@ -2,7 +2,7 @@ class DataViewer extends React.Component {
   checkIfVideo () {
     var videoExtensions = ["mp4","avi","mov","avchd","flv","mpg","mpeg-4","wmv"];
     for(var i = 0;i < videoExtensions.length;i++){
-      if((this.props.url).indexOf(videoExtensions[i]) > -1){
+      if((this.props.url).toLowerCase().indexOf(videoExtensions[i]) > -1){
         console.log('Contains: '+videoExtensions[i]);
         return true;
       }
@@ -12,7 +12,7 @@ class DataViewer extends React.Component {
   checkIfImage () {
     var imageExtensions = ["jpg","png","gif"];
     for(var i = 0;i < imageExtensions.length;i++){
-      if((this.props.url).indexOf(imageExtensions[i]) > -1){
+      if((this.props.url).toLowerCase().indexOf(imageExtensions[i]) > -1){
         return true;
       }
     }
@@ -22,6 +22,13 @@ class DataViewer extends React.Component {
   componentDidMount () {
     var url = this.props.url;
     var datum_preview = $("."+this.props.data_id);
+    var placeHolder = "/assets/placeHolderImage.png";
+    var placeHolderImage = $('<img />').attr('src',placeHolder).addClass("responsive-img");
+    placeHolderImage.attr('height','300px;');
+    if(this.props.url == undefined){
+      datum_preview.append(img);
+      return;
+    }
     if(this.checkIfImage()){
       console.log('Is an image');
       var img = $('<img />').attr('src',url).addClass("responsive-img");
@@ -32,11 +39,12 @@ class DataViewer extends React.Component {
         var video = $('<video />').addClass("responsive-video");
         video.append($('<source />').attr('src',url));
         video.attr('controls','');
-        video.attr('autoplay','');
         datum_preview.append(video);
     }else{
       var a = $('<a />').attr('href',url);
-      a.text('Download File');
+      a.append(placeHolderImage);
+      a.attr('download','');
+      // a.text('Download File');
       datum_preview.append(a);
     }
   }

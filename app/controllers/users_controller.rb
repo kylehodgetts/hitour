@@ -8,15 +8,12 @@ class UsersController < ApplicationController
     items.each do |item|
       @users << {
         id: item.id,
-        data: item.email + ' Activated:' + item.activated.to_s,
-        delete_url: delete_user_path(item)
+        data: item.email,
+        delete_url: delete_user_path(item),
+        activated: item.activated
       }
     end
     api_response(@users)
-  end
-
-  def new
-    @user = User.new
   end
 
   def show
