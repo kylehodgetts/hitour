@@ -47,6 +47,7 @@ class GenericList extends React.Component {
       }.bind(this)
     });
   }
+
   renderVerified(item) {
     if(item.activated) {
       return(

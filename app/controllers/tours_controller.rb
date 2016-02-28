@@ -19,6 +19,7 @@ class ToursController < ApplicationController
 
 	def show
 	  @tour = Tour.find(params[:id])
+		@audiences = Audience.all
 	  @audience = Audience.find(@tour.audience_id)
 	  @tour_points = TourPoint.where('tour_id' => params[:id]).order('rank').map do |tp|
 	  	{
