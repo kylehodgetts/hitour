@@ -31,12 +31,6 @@ class SinglePoint extends React.Component {
       dataType: "json",
       cache: false,
       success: function(data){
-        //Sets Points Cover Photo as background
-        // $('body').css('background-image',"url("+"'"+data.point.url+"'"+")");
-        // $('body').css('background-size','cover');
-        // $('body').css('background-repeat','no-repeat');
-        // $('body').css('background-postion','center center');
-        // $('.point-card').css('opacity','0.92');
         var qrCode = $(data.qr_code);
         $('.point-qr-holder').html(qrCode);
         this.setState({
