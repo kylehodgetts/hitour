@@ -18,23 +18,24 @@ class ToursController < ApplicationController
 
 	def show
 	  @tour = Tour.find(params[:id])
+		@audiences = Audience.all
 	  @audience = Audience.find(@tour.audience_id)
-	  @tour_points = TourPoint.where('tour_id' => params[:id]).order("rank").map do |tp|
-	  		{
-	  			id:tp.point.id,
-	  			name:tp.point.name,
-	  			rank:tp.rank,
+	  @tour_points = TourPoint.where('tour_id' => params[:id]).order('rank').map do |tp|
+	  	{
+	  			id: tp.point.id,
+	  			name: tp.point.name,
+	  			rank: tp.rank,
 	  			show_url: point_path(tp.point),
-	  			delete_url: delete_tour_point_path(tp),
-	  			increase_url: increase_tour_point_path(tp),
-	  			decrease_url: decrease_tour_point_path(tp)
-	  		}
+		  		delete_url: delete_tour_point_path(tp),
+		  		increase_url: increase_tour_point_path(tp),
+		  		decrease_url: decrease_tour_point_path(tp)
+			}
 	  end
 	  @tour_points = [] if @tour_points.nil?
 	  items = [
-	  	tour:@tour,
-      	audience:@audience,
-      	points: @tour_points
+		  tour: @tour,
+		  audience: @audience,
+			points:  @tour_points
 	  ]
 	  api_response(items)
 	end
@@ -56,16 +57,16 @@ class ToursController < ApplicationController
 	def update
 		@tour = Tour.find(params[:id])
 		if @tour.update_attributes(tour_params)
-			redirect_to @tour
+			render json: ['Successfully updated tour'], status: 200 if @tour.save
 		else
-			redirect_to new_tour_path
+			render json: ['Unable to update tour']
 		end
 	end
 
 	def destroy
 		@tour = Tour.find(params[:id])
 		@tour.destroy
-    	render json: ['Successfully deleted tour'], status: 200
+		render json: ['Successfully deleted tour'], status: 200
 	end
 
 	def create

@@ -31,14 +31,19 @@ class SinglePoint extends React.Component {
       dataType: "json",
       cache: false,
       success: function(data){
-        // $('select').material_select();
-        // console.log(data);
         this.setState({
           point: data.point,
           pointData: data.point_data
         });
       }.bind(this)
     });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+      var check = JSON.stringify(prevState) === JSON.stringify(this.state);
+      if(!check || this.state.pointData == []){
+        $('.collapsible').collapsible(); 
+      }
   }
 
   handleDeleteDataFromServer(deleteUrl, e) {
@@ -80,11 +85,11 @@ class SinglePoint extends React.Component {
     return (
       <div>
         <div className="row">
-          <div className="col s6">
-          </div>
-          <div className="col s6">
-            <h2>{this.state.point.name}</h2>
-          </div>
+          {this.state.point.name &&
+            <GenericEdit value={this.state.point.name}
+                         postUrl={this.props.update_point_url}
+                         attributeName="point[name]"/>
+          }
         </div>
         <div className="row">
           <ul className="collapsible" data-collapsible="accordion">
@@ -137,6 +142,7 @@ SinglePoint.propTypes = {
   qrCode: React.PropTypes.any,
   getUrl: React.PropTypes.string.isRequired,
   new_point_datum_url: React.PropTypes.string.isRequired,
+  update_point_url: React.PropTypes.string.isRequired,
   data_url: React.PropTypes.string.isRequired,
   point_id: React.PropTypes.number.isRequired
 }
