@@ -103,4 +103,4 @@ TourPoint.create(tour_id: tour2.id, point_id: point5.id, rank: '2')
 TourPoint.create(tour_id: tour2.id, point_id: point2.id, rank: '3')
 
 # User Related Stuff
-User.create(email: 'dev@mail.com', password: 'password')
+User.create(email: 'dev@mail.com', password: 'password', activated: true)

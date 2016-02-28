@@ -88,6 +88,9 @@ RSpec.describe UsersController, type: :controller do
             password: password,
             cpassword: password
           }
+        # Refetch user for updated attributes
+        @user = User.find(@user.id)
+        expect(@user.activated).to eq(true)
         parsed_body = JSON.parse(response.body)
         expect(parsed_body[0]).to eq('Successfully updated password')
       end

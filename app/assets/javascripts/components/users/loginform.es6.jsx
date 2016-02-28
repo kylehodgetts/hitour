@@ -21,6 +21,11 @@ class Loginform extends React.Component {
                                             type="submit" name="action">
             Login
           </button>
+          <div className="row">
+            <div className="input-field col s12">
+              <a href={this.props.link_path}>Forgot your password?</a>
+            </div>
+          </div>
         </form>
       </div>
     );
@@ -28,3 +33,6 @@ class Loginform extends React.Component {
 }
 
 Loginform.displayName = "Loginform";
+Loginform.propTypes = {
+  link_path: React.PropTypes.string.isRequired
+}

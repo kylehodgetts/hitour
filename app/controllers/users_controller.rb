@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
+  require 'mailing'
   before_action :authenticate_user!
+
   def index
     items = User.where.not(id: session[:user_id])
     @users = []
@@ -19,22 +21,11 @@ class UsersController < ApplicationController
   end
 
   def create
-    randomSequence= [('A'..'Z')].map { |i| i.to_a }.flatten
-    params[:user][:password] = ""+(0...25).map { randomSequence[rand(randomSequence.length)] }.join
+    params[:user][:password] = SecureRandom.hex(25)
     @user = User.new(user_params)
     @user.activated = false
-    welcomeHtml = "<h3> HiTour - Please Activate Your Account</h3></br></br>"
-    emailHtml ="<h3>Email: <b><a href="'#'" style="'text-decoration:none !important; text-decoration:none;'">#{@user.email.upcase}</b> </h3>"
-    passwordHtml = "</br><h3>Password: <b>#{@user.password}</b></h3>"
-    url= '<a href="'+request.original_url+'">Activate Account</a>'
-    directionHtml ="<h3>"+url+" (Please set a password, once activated.)</h3></br>"
-    email = SendGrid::Mail.new do |m|
-     m.to      = "#{@user.email}"
-     m.from    = 'services@Hitour.com'
-     m.subject = 'HiTour - Email Activation'
-     m.html =  welcomeHtml+emailHtml+passwordHtml+directionHtml
-     end
-    $sendgrid.send(email)
+    mailing_invitation = Mailing.new(@user, request.original_url)
+    mailing_invitation.user_invitation
     render json: ['Added user!'], status: 200 if @user.save
   end
 
@@ -44,6 +35,7 @@ class UsersController < ApplicationController
     if password_params['password'].eql? password_params['cpassword']
       params[:user][:password] = password_params['cpassword']
       @user.update_attributes(user_params)
+      @user.update_attribute(:activated, true)
       render json: ['Successfully updated password'], status: 200
     else
       render json: ['Passwords must be non empty and match'], status: 200
