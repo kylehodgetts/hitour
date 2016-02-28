@@ -1,4 +1,4 @@
-class Passwordreset extends React.Component {
+class PasswordReset extends React.Component {
   render () {
     return (
       <div className="row">
@@ -9,7 +9,9 @@ class Passwordreset extends React.Component {
               <label htmlFor="email">Email</label>
             </div>
           </div>
-        <button className="btn waves-effect waves-light blue" type="submit" name="action">Reset password<i className="material-icons right">send</i>
+        <button className="btn waves-effect waves-light blue" type="submit" name="action">
+          Reset password
+          <i className="material-icons right">send</i>
          </button>
         </form>
       </div>
@@ -17,7 +19,7 @@ class Passwordreset extends React.Component {
   }
 }
 
-Passwordreset.displayName = "Passwordreset"
-Passwordreset.propTypes = {
+PasswordReset.displayName = "PasswordReset"
+PasswordReset.propTypes = {
   link_path: React.PropTypes.string.isRequired
 };
