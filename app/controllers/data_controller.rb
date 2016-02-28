@@ -3,17 +3,17 @@ class DataController < ApplicationController
   require 'securerandom'
 
   def index
-  	@data = []
+    @data = []
     items = Datum.all
     items.each do |item|
       @data << {
-          id: item.id,
-          data: item.title,
-          title: item.title,
-          description: item.description,
-          url: item.url,
-          delete_url: delete_datum_path(item),
-          show_url: datum_path(item)
+        id: item.id,
+        data: item.title,
+        title: item.title,
+        description: item.description,
+        url: item.url,
+        delete_url: delete_datum_path(item),
+        show_url: datum_path(item)
       }
     end
     api_response(@data)
@@ -34,7 +34,7 @@ class DataController < ApplicationController
     }
     api_response(items)
 
-  	# @datum = Datum.includes(:audiences).find(params[:id])
+    # @datum = Datum.includes(:audiences).find(params[:id])
   end
 
   def edit
@@ -44,14 +44,14 @@ class DataController < ApplicationController
   def update
     @datum = Datum.find(params[:id])
     if @datum.update_attributes(datum_params)
-			render json: ['Successfully updated media'], status: 200
+      render json: ['Successfully updated media'], status: 200
     else
-			render json: ['Unable to update media '+params[:datum][:title]]
+      render json: ['Unable to update media ' + params[:datum][:title]]
     end
   end
 
   def new
-  	@data = Datum.new
+    @data = Datum.new
   end
 
   def create
@@ -75,6 +75,6 @@ class DataController < ApplicationController
   private
 
   def datum_params
-  	params.require(:datum).permit(:title, :description, :url)
+    params.require(:datum).permit(:title, :description, :url)
   end
 end

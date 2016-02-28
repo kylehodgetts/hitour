@@ -17,6 +17,13 @@ class SinglePoint extends React.Component {
     );
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    var check = JSON.stringify(prevState) === JSON.stringify(this.state);
+    if(!check || this.state.pointData == []){
+      $('.collapsible').collapsible();
+    }
+  }
+
   componentWillUnmount() {
     this.interval && clearInterval(this.interval);
     this.interval = false;
@@ -39,13 +46,6 @@ class SinglePoint extends React.Component {
         });
       }.bind(this)
     });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-      var check = JSON.stringify(prevState) === JSON.stringify(this.state);
-      if(!check || this.state.pointData == []){
-        $('.collapsible').collapsible(); 
-      }
   }
 
   handleDeleteDataFromServer(deleteUrl, e) {
