@@ -42,7 +42,7 @@ RSpec.describe SessionsController, type: :controller do
       it 'should not establish a session and redirect to the log in page' do
         get :create, email: 'invalid@mail.com', password: 'password'
         expect(session[:user_id]).to be(nil)
-        expect(response).to redirect_to '/login'
+        expect(response).to redirect_to '/'
       end
     end
   end
@@ -63,20 +63,44 @@ RSpec.describe SessionsController, type: :controller do
         @user.save
       end
       it 'should establish a session and redirect to manage user profile' do
-        post :create,
-             email: 'kyle@gmail.com',
-             password: 'password'
+        post :create, email: 'kyle@gmail.com',
+                      password: 'password'
         expect(session[:user_id]).to eq(@user.id)
         expect(response).to redirect_to update_profile_path(@user.id)
-        # Refetch user for updated attributes
-        @user = User.find(@user.id)
-        expect(@user.activated).to eq(true)
       end
     end
     context 'with an invalid user' do
       it 'should not establish a session and redirect to the log in page' do
         get :create, email: 'invalid@mail.com', password: 'password'
-        expect(response).to redirect_to '/login'
+        expect(response).to redirect_to '/'
+      end
+    end
+  end
+
+  describe 'POST login' do
+    context 'with a temporarypassword' do
+      before(:each) do
+        User.delete(User.find_by(email: 'phileas.hocquard@gmail.com'))
+        @user = User.create(email: 'phileas.hocquard@gmail.com',
+                            password: 'forgottenpassword',
+                            temporarypassword: 'workingpass')
+        @user.save
+      end
+      it 'should establish a session,remove temporary password and redirect to update profile' do
+        expect(@user.temporarypassword).to eq('workingpass')
+         get :create,email: 'phileas.hocquard@gmail.com',password: 'workingpass'
+        expect(response).to redirect_to update_profile_path(@user.id)
+        expect(session[:user_id]).to eq(@user.id)
+        # Refetch user for updated attributes
+        @user = User.find(@user.id)
+        expect(@user.temporarypassword).to eq('')
+      end
+    end
+    context 'with an invalid user ' do
+      it 'should not establish a session and redirect to the log in page' do
+        get :create, email: 'invalid@mail.com', password: 'password', temporarypassword: ''
+        expect(session[:user_id]).to be(nil)
+        expect(response).to redirect_to '/'
       end
     end
   end
