@@ -7,7 +7,25 @@ module Api
     end
 
     def tours
-      render json: Tour.all
+      response = {}
+      response['tours'] = Tour.all.as_json
+      response['tours'].each do |tour|
+        tour['points'] = TourPoint.where(tour_id: tour['id']).as_json
+        tour['points'].each do |point|
+          point['data'] = PointDatum.where(point_id: point['id']).as_json
+        end
+      end
+
+      render json: response
+    end
+
+    def tour
+      response = Tour.find(params[:id]).as_json
+      response['points'] = TourPoint.where(tour_id: response['id']).as_json
+      response['points'].each do |point|
+        point['data'] = PointDatum.where(point_id: point['id'])
+      end
+      render json: response
     end
 
     def points

@@ -79,12 +79,13 @@ Rails.application.routes.draw do
   #Password reset
   get 'password_reset', to: 'password_reset#new', as: :password_reset
   post 'password_reset', to: 'password_reset#create', as: :add_password_reset
-  
+
   # API
   namespace :api do
     get ':access_key/users', to: 'api#users'
     get ':access_key/audiences', to: 'api#audiences'
     get ':access_key/tours', to: 'api#tours'
+    get ':access_key/tour/:id', to: 'api#tour'
     get ':access_key/points', to: 'api#points'
     get ':access_key/data', to: 'api#data'
     get ':access_key/tour_points', to: 'api#tour_points'
