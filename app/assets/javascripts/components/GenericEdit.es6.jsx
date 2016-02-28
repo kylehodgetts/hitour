@@ -7,6 +7,16 @@ class GenericEdit extends React.Component {
     }
   }
 
+  componentDidMount() {
+    $(document).click(function(e) {
+      if(this.state.editing) {
+        if(!$('textarea').is(e.target)) {
+          this.handlePost();
+        }
+      }
+    }.bind(this));
+  }
+
   handleClick() {
     this.setState({
       editing: !this.state.editing
@@ -16,28 +26,32 @@ class GenericEdit extends React.Component {
   handleOnChange(e) {
     if (e.which == 13 || e.keyCode == 13) {
       e.preventDefault();
-      var postURL = this.props.postUrl;
-      var newKey = this.props.attributeName;
-      var newValue = document.getElementById(newKey).value;
-      var formData = {};
-      formData[newKey] = newValue;
-      $.ajax({
-        url: postURL,
-        type: "PATCH",
-        data: formData,
-        success: function(data){
-          Materialize.toast(data, 3000, 'rounded');
-          this.setState({
-            value: newValue,
-            editing: false
-          });
-        }.bind(this),
-        error: function(err){
-          console.log(err);
-          Materialize.toast('Error updating entry!', 3000, 'rounded');
-        }
-      });
+      this.handlePost();
     }
+  }
+
+  handlePost() {
+    var postURL = this.props.postUrl;
+    var newKey = this.props.attributeName;
+    var newValue = document.getElementById(newKey).value;
+    var formData = {};
+    formData[newKey] = newValue;
+    $.ajax({
+      url: postURL,
+      type: "PATCH",
+      data: formData,
+      success: function(data){
+        Materialize.toast(data, 3000, 'rounded');
+        this.setState({
+          value: newValue,
+          editing: false
+        });
+      }.bind(this),
+      error: function(err){
+        console.log(err);
+        Materialize.toast('Error updating entry!', 3000, 'rounded');
+      }
+    });
   }
 
   renderSetTitle() {
