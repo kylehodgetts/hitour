@@ -25,7 +25,7 @@ class Editprofileform extends React.Component {
 
       <div className="row">
      <h4>&nbsp;&nbsp;{(!(this.props.currentUser.activated)?"Please set your password to activate your account"
-      :"You may reset your password")}</h4>
+      :"Profile")}</h4>
 
         <form id="updateForm" className="col s12" method="post">
           <input type="hidden" name="_method" value="patch" />

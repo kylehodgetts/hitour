@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   require 'mailing'
   before_action :authenticate_user!
-  
+
   def index
     items = User.where.not(id: session[:user_id])
     @users = []
@@ -24,8 +24,8 @@ class UsersController < ApplicationController
     params[:user][:password] = SecureRandom.hex(25)
     @user = User.new(user_params)
     @user.activated = false
-    mailingInvitation = Mailing.new(@user,request.original_url)
-    mailingInvitation.user_invitation
+    mailing_invitation = Mailing.new(@user, request.original_url)
+    mailing_invitation.user_invitation
     render json: ['Added user!'], status: 200 if @user.save
   end
 

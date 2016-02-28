@@ -12,21 +12,23 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(params[:password])
       # Create a user session and redirect to main page
       session[:user_id] = @user.id
-      if (!@user.activated)
+      if !@user.activated
         redirect_to update_profile_path(@user.id)
       else
-      redirect_to root_path
+        redirect_to root_path
       end
 
     elsif @user && !@user.temporarypassword.empty? && (params[:password].eql?@user.temporarypassword)
-      #Reset the password of the user to the temporarypassword and remove the previously given temporarypassword.
-          @user.update_attribute(:password,params[:password]) 
-          @user.update_attribute(:temporarypassword,'')
+      # Reset the password of the user to the
+      # temporary password and remove the previously
+      # given temporary password.
+          @user.update_attribute(:password, params[:password])
+          @user.update_attribute(:temporarypassword, '')
           @user.authenticate(params[:password])
-           session[:user_id] = @user.id
+          session[:user_id] = @user.id
           redirect_to update_profile_path(@user.id)
     else
-    redirect_to root_path 
+      redirect_to root_path
     end
   end
 
