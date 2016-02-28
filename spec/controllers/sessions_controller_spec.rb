@@ -67,9 +67,6 @@ RSpec.describe SessionsController, type: :controller do
                       password: 'password'
         expect(session[:user_id]).to eq(@user.id)
         expect(response).to redirect_to update_profile_path(@user.id)
-        # Refetch user for updated attributes
-        @user = User.find(@user.id)
-        expect(@user.activated).to eq(true)
       end
     end
     context 'with an invalid user' do
