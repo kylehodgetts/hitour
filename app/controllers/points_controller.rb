@@ -7,21 +7,22 @@ class PointsController < ApplicationController
 		@points.each do |point|
 			@points_qr[point.id] = QRCode.new('#{point.id.to_s} - #{point.name}')
 		end
-	  @points_json = []
-	  @points.each do |item|
-		  @points_json << {
-		  	id: item.id,
-		    data: item.name,
-		    delete_url: delete_point_path(item)
+		@points_json = []
+		@points.each do |item|
+			@points_json << {
+			  id: item.id,
+			  data: item.name,
+			  delete_url: delete_point_path(item),
+			  show_url: point_path(item)
 			}
-	  end
-	  api_response(@points_json)
+		end
+		api_response(@points_json)
 	end
 
 	def show
 		@point = Point.includes(:data).find(params[:id])
-		point_data = PointDatum.where(point_id: params[:id]).order("rank").map do |pd|
-			{
+		point_data = PointDatum.where(point_id: params[:id]).order('rank').map do |pd|
+		{
 				id:	pd.id,
 				title: pd.datum.title,
 				url: pd.datum.url,
@@ -32,17 +33,14 @@ class PointsController < ApplicationController
 				delete_url: delete_points_data_path(pd),
 				increase_url: increase_point_datum_path(pd),
 				decrease_url: decrease_point_datum_path(pd)
-			}
+		}
 		end
 		items = {
 		  point: @point,
-		  point_data: point_data
+		  point_data: point_data,
+		  qr_code: QRCode.new("POINT-#{@point.id}", size: 3).as_svg
 		}
 		api_response(items)
-	end
-
-	def edit
-		@point = Point.find(params[:id])
 	end
 
 	def update
@@ -60,22 +58,29 @@ class PointsController < ApplicationController
 		render json: ['Succesfully deleted point']
 	end
 
-	def new
-		@point = Point.new
-	end
-
 	def create
-		if Point.find_by(name: params[:name])
-			render new
-		else
-			create_point
-		end
+		# Redirect back since no file provided
+		return redirect_to points_path if params[:file].nil?
+		# Extract file_name and file_path
+		file_path = params[:file].path
+		file_extension = File.extname(file_path)
+
+		# Add file_path to the params
+		params[:url] = upload_to_s3 file_extension, file_path
+
+		@point = Point.new(
+		  name: params[:name],
+		  description: params[:description],
+		  url: params[:url]
+		)
+		@point.save
+		redirect_to points_path
 	end
 
 		private
 
 	def point_params
-		params.require(:point).permit(:name)
+		params.require(:point).permit(:name, :description, :url)
 	end
 
 	def create_point

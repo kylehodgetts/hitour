@@ -1,57 +1,63 @@
 class ToursController < ApplicationController
+	include RQRCode
 	before_action :authenticate_user!
+
 	def index
-	  items = Tour.includes(:points)
-	  @tours = []
-	  items.each do |item|
-	    @tours << {
-	      id: item.id,
-	      data: item.name,
-	      delete_url: delete_tour_path(item),
-	      show_url: tour_path(item) }
-	  end
-	  @audiences = Audience.all.map do |audience|
-	  	  [audience.name, audience.id]
-	  end
-	  api_response(@tours)
+		items = Tour.includes(:points)
+		@tours = []
+		items.each do |item|
+			@tours << {
+			  id: item.id,
+			  data: item.name,
+			  delete_url: delete_tour_path(item),
+			  show_url: tour_path(item)
+			}
+		end
+		@audiences = Audience.all.map do |audience|
+			[audience.name, audience.id]
+		end
+		api_response(@tours)
 	end
 
 	def show
-	  @tour = Tour.find(params[:id])
+		@tour = Tour.find(params[:id])
 		@audiences = Audience.all
-	  @audience = Audience.find(@tour.audience_id)
-	  @tour_points = TourPoint.where('tour_id' => params[:id]).order('rank').map do |tp|
-	  	{
-	  			id: tp.point.id,
-	  			name: tp.point.name,
-	  			rank: tp.rank,
-	  			show_url: point_path(tp.point),
-		  		delete_url: delete_tour_point_path(tp),
-		  		increase_url: increase_tour_point_path(tp),
-		  		decrease_url: decrease_tour_point_path(tp)
+		@audience = Audience.find(@tour.audience_id)
+		@tour_points = TourPoint.where('tour_id' => params[:id]).order('rank').map do |tp|
+			{
+			  id: tp.point.id,
+				name: tp.point.name,
+				rank: tp.rank,
+				show_url: point_path(tp.point),
+				delete_url: delete_tour_point_path(tp),
+				increase_url: increase_tour_point_path(tp),
+				decrease_url: decrease_tour_point_path(tp),
+				pdf_url: tour_pdf_path(tp)
 			}
-	  end
-	  @tour_points = [] if @tour_points.nil?
-	  items = [
+		end
+		@tour_points = [] if @tour_points.nil?
+		items = [
 		  tour: @tour,
 		  audience: @audience,
-			points:  @tour_points
-	  ]
-	  api_response(items)
+		  points:  @tour_points
+		]
+		api_response(items)
 	end
 
-	def new
-	  @tour = Tour.new
-	  @audience_options = Audience.all.map do |audience|
-			[audience.name, audience.id]
-	  end
-	end
-
-	def edit
+	def pdf
 		@tour = Tour.find(params[:id])
-		@audience_options = Audience.all.map do |audience|
-			[audience.name, audience.id]
+		@audience = Audience.find(@tour.audience_id)
+		@tour_points = TourPoint.where('tour_id' => params[:id]).order('rank').map do |tp|
+			{
+			  id: tp.point.id,
+			  name: tp.point.name,
+			  rank: tp.rank,
+			  qr_code: QRCode.new("POINT-#{tp.point.id}", size: 3),
+			  description: tp.point.description,
+			  url: tp.point.url
+			}
 		end
+		render pdf: @tour.name.to_s
 	end
 
 	def update
@@ -81,6 +87,6 @@ class ToursController < ApplicationController
 		private
 
 	def tour_params
-	  params.require(:tour).permit(:name, :audience_id)
+		params.require(:tour).permit(:name, :audience_id)
 	end
 end

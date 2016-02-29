@@ -1,29 +1,29 @@
-class Data extends React.Component {
+class Points extends React.Component {
 
   render () {
     return (
       <div>
         <GenericList getUrl={this.props.getUrl} />
-        <form id="datumForm" className="col s12" encType="multipart/form-data" action={this.props.postUrl} method="post" >
-                  <div className="row">
+        <form id="pointForm" className="col s12" encType="multipart/form-data" action={this.props.postUrl} method="post" >
+          <div className="row">
             <div className="input-field col s12">
-                <input id="datum[title]" type="text" name="title" className="validate" required/>
-                <label htmlFor="datum[title]">Title</label>
+                <input id="point[name]" type="text" name="name" className="validate" required/>
+                <label htmlFor="point[name]">Point Name</label>
             </div>
           </div>
           <div className="row">
             <div className="input-field col s12">
-                <textarea name="description" id="datum[description]" className="materialize-textarea" required></textarea>
-                <label htmlFor="datum[description]">Description</label>
+                <textarea name="description" id="point[description]" className="materialize-textarea" required></textarea>
+                <label htmlFor="point[description]">Description</label>
             </div>
           </div>
           <div className="file-field input-field">
             <div className="btn">
               <span>File</span>
-              <input type="file" name="file" id="datum[file]" required/>
+              <input type="file" name="file" id="point[file]" accept="image/*" required/>
             </div>
             <div className="file-path-wrapper">
-              <input className="file-path validate" type="text" placeholder="Upload your file here" />
+              <input className="file-path validate" type="text" placeholder="Upload your cover photo here" />
             </div>
           </div>
           <button className="btn right blue waves-effect waves-light"
@@ -36,8 +36,8 @@ class Data extends React.Component {
   }
 }
 
-Data.displayName = "Data";
-Data.propTypes = {
+Points.displayName = "Points";
+Points.propTypes = {
   getUrl: React.PropTypes.string.isRequired,
   postUrl: React.PropTypes.string.isRequired
 }

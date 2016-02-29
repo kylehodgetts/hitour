@@ -26,11 +26,18 @@ class NewPointDatum extends React.Component {
           Materialize.toast(data, 3000, 'rounded');
         }.bind(this),
         error: function(err){
-          Materialize.toast('There was an issue adding the point. Please contact admin.', 3000, 'rounded');
+          Materialize.toast(err, 3000, 'rounded');
           console.log(err);
         }.bind(this)
       });
     });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    var check = JSON.stringify(prevState) === JSON.stringify(this.state);
+    if(!check || this.state.data == []){
+      $('select').material_select();
+    }
   }
 
   componentWillUnmount() {
@@ -52,18 +59,10 @@ class NewPointDatum extends React.Component {
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-      var check = JSON.stringify(prevState) === JSON.stringify(this.state);
-      if(!check || this.state.data == []){
-        $('select').material_select();
-      }
-  }
-
   render () {
     return (
       <div>
         <div>
-          <span>Add Data to point</span>
           <form id="pointDatumForm" className="card-content">
             <input value={this.props.point_id} type="hidden" name="point_datum[point_id]" />
             <div className="row">
@@ -78,9 +77,9 @@ class NewPointDatum extends React.Component {
                 <label>Data Name</label>
               </div>
             </div>
-            <button className="btn right blue waves-effect waves-light"
-                    type="submit" name="action">Submit
-              <i className="material-icons right">send</i>
+            <button className="btn-floating btn-large waves-effect waves-light blue right"
+              type="submit" name="action">
+              <i className="material-icons">add</i>
             </button>
           </form>
         </div>

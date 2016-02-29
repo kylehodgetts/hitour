@@ -3,10 +3,7 @@ Rails.application.routes.draw do
   get 'tours_audiences/new'
 
   # Points
-  get 'tours_points/new'
-  get '/points/new', to: 'points#new', as: :new_point
   get '/points', to: 'points#index', as: :points
-  get '/points/:id/edit', to: 'points#edit', as: :edit_point
   get '/points/show/:id', to: 'points#show', as: :point
   patch '/points/:id', to: 'points#update', as: :update_point
   post '/points', to: 'points#create', as: :create_point
@@ -15,8 +12,6 @@ Rails.application.routes.draw do
   # Data
   get '/data', to: 'data#index', as: :data
   get '/data/show/:id', to: 'data#show', as: :datum
-  get '/data/new', to: 'data#new', as: :new_datum
-  get '/data/:id/edit', to: 'data#edit', as: :edit_datum
   post '/data', to: 'data#create', as: :create_datum
   patch '/data/:id', to: 'data#update', as: :update_datum
   delete '/data/:id', to: 'data#destroy', as: :delete_datum
@@ -35,31 +30,25 @@ Rails.application.routes.draw do
   # Tours
   get '/tours', to: 'tours#index', as: :tours
   get '/tours/show/:id', to: 'tours#show', as: :tour
-  get '/tours/new', to: 'tours#new', as: :new_tour
   delete '/tours/:id', to: 'tours#destroy', as: :delete_tour
-  get '/tours/:id/edit', to: 'tours#edit', as: :edit_tour
   post '/tours', to: 'tours#create', as: :create_tour
   patch '/tours/:id', to: 'tours#update', as: :update_tour
+  get '/tours/:id/pdf', to: 'tours#pdf', as: :tour_pdf
 
   # Tours Points
-  get '/tours_points', to: 'tours_points#new'
-  get '/tours_points/new', to: 'tours_points#new', as: :new_tours_points
   post '/tour_points', to: 'tours_points#create', as: :create_tour_point
   post '/tour_points/increase_rank/:id',to: 'tours_points#increase_rank', as: :increase_tour_point
   post '/tour_points/decrease_rank/:id',to: 'tours_points#decrease_rank', as: :decrease_tour_point
   delete '/tours_points/:id', to: 'tours_points#destroy', as: :delete_tour_point
 
   # Points Data
-  get '/points_data', to: 'points_data#new', as: :new_points_data
   post '/point_data', to: 'points_data#create', as: :create_point_datum
   delete '/points_data/:id', to: 'points_data#destroy', as: :delete_points_data
-  get '/points_data/:id', to: 'points_data#edit', as: :edit_points_datum
   patch '/points_data/:id', to: 'points_data#update', as: :update_points_datum
   post '/points_data/increase_rank/:id',to: 'points_data#increase_rank', as: :increase_point_datum
   post '/points_data/decrease_rank/:id',to: 'points_data#decrease_rank', as: :decrease_point_datum
 
   # Tours Audiences
-  get '/tours_audiences', to: 'tours_audiences#new'
   get '/tours_audiences/new', to: 'tours_audiences#new', as: :new_tours_audience
   post '/tour_audiences', to: 'tours_audiences#create'
 
@@ -79,7 +68,7 @@ Rails.application.routes.draw do
   #Password reset
   get 'password_reset', to: 'password_reset#new', as: :password_reset
   post 'password_reset', to: 'password_reset#create', as: :add_password_reset
-  
+
   # API
   namespace :api do
     get ':access_key/users', to: 'api#users'

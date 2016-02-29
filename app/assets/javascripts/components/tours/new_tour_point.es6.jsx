@@ -26,22 +26,22 @@ class NewTourPoint extends React.Component {
           Materialize.toast(data, 3000, 'rounded');
         }.bind(this),
         error: function(err){
-          Materialize.toast('There was an issue adding the point. Please contact admin.', 3000, 'rounded');
+          Materialize.toast(err, 3000, 'rounded');
           console.log(err);
         }.bind(this)
       });
     });
   }
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
+  componentDidUpdate(prevProps, prevState) {
+    var check = JSON.stringify(prevState) === JSON.stringify(this.state);
+    if(!check || this.state.data == []){
+      $('select').material_select();
+    }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-      var check = JSON.stringify(prevState) === JSON.stringify(this.state);
-      if(!check || this.state.data == []){
-        $('select').material_select();
-      }
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   handleLoadDataFromServer() {
@@ -78,9 +78,9 @@ class NewTourPoint extends React.Component {
                 <label>Point Name</label>
               </div>
             </div>
-            <button className="btn right blue waves-effect waves-light"
-                    type="submit" name="action">Submit
-              <i className="material-icons right">send</i>
+            <button title="Add Point to tour" className="btn-floating btn-large waves-effect waves-light blue right"
+              type="submit" name="action">
+              <i className="material-icons">add</i>
             </button>
           </form>
         </div>

@@ -3,17 +3,17 @@ class DataController < ApplicationController
   require 'securerandom'
 
   def index
-  	@data = []
+    @data = []
     items = Datum.all
     items.each do |item|
       @data << {
-          id: item.id,
-          data: item.title,
-          title: item.title,
-          description: item.description,
-          url: item.url,
-          delete_url: delete_datum_path(item),
-          show_url: datum_path(item)
+        id: item.id,
+        data: item.title,
+        title: item.title,
+        description: item.description,
+        url: item.url,
+        delete_url: delete_datum_path(item),
+        show_url: datum_path(item)
       }
     end
     api_response(@data)
@@ -34,34 +34,36 @@ class DataController < ApplicationController
     }
     api_response(items)
 
-  	# @datum = Datum.includes(:audiences).find(params[:id])
-  end
-
-  def edit
-    @datum = Datum.find(params[:id])
+    # @datum = Datum.includes(:audiences).find(params[:id])
   end
 
   def update
     @datum = Datum.find(params[:id])
     if @datum.update_attributes(datum_params)
-			render json: ['Successfully updated media'], status: 200
+      render json: ['Successfully updated media'], status: 200
     else
-			render json: ['Unable to update media '+params[:datum][:title]]
+      render json: ['Unable to update media ' + params[:datum][:title]]
     end
   end
 
   def new
-  	@data = Datum.new
+    @data = Datum.new
   end
 
   def create
+    # Redirect back since no file provided
+    return redirect_to data_path if params[:file].nil?
     # Extract file_name and file_path
     file_path = params[:file].path
     file_extension = File.extname(file_path)
     # Add file_path to the params
     params[:url] = upload_to_s3 file_extension, file_path
 
-    @datum = Datum.new(datum_params)
+    @datum = Datum.new(
+      title: params[:title],
+      description: params[:description],
+      url: params[:url]
+    )
     @datum.save
     redirect_to data_path
   end
@@ -72,16 +74,9 @@ class DataController < ApplicationController
     render json: ["Succesfully deleted #{@datum.title}"]
   end
 
-  def upload_to_s3(file_extension, file_path)
-    s3 = Aws::S3::Resource.new
-    obj = s3.bucket('hitourbucket').object(SecureRandom.hex + file_extension)
-    obj.upload_file(file_path, acl: 'public-read')
-    obj.public_url
-  end
-
   private
 
   def datum_params
-  	params.require(:datum).permit(:title, :description, :url)
+    params.require(:datum).permit(:title, :description, :url)
   end
 end

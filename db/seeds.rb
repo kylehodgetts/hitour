@@ -64,11 +64,16 @@ DataAudience.create(datum_id: datum10.id, audience_id: alevel.id)
 DataAudience.create(datum_id: datum10.id, audience_id: uni_student.id)
 
 # Points
-point1 = Point.create(name: 'Fluoroscopy')
-point2 = Point.create(name: 'Angiography')
-point3 = Point.create(name: 'Intravenous Urograms (IVU)')
-point4 = Point.create(name: 'Magnetic Resonance Imaging (MRI)')
-point5 = Point.create(name: 'Nuclear Medicine')
+point1 = Point.create(name: 'Fluoroscopy', description: 'This is a test description',
+url: 'https://s3-us-west-2.amazonaws.com/hitourbucket/ExampleData/MRI/MRI.JPG')
+point2 = Point.create(name: 'Angiography', description: 'This is a test description',
+url: 'https://s3-us-west-2.amazonaws.com/hitourbucket/ExampleData/MRI/MRI.JPG')
+point3 = Point.create(name: 'Intravenous Urograms (IVU)', description: 'This is a test description',
+url: 'https://s3-us-west-2.amazonaws.com/hitourbucket/ExampleData/MRI/MRI.JPG')
+point4 = Point.create(name: 'Magnetic Resonance Imaging (MRI)', description: 'This is a test description',
+url: 'https://s3-us-west-2.amazonaws.com/hitourbucket/ExampleData/MRI/MRI.JPG')
+point5 = Point.create(name: 'Nuclear Medicine', description: 'This is a test description',
+url: 'https://s3-us-west-2.amazonaws.com/hitourbucket/ExampleData/MRI/MRI.JPG')
 
 # Point Data
 # For Point 1

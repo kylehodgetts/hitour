@@ -11,11 +11,12 @@ class DataAudiencesController < ApplicationController
   end
 
   def create
-		@data_audience = DataAudience.new(data_audience_params)
-		if @data_audience.save
-			render json: ['Succesfully created link between datum and audience']
-		else
-			render json: ['Couldnt create link between datum and audience']
+    @data_audience = DataAudience.new(data_audience_params)
+    begin
+		  @data_audience.save
+    render json: ['Succesfully linked audience to media']
+		rescue ActiveRecord::RecordNotUnique
+      render json: ['This audience has already been added to this datum']
 		end
   end
 

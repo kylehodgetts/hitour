@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160227203222) do
+ActiveRecord::Schema.define(version: 20160229174145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20160227203222) do
   end
 
   add_index "data_audiences", ["audience_id"], name: "index_data_audiences_on_audience_id", using: :btree
+  add_index "data_audiences", ["datum_id", "audience_id"], name: "index_data_audiences_on_datum_id_and_audience_id", unique: true, using: :btree
   add_index "data_audiences", ["datum_id"], name: "index_data_audiences_on_datum_id", using: :btree
 
   create_table "point_data", force: :cascade do |t|
@@ -49,12 +50,15 @@ ActiveRecord::Schema.define(version: 20160227203222) do
   end
 
   add_index "point_data", ["datum_id"], name: "index_point_data_on_datum_id", using: :btree
+  add_index "point_data", ["point_id", "datum_id"], name: "index_point_data_on_point_id_and_datum_id", unique: true, using: :btree
   add_index "point_data", ["point_id"], name: "index_point_data_on_point_id", using: :btree
 
   create_table "points", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.text     "url"
+    t.text     "description"
   end
 
   add_index "points", ["name"], name: "index_points_on_name", using: :btree
@@ -73,6 +77,7 @@ ActiveRecord::Schema.define(version: 20160227203222) do
   end
 
   add_index "tour_points", ["point_id"], name: "index_tour_points_on_point_id", using: :btree
+  add_index "tour_points", ["tour_id", "point_id"], name: "index_tour_points_on_tour_id_and_point_id", unique: true, using: :btree
   add_index "tour_points", ["tour_id"], name: "index_tour_points_on_tour_id", using: :btree
 
   create_table "tours", force: :cascade do |t|

@@ -16,10 +16,6 @@ class AudiencesController < ApplicationController
     @audience = Audience.find(params[:id])
   end
 
-  def edit
-    @audience = Audience.find(params[:id])
-  end
-
   def update
     @audience = Audience.find(params[:id])
     if @audience.update_attributes(audience_params)
@@ -27,10 +23,6 @@ class AudiencesController < ApplicationController
     else
       redirect_to edit_audience_path
     end
-  end
-
-  def new
-    @audience = Audience.new
   end
 
   def create

@@ -26,11 +26,18 @@ class NewDatumAudience extends React.Component {
           Materialize.toast(data, 3000, 'rounded');
         }.bind(this),
         error: function(err){
-          Materialize.toast('There was an issue adding the point. Please contact admin.', 3000, 'rounded');
+          Materialize.toast(err, 3000, 'rounded');
           console.log(err);
         }.bind(this)
       });
     });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    var check = JSON.stringify(prevState) === JSON.stringify(this.state);
+    if(!check || this.state.data == []){
+      $('select').material_select();
+    }
   }
 
   componentWillUnmount() {
@@ -52,13 +59,6 @@ class NewDatumAudience extends React.Component {
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-      var check = JSON.stringify(prevState) === JSON.stringify(this.state);
-      if(!check || this.state.data == []){
-        $('select').material_select();
-      }
-  }
-
   render () {
     return (
       <div>
@@ -76,9 +76,9 @@ class NewDatumAudience extends React.Component {
                 </select>
               </div>
             </div>
-            <button className="btn right blue waves-effect waves-light"
-                    type="submit" name="action">Add Audience
-              <i className="material-icons right">send</i>
+            <button title="Add Audience to media" className="btn-floating btn-large waves-effect waves-light blue right"
+              type="submit" name="action">
+              <i className="material-icons">add</i>
             </button>
           </form>
         </div>
@@ -91,5 +91,6 @@ NewDatumAudience.displayName = "NewDatumAudience";
 NewDatumAudience.propTypes = {
   datumID: React.PropTypes.number.isRequired,
   audiencesUrl: React.PropTypes.string.isRequired,
-  createDatumAudienceUrl: React.PropTypes.string.isRequired
+  createDatumAudienceUrl: React.PropTypes.string.isRequired,
+  pollInterval: React.PropTypes.number
 }

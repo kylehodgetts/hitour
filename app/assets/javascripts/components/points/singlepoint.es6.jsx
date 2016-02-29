@@ -17,6 +17,13 @@ class SinglePoint extends React.Component {
     );
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    var check = JSON.stringify(prevState) === JSON.stringify(this.state);
+    if(!check || this.state.pointData == []){
+      $('.collapsible').collapsible();
+    }
+  }
+
   componentWillUnmount() {
     this.interval && clearInterval(this.interval);
     this.interval = false;
@@ -31,19 +38,14 @@ class SinglePoint extends React.Component {
       dataType: "json",
       cache: false,
       success: function(data){
+        var qrCode = $(data.qr_code);
+        $('.point-qr-holder').html(qrCode);
         this.setState({
           point: data.point,
           pointData: data.point_data
         });
       }.bind(this)
     });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-      var check = JSON.stringify(prevState) === JSON.stringify(this.state);
-      if(!check || this.state.pointData == []){
-        $('.collapsible').collapsible(); 
-      }
   }
 
   handleDeleteDataFromServer(deleteUrl, e) {
@@ -84,14 +86,37 @@ class SinglePoint extends React.Component {
     var _this = this;
     return (
       <div>
-        <div className="row">
-          {this.state.point.name &&
-            <GenericEdit value={this.state.point.name}
-                         postUrl={this.props.update_point_url}
-                         attributeName="point[name]"/>
-          }
+        <div className="card large point-card">
+          <div className="card-image waves-effect waves-block waves-light">
+            {this.state.point.url &&
+              <DataViewer url={this.state.point.url} />}
+          </div>
+          <div className="card-content">
+                <span className="card-title activator grey-text text-darken-4">
+                  <i className="material-icons right">more_vert</i>
+                </span>
+                {this.state.point.name &&
+                <GenericEdit value={this.state.point.name}
+                             postUrl={this.props.update_point_url}
+                             attributeName="point[name]"/>
+                }
+              <div className="col s12">
+                {this.state.point.description &&
+                <GenericEdit value={this.state.point.description}
+                             postUrl={this.props.update_point_url}
+                             attributeName="point[description]"
+                             fontSize="20px"/>
+                }
+          </div>
+          </div>
+          <div className="card-reveal">
+              <span className="card-title grey-text text-darken-4"><i className="material-icons right">close</i></span>
+            <div className="point-qr-holder center-align">
+            </div>
+          </div>
         </div>
-        <div className="row">
+        <div className="card-panel">
+          <h4>Media attached to point</h4>
           <ul className="collapsible" data-collapsible="accordion">
             {this.state.pointData.map(function(pointData) {
               return (
@@ -126,12 +151,12 @@ class SinglePoint extends React.Component {
               );
             }, this)}
           </ul>
-        </div>
-        <NewPointDatum
-          point_id={this.props.point_id}
-          data_url={this.props.data_url}
-          new_point_datum_url={this.props.new_point_datum_url}
+          <NewPointDatum
+            point_id={this.props.point_id}
+            data_url={this.props.data_url}
+            new_point_datum_url={this.props.new_point_datum_url}
           />
+        </div>
       </div>
     );
   }
