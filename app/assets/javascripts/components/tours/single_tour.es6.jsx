@@ -94,7 +94,9 @@ class SingleTour extends React.Component {
             />
           }
         </div>
-        <a target="_blank" href={this.props.pdfUrl}>Download PDF</a>
+        <a target="_blank" className="waves-effect waves-light blue btn" href={this.props.pdfUrl}>
+          <i className="material-icons dp48 left">receipt</i>Download PDF
+        </a>
         <br />
         <h4>Points</h4>
         <div className="collection">
