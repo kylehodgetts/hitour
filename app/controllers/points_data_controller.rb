@@ -1,12 +1,5 @@
 class PointsDataController < ApplicationController
 	before_action :authenticate_user!
-	def new
-		@point_datum = PointDatum.new
-		@point_id = params[:point_id]
-		@point_name = params[:point_name]
-		@data_options = Datum.all.map { |data| [data.title, data.id] }
-	end
-
 	def create
 		params[:point_datum][:rank] = max_rank(Point.find(params[:point_datum][:point_id]))
 		@point_datum = PointDatum.new(point_datum_params)
@@ -15,11 +8,6 @@ class PointsDataController < ApplicationController
 		else
 			render json: ['Could not add media to point']
 		end
-	end
-
-	def edit
-		@point_datum = PointDatum.find_by(point_id: params[:point_id],
-																			datum_id: params[:datum_id])
 	end
 
 	def update

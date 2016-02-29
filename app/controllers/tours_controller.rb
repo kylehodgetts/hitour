@@ -60,20 +60,6 @@ class ToursController < ApplicationController
 		render pdf: @tour.name.to_s
 	end
 
-	def new
-		@tour = Tour.new
-		@audience_options = Audience.all.map do |audience|
-			[audience.name, audience.id]
-		end
-	end
-
-	def edit
-		@tour = Tour.find(params[:id])
-		@audience_options = Audience.all.map do |audience|
-			[audience.name, audience.id]
-		end
-	end
-
 	def update
 		@tour = Tour.find(params[:id])
 		if @tour.update_attributes(tour_params)

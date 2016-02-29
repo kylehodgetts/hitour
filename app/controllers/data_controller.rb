@@ -37,10 +37,6 @@ class DataController < ApplicationController
     # @datum = Datum.includes(:audiences).find(params[:id])
   end
 
-  def edit
-    @datum = Datum.find(params[:id])
-  end
-
   def update
     @datum = Datum.find(params[:id])
     if @datum.update_attributes(datum_params)
@@ -63,7 +59,11 @@ class DataController < ApplicationController
     # Add file_path to the params
     params[:url] = upload_to_s3 file_extension, file_path
 
-    @datum = Datum.new(datum_params)
+    @datum = Datum.new(
+      title: params[:title],
+      description: params[:description],
+      url: params[:url]
+    )
     @datum.save
     redirect_to data_path
   end

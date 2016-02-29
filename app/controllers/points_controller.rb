@@ -43,10 +43,6 @@ class PointsController < ApplicationController
 		api_response(items)
 	end
 
-	def edit
-		@point = Point.find(params[:id])
-	end
-
 	def update
 		@point = Point.find(params[:id])
 		if @point.update_attributes(point_params)
@@ -60,10 +56,6 @@ class PointsController < ApplicationController
 		@point = Point.find(params[:id])
 		@point.destroy
 		render json: ['Succesfully deleted point']
-	end
-
-	def new
-		@point = Point.new
 	end
 
 	def create
