@@ -76,9 +76,9 @@ class NewDatumAudience extends React.Component {
                 </select>
               </div>
             </div>
-            <button className="btn right blue waves-effect waves-light"
-                    type="submit" name="action">Add Audience
-              <i className="material-icons right">send</i>
+            <button title="Add Audience to media" className="btn-floating btn-large waves-effect waves-light blue right"
+                    type="submit" name="action">
+              <i className="material-icons">add</i>
             </button>
           </form>
         </div>

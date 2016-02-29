@@ -78,9 +78,9 @@ class NewTourPoint extends React.Component {
                 <label>Point Name</label>
               </div>
             </div>
-            <button className="btn right blue waves-effect waves-light"
-                    type="submit" name="action">Submit
-              <i className="material-icons right">send</i>
+            <button title="Add Point to tour" className="btn-floating btn-large waves-effect waves-light blue right"
+                    type="submit" name="action">
+              <i className="material-icons">add</i>
             </button>
           </form>
         </div>
