@@ -1,29 +1,21 @@
 class PointsDataController < ApplicationController
 	before_action :authenticate_user!
 	def create
-		params[:point_datum][:rank] = max_rank(Point.find(params[:point_datum][:point_id]))
-		@point_datum = PointDatum.new(point_datum_params)
-		if @point_datum.save
+		point = Point.find(params[:point_datum][:point_id])
+		params[:point_datum][:rank] = max_rank(point)
+		begin
+			@point_datum = PointDatum.new(point_datum_params)
+			@point_datum.save
 			render json: ['Succesfully added media to point']
-		else
-			render json: ['Could not add media to point']
-		end
-	end
-
-	def update
-		@point_datum = PointDatum.find_by(point_id: params[:point_datum][:point_id],
-																			datum_id: params[:point_datum][:datum_id])
-		if @point_datum.update_attributes(point_datum_params)
-			redirect_to Point.find_by(params[:point_id])
-		else
-			redirect_to edit_point_datum_path
+		rescue ActiveRecord::RecordNotUnique
+			render json: ['This media has already been added to this point']
 		end
 	end
 
 	def destroy
 	  	@point_datum = PointDatum.find(params[:id])
 	  	@point_datum.destroy
-		render json: ['Succesfully deleted datum from point']
+				render json: ['Succesfully deleted datum from point']
 	end
 
 	def increase_rank

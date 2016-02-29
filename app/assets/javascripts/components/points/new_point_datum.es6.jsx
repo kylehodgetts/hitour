@@ -26,7 +26,7 @@ class NewPointDatum extends React.Component {
           Materialize.toast(data, 3000, 'rounded');
         }.bind(this),
         error: function(err){
-          Materialize.toast('There was an issue adding the point. Please contact admin.', 3000, 'rounded');
+          Materialize.toast(err, 3000, 'rounded');
           console.log(err);
         }.bind(this)
       });

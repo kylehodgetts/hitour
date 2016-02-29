@@ -3,11 +3,12 @@ class ToursPointsController < ApplicationController
 	def create
 		tour_id = params[:tour_point][:tour_id]
 		params[:tour_point][:rank] = max_rank(Tour.find(tour_id))
-		@tour_point = TourPoint.new(point_data_params)
-		if @tour_point.save
+		begin
+			@tour_point = TourPoint.new(point_data_params)
+			@tour_point.save
 			render json: ['Succesfully added link between tour and point']
-		else
-			render json: ['There was an issue adding the point to the tour']
+		rescue ActiveRecord::RecordNotUnique
+			render json: ['This point has already been added to this tour']
 		end
 	end
 

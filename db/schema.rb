@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229141521) do
+ActiveRecord::Schema.define(version: 20160229174145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 20160229141521) do
   end
 
   add_index "tour_points", ["point_id"], name: "index_tour_points_on_point_id", using: :btree
+  add_index "tour_points", ["tour_id", "point_id"], name: "index_tour_points_on_tour_id_and_point_id", unique: true, using: :btree
   add_index "tour_points", ["tour_id"], name: "index_tour_points_on_tour_id", using: :btree
 
   create_table "tours", force: :cascade do |t|
