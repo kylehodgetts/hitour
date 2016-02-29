@@ -33,15 +33,15 @@ class NewTourPoint extends React.Component {
     });
   }
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
+  componentDidUpdate(prevProps, prevState) {
+    var check = JSON.stringify(prevState) === JSON.stringify(this.state);
+    if(!check || this.state.data == []){
+      $('select').material_select();
+    }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-      var check = JSON.stringify(prevState) === JSON.stringify(this.state);
-      if(!check || this.state.data == []){
-        $('select').material_select();
-      }
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   handleLoadDataFromServer() {
@@ -79,7 +79,7 @@ class NewTourPoint extends React.Component {
               </div>
             </div>
             <button title="Add Point to tour" className="btn-floating btn-large waves-effect waves-light blue right"
-                    type="submit" name="action">
+              type="submit" name="action">
               <i className="material-icons">add</i>
             </button>
           </form>
