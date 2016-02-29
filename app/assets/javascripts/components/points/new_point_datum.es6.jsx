@@ -33,6 +33,13 @@ class NewPointDatum extends React.Component {
     });
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    var check = JSON.stringify(prevState) === JSON.stringify(this.state);
+    if(!check || this.state.data == []){
+      $('select').material_select();
+    }
+  }
+
   componentWillUnmount() {
     clearInterval(this.interval);
   }
@@ -50,13 +57,6 @@ class NewPointDatum extends React.Component {
         });
       }.bind(this)
     });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-      var check = JSON.stringify(prevState) === JSON.stringify(this.state);
-      if(!check || this.state.data == []){
-        $('select').material_select();
-      }
   }
 
   render () {
@@ -78,7 +78,7 @@ class NewPointDatum extends React.Component {
               </div>
             </div>
             <button className="btn-floating btn-large waves-effect waves-light blue right"
-                    type="submit" name="action">
+              type="submit" name="action">
               <i className="material-icons">add</i>
             </button>
           </form>
