@@ -7,20 +7,20 @@ class Points extends React.Component {
         <form id="pointForm" className="col s12" encType="multipart/form-data" action={this.props.postUrl} method="post" >
           <div className="row">
             <div className="input-field col s12">
-                <input id="point[name]" type="text" name="name" className="validate" />
+                <input id="point[name]" type="text" name="name" className="validate" required/>
                 <label htmlFor="point[name]">Point Name</label>
             </div>
           </div>
           <div className="row">
             <div className="input-field col s12">
-                <textarea name="description" id="point[description]" className="materialize-textarea"></textarea>
+                <textarea name="description" id="point[description]" className="materialize-textarea" required></textarea>
                 <label htmlFor="point[description]">Description</label>
             </div>
           </div>
           <div className="file-field input-field">
             <div className="btn">
               <span>File</span>
-              <input type="file" name="file" id="point[file]" accept="image/*" />
+              <input type="file" name="file" id="point[file]" accept="image/*" required/>
             </div>
             <div className="file-path-wrapper">
               <input className="file-path validate" type="text" placeholder="Upload your cover photo here" />

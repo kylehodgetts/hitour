@@ -55,6 +55,8 @@ class DataController < ApplicationController
   end
 
   def create
+    # Redirect back since no file provided
+    return redirect_to data_path if params[:file].nil?
     # Extract file_name and file_path
     file_path = params[:file].path
     file_extension = File.extname(file_path)
