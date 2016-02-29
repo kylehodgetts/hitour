@@ -33,6 +33,13 @@ class NewDatumAudience extends React.Component {
     });
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    var check = JSON.stringify(prevState) === JSON.stringify(this.state);
+    if(!check || this.state.data == []){
+      $('select').material_select();
+    }
+  }
+
   componentWillUnmount() {
     clearInterval(this.interval);
   }
@@ -50,13 +57,6 @@ class NewDatumAudience extends React.Component {
         });
       }.bind(this)
     });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-      var check = JSON.stringify(prevState) === JSON.stringify(this.state);
-      if(!check || this.state.data == []){
-        $('select').material_select();
-      }
   }
 
   render () {
@@ -77,7 +77,7 @@ class NewDatumAudience extends React.Component {
               </div>
             </div>
             <button title="Add Audience to media" className="btn-floating btn-large waves-effect waves-light blue right"
-                    type="submit" name="action">
+              type="submit" name="action">
               <i className="material-icons">add</i>
             </button>
           </form>
@@ -91,5 +91,6 @@ NewDatumAudience.displayName = "NewDatumAudience";
 NewDatumAudience.propTypes = {
   datumID: React.PropTypes.number.isRequired,
   audiencesUrl: React.PropTypes.string.isRequired,
-  createDatumAudienceUrl: React.PropTypes.string.isRequired
+  createDatumAudienceUrl: React.PropTypes.string.isRequired,
+  pollInterval: React.PropTypes.number
 }

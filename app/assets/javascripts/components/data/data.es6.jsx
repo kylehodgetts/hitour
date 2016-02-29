@@ -4,7 +4,7 @@ class Data extends React.Component {
     return (
       <div>
         <GenericList getUrl={this.props.getUrl} />
-        <form id="datumForm" className="col s12" encType="multipart/form-data" action={this.props.post_url} method="post" >
+        <form id="datumForm" className="col s12" encType="multipart/form-data" action={this.props.postUrl} method="post" >
                   <div className="row">
             <div className="input-field col s12">
                 <input id="datum[title]" type="text" name="title" className="validate" required/>
