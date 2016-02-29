@@ -77,6 +77,6 @@ Rails.application.routes.draw do
   # API
   namespace :api do
     get ':access_key/tours', to: 'api#tours'
-    get ':access_key/tour/:id', to: 'api#single_tour'
+    get ':access_key/tours/:id', to: 'api#single_tour'
   end
 end
