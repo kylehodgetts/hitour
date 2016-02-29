@@ -105,7 +105,8 @@ class SinglePoint extends React.Component {
               {this.state.point.description &&
               <GenericEdit value={this.state.point.description}
                            postUrl={this.props.update_point_url}
-                           attributeName="point[description]"/>
+                           attributeName="point[description]"
+                           fontSize="20px"/>
               }
             </div>
         </div>
