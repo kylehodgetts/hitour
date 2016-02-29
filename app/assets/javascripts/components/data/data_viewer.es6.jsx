@@ -55,5 +55,5 @@ class DataViewer extends React.Component {
 DataViewer.displayName = "DataViewer";
 DataViewer.propTypes = {
   url: React.PropTypes.string.isRequired,
-  data_id: React.PropTypes.number.isRequired
+  data_id: React.PropTypes.number
 };

@@ -86,22 +86,20 @@ class SinglePoint extends React.Component {
     var _this = this;
     return (
       <div>
-        <div className="card medium point-card">
+        <div className="card large point-card">
           <div className="card-image waves-effect waves-block waves-light">
             {this.state.point.url &&
               <DataViewer url={this.state.point.url} />}
           </div>
           <div className="card-content">
-            <div className="row">
-              <div className="col s12">
                 <span className="card-title activator grey-text text-darken-4">
+                  <i className="material-icons right">more_vert</i>
+                </span>
                 {this.state.point.name &&
                 <GenericEdit value={this.state.point.name}
                              postUrl={this.props.update_point_url}
                              attributeName="point[name]"/>
                 }
-                <i className="material-icons right">more_vert</i></span>
-              </div>
               <div className="col s12">
                 {this.state.point.description &&
                 <GenericEdit value={this.state.point.description}
@@ -109,7 +107,6 @@ class SinglePoint extends React.Component {
                              attributeName="point[description]"
                              fontSize="20px"/>
                 }
-              </div>
           </div>
           </div>
           <div className="card-reveal">
