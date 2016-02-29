@@ -20,7 +20,7 @@ class ToursController < ApplicationController
 	end
 
 	def show
-		@tour = Tour.find(params[:id])
+		@tour = Tour.includes(:tour_sessions).find(params[:id])
 		@audiences = Audience.all
 		@audience = Audience.find(@tour.audience_id)
 		@tour_points = TourPoint.where('tour_id' => params[:id]).order('rank').map do |tp|
@@ -37,9 +37,10 @@ class ToursController < ApplicationController
 		end
 		@tour_points = [] if @tour_points.nil?
 		items = [
-		  tour: @tour,
-		  audience: @audience,
-		  points:  @tour_points
+		  tour: 				 @tour,
+		  audience:			 @audience,
+		  points:  			 @tour_points,
+			tour_sessions: @tour.tour_sessions
 		]
 		api_response(items)
 	end
