@@ -14,7 +14,9 @@ RSpec.describe TourSessionsController, type: :controller do
         # Create a tour session
         post :create, tour_session: {
           tour_id: tour.id,
-          start_date: '01-03-2016',
+          name: 'Test Tour Session',
+          start_date: Date.current,
+          passphrase: 'passphrase',
           duration: '1'
         }
         # Check tour session was created
@@ -33,7 +35,8 @@ RSpec.describe TourSessionsController, type: :controller do
         tour = Tour.create(name: 'Imaging Tour: A-Level',
                            audience_id: alevel.id)
         tour_session = TourSession.create(tour_id: tour.id,
-                                          start_date: '01-01-2016',
+                                          name: 'Test Tour Session',
+                                          start_date: Date.current,
                                           duration: 10,
                                           passphrase: 'hello')
         patch :update, id: tour_session.id, tour_session: {

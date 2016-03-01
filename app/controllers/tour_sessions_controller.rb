@@ -31,6 +31,6 @@ class TourSessionsController < ApplicationController
 
   def tour_session_params
     params.require(:tour_session)
-          .permit(:tour_id, :start_date, :duration, :passphrase)
+          .permit(:tour_id, :name, :start_date, :duration, :passphrase)
   end
 end
