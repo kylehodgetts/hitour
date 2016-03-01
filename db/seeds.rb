@@ -108,11 +108,11 @@ TourPoint.create(tour_id: tour2.id, point_id: point5.id, rank: '2')
 TourPoint.create(tour_id: tour2.id, point_id: point2.id, rank: '3')
 
 # Tour sessions
-TourSession.create(tour_id: tour1.id, start_date: '10-03-2016', duration: 30, passphrase: 'Unguessable983')
-TourSession.create(tour_id: tour1.id, start_date: '05-09-2016', duration: 20, passphrase: 'NounGiraffe123')
+TourSession.create(tour_id: tour1.id, name: 'Tour with 1st year students', start_date: Date.current + 1, duration: 30, passphrase: 'Unguessable983')
+TourSession.create(tour_id: tour1.id, name: 'New machine presentation', start_date: Date.current + 2, duration: 20, passphrase: 'NounGiraffe123')
 
-TourSession.create(tour_id: tour2.id, start_date: '29-02-2016', duration: 5, passphrase: 'Penguins123')
-TourSession.create(tour_id: tour2.id, start_date: '10-12-2016', duration: 14, passphrase: 'OMG768')
+TourSession.create(tour_id: tour2.id, name: 'Tour with 2nd year students', start_date: Date.current + 3, duration: 5, passphrase: 'Penguins123')
+TourSession.create(tour_id: tour2.id, name: 'Tour with final year students', start_date: Date.current + 5, duration: 14, passphrase: 'OMG768')
 
 # User Related Stuff
 User.create(email: 'dev@mail.com', password: 'password', activated: true)
