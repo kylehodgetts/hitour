@@ -69,6 +69,11 @@ Rails.application.routes.draw do
   get 'password_reset', to: 'password_reset#new', as: :password_reset
   post 'password_reset', to: 'password_reset#create', as: :add_password_reset
 
+  # Tour sessions
+  post '/tour_sessions', to: 'tour_sessions#create', as: :create_tour_session
+  patch '/tour_sessions/:id', to: 'tour_sessions#update', as: :update_tour_session
+  delete '/tour_sessions/:id', to: 'tour_sessions#destroy', as: :delete_tour_session
+
   # API
   namespace :api do
     get ':access_key/users', to: 'api#users'

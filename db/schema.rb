@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229174145) do
+ActiveRecord::Schema.define(version: 20160301191513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,20 @@ ActiveRecord::Schema.define(version: 20160229174145) do
   add_index "tour_points", ["point_id"], name: "index_tour_points_on_point_id", using: :btree
   add_index "tour_points", ["tour_id", "point_id"], name: "index_tour_points_on_tour_id_and_point_id", unique: true, using: :btree
   add_index "tour_points", ["tour_id"], name: "index_tour_points_on_tour_id", using: :btree
+
+  create_table "tour_sessions", force: :cascade do |t|
+    t.integer  "tour_id"
+    t.date     "start_date"
+    t.integer  "duration"
+    t.string   "passphrase"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "name"
+  end
+
+  add_index "tour_sessions", ["passphrase"], name: "index_tour_sessions_on_passphrase", using: :btree
+  add_index "tour_sessions", ["tour_id", "start_date"], name: "index_tour_sessions_on_tour_id_and_start_date", unique: true, using: :btree
+  add_index "tour_sessions", ["tour_id"], name: "index_tour_sessions_on_tour_id", using: :btree
 
   create_table "tours", force: :cascade do |t|
     t.datetime "created_at",  null: false

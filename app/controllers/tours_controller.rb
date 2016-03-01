@@ -20,7 +20,7 @@ class ToursController < ApplicationController
 	end
 
 	def show
-		@tour = Tour.find(params[:id])
+		@tour = Tour.includes(:tour_sessions).find(params[:id])
 		@audiences = Audience.all
 		@audience = Audience.find(@tour.audience_id)
 		@tour_points = TourPoint.where('tour_id' => params[:id]).order('rank').map do |tp|
@@ -35,11 +35,23 @@ class ToursController < ApplicationController
 				pdf_url: tour_pdf_path(tp)
 			}
 		end
+		@tour_sessions = @tour.tour_sessions.map do |session|
+			{
+				id: session.id,
+				name: session.name,
+				start_date: session.start_date,
+				duration: session.duration,
+				passphrase: session.passphrase,
+				delete_url: delete_tour_session_path(session),
+				update_url: update_tour_session_path(session)
+			}
+		end
 		@tour_points = [] if @tour_points.nil?
 		items = [
-		  tour: @tour,
-		  audience: @audience,
-		  points:  @tour_points
+		  tour: 				 @tour,
+		  audience:			 @audience,
+		  points:  			 @tour_points,
+			tour_sessions: @tour_sessions
 		]
 		api_response(items)
 	end
