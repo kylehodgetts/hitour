@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229224057) do
+ActiveRecord::Schema.define(version: 20160301191513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,8 +87,10 @@ ActiveRecord::Schema.define(version: 20160229224057) do
     t.string   "passphrase"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "name"
   end
 
+  add_index "tour_sessions", ["passphrase"], name: "index_tour_sessions_on_passphrase", using: :btree
   add_index "tour_sessions", ["tour_id", "start_date"], name: "index_tour_sessions_on_tour_id_and_start_date", unique: true, using: :btree
   add_index "tour_sessions", ["tour_id"], name: "index_tour_sessions_on_tour_id", using: :btree
 
