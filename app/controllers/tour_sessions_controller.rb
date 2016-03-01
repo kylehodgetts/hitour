@@ -1,4 +1,5 @@
 class TourSessionsController < ApplicationController
+  before_action :authenticate_user!
   def create
     # Generate random passphrase
     params[:tour_session][:passphrase] = RandomWord.nouns.next
