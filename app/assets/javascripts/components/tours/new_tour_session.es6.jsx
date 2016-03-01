@@ -26,6 +26,7 @@ class NewTourSession extends React.Component {
         }.bind(this)
       });
     });
+    // $('.datepicker').pickadate();
   }
 
   componentWillUnmount() {
@@ -37,11 +38,18 @@ class NewTourSession extends React.Component {
         <div>
           <span>Create a tour session</span>
           <form id="tourSessionForm">
-            <input value={this.props.tour_id} type="hidden" name="tour_point[tour_id]" />
+            <input value={this.props.tour_id} type="hidden" name="tour_session[tour_id]" />
             <div className="row">
               <div className="input-field col s12">
-
-                <label>Point Name</label>
+                <input id="tour_session[start_date]"
+                       name="tour_session[start_date]" type="date"
+                       className="datepicker validate"/>
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s12">
+                <input id="tour_session[duration]" name="tour_session[duration]" type="number" className="validate" />
+                <label>Duration (Days)</label>
               </div>
             </div>
             <button title="Create Tour Session" className="btn-floating btn-large waves-effect waves-light blue right"

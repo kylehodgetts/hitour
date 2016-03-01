@@ -133,21 +133,33 @@ class SingleTour extends React.Component {
           points_url={this.props.points_url}
           new_tour_point_url={this.props.new_tour_point_url}
           />
-        <div id="sessionModal" className="modal">
+        <div id="sessionModal" className="modal" style={{maxHeight: '800px'}}>
           <div className="modal-content">
             <h4>Tour Sessions</h4>
-            <ul className="collection">
+            <ul className="collection" style={{
+              height: '200px',
+              overflow: 'hidden',
+              overflowY: 'scroll'
+            }}>
               {this.state.tourSessions.map(function(session) {
                 return (
                   <li key={session.id} className="collection-item">
-                      <span className="title">Start Date: {session.start_date}</span>
-                      <p><b>Duration:</b> {session.start_date} <br />
-                        <b>Passphrase:</b> {session.passphrase}
-                      </p>
-                      <a id={session.id} href={session.delete_url} className="secondary-content"
-                                 onClick={_this.handleDeleteDataFromServer.bind(this, session.delete_url)}>
-                      <i className=" blue-text material-icons">delete_forever</i>
-                      </a>
+                      <span className="title"><b>Start Date:</b> {session.start_date}
+                        <span>  <b> Duration:</b> {session.duration} days </span>
+                        <p> Passphrase:
+                          <a id={session.id} href={session.delete_url} className="secondary-content"
+                                     onClick={_this.handleDeleteDataFromServer.bind(this, session.delete_url)}>
+                          <i className=" blue-text material-icons">delete_forever</i>
+                          </a>
+                        </p>
+                        <GenericEdit
+                               value={session.passphrase}
+                        			 postUrl={session.update_url}
+                        			 attributeName="tour_session[passphrase]"
+                               fontSize="20px"
+                        />
+                      </span>
+
                   </li>
                 );
               }, this)}
@@ -159,7 +171,7 @@ class SingleTour extends React.Component {
               />
           </div>
           <div className="modal-footer">
-            <a href="#!" className=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            <a href="#!" className=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
           </div>
         </div>
       </div>
