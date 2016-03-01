@@ -1,0 +1,63 @@
+class NewTourSession extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state =  {
+      points: [],
+      pollInterval: this.props.pollInterval || 2000,
+      intervalId: 0
+    };
+  }
+
+  componentDidMount() {
+    var postUrl = this.props.new_tour_session_url;
+    $('#tourSessionForm').on('submit',function(e){
+      e.preventDefault();
+      $.ajax({
+        url: postUrl,
+        type: "POST",
+        data: $(this).serialize(),
+        dataType: "json",
+        success: function(data){
+          Materialize.toast(data, 3000, 'rounded');
+        }.bind(this),
+        error: function(err){
+          Materialize.toast(err, 3000, 'rounded');
+          console.log(err);
+        }.bind(this)
+      });
+    });
+  }
+
+  componentWillUnmount() {
+  }
+
+  render () {
+    return (
+      <div>
+        <div>
+          <span>Create a tour session</span>
+          <form id="tourSessionForm">
+            <input value={this.props.tour_id} type="hidden" name="tour_point[tour_id]" />
+            <div className="row">
+              <div className="input-field col s12">
+
+                <label>Point Name</label>
+              </div>
+            </div>
+            <button title="Create Tour Session" className="btn-floating btn-large waves-effect waves-light blue right"
+              type="submit" name="action">
+              <i className="material-icons">add</i>
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+}
+
+NewTourSession.displayName = "NewTourPoint";
+NewTourSession.propTypes = {
+  new_tour_session_url:React.PropTypes.string.isRequired,
+  pollInterval: React.PropTypes.number,
+  tour_id: React.PropTypes.number.isRequired
+}

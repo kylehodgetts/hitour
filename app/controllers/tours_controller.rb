@@ -35,12 +35,22 @@ class ToursController < ApplicationController
 				pdf_url: tour_pdf_path(tp)
 			}
 		end
+		@tour_sessions = @tour.tour_sessions.map do |session|
+			{
+				id: session.id,
+				start_date: session.start_date,
+				duration: session.duration,
+				passphrase: session.passphrase,
+				delete_url: delete_tour_session_path(session),
+				update_url: update_tour_session_path(session)
+			}
+		end
 		@tour_points = [] if @tour_points.nil?
 		items = [
 		  tour: 				 @tour,
 		  audience:			 @audience,
 		  points:  			 @tour_points,
-			tour_sessions: @tour.tour_sessions
+			tour_sessions: @tour_sessions
 		]
 		api_response(items)
 	end

@@ -72,7 +72,7 @@ Rails.application.routes.draw do
   # Tour sessions
   post '/tour_sessions/:id', to: 'tour_sessions#create', as: :create_tour_session
   patch '/tour_sessions/:id', to: 'tour_sessions#update', as: :update_tour_session
-  delete '/tour_sessions/:id', to: 'tour_sesions#destroy', as: :delete_tour_session
+  delete '/tour_sessions/:id', to: 'tour_sessions#destroy', as: :delete_tour_session
 
   # API
   namespace :api do

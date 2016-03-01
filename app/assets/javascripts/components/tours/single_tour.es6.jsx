@@ -5,6 +5,7 @@ class SingleTour extends React.Component {
       tour: [],
       audience: [],
       points: [],
+      tourSessions: [],
       pollInterval: this.props.pollInterval || 2000,
       intervalId: 0
     };
@@ -16,6 +17,8 @@ class SingleTour extends React.Component {
       this.handleLoadDataFromServer.bind(this),
       this.state.pollInterval
     );
+    // Initialise Modal
+    $('.modal-trigger').leanModal();
   }
 
   componentWillUnmount() {
@@ -33,7 +36,8 @@ class SingleTour extends React.Component {
         this.setState({
           tour: data[0]["tour"],
           audience: data[0]["audience"],
-          points: data[0]["points"]
+          points: data[0]["points"],
+          tourSessions: data[0]["tour_sessions"]
         });
       }.bind(this)
     });
@@ -94,9 +98,10 @@ class SingleTour extends React.Component {
             />
           }
         </div>
-        <a target="_blank" className="waves-effect waves-light blue btn" href={this.props.pdfUrl}>
+        <a target="_blank" className="waves-effect waves-light blue btn left" href={this.props.pdfUrl}>
           <i className="material-icons dp48 left">receipt</i>Download PDF
         </a>
+        <a className="waves-effect waves-light  blue right btn modal-trigger" href="#sessionModal">Tour Sessions</a>
         <br />
         <h4>Points</h4>
         <div className="collection">
@@ -128,6 +133,35 @@ class SingleTour extends React.Component {
           points_url={this.props.points_url}
           new_tour_point_url={this.props.new_tour_point_url}
           />
+        <div id="sessionModal" className="modal">
+          <div className="modal-content">
+            <h4>Tour Sessions</h4>
+            <ul className="collection">
+              {this.state.tourSessions.map(function(session) {
+                return (
+                  <li key={session.id} className="collection-item">
+                      <span className="title">Start Date: {session.start_date}</span>
+                      <p><b>Duration:</b> {session.start_date} <br />
+                        <b>Passphrase:</b> {session.passphrase}
+                      </p>
+                      <a id={session.id} href={session.delete_url} className="secondary-content"
+                                 onClick={_this.handleDeleteDataFromServer.bind(this, session.delete_url)}>
+                      <i className=" blue-text material-icons">delete_forever</i>
+                      </a>
+                  </li>
+                );
+              }, this)}
+            </ul>
+
+            <NewTourSession
+              tour_id={this.props.tour_id}
+              new_tour_session_url={this.props.new_tour_session_url}
+              />
+          </div>
+          <div className="modal-footer">
+            <a href="#!" className=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+          </div>
+        </div>
       </div>
     );
   }
@@ -142,5 +176,6 @@ SingleTour.propTypes = {
   tour_id: React.PropTypes.number.isRequired,
   pollInterval: React.PropTypes.number,
   pdfUrl: React.PropTypes.string.isRequired,
-  audiences: React.PropTypes.array
+  audiences: React.PropTypes.array,
+  new_tour_session_url: React.PropTypes.string.isRequired
 }
