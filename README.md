@@ -1,7 +1,6 @@
 # HiTour Content Management System
 
-## TODO
-- [ ] Set up front end testing
+Build Status: ![Circle CI](https://circleci.com/gh/KyleHodgetts/project-run-cms/tree/master.svg?style=svg&circle-token=989dd912291e5b69390dca32f8add4930208ba9f)
 
 ### Team Members
 * Kyle
