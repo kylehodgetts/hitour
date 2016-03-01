@@ -102,7 +102,7 @@ class SingleTour extends React.Component {
           <i className="material-icons dp48 left">receipt</i>Download PDF
         </a>
         <a className="waves-effect waves-light  blue right btn modal-trigger" href="#sessionModal">Tour Sessions</a>
-        <br />
+        <br /><br />
         <h4>Points</h4>
         <div className="collection">
           {this.state.points.map(function(point) {
