@@ -144,8 +144,10 @@ class SingleTour extends React.Component {
               {this.state.tourSessions.map(function(session) {
                 return (
                   <li key={session.id} className="collection-item">
-                      <span className="title"><b>Start Date:</b> {session.start_date}
-                        <span>  <b> Duration:</b> {session.duration} days </span>
+                    <span className="title"><b>{session.name}</b></span>
+                    <br />
+                    <span className="title"><b>Start Date:</b> {session.start_date}
+                      <span><b> Duration:</b> {session.duration} days</span>
                         <p> Passphrase:
                           <a id={session.id} href={session.delete_url} className="secondary-content"
                                      onClick={_this.handleDeleteDataFromServer.bind(this, session.delete_url)}>

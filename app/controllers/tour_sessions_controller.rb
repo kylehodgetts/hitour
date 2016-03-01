@@ -6,7 +6,11 @@ class TourSessionsController < ApplicationController
     begin
       tour_session = TourSession.new(tour_session_params)
       tour_session.save
-	     render json: ['Succesfully created tour session']
+      if tour_session.errors.full_messages.empty?
+        render json: ['Succesfully created tour session']
+      else
+        render json: [tour_session.errors.full_messages.first]
+      end
 		rescue ActiveRecord::RecordNotUnique
 			 render json: ['Please select a different tour or different start date']
 		end

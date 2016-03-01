@@ -38,6 +38,7 @@ class ToursController < ApplicationController
 		@tour_sessions = @tour.tour_sessions.map do |session|
 			{
 				id: session.id,
+				name: session.name,
 				start_date: session.start_date,
 				duration: session.duration,
 				passphrase: session.passphrase,

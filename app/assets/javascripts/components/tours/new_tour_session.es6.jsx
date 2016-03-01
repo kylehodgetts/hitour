@@ -19,6 +19,7 @@ class NewTourSession extends React.Component {
         dataType: "json",
         success: function(data){
           Materialize.toast(data, 3000, 'rounded');
+          $('#tourSessionForm')[0].reset();
         }.bind(this),
         error: function(err){
           Materialize.toast(err, 3000, 'rounded');
@@ -26,7 +27,6 @@ class NewTourSession extends React.Component {
         }.bind(this)
       });
     });
-    // $('.datepicker').pickadate();
   }
 
   componentWillUnmount() {
@@ -39,17 +39,22 @@ class NewTourSession extends React.Component {
           <span>Create a tour session</span>
           <form id="tourSessionForm">
             <input value={this.props.tour_id} type="hidden" name="tour_session[tour_id]" />
+              <div className="row">
+                <div className="input-field col s12">
+                  <input id="tour_session[name]" name="tour_session[name]"
+                         type="text" className="validate" />
+                  <label htmlFor="tour_session[name]">Memorable Session Name</label>
+                </div>
+              </div>
             <div className="row">
-              <div className="input-field col s12">
+              <div className="input-field col s6">
                 <input id="tour_session[start_date]"
                        name="tour_session[start_date]" type="date"
                        className="datepicker validate"/>
               </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s12">
+              <div className="input-field col s6">
                 <input id="tour_session[duration]" name="tour_session[duration]" type="number" className="validate" />
-                <label>Duration (Days)</label>
+                <label htmlFor="tour_session[duration]">Duration (Days)</label>
               </div>
             </div>
             <button title="Create Tour Session" className="btn-floating btn-large waves-effect waves-light blue right"
