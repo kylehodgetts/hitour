@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe TourSessionsController, type: :controller do
+  def create_tour
+    alevel = Audience.create(name: 'A-Level Student')
+    tour = Tour.create(name: 'Imaging Tour: A-Level',
+                       audience_id: alevel.id)
+    TourSession.delete_all
+    tour
+  end
   describe 'POST #create' do
       before(:each) do
         # MUST create a user session to access controller
@@ -8,13 +15,9 @@ RSpec.describe TourSessionsController, type: :controller do
       end
       describe 'with valid parameters' do
         it 'should create a tour session ' do
-          alevel = Audience.create(name: 'A-Level Student')
-          tour = Tour.create(name: 'Imaging Tour: A-Level',
-                             audience_id: alevel.id)
-          TourSession.delete_all
           # Create a tour session
           post :create, tour_session: {
-            tour_id: tour.id,
+            tour_id: create_tour.id,
             name: 'Test Tour Session',
             start_date: Date.current,
             passphrase: 'passphrase',
@@ -29,13 +32,9 @@ RSpec.describe TourSessionsController, type: :controller do
       context 'with invalid' do
         describe 'name' do
           it 'should respond with name should not be blank' do
-            alevel = Audience.create(name: 'A-Level Student')
-            tour = Tour.create(name: 'Imaging Tour: A-Level',
-                               audience_id: alevel.id)
-            TourSession.delete_all
             # Create a tour session
             post :create, tour_session: {
-              tour_id: tour.id,
+              tour_id: create_tour.id,
               name: '',
               start_date: Date.current,
               passphrase: 'passphrase',
@@ -46,13 +45,9 @@ RSpec.describe TourSessionsController, type: :controller do
         end
         describe 'blank duration' do
           it 'should respond with duration should not be blank' do
-            alevel = Audience.create(name: 'A-Level Student')
-            tour = Tour.create(name: 'Imaging Tour: A-Level',
-                               audience_id: alevel.id)
-            TourSession.delete_all
             # Create a tour session
             post :create, tour_session: {
-              tour_id: tour.id,
+              tour_id: create_tour.id,
               name: 'TourName',
               start_date: Date.current,
               passphrase: 'passphrase',
@@ -63,13 +58,9 @@ RSpec.describe TourSessionsController, type: :controller do
         end
         describe 'duration less than 1' do
           it 'should respond with duration should not be greater than 1' do
-            alevel = Audience.create(name: 'A-Level Student')
-            tour = Tour.create(name: 'Imaging Tour: A-Level',
-                               audience_id: alevel.id)
-            TourSession.delete_all
             # Create a tour session
             post :create, tour_session: {
-              tour_id: tour.id,
+              tour_id: create_tour.id,
               name: 'TourName',
               start_date: Date.current,
               passphrase: 'passphrase',
@@ -88,10 +79,7 @@ RSpec.describe TourSessionsController, type: :controller do
       end
       describe 'with a valid passphrase' do
         it 'should update tour session ' do
-          alevel = Audience.create(name: 'A-Level Student')
-          tour = Tour.create(name: 'Imaging Tour: A-Level',
-                             audience_id: alevel.id)
-          tour_session = TourSession.create(tour_id: tour.id,
+          tour_session = TourSession.create(tour_id: create_tour.id,
                                             name: 'Test Tour Session',
                                             start_date: Date.current,
                                             duration: 10,
@@ -107,10 +95,7 @@ RSpec.describe TourSessionsController, type: :controller do
       end
       describe 'with an invalid passphrase' do
         it 'should not update tour session' do
-          alevel = Audience.create(name: 'A-Level Student')
-          tour = Tour.create(name: 'Imaging Tour: A-Level',
-                             audience_id: alevel.id)
-          tour_session = TourSession.create(tour_id: tour.id,
+          tour_session = TourSession.create(tour_id: create_tour.id,
                                             name: 'Test Tour Session',
                                             start_date: Date.current,
                                             duration: 10,
