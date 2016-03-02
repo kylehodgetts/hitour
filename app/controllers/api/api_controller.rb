@@ -27,7 +27,8 @@ module Api
             datum = Datum.includes(:audiences).find(pd.datum.id)
             data << {
               datum: datum,
-              rank: pd.rank
+              rank: pd.rank,
+              audiences: datum.audiences
             }
           end
           points << {
