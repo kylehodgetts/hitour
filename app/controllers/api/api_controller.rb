@@ -39,7 +39,8 @@ module Api
         tour[:points] = points
         render json: [
           tour_session: tour_session,
-          tour: tour
+          tour: tour,
+          audiences: Audience.all
         ]
       else
         render json: ['No matching passphrase found']
