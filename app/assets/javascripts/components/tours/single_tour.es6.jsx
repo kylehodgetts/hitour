@@ -133,6 +133,13 @@ class SingleTour extends React.Component {
           points_url={this.props.points_url}
           new_tour_point_url={this.props.new_tour_point_url}
           />
+        {this.state.tour.notes &&
+          <TourNote
+            tourNotes={this.state.tour.notes}
+            updateTourPath={this.props.update_tour_url}
+            tourUrl={this.props.showUrl}
+          />
+        }
         <div id="sessionModal" className="modal" style={{maxHeight: '800px'}}>
           <div className="modal-content">
             <h4>Tour Sessions</h4>

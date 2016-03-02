@@ -97,12 +97,12 @@ PointDatum.create(point_id: point5.id, datum_id: datum9.id, rank: '1')
 PointDatum.create(point_id: point5.id, datum_id: datum10.id, rank: '2')
 
 # Tours - With Point assignments
-tour1 = Tour.create(name: 'Imaging Tour: A-Level', audience_id: alevel.id)
+tour1 = Tour.create(name: 'Imaging Tour: A-Level', audience_id: alevel.id, notes: 'THIS IS A TEST NOTE')
 TourPoint.create(tour_id: tour1.id, point_id: point1.id, rank: '1')
 TourPoint.create(tour_id: tour1.id, point_id: point2.id, rank: '2')
 TourPoint.create(tour_id: tour1.id, point_id: point3.id, rank: '3')
 
-tour2 = Tour.create(name: 'Imaging Tour: University', audience_id: uni_student.id)
+tour2 = Tour.create(name: 'Imaging Tour: University', audience_id: uni_student.id, notes: 'THIS IS A TEST NOTE')
 TourPoint.create(tour_id: tour2.id, point_id: point4.id, rank: '1')
 TourPoint.create(tour_id: tour2.id, point_id: point5.id, rank: '2')
 TourPoint.create(tour_id: tour2.id, point_id: point2.id, rank: '3')

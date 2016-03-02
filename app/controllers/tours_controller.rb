@@ -74,6 +74,10 @@ class ToursController < ApplicationController
 
 	def update
 		@tour = Tour.find(params[:id])
+		if params[:tour][:notes].nil?
+			render json: ['No note given']
+			return
+		end
 		if @tour.update_attributes(tour_params)
 			render json: ['Successfully updated tour'], status: 200 if @tour.save
 		else
