@@ -1,9 +1,10 @@
 class TourNote extends React.Component{
   constructor (props) {
     super(props);
+    console.log(this.props.initialValue);
     this.state =  {
-      updated_at: [],
-      notes: ["THIS SHOULD CHANGE"],
+      tour: [],
+      notes: this.props.initialValue,
       pollInterval: this.props.pollInterval || 2000
     };
   }
@@ -46,7 +47,7 @@ class TourNote extends React.Component{
       success: function(data){
         console.log(data);
         this.setState({
-          updated_at: data[0]["tour"]["updated_at"],
+          tour: data[0]["tour"],
           notes: data[0]["tour"]["notes"]
         });
       }.bind(this)
@@ -55,17 +56,18 @@ class TourNote extends React.Component{
 
   render () {
     var _this = this;
+    console.log("TOUR NOTE:"+this.state.notes);
     return (
       <div>
           <div className="row">
             <div className="input-field col s12">
               <h3>Edit Note</h3>
-              <textarea key={"noteTextArea"}
+              <textarea rows="8" cols="40"
                         id="tournotes"
                         name="tour[notes]"
                         className="materialize-textarea"
                         defaultValue={this.state.notes}/>
-              <p><i>Last Modified: <span>{this.state.updated_at}</span></i></p>
+              <p><i>Last Modified: <span>{this.state.tour.updated_at}</span></i></p>
               <button onClick={_this.handleUpdateNote.bind(this)} >Save Changes</button>
             </div>
           </div>
@@ -76,8 +78,8 @@ class TourNote extends React.Component{
 
 TourNote.displayName = "TourNote";
 TourNote.propTypes = {
+  initialValue: React.PropTypes.string.isRequired,
   tourUrl: React.PropTypes.string.isRequired,
-  tourNotes:React.PropTypes.string.isRequired,
   updateTourPath: React.PropTypes.string.isRequired,
   pollInterval: React.PropTypes.number
 }
