@@ -15,7 +15,7 @@ RSpec.describe TourSession, type: :model do
       it 'should be accepted' do
         @ts = TourSession.create(name: 'TourSession', tour_id: @tour.id,
                                  passphrase: 'passphrase',
-                                 start_date: '01-03-2016', duration: '1')
+                                 start_date: Date.current, duration: '1')
         expect(@ts.save).to be true
       end
     end
