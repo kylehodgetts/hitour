@@ -25,22 +25,21 @@ module Api
           data = []
           all_data.each do |pd|
             datum = Datum.includes(:audiences).find(pd.datum.id)
-            data << {
-              datum: datum,
-              rank: pd.rank,
-              audiences: datum.audiences
-            }
+            datum_json = datum.as_json
+            datum_json[:audiences] = datum.audiences
+            datum_json[:rank] = pd.rank
+            data << datum_json
           end
-          points << {
-            point: tp.point,
-            data: data
-          }
+          point = point.as_json
+          point[:rank] = tp.rank
+          point[:data] = data
+          points << point
         end
+        tour = tour.as_json
+        tour[:points] = points
         render json: [
           tour_session: tour_session,
-          tour: tour,
-          tour_points: tour_points,
-          points: points
+          tour: tour
         ]
       else
         render json: ['No matching passphrase found']
