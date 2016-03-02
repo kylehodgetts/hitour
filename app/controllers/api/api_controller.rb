@@ -26,9 +26,12 @@ module Api
           all_data.each do |pd|
             datum = Datum.includes(:audiences).find(pd.datum.id)
             datum_json = datum.as_json
-            datum_json[:audiences] = datum.audiences
-            datum_json[:rank] = pd.rank
-            data << datum_json
+            matching_audience = datum.audiences.where(id: tour.audience_id)
+            if matching_audience.size > 0
+              datum_json[:audiences] = datum.audiences
+              datum_json[:rank] = pd.rank
+              data << datum_json
+            end
           end
           point = point.as_json
           point[:rank] = tp.rank
