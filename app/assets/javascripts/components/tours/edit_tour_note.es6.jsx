@@ -11,11 +11,19 @@ class TourNote extends React.Component{
 
   componentDidMount () {
     this.handleLoadDataFromServer();
+    // Initialise the editor
+    editor = new Quill('#editor',{
+      theme: 'snow'
+    });
+    editor.addModule('toolbar', {
+      container: '#toolbar'     // Selector for toolbar container
+    });
+    editor.setHTML(this.props.initialValue);
   }
 
   handleUpdateNote () {
     console.log("CLICKED ME");
-    var newNote = $('#tournotes').val();
+    var newNote = editor.getHTML();
     console.log("VALUE CHANGED to"+newNote);
     var formData = {};
     formData["tour[notes]"] = newNote;
@@ -26,11 +34,10 @@ class TourNote extends React.Component{
       type: "PATCH",
       data: formData,
       success: function(data){
-        console.log(data);
+        Materialize.toast(data, 3000, 'rounded');
         this.handleLoadDataFromServer();
       }.bind(this),
       error: function(err){
-        console.log(err);
         Materialize.toast(err, 3000, 'rounded');
       }
     });
@@ -56,24 +63,74 @@ class TourNote extends React.Component{
 
   render () {
     var _this = this;
-    console.log("TOUR NOTE:"+this.state.notes);
+    var editorStyle = {
+      height: '400',
+      border: '1px solid black'
+    };
     return (
       <div>
           <div className="row">
             <div className="input-field col s12">
               <h3>Edit Note</h3>
-              <textarea rows="8" cols="40"
-                        id="tournotes"
-                        name="tour[notes]"
-                        className="materialize-textarea"
-                        defaultValue={this.state.notes}/>
-              <p><i>Last Modified: <span>{this.state.tour.updated_at}</span></i></p>
-              <button onClick={_this.handleUpdateNote.bind(this)} >Save Changes</button>
             </div>
+          </div>
+          <div className="row">
+            <div className="quill-wrapper">
+              <div id="toolbar" className="toolbar ql-snow">
+                <span className="ql-format-group">
+                  <select className="ql-size" defaultValue="13px">
+                    <option value="10px">Small</option>
+                    <option value="13px">Normal</option>
+                    <option value="18px">Large</option>
+                    <option value="32px">Huge</option>
+                  </select>
+                </span>
+                <span className="ql-format-group">
+                  <span className="ql-format-group">
+                  	<span title="Bold" className="ql-format-button ql-bold"></span>
+                  	<span className="ql-format-separator"></span>
+                  	<span title="Italic" className="ql-format-button ql-italic"></span>
+                  	<span className="ql-format-separator"></span>
+                  	<span title="Underline" className="ql-format-button ql-underline"></span>
+                  	<span className="ql-format-separator"></span>
+                  	<span title="Strikethrough" className="ql-format-button ql-strike"></span>
+                  </span>
+                </span>
+                <span className="ql-format-group">
+                	<span title="List" className="ql-format-button ql-list"></span>
+                	<span className="ql-format-separator"></span>
+                	<span title="Bullet" className="ql-format-button ql-bullet"></span>
+                	<span className="ql-format-separator"></span>
+                	<span title="Text Alignment" className="ql-align ql-picker">
+                	<span className="ql-picker-label" data-value="left"></span>
+                	<span className="ql-picker-options">
+                		<span data-value="left" className="ql-picker-item ql-selected"></span>
+                		<span data-value="center" className="ql-picker-item"></span>
+                		<span data-value="right" className="ql-picker-item"></span>
+                		<span data-value="justify" className="ql-picker-item"></span>
+                	</span>
+                </span>
+                  <select title="Text Alignment" className="ql-align" style={{display: 'none'}}>
+                  	<option value="left" label="Left"></option>
+                  	<option value="center" label="Center"></option>
+                  	<option value="right" label="Right"></option>
+                  	<option value="justify" label="Justify"></option>
+                  </select>
+                </span>
+              </div>
+
+              <div id="editor" style={editorStyle}>
+              </div>
+            </div>
+            <p><i>Last Modified: <span>{this.state.tour.updated_at}</span></i></p>
+            <a className="waves-effect waves-light btn blue right" onClick={_this.handleUpdateNote.bind(this)}>
+              <i className="material-icons left">cloud</i>Save Changes
+            </a>
           </div>
       </div>
     );
   }
+
 };
 
 TourNote.displayName = "TourNote";

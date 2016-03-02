@@ -116,6 +116,8 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
+    quill-rails (0.1.4)
+      railties (>= 3.1.0, < 5.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -252,6 +254,7 @@ DEPENDENCIES
   materialize-sass
   pg
   pry-rails
+  quill-rails (~> 0.1.0)
   rails (= 4.2.3)
   rails_12factor
   random-word (~> 1.3)
