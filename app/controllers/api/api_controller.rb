@@ -12,6 +12,40 @@ module Api
       render json: response
     end
 
+    def tour_session
+      tour_session = TourSession.find_by passphrase: params[:passphrase]
+      if tour_session
+        # Get Tour Information
+        tour = Tour.find(tour_session.tour.id)
+        tour_points = TourPoint.where tour_id: tour.id
+        points = []
+        tour_points.each do |tp|
+          point = Point.find(tp.point.id)
+          all_data = PointDatum.where point_id: point.id
+          data = []
+          all_data.each do |pd|
+            datum = Datum.includes(:audiences).find(pd.datum.id)
+            data << {
+              datum: datum,
+              rank: pd.rank
+            }
+          end
+          points << {
+            point: tp.point,
+            data: data
+          }
+        end
+        render json: [
+          tour_session: tour_session,
+          tour: tour,
+          tour_points: tour_points,
+          points: points
+        ]
+      else
+        render json: ['No matching passphrase found']
+      end
+    end
+
     def single_tour
       response = Tour.find(params[:id]).as_json
       response = populate_tour_reponse(response)
