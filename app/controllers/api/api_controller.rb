@@ -2,82 +2,57 @@ module Api
   class ApiController < ApplicationController
     before_action :api_authenticate!
 
-    def tours
-      response = {}
-      response['tours'] = Tour.all.as_json
-      response['tours'].each do |tour|
-        populate_tour_reponse(tour)
-      end
-
-      render json: response
-    end
-
-    def tour_session
+    def single_tour
       tour_session = TourSession.find_by passphrase: params[:passphrase]
       if tour_session
-        # Get Tour Information
-        tour = Tour.find(tour_session.tour.id)
-        tour_points = TourPoint.where tour_id: tour.id
-        points = []
-        tour_points.each do |tp|
-          point = Point.find(tp.point.id)
-          all_data = PointDatum.where point_id: point.id
-          data = []
-          all_data.each do |pd|
-            datum = Datum.includes(:audiences).find(pd.datum.id)
-            datum_json = datum.as_json
-            matching_audience = datum.audiences.where(id: tour.audience_id)
-            if matching_audience.size > 0
-              datum_json[:audiences] = datum.audiences
-              datum_json[:rank] = pd.rank
-              data << datum_json
-            end
-          end
-          point = point.as_json
-          point[:rank] = tp.rank
-          point[:data] = data
-          points << point
-        end
-        tour = tour.as_json
-        tour[:points] = points
-        render json: [
-          tour_session: tour_session,
-          tour: tour,
-          audiences: Audience.all
-        ]
+        response = {}
+        response[:tours] = Tour.find(tour_session[:tour_id]).as_json
+        populate_tour_reponse(response[:tours])
+        render json: response
       else
-        render json: ['No matching passphrase found']
+        render json: 'Passprase Invalid'
       end
-    end
-
-    def single_tour
-      response = Tour.find(params[:id]).as_json
-      response = populate_tour_reponse(response)
-      render json: response
     end
 
     private
 
+    # Insert array of points into data response
     def populate_tour_reponse(tour)
-      tour['points'] = TourPoint.where(tour_id: tour['id']).as_json
-      tour['points'].each do |point|
-        pd = PointDatum.where(point_id: point['id']).as_json
-        point['data'] = []
+      tour[:points] = TourPoint.where(tour_id: tour['id']).as_json
+      tour[:points].each do |point|
+        point[:name] = Point.find(point['point_id']).name
+        pd = PointDatum.where(point_id: point['id'])
+        point[:data] = []
         pd.each do |point_datum|
           populate_data_reponse(tour, point, point_datum)
         end
       end
     end
 
+    # Insert array of points data into point reponse
+    # Data is inserted in according to their rank order in database table
     def populate_data_reponse(tour, point, point_datum)
-      data = Datum.where(id: point_datum['datum_id'])
+      data = Datum.where(id: point_datum[:datum_id])
+      # For each piece of data populate data's audiences
       data.each do |datum|
         audiences = datum.audiences
-        audiences.each do |audience|
-          if audience.id == tour['audience_id']
-            point['data'] << datum
-            break
-          end
+        datum = datum.as_json
+        datum[:rank] = point_datum['rank']
+        datum[:audiences] = audiences
+        populate_data_audiences(tour, point, datum)
+      end
+    end
+
+    # Insert array of audiences that data will be available to
+    # Only if the data is available for the audience of the queried tour
+    # This prevent irrelevant pieces of data being added to the response
+    def populate_data_audiences(tour, point, datum)
+      # For each audience, check if it matches the tour's audience id
+      datum[:audiences].each do |audience|
+        # If there is a match, add it to the array and break from loop
+        if audience[:id] == tour['audience_id']
+          point[:data] << datum
+          break
         end
       end
     end
