@@ -71,7 +71,8 @@ class TourNote extends React.Component{
       <div>
           <div className="row">
             <div className="input-field col s12">
-              <h3>Edit Note</h3>
+              <h5>Tour Notes</h5>
+              <p>All notes written here, will be available on the PDF.</p>
             </div>
           </div>
           <div className="row">
@@ -101,21 +102,6 @@ class TourNote extends React.Component{
                 	<span className="ql-format-separator"></span>
                 	<span title="Bullet" className="ql-format-button ql-bullet"></span>
                 	<span className="ql-format-separator"></span>
-                	<span title="Text Alignment" className="ql-align ql-picker">
-                	<span className="ql-picker-label" data-value="left"></span>
-                	<span className="ql-picker-options">
-                		<span data-value="left" className="ql-picker-item ql-selected"></span>
-                		<span data-value="center" className="ql-picker-item"></span>
-                		<span data-value="right" className="ql-picker-item"></span>
-                		<span data-value="justify" className="ql-picker-item"></span>
-                	</span>
-                </span>
-                  <select title="Text Alignment" className="ql-align" style={{display: 'none'}}>
-                  	<option value="left" label="Left"></option>
-                  	<option value="center" label="Center"></option>
-                  	<option value="right" label="Right"></option>
-                  	<option value="justify" label="Justify"></option>
-                  </select>
                 </span>
               </div>
 
