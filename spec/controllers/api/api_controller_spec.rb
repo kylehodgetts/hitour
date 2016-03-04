@@ -11,7 +11,7 @@ RSpec.describe Api::ApiController, type: :controller do
   end
   describe 'with a valid passphrase' do
     it 'returns the tour associated with that passphrase' do
-      get :single_tour, access_key: ENV['ACCESS_KEY'],
+      get :single_tour, access_key: 'A7DE6825FD96CCC79E63C89B55F88',
                         passphrase: @ts.passphrase
       parsed_response = JSON.parse(response.body)['tours']
       expect(parsed_response).to be_truthy
