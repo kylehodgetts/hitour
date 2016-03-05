@@ -26,7 +26,12 @@ class DataController < ApplicationController
   def compress_video
     file_path = params[:file].path
     movie = FFMPEG::Movie.new(file_path)
-    render json: [movie.video_stream]
+    options = {
+      resolution: '320x240',
+      preserve_aspect_ratio: :width
+    }
+    movie.transcode('movie.mp4', options)
+    send_data movie
   end
 
   def show
