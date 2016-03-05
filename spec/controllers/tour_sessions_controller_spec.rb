@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe TourSessionsController, type: :controller do
   def create_tour
+    Audience.delete_all
+    Tour.delete_all
     alevel = Audience.create(name: 'A-Level Student')
     tour = Tour.create(name: 'Imaging Tour: A-Level',
                        audience_id: alevel.id)
