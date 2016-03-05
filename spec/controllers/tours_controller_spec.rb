@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe ToursController, type: :controller do
+  def create_tour
+    Tour.delete_all
+    audience = Audience.create(name: 'Adult')
+    tour = Tour.create(name: 'Test Tour',
+                       audience_id: audience.id,
+                       notes: 'Test Note')
+    tour.save
+    tour
+  end
   describe 'POST #create' do
     before(:each) do
       create_user_session
@@ -21,12 +30,7 @@ RSpec.describe ToursController, type: :controller do
   describe 'PATCH #update' do
     before(:each) do
       create_user_session
-      Tour.delete_all
-      audience = Audience.create(name: 'Adult')
-      @tour = Tour.create(name: 'Test Tour',
-                          audience_id: audience.id,
-                          notes: 'Test Note')
-      @tour.save
+      @tour = create_tour
     end
     it 'should update tours name' do
       patch :update, id: @tour.id, tour:
@@ -50,11 +54,7 @@ RSpec.describe ToursController, type: :controller do
   describe 'DELETE #destroy' do
     before(:each) do
       create_user_session
-      Tour.delete_all
-      audience = Audience.create(name: 'Adult')
-      @tour = Tour.create(name: 'Test Tour',
-                          audience_id: audience.id,
-                          notes: 'Test Note')
+      @tour = create_tour
     end
     it 'should have deleted tour' do
       post :destroy, id: @tour.id
