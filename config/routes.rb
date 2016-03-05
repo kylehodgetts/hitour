@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   post '/data', to: 'data#create', as: :create_datum
   patch '/data/:id', to: 'data#update', as: :update_datum
   delete '/data/:id', to: 'data#destroy', as: :delete_datum
+  get '/data/compress_form', to: 'data#compress_form', as: :compress_form
+  post '/data/video', to: 'data#compress_video', as: :compress_video
 
   # Data Audiences
   get '/data_audiences', to: 'data_audiences#new'

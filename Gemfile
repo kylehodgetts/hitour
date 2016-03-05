@@ -17,6 +17,9 @@ gem 'wkhtmltopdf-binary'
 # For Random word Generation
 gem 'random-word', '~> 1.3'
 
+# For Data Compression
+gem 'streamio-ffmpeg'
+
 gem 'rails', '4.2.3'
 gem 'pg'
 gem 'sass-rails', '~> 5.0'

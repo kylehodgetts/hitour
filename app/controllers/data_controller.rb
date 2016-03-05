@@ -1,6 +1,7 @@
 class DataController < ApplicationController
   before_action :authenticate_user!
   require 'securerandom'
+  require 'streamio-ffmpeg'
 
   def index
     @data = []
@@ -17,6 +18,15 @@ class DataController < ApplicationController
       }
     end
     api_response(@data)
+  end
+
+  def compress_form
+  end
+
+  def compress_video
+    file_path = params[:file].path
+    movie = FFMPEG::Movie.new(file_path)
+    render json: [movie.video_stream]
   end
 
   def show
