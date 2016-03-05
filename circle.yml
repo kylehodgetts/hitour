@@ -1,5 +1,5 @@
-test:
-  pre:
+database:
+  override:
     - bundle exec rake db:setup
 deployment:
   prod:
