@@ -22,6 +22,7 @@ module Api
       tour[:points] = TourPoint.where(tour_id: tour['id']).as_json
       tour[:points].each do |point|
         point[:name] = Point.find(point['point_id']).name
+        point[:url] = Point.find(point['point_id']).url
         pd = PointDatum.where(point_id: point['id'])
         point[:data] = []
         pd.each do |point_datum|
