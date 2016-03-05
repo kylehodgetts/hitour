@@ -16,8 +16,9 @@ RSpec.describe TourSessionsController, type: :controller do
       describe 'with valid parameters' do
         it 'should create a tour session ' do
           # Create a tour session
+          tour = create_tour
           post :create, tour_session: {
-            tour_id: create_tour.id,
+            tour_id: tour.id,
             name: 'Test Tour Session',
             start_date: Date.current,
             passphrase: 'passphrase',
