@@ -20,7 +20,7 @@ RSpec.describe TourSessionsController, type: :controller do
             tour_id: create_tour.id,
             name: 'Test Tour Session',
             start_date: Date.current,
-            passphrase: 'passphrase',
+            passphrase: 'Passphrase',
             duration: '1'
           }
           # Check tour session was created
@@ -38,7 +38,7 @@ RSpec.describe TourSessionsController, type: :controller do
               tour_id: create_tour.id,
               name: '',
               start_date: Date.current,
-              passphrase: 'passphrase',
+              passphrase: 'Passphrase',
               duration: '1'
             }
             expect(response.body).to eq ['Name can\'t be blank'].to_json
@@ -64,7 +64,7 @@ RSpec.describe TourSessionsController, type: :controller do
               tour_id: create_tour.id,
               name: 'TourName',
               start_date: Date.current,
-              passphrase: 'passphrase',
+              passphrase: 'Passphrase',
               duration: '0'
             }
             expected = ['Duration must be greater than or equal to 1'].to_json
@@ -84,12 +84,12 @@ RSpec.describe TourSessionsController, type: :controller do
                                             name: 'Test Tour Session',
                                             start_date: Date.current,
                                             duration: 10,
-                                            passphrase: 'hello')
+                                            passphrase: 'Hello')
           patch :update, id: tour_session.id, tour_session: {
-            passphrase: 'rails123'
+            passphrase: 'Rails123'
           }
           tour_session = TourSession.find(tour_session.id)
-          expect(tour_session.passphrase).to eq 'rails123'
+          expect(tour_session.passphrase).to eq 'Rails123'
           expected = ['Successfully updated tour session'].to_json
           expect(response.body).to eq expected
         end
@@ -100,7 +100,7 @@ RSpec.describe TourSessionsController, type: :controller do
                                             name: 'Test Tour Session',
                                             start_date: Date.current,
                                             duration: 10,
-                                            passphrase: 'hello')
+                                            passphrase: 'Hello')
           patch :update, id: tour_session.id, tour_session: {
             passphrase: ''
           }
