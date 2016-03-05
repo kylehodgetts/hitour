@@ -40,7 +40,9 @@ module Api
         audiences = datum.audiences
         datum = datum.as_json
         datum[:rank] = point_datum['rank']
-        datum[:audiences] = audiences
+        datum[:audiences] = audiences.map do |audience|
+          { id: audience.id }
+        end
         populate_data_audiences(tour, point, datum)
       end
     end
