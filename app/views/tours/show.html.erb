@@ -5,8 +5,5 @@
 								  pdfUrl: tour_pdf_path(@tour),
 								  update_tour_url: update_tour_path(@tour),
 								  audiences: @audiences,
-									new_tour_session_url: create_tour_session_path ) %>
-<%= react_component('TourNote',
-									tourUrl: tour_path + '.json',
-								  updateTourPath: update_tour_path(@tour),
- 									initialValue: @tour.notes ) %>
+									new_tour_session_url: create_tour_session_path,
+									tourNote: @tour.notes ) %>
