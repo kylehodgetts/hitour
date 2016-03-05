@@ -23,15 +23,17 @@ class DataController < ApplicationController
   def compress_form
   end
 
-  def compress_video
-    file_path = params[:file].path
+  # Compresses video into mp4
+  def compress_video(file_path)
     movie = FFMPEG::Movie.new(file_path)
     options = {
       resolution: '320x240',
       preserve_aspect_ratio: :width
     }
-    movie.transcode('movie.mp4', options)
-    send_data movie
+    movie.transcode('compressed.mp4', options)
+    url = upload_to_s3 '.mp4', 'compressed.mp4'
+    FileUtils.rm('compressed.mp4')
+    url
   end
 
   def show
@@ -70,9 +72,11 @@ class DataController < ApplicationController
     return redirect_to data_path if params[:file].nil?
     # Extract file_name and file_path
     file_path = params[:file].path
-    file_extension = File.extname(file_path)
+    # file_extension = File.extname(file_path)
+    # Compress video
+    params[:url] = compress_video(file_path)
     # Add file_path to the params
-    params[:url] = upload_to_s3 file_extension, file_path
+    # params[:url] = upload_to_s3 file_extension, file_path
 
     @datum = Datum.new(
       title: params[:title],
