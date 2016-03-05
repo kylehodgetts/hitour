@@ -2,7 +2,7 @@ class DataController < ApplicationController
   before_action :authenticate_user!
   require 'securerandom'
   require 'streamio-ffmpeg'
-
+  require 'fastimage'
   def index
     @data = []
     items = Datum.all
@@ -72,11 +72,14 @@ class DataController < ApplicationController
     return redirect_to data_path if params[:file].nil?
     # Extract file_name and file_path
     file_path = params[:file].path
-    # file_extension = File.extname(file_path)
-    # Compress video
-    params[:url] = compress_video(file_path)
-    # Add file_path to the params
-    # params[:url] = upload_to_s3 file_extension, file_path
+    if image? file_path
+      file_extension = File.extname(file_path)
+      # Add file_path to the params
+      params[:url] = upload_to_s3 file_extension, file_path
+    else
+      # Compress video
+      params[:url] = compress_video(file_path)
+    end
 
     @datum = Datum.new(
       title: params[:title],
@@ -85,6 +88,15 @@ class DataController < ApplicationController
     )
     @datum.save
     redirect_to data_path
+  end
+
+  def image?(file_path)
+    begin
+      FastImage.size(file_path, raise_on_failure: true)
+      return true
+    rescue
+      return false
+    end
   end
 
   def destroy
