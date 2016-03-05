@@ -1,4 +1,7 @@
 deployment:
+  test:
+    pre:
+      - bundle exec rake db:setup
   prod:
     branch: master
     commands:
