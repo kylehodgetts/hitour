@@ -24,9 +24,10 @@ RSpec.describe TourSessionsController, type: :controller do
             duration: '1'
           }
           # Check tour session was created
-          expect(TourSession.all.size.to_i).to eq 1
+          tour_session = TourSession.find_by(name: 'Test Tour Session')
+          expect(tour_session).to be_truthy
           # Check that a passphrase was generated
-          expect(TourSession.all.first.passphrase).not_to eq nil
+          expect(tour_session.passphrase).not_to eq nil
         end
       end
       context 'with invalid' do

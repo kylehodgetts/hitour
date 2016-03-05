@@ -76,13 +76,6 @@ Rails.application.routes.draw do
 
   # API
   namespace :api do
-    get ':access_key/users', to: 'api#users'
-    get ':access_key/audiences', to: 'api#audiences'
-    get ':access_key/tours', to: 'api#tours'
-    get ':access_key/points', to: 'api#points'
-    get ':access_key/data', to: 'api#data'
-    get ':access_key/tour_points', to: 'api#tour_points'
-    get ':access_key/point_data', to: 'api#point_data'
-    get ':access_key/data_audiences', to: 'api#data_audiences'
+    get ':access_key/:passphrase', to: 'api#single_tour'
   end
 end

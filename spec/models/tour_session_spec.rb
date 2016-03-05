@@ -15,7 +15,7 @@ RSpec.describe TourSession, type: :model do
       it 'should be accepted' do
         @ts = TourSession.create(name: 'TourSession', tour_id: @tour.id,
                                  passphrase: 'passphrase',
-                                 start_date: '01-03-2016', duration: '1')
+                                 start_date: Date.current, duration: '1')
         expect(@ts.save).to be true
       end
     end
@@ -24,14 +24,14 @@ RSpec.describe TourSession, type: :model do
     describe 'without a name' do
       it 'should be rejected' do
         @ts = TourSession.create(tour_id: @tour.id, passphrase: 'passphrase',
-                                 start_date: '01-03-2016', duration: '1')
+                                 start_date: Date.current, duration: '1')
         expect(@ts.save).to be false
       end
     end
     describe 'without an associated tour' do
       it 'should be rejected' do
         @ts = TourSession.create(name: 'Name', passphrase: 'passphrase',
-                                 start_date: '01-03-2016', duration: '1')
+                                 start_date: Date.current, duration: '1')
         expect(@ts.save).to be false
       end
     end
@@ -54,14 +54,14 @@ RSpec.describe TourSession, type: :model do
       describe 'without a duration' do
         it 'should be rejected' do
           @ts = TourSession.create(name: 'Name', passphrase: 'passphrase',
-                                   tour_id: @tour.id, start_date: '01-03-2016')
+                                   tour_id: @tour.id, start_date: Date.current)
           expect(@ts.save).to be false
         end
       end
       describe 'with a duration less than 1' do
         it 'should be rejected' do
           @ts = TourSession.create(name: 'Name', passphrase: 'passphrase',
-                                   tour_id: @tour.id, start_date: '01-03-2016',
+                                   tour_id: @tour.id, start_date: Date.current,
                                    duration: '0')
           expect(@ts.save).to be false
         end
@@ -69,7 +69,7 @@ RSpec.describe TourSession, type: :model do
       describe 'with a duration less than 0' do
         it 'should be rejected' do
           @ts = TourSession.create(name: 'Name', passphrase: 'passphrase',
-                                   tour_id: @tour.id, start_date: '01-03-2016',
+                                   tour_id: @tour.id, start_date: Date.current,
                                    duration: '-1')
           expect(@ts.save).to be false
         end
@@ -79,24 +79,24 @@ RSpec.describe TourSession, type: :model do
       describe 'without a passphrase' do
         it 'should be rejected' do
           @ts = TourSession.create(name: 'Name',
-                                   tour_id: @tour.id, start_date: '01-03-2016',
-                                   duration: '-1')
+                                   tour_id: @tour.id, start_date: Date.current,
+                                   duration: '1')
           expect(@ts.save).to be false
         end
       end
       describe 'with a passphrase less than 5 characters' do
         it 'should be rejected' do
           @ts = TourSession.create(name: 'Name', passphrase: 'aaaa',
-                                   tour_id: @tour.id, start_date: '01-03-2016',
-                                   duration: '-1')
+                                   tour_id: @tour.id, start_date: Date.current,
+                                   duration: '1')
           expect(@ts.save).to be false
         end
       end
       describe 'with a malformed passphrase' do
         it 'should be rejected' do
           @ts = TourSession.create(name: 'Name', passphrase: 'aas _ nhdsf',
-                                   tour_id: @tour.id, start_date: '01-03-2016',
-                                   duration: '-1')
+                                   tour_id: @tour.id, start_date: Date.current,
+                                   duration: '1')
           expect(@ts.save).to be false
         end
       end
