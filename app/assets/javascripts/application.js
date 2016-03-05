@@ -18,3 +18,4 @@
 //= require jquery_ujs
 //= require components
 //= require materialize-sprockets
+//= require quill

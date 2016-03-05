@@ -51,7 +51,6 @@ class SingleTour extends React.Component {
       dataType: "json",
       success: function(data){
         Materialize.toast(data, 3000, 'rounded');
-        console.log("Success " + data);
       }.bind(this),
       error: function(err){
         Materialize.toast('There was an issue deleting. Please contact admin.', 3000, 'rounded');
@@ -68,7 +67,6 @@ class SingleTour extends React.Component {
       dataType: "json",
       success: function(data){
         Materialize.toast(data, 3000, 'rounded');
-        console.log("Success " + data);
       }.bind(this),
       error: function(err){
         Materialize.toast('There was an issue updating rank. Please contact admin.', 3000, 'rounded');
@@ -133,6 +131,11 @@ class SingleTour extends React.Component {
           points_url={this.props.points_url}
           new_tour_point_url={this.props.new_tour_point_url}
           />
+        <TourNote
+          initialValue={this.props.tourNote}
+          tourUrl={this.props.showUrl}
+          updateTourPath={this.props.update_tour_url}
+          />
         <div id="sessionModal" className="modal" style={{maxHeight: '800px'}}>
           <div className="modal-content">
             <h4>Tour Sessions</h4>
@@ -191,5 +194,6 @@ SingleTour.propTypes = {
   pollInterval: React.PropTypes.number,
   pdfUrl: React.PropTypes.string.isRequired,
   audiences: React.PropTypes.array,
-  new_tour_session_url: React.PropTypes.string.isRequired
+  new_tour_session_url: React.PropTypes.string.isRequired,
+  tourNote: React.PropTypes.string.isRequired
 }

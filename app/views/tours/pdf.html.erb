@@ -34,6 +34,10 @@
 		<h2 class="center-align"><%= @tour.name %></h2>
 		<h3><%= @audience.name %></h3>
 	</div>
+  <div class="page-break">
+    <h2 class="center-align">Notes</h2>
+    <%= @tour.notes.html_safe %>
+  </div>
 	<% @tour_points.each do |tp| %>
 		<div class="page-break">
 			<%= tp[:rank].to_s + ". " + tp[:name] %>
@@ -42,10 +46,6 @@
 				<h4>Description</h4>
 				<p><%= tp[:description] %></p>
 			</div>
-			<div>
-				<h4>Notes:</h4>
-				<p>Notes will go here</p>
-			</div>
 		</div>
 	<% end %>
 
@@ -53,4 +53,3 @@
     </div>
   </body>
 </html>
-

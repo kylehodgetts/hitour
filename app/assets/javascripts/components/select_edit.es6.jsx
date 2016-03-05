@@ -21,7 +21,7 @@ class SelectEdit extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     var check = JSON.stringify(prevState) === JSON.stringify(this.state);
     if(!check || this.state.options == []){
-      $('select').material_select();
+      $('.materialSelect').material_select();
     }
   }
 
@@ -60,6 +60,7 @@ class SelectEdit extends React.Component {
   renderEditableSelected() {
     return (
         <select
+            className="materialSelect"
             id={this.props.attributeName}>
           {this.state.options.map(function(o) {
             return (

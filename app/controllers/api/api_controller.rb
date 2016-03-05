@@ -6,6 +6,7 @@ module Api
       tour_session = TourSession.find_by passphrase: params[:passphrase]
       if tour_session
         response = {}
+        response[:tour_session] = tour_session
         response[:tours] = Tour.find(tour_session[:tour_id]).as_json
         populate_tour_reponse(response[:tours])
         render json: response
@@ -21,6 +22,7 @@ module Api
       tour[:points] = TourPoint.where(tour_id: tour['id']).as_json
       tour[:points].each do |point|
         point[:name] = Point.find(point['point_id']).name
+        point[:url] = Point.find(point['point_id']).url
         pd = PointDatum.where(point_id: point['id'])
         point[:data] = []
         pd.each do |point_datum|
@@ -38,7 +40,9 @@ module Api
         audiences = datum.audiences
         datum = datum.as_json
         datum[:rank] = point_datum['rank']
-        datum[:audiences] = audiences
+        datum[:audiences] = audiences.map do |audience|
+          { id: audience.id }
+        end
         populate_data_audiences(tour, point, datum)
       end
     end

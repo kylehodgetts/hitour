@@ -36,7 +36,7 @@ class NewTourPoint extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     var check = JSON.stringify(prevState) === JSON.stringify(this.state);
     if(!check || this.state.data == []){
-      $('select').material_select();
+      $('.materialSelect').material_select();
     }
   }
 
@@ -68,7 +68,7 @@ class NewTourPoint extends React.Component {
             <input value={this.props.tour_id} type="hidden" name="tour_point[tour_id]" />
             <div className="row">
               <div className="input-field col s12">
-                <select name="tour_point[point_id]">
+                <select name="tour_point[point_id]" className="materialSelect">
                   {this.state.points.map(function(point) {
                     return (
                       <option value={point.id} key={point.id} >{point.data}</option>
