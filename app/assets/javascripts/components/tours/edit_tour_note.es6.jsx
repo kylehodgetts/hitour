@@ -1,7 +1,6 @@
 class TourNote extends React.Component{
   constructor (props) {
     super(props);
-    console.log(this.props.initialValue);
     this.state =  {
       tour: [],
       notes: this.props.initialValue,
@@ -22,12 +21,9 @@ class TourNote extends React.Component{
   }
 
   handleUpdateNote () {
-    console.log("CLICKED ME");
     var newNote = editor.getHTML();
-    console.log("VALUE CHANGED to"+newNote);
     var formData = {};
     formData["tour[notes]"] = newNote;
-    console.log(formData);
     var callBack = this.handleLoadDataFromServer;
     $.ajax({
       url: this.props.updateTourPath,
@@ -45,7 +41,6 @@ class TourNote extends React.Component{
 
   handleLoadDataFromServer() {
     var url = this.props.tourUrl;
-    console.log("REQUESTING "+url);
     $.ajax({
       url: url,
       type: "GET",
