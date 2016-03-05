@@ -12,13 +12,13 @@ RSpec.describe TourSessionsController, type: :controller do
       before(:each) do
         # MUST create a user session to access controller
         create_user_session
-        TourSession.delete_all
       end
       describe 'with valid parameters' do
         it 'should create a tour session ' do
+          tour = create_tour
           # Create a tour session
           post :create, tour_session: {
-            tour_id: create_tour.id,
+            tour_id: tour.id,
             name: 'Test Tour Session',
             start_date: Date.current,
             passphrase: 'Passphrase',
@@ -34,9 +34,10 @@ RSpec.describe TourSessionsController, type: :controller do
       context 'with invalid' do
         describe 'name' do
           it 'should respond with name should not be blank' do
+            tour = create_tour
             # Create a tour session
             post :create, tour_session: {
-              tour_id: create_tour.id,
+              tour_id: tour.id,
               name: '',
               start_date: Date.current,
               passphrase: 'Passphrase',
@@ -47,9 +48,10 @@ RSpec.describe TourSessionsController, type: :controller do
         end
         describe 'blank duration' do
           it 'should respond with duration should not be blank' do
+            tour = create_tour
             # Create a tour session
             post :create, tour_session: {
-              tour_id: create_tour.id,
+              tour_id: tour.id,
               name: 'TourName',
               start_date: Date.current,
               passphrase: 'Passphrase',
@@ -60,9 +62,10 @@ RSpec.describe TourSessionsController, type: :controller do
         end
         describe 'duration less than 1' do
           it 'should respond with duration should not be greater than 1' do
+            tour = create_tour
             # Create a tour session
             post :create, tour_session: {
-              tour_id: create_tour.id,
+              tour_id: tour.id,
               name: 'TourName',
               start_date: Date.current,
               passphrase: 'Passphrase',
@@ -81,12 +84,13 @@ RSpec.describe TourSessionsController, type: :controller do
       end
       describe 'with a valid passphrase' do
         it 'should update tour session ' do
-          tour_session = TourSession.create(tour_id: create_tour.id,
+          tour = create_tour
+          tour_session = TourSession.create(tour_id: tour.id,
                                             name: 'Test Tour Session',
                                             start_date: Date.current,
                                             duration: 10,
                                             passphrase: 'Hello')
-          patch :update, id: tour_session.id, tour_session: {
+          post :update, id: tour_session.id, tour_session: {
             passphrase: 'Rails123'
           }
           tour_session = TourSession.find(tour_session.id)
@@ -97,12 +101,13 @@ RSpec.describe TourSessionsController, type: :controller do
       end
       describe 'with an invalid passphrase' do
         it 'should not update tour session' do
-          tour_session = TourSession.create(tour_id: create_tour.id,
+          tour = create_tour
+          tour_session = TourSession.create(tour_id: tour.id,
                                             name: 'Test Tour Session',
                                             start_date: Date.current,
                                             duration: 10,
                                             passphrase: 'Hello')
-          patch :update, id: tour_session.id, tour_session: {
+          post :update, id: tour_session.id, tour_session: {
             passphrase: ''
           }
           expect(response.body).to eq ['Could not update tour session'].to_json
