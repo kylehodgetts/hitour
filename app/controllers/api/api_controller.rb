@@ -6,6 +6,7 @@ module Api
       tour_session = TourSession.find_by passphrase: params[:passphrase]
       if tour_session
         response = {}
+        response[:tour_session] = tour_session
         response[:tours] = Tour.find(tour_session[:tour_id]).as_json
         populate_tour_reponse(response[:tours])
         render json: response
