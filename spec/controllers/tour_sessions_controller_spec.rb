@@ -12,6 +12,7 @@ RSpec.describe TourSessionsController, type: :controller do
       before(:each) do
         # MUST create a user session to access controller
         create_user_session
+        TourSession.delete_all
       end
       describe 'with valid parameters' do
         it 'should create a tour session ' do
@@ -20,7 +21,6 @@ RSpec.describe TourSessionsController, type: :controller do
             tour_id: create_tour.id,
             name: 'Test Tour Session',
             start_date: Date.current,
-            passphrase: 'passphrase',
             duration: '1'
           }
           # Check tour session was created
