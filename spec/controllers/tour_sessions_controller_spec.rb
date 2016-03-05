@@ -51,7 +51,7 @@ RSpec.describe TourSessionsController, type: :controller do
               tour_id: create_tour.id,
               name: 'TourName',
               start_date: Date.current,
-              passphrase: 'passphrase',
+              passphrase: 'Passphrase',
               duration: ''
             }
             expect(response.body).to eq ['Duration can\'t be blank'].to_json
