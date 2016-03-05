@@ -12,6 +12,7 @@ RSpec.describe TourSessionsController, type: :controller do
       before(:each) do
         # MUST create a user session to access controller
         create_user_session
+        TourSession.delete_all
       end
       describe 'with valid parameters' do
         it 'should create a tour session ' do

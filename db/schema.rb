@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 20160302172455) do
     t.datetime "updated_at",  null: false
     t.string   "name"
     t.integer  "audience_id"
+    t.text     "notes"
   end
 
   add_index "tours", ["audience_id"], name: "index_tours_on_audience_id", using: :btree
