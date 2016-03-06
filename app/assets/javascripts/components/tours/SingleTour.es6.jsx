@@ -96,11 +96,16 @@ class SingleTour extends React.Component {
             />
           }
         </div>
-        <a target="_blank" className="waves-effect waves-light blue btn left" href={this.props.pdfUrl}>
-          <i className="material-icons dp48 left">receipt</i>Download PDF
-        </a>
-        <a className="waves-effect waves-light  blue right btn modal-trigger" href="#sessionModal">Tour Sessions</a>
-        <br /><br />
+        <div className="row">
+          <div className="col s12 m4 left" style={{marginBottom: '5px'}}>
+            <a target="_blank" className="waves-effect waves-light blue btn" href={this.props.pdfUrl}>
+              <i className="material-icons dp48 left">receipt</i>Download PDF
+            </a>
+          </div>
+          <div className="col s12 left">
+            <a className="waves-effect waves-light  blue btn modal-trigger" href="#sessionModal">Tour Sessions</a>
+          </div>
+        </div>
         <h4>Points</h4>
         <div className="collection">
           {this.state.points.map(function(point) {
