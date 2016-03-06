@@ -77,10 +77,12 @@ class NewPointDatum extends React.Component {
                 <label>Data Name</label>
               </div>
             </div>
-            <button className="btn-floating btn-large waves-effect waves-light blue right"
-              type="submit" name="action">
-              <i className="material-icons">add</i>
-            </button>
+            <div className="row">
+              <button className="btn-floating btn-large waves-effect waves-light blue right"
+                type="submit" name="action">
+                <i className="material-icons">add</i>
+              </button>
+            </div>
           </form>
         </div>
       </div>

@@ -21,6 +21,9 @@ ENV['SENDGRID_ACCESS_KEY'] = 'SG.9o1qaaCbRUGQ4skt18S-7w.VUoPCCI7MdRB9nptZdjLYK3A
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 RSpec.configure do |config|
+  def (ActionDispatch::Integration::Session).fixture_path
+    RSpec.configuration.fixture_path
+  end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

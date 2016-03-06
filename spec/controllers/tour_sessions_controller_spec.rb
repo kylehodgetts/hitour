@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe TourSessionsController, type: :controller do
   def create_tour
+    Audience.delete_all
+    Tour.delete_all
     alevel = Audience.create(name: 'A-Level Student')
     tour = Tour.create(name: 'Imaging Tour: A-Level',
                        audience_id: alevel.id)
@@ -12,16 +14,17 @@ RSpec.describe TourSessionsController, type: :controller do
       before(:each) do
         # MUST create a user session to access controller
         create_user_session
-        TourSession.delete_all
       end
       describe 'with valid parameters' do
         it 'should create a tour session ' do
+          tour = create_tour
           # Create a tour session
           tour = create_tour
           post :create, tour_session: {
             tour_id: tour.id,
             name: 'Test Tour Session',
             start_date: Date.current,
+            passphrase: 'Passphrase',
             duration: '1'
           }
           # Check tour session was created
@@ -34,12 +37,13 @@ RSpec.describe TourSessionsController, type: :controller do
       context 'with invalid' do
         describe 'name' do
           it 'should respond with name should not be blank' do
+            tour = create_tour
             # Create a tour session
             post :create, tour_session: {
-              tour_id: create_tour.id,
+              tour_id: tour.id,
               name: '',
               start_date: Date.current,
-              passphrase: 'passphrase',
+              passphrase: 'Passphrase',
               duration: '1'
             }
             expect(response.body).to eq ['Name can\'t be blank'].to_json
@@ -47,12 +51,13 @@ RSpec.describe TourSessionsController, type: :controller do
         end
         describe 'blank duration' do
           it 'should respond with duration should not be blank' do
+            tour = create_tour
             # Create a tour session
             post :create, tour_session: {
-              tour_id: create_tour.id,
+              tour_id: tour.id,
               name: 'TourName',
               start_date: Date.current,
-              passphrase: 'passphrase',
+              passphrase: 'Passphrase',
               duration: ''
             }
             expect(response.body).to eq ['Duration can\'t be blank'].to_json
@@ -60,12 +65,13 @@ RSpec.describe TourSessionsController, type: :controller do
         end
         describe 'duration less than 1' do
           it 'should respond with duration should not be greater than 1' do
+            tour = create_tour
             # Create a tour session
             post :create, tour_session: {
-              tour_id: create_tour.id,
+              tour_id: tour.id,
               name: 'TourName',
               start_date: Date.current,
-              passphrase: 'passphrase',
+              passphrase: 'Passphrase',
               duration: '0'
             }
             expected = ['Duration must be greater than or equal to 1'].to_json
@@ -81,28 +87,30 @@ RSpec.describe TourSessionsController, type: :controller do
       end
       describe 'with a valid passphrase' do
         it 'should update tour session ' do
-          tour_session = TourSession.create(tour_id: create_tour.id,
+          tour = create_tour
+          tour_session = TourSession.create(tour_id: tour.id,
                                             name: 'Test Tour Session',
                                             start_date: Date.current,
                                             duration: 10,
-                                            passphrase: 'hello')
-          patch :update, id: tour_session.id, tour_session: {
-            passphrase: 'rails123'
+                                            passphrase: 'Hello')
+          post :update, id: tour_session.id, tour_session: {
+            passphrase: 'Rails123'
           }
           tour_session = TourSession.find(tour_session.id)
-          expect(tour_session.passphrase).to eq 'rails123'
+          expect(tour_session.passphrase).to eq 'Rails123'
           expected = ['Successfully updated tour session'].to_json
           expect(response.body).to eq expected
         end
       end
       describe 'with an invalid passphrase' do
         it 'should not update tour session' do
-          tour_session = TourSession.create(tour_id: create_tour.id,
+          tour = create_tour
+          tour_session = TourSession.create(tour_id: tour.id,
                                             name: 'Test Tour Session',
                                             start_date: Date.current,
                                             duration: 10,
-                                            passphrase: 'hello')
-          patch :update, id: tour_session.id, tour_session: {
+                                            passphrase: 'Hello')
+          post :update, id: tour_session.id, tour_session: {
             passphrase: ''
           }
           expect(response.body).to eq ['Could not update tour session'].to_json

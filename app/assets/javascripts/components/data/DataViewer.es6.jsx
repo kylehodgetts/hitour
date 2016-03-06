@@ -1,14 +1,19 @@
 class DataViewer extends React.Component {
-  componentDidMount () {
+
+  componentDidMount() {
     var url = this.props.url;
     var datumPreview = $("."+this.props.data_id);
-    var placeHolder = "/assets/placeHolderImage.png";
+    var placeHolder = "https://s3-us-west-2.amazonaws.com/hitourbucket/placeHolderImage.png";
     var placeHolderImage = $('<img />').attr('src',placeHolder).addClass("responsive-img");
     placeHolderImage.attr('height','300px;');
     if(this.props.url == undefined){
       datumPreview.append(img);
       return;
     }
+    this.handleCheckContentType(url, datumPreview, placeHolderImage);
+  }
+
+  handleCheckContentType(url, datumPreview, placeHolderImage) {
     if(this.checkIfImage()){
       var img = $('<img />').attr('src',url).addClass("responsive-img");
       datumPreview.append(img);
@@ -25,6 +30,7 @@ class DataViewer extends React.Component {
       datumPreview.append(a);
     }
   }
+
   render () {
     return (
       <div className={this.props.data_id+" center"}>
