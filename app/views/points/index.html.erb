@@ -1,7 +1,8 @@
 <h1>Points</h1>
-
+<script>
+  <% flash.each do |key, value| %>
+    Materialize.toast(<%= ('"'+value+'"').html_safe %>, 3000, 'rounded');
+  <% end %>
+</script>
 <%= react_component('Points', getUrl: points_path + '.json',
                                 postUrl: create_point_path) %>
-
-
-
