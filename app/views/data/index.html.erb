@@ -1,5 +1,8 @@
 <h1>Data</h1>
-
+<div class="row">
+  <% flash.each do |key, value| %>
+    <div class="card-panel sm 12"><%= value %></div>
+  <% end %>
+</div>
 <%= react_component('Data', getUrl: data_path + '.json',
                                 postUrl: create_datum_path) %>
-

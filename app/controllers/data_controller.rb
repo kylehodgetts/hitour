@@ -3,6 +3,7 @@ class DataController < ApplicationController
   require 'securerandom'
   require 'streamio-ffmpeg'
   require 'fastimage'
+
   def index
     @data = []
     items = Datum.all
@@ -20,22 +21,6 @@ class DataController < ApplicationController
     api_response(@data)
   end
 
-  def compress_form
-  end
-
-  # Compresses video into mp4
-  def compress_video(file_path)
-    movie = FFMPEG::Movie.new(file_path)
-    options = {
-      resolution: '320x240',
-      preserve_aspect_ratio: :width
-    }
-    movie.transcode('compressed.mp4', options)
-    url = upload_to_s3 '.mp4', 'compressed.mp4'
-    FileUtils.rm('compressed.mp4')
-    url
-  end
-
   def show
     @datum = Datum.includes(:audiences).find(params[:id])
     datum_audiences = DataAudience.where(datum_id: params[:id]).map do |da|
@@ -45,13 +30,8 @@ class DataController < ApplicationController
         delete_url: delete_datum_audience_path(da)
       }
     end
-    items = {
-      datum: @datum,
-      datum_audiences: datum_audiences
-    }
+    items = { datum: @datum, datum_audiences: datum_audiences }
     api_response(items)
-
-    # @datum = Datum.includes(:audiences).find(params[:id])
   end
 
   def update
@@ -72,31 +52,14 @@ class DataController < ApplicationController
     return redirect_to data_path if params[:file].nil?
     # Extract file_name and file_path
     file_path = params[:file].path
-    if image? file_path
-      file_extension = File.extname(file_path)
-      # Add file_path to the params
-      params[:url] = upload_to_s3 file_extension, file_path
-    else
-      # Compress video
-      params[:url] = compress_video(file_path)
-    end
-
-    @datum = Datum.new(
-      title: params[:title],
-      description: params[:description],
-      url: params[:url]
-    )
+    file_extension = File.extname(file_path)
+    params[:url] = analyse_upload(file_path, file_extension)
+    @datum = Datum.new(title: params[:title],
+                       description: params[:description],
+                       url: params[:url])
     @datum.save
+    flash[:success] = "Media (#{params[:title]}) succesfully uploaded"
     redirect_to data_path
-  end
-
-  def image?(file_path)
-    begin
-      FastImage.size(file_path, raise_on_failure: true)
-      return true
-    rescue
-      return false
-    end
   end
 
   def destroy
