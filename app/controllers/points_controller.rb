@@ -66,7 +66,7 @@ class PointsController < ApplicationController
 		# Make sure the file is an image
 		unless image?(file_path)
 			flash[:failure] = 'File provided is not an image'
-			return redirect_to points_path unless image?(file_path)
+			return redirect_to points_path
 		end
 		file_extension = File.extname(file_path)
 		params[:url] = analyse_upload(file_path, file_extension)

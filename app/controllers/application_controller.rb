@@ -37,6 +37,13 @@ class ApplicationController < ActionController::Base
     obj.public_url
   end
 
+  def analyse_upload(file_path, file_extension)
+    # Just Upload to S3 If file is an image
+    return upload_to_s3 file_extension, file_path if image?(file_path)
+    # Analyse video, compress if neccesary
+    analayse_video(file_path)
+  end
+
   def analayse_video(file_path)
     movie = FFMPEG::Movie.new(file_path)
     # Max Size of 60MB in bytes
@@ -54,7 +61,7 @@ class ApplicationController < ActionController::Base
   def compress_video(file_path)
     movie = FFMPEG::Movie.new(file_path)
     options = {
-      resolution: '320x240',
+      resolution: '640x480',
       preserve_aspect_ratio: :width
     }
     movie.transcode('compressed.mp4', options)
@@ -63,18 +70,10 @@ class ApplicationController < ActionController::Base
     url
   end
 
-  def analyse_upload(file_path, file_extension)
-    return upload_to_s3 file_extension, file_path if image?(file_path)
-    # Analyse video, compress if neccesary
-    analayse_video(file_path)
-  end
-
   def image?(file_path)
-    begin
-      FastImage.size(file_path, raise_on_failure: true)
-      return true
-    rescue
-      return false
-    end
+    FastImage.size(file_path, raise_on_failure: true)
+    return true
+  rescue
+    return false
   end
 end

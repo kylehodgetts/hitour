@@ -8,15 +8,11 @@ class DataController < ApplicationController
     @data = []
     items = Datum.all
     items.each do |item|
-      @data << {
-        id: item.id,
-        data: item.title,
-        title: item.title,
-        description: item.description,
-        url: item.url,
-        delete_url: delete_datum_path(item),
-        show_url: datum_path(item)
-      }
+      datum = item.as_json
+      datum['data'] = item.title
+      datum['delete_url'] = delete_datum_path(item)
+      datum['show_url'] = datum_path(item)
+      @data << datum
     end
     api_response(@data)
   end
