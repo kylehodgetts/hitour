@@ -1,8 +1,8 @@
 <h1>Data</h1>
-<div class="row">
+<script>
   <% flash.each do |key, value| %>
-    <div class="card-panel sm 12"><%= value %></div>
+    Materialize.toast(<%= ('"'+value+'"').html_safe %>, 3000, 'rounded');
   <% end %>
-</div>
+</script>
 <%= react_component('Data', getUrl: data_path + '.json',
                                 postUrl: create_datum_path) %>
