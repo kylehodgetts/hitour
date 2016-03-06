@@ -71,6 +71,9 @@ class GenericList extends React.Component {
     return (
       <div className="collection">
         {this.state.data.map(function(item, i) {
+          if(item.data.length > 25 && $(document).width() <= 350){
+            item.data = item.data.substring(0,25)+"...";
+          }
           return (
             <div key={item.id} className="collection-item">
               <div>

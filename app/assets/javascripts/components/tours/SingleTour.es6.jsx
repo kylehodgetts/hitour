@@ -109,10 +109,13 @@ class SingleTour extends React.Component {
         <h4>Points</h4>
         <div className="collection">
           {this.state.points.map(function(point) {
+            if(point.name.length > 18 && $(document).width() <= 350){
+              point.name = point.name.substring(0,18)+"...";
+            }
             return (
               <div key={point.id} className="collection-item">
                 <div>
-                  {point.name}
+                  <span>{point.name}</span>
                   <a id={point.id} href={point.delete_url} className="secondary-content" key={point.id}
                              onClick={_this.handleDeleteDataFromServer.bind(this, point.delete_url)}>
                   <i className=" blue-text material-icons">delete_forever</i>
