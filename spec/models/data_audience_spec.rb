@@ -15,23 +15,23 @@ RSpec.describe DataAudience, type: :model do
       @data_audience.destroy
     end
     describe 'With a missing datum' do
-      it 'should be rejected' do
+      it 'should be accepted' do
         @data_audience = DataAudience.create(audience_id: @audience.id)
-        expect(@data_audience.save).to be false
+        expect(@data_audience.save).to be true
       end
     end
     describe 'with an invalid datum' do
-      it 'should be rejected' do
+      it 'should be accepted' do
         invalid_id = Datum.last.id + 1
         @data_audience = DataAudience.create(audience_id: @audience.id,
                                              datum_id: invalid_id)
-        expect(@data_audience.save).to be false
+        expect(@data_audience.save).to be true
       end
     end
     describe 'With a missing audience' do
-      it 'should be rejected' do
+      it 'should be accepted' do
         @data_audience = DataAudience.create(datum_id: @datum.id)
-        expect(@data_audience.save).to be false
+        expect(@data_audience.save).to be true
       end
     end
     describe 'with an invalid audience' do
@@ -39,7 +39,7 @@ RSpec.describe DataAudience, type: :model do
         invalid_id = Audience.last.id + 1
         @data_audience = DataAudience.create(audience_id: invalid_id,
                                              datum_id: @datum.id)
-        expect(@data_audience.save).to be false
+        expect(@data_audience.save).to be true
       end
     end
   end
