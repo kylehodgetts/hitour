@@ -96,18 +96,26 @@ class SingleTour extends React.Component {
             />
           }
         </div>
-        <a target="_blank" className="waves-effect waves-light blue btn left" href={this.props.pdfUrl}>
-          <i className="material-icons dp48 left">receipt</i>Download PDF
-        </a>
-        <a className="waves-effect waves-light  blue right btn modal-trigger" href="#sessionModal">Tour Sessions</a>
-        <br /><br />
+        <div className="row">
+          <div className="col s12 m4 left" style={{marginBottom: '5px'}}>
+            <a target="_blank" className="waves-effect waves-light blue btn" href={this.props.pdfUrl}>
+              <i className="material-icons dp48 left">description</i>Download PDF</a>
+          </div>
+          <div className="col s12 left">
+            <a className="waves-effect waves-light  blue btn modal-trigger" href="#sessionModal">
+              <i className="material-icons dp48 left">view_agenda</i>Tour Sessions</a>
+          </div>
+        </div>
         <h4>Points</h4>
         <div className="collection">
           {this.state.points.map(function(point) {
+            if(point.name.length > 18 && $(document).width() <= 350){
+              point.name = point.name.substring(0,18)+"...";
+            }
             return (
               <div key={point.id} className="collection-item">
                 <div>
-                  {point.name}
+                  <span>{point.name}</span>
                   <a id={point.id} href={point.delete_url} className="secondary-content" key={point.id}
                              onClick={_this.handleDeleteDataFromServer.bind(this, point.delete_url)}>
                   <i className=" blue-text material-icons">delete_forever</i>

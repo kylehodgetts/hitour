@@ -1,4 +1,7 @@
 class Navbar extends React.Component {
+  componentDidMount() {
+    $(".button-collapse").sideNav();
+  }
 
   renderNavList() {
     return (
