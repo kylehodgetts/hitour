@@ -63,17 +63,18 @@ class PointsController < ApplicationController
 		return redirect_to points_path if params[:file].nil?
 		# Extract file_name and file_path
 		file_path = params[:file].path
+		# Make sure the file is an image
+		unless image?(file_path)
+			flash[:failure] = 'File provided is not an image'
+			return redirect_to points_path
+		end
 		file_extension = File.extname(file_path)
-
-		# Add file_path to the params
-		params[:url] = upload_to_s3 file_extension, file_path
-
-		@point = Point.new(
-		  name: params[:name],
-		  description: params[:description],
-		  url: params[:url]
-		)
+		params[:url] = analyse_upload(file_path, file_extension)
+		@point = Point.new(name: params[:name],
+		  								 description: params[:description],
+		  								 url: params[:url])
 		@point.save
+		flash[:success] = "Point (#{params[:name]}) succesfully created and uploaded"
 		redirect_to points_path
 	end
 
@@ -81,15 +82,5 @@ class PointsController < ApplicationController
 
 	def point_params
 		params.require(:point).permit(:name, :description, :url)
-	end
-
-	def create_point
-		@point = Point.new(point_params)
-		if @point.save
-			redirect_to @point
-		else
-			@message = 'The name of the point has already been taken.'
-			redirect_to new_point_path
-		end
 	end
 end

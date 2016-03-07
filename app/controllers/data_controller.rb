@@ -1,20 +1,18 @@
 class DataController < ApplicationController
   before_action :authenticate_user!
   require 'securerandom'
+  require 'streamio-ffmpeg'
+  require 'fastimage'
 
   def index
     @data = []
     items = Datum.all
     items.each do |item|
-      @data << {
-        id: item.id,
-        data: item.title,
-        title: item.title,
-        description: item.description,
-        url: item.url,
-        delete_url: delete_datum_path(item),
-        show_url: datum_path(item)
-      }
+      datum = item.as_json
+      datum['data'] = item.title
+      datum['delete_url'] = delete_datum_path(item)
+      datum['show_url'] = datum_path(item)
+      @data << datum
     end
     api_response(@data)
   end
@@ -28,13 +26,8 @@ class DataController < ApplicationController
         delete_url: delete_datum_audience_path(da)
       }
     end
-    items = {
-      datum: @datum,
-      datum_audiences: datum_audiences
-    }
+    items = { datum: @datum, datum_audiences: datum_audiences }
     api_response(items)
-
-    # @datum = Datum.includes(:audiences).find(params[:id])
   end
 
   def update
@@ -56,15 +49,12 @@ class DataController < ApplicationController
     # Extract file_name and file_path
     file_path = params[:file].path
     file_extension = File.extname(file_path)
-    # Add file_path to the params
-    params[:url] = upload_to_s3 file_extension, file_path
-
-    @datum = Datum.new(
-      title: params[:title],
-      description: params[:description],
-      url: params[:url]
-    )
+    params[:url] = analyse_upload(file_path, file_extension)
+    @datum = Datum.new(title: params[:title],
+                       description: params[:description],
+                       url: params[:url])
     @datum.save
+    flash[:success] = "Media (#{params[:title]}) succesfully uploaded"
     redirect_to data_path
   end
 
