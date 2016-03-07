@@ -27,7 +27,7 @@ module Api
         rank = point['rank']
         point = Point.find(point['id']).as_json.symbolize_keys
         point[:rank] = rank
-        point[:data] = {}
+        point[:data] = []
         pd = PointDatum.where(point_id: point[:id])
         pd.each { |p_d| populate_data_reponse(tour, point, p_d) }
         tour[:points] << point
@@ -56,7 +56,7 @@ module Api
       datum[:audiences].each do |audience|
         # If there is a match, add it to the array and break from loop
         if audience[:id] == tour[:audience_id]
-          point[:data][datum[:id]] = datum
+          point[:data] << datum
           break
         end
       end
