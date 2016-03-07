@@ -25,7 +25,7 @@ module Api
       tour[:points] = []
       points.each do |point|
         rank = point['rank']
-        point = Point.find(point['id']).as_json.symbolize_keys
+        point = Point.find(point['point_id']).as_json.symbolize_keys
         point[:rank] = rank
         point[:data] = []
         pd = PointDatum.where(point_id: point[:id])
