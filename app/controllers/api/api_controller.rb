@@ -24,21 +24,24 @@ module Api
       points = TourPoint.where(tour_id: tour[:id]).as_json
       tour[:points] = []
       points.each do |point|
-        rank = point['rank']
-        point = Point.find(point['point_id']).as_json.symbolize_keys
-        point[:rank] = rank
-        point[:data] = []
-        pd = PointDatum.where(point_id: point[:id])
-        pd.each { |p_d| populate_data_reponse(tour, point, p_d) }
-        tour[:points] << point
+        populate_point_reponse(tour, point)
       end
+    end
+
+    def populate_point_reponse(tour, point)
+      rank = point['rank']
+      point = Point.find(point['point_id']).as_json.symbolize_keys
+      point[:rank] = rank
+      point[:data] = []
+      pd = PointDatum.where(point_id: point[:id])
+      pd.each { |p_d| populate_data_reponse(tour, point, p_d) }
+      tour[:points] << point
     end
 
     # Insert array of points data into point reponse
     # Data is inserted in according to their rank order in database table
     def populate_data_reponse(tour, point, point_datum)
       data = Datum.where(id: point_datum[:datum_id])
-      # For each piece of data populate data's audiences
       data.each do |datum|
         audiences = datum.audiences
         datum = datum.as_json
