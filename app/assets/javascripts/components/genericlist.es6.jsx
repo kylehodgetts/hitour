@@ -14,6 +14,7 @@ class GenericList extends React.Component {
       this.handleLoadDataFromServer.bind(this),
       this.state.pollInterval
     );
+    this.refs['delete-confirmation'].handleTest();
   }
 
   componentWillUnmount() {
@@ -34,6 +35,7 @@ class GenericList extends React.Component {
   }
 
   handleDeleteDataFromServer(deleteUrl, e) {
+    $('#delete-confirmation').openModal();
     e.preventDefault();
     $.ajax({
       url: deleteUrl,
@@ -69,31 +71,36 @@ class GenericList extends React.Component {
   render () {
     var _this = this;
     return (
-      <div className="collection">
-        {this.state.data.map(function(item, i) {
-          if(item.data.length > 25 && $(document).width() <= 350){
-            item.data = item.data.substring(0,25)+"...";
-          }
-          return (
-            <div key={item.id} className="collection-item">
-              <div>
-                {item.data}
-                <a id={item.id} href="" className="secondary-content" key={i}
-                             onClick={_this.handleDeleteDataFromServer.bind(this, item.delete_url)}>
-                  <i className=" blue-text material-icons">delete_forever</i>
-                </a>
-                {item.show_url &&
-                  <a id={item.id} href={item.show_url} className="secondary-content">
-                    <i className=" blue-text material-icons">launch</i>
+      <div>
+        <div className="collection">
+          {this.state.data.map(function(item, i) {
+            if(item.data.length > 25 && $(document).width() <= 350){
+              item.data = item.data.substring(0,25)+"...";
+            }
+            return (
+              <div key={item.id} className="collection-item">
+                <div>
+                  {item.data}
+                  <a id={item.id}
+                     className="secondary-content"
+                      onClick={_this.handleDeleteDataFromServer.bind(this, item.delete_url)}
+                     key={i}>
+                    <i className=" blue-text material-icons">delete_forever</i>
                   </a>
-                }
-                {this.props.users &&
-                  this.renderVerified(item)
-                }
+                  {item.show_url &&
+                    <a id={item.id} href={item.show_url} className="secondary-content">
+                      <i className=" blue-text material-icons">launch</i>
+                    </a>
+                  }
+                  {this.props.users &&
+                    this.renderVerified(item)
+                  }
+                </div>
               </div>
-            </div>
-          );
-        }, this)}
+            );
+          }, this)}
+        </div>
+        <DeleteConfirmation ref="delete-confirmation"/>
       </div>
     );
   }
