@@ -38,7 +38,6 @@ class DataShow extends React.Component {
     });
   }
 
-  //Handle Deleting data
   handleDeleteDataFromServer(deleteUrl, e) {
     e.preventDefault();
     if(confirm("Are you sure you wish to delete this record")) {
