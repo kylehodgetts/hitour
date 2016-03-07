@@ -2,6 +2,8 @@ module Api
   class ApiController < ApplicationController
     before_action :api_authenticate!
 
+    # Start the reponse building process for a queried tour
+    # Remove the notes for the tour as they aren't needed
     def single_tour
       tour_session = TourSession.find_by passphrase: params[:passphrase]
       if tour_session
@@ -28,6 +30,9 @@ module Api
       end
     end
 
+    # Populate the given point with its rank
+    # and corresponding data
+    # Add the point to the given tours collection of points
     def populate_point_reponse(tour, point)
       rank = point['rank']
       point = Point.find(point['point_id']).as_json.symbolize_keys
