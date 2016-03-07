@@ -61,8 +61,7 @@ class ApplicationController < ActionController::Base
   def compress_video(file_path)
     movie = FFMPEG::Movie.new(file_path)
     options = {
-      resolution: '640x480',
-      video_codec: 'libx264'
+      resolution: '640x480'
     }
     movie.transcode('compressed.mp4', options)
     url = upload_to_s3 '.mp4', 'compressed.mp4'
