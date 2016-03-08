@@ -40,17 +40,19 @@ class DataShow extends React.Component {
 
   handleDeleteDataFromServer(deleteUrl, e) {
     e.preventDefault();
-    $.ajax({
-      url: deleteUrl,
-      type: "DELETE",
-      success: function(data){
-        Materialize.toast(data, 3000, 'rounded');
-      }.bind(this),
-      error: function(err){
-        Materialize.toast('There was an issue deleting. Please contact admin.', 3000, 'rounded');
-        console.log(err);
-      }.bind(this)
-    });
+    if(confirm("Are you sure you wish to delete this record")) {
+      $.ajax({
+        url: deleteUrl,
+        type: "DELETE",
+        success: function(data){
+          Materialize.toast(data, 3000, 'rounded');
+        }.bind(this),
+        error: function(err){
+          Materialize.toast('There was an issue deleting. Please contact admin.', 3000, 'rounded');
+          console.log(err);
+        }.bind(this)
+      });
+    }
   }
 
   render () {
