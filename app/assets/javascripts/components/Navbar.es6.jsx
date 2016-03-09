@@ -38,12 +38,14 @@ class Navbar extends React.Component {
             </li>
           </ul>
           <ul className="right hide-on-med-and-down">
-            <li>
-              <a className="dropdown-button" href="#!"
-                data-activates="dropdownUser">{this.props.currentUser.email}
-                <i className="material-icons right">arrow_drop_down</i>
-            </a>
-            </li>
+            {this.props.currentUser && (
+              <li>
+                <a className="dropdown-button" href="#!"
+                  data-activates="dropdownUser">{this.props.currentUser.email}
+                  <i className="material-icons right">arrow_drop_down</i>
+              </a>
+              </li>
+            )}
           </ul>
           <a href={this.props.rootPath} id="logo" className="brand-logo center">hiTour</a>
           <a href="#" data-activates="mobile-nav" className="button-collapse"><i className="material-icons">menu</i></a>
