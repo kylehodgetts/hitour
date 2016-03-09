@@ -61,11 +61,11 @@ class TourSessionsController < ApplicationController
     date = tour_session.start_date.to_formatted_s(:long_ordinal)
     message = "<p>You have been invited to take part in the
     <b>#{tour_session.tour.name}</b>.<br>"
-    message += "<br>Please scan the QR code below or enter the passphrase
+    message += "<br>Please scan the QR code below
+    (QR may not render on all email clients) or enter the passphrase
     <b>#{tour_session.passphrase}</b> into the mobile app."
     session_info = "<p>The contents of the tour will be available for
-    <b>#{tour_session.duration} days</b>
-    starting on <b>#{date}</b>.</p>"
+    <b>#{tour_session.duration} days </b>starting on <b>#{date}</b>.</p>"
     svg = RQRCode::QRCode.new('SESSION-' + tour_session.passphrase).as_svg
     message + session_info + svg
   end
