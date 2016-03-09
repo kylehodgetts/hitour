@@ -33,6 +33,7 @@ class Navbar extends React.Component {
           <ul className="right hide-on-med-and-down">
             <Navlist
               loggedIn = {this.props.loggedIn}
+              currentPage = {this.props.currentPage}
               toursPath = {this.props.toursPath}
               pointsPath = {this.props.pointsPath}
               dataPath = {this.props.dataPath}
@@ -69,5 +70,6 @@ Navbar.propTypes = {
   dataPath: React.PropTypes.string.isRequired,
   audiencesPath: React.PropTypes.string.isRequired,
   usersPath: React.PropTypes.string.isRequired,
-  logoutPath: React.PropTypes.string.isRequired
+  logoutPath: React.PropTypes.string.isRequired,
+  currentPage: React.PropTypes.string
 }
