@@ -104,8 +104,6 @@ class ToursController < ApplicationController
 	end
 
 	def delete_expired_sessions
-		TourSession.all.each do |session|
-			session.destroy if Date.current > session.start_date + session.duration
-		end
+		TourSession.destroy_all(['start_date + duration < ?', Date.current])
 	end
 end
