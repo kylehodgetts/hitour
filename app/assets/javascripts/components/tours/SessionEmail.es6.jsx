@@ -4,7 +4,7 @@ class SessionEmail extends React.Component {
     $('#sessionEmailForm').on('submit',function(e){
       e.preventDefault();
       var url = $(this).find('select').val();
-      $('.progress-message').text('Uploading Media');
+      $('.progress-message').text('Sending Tour Invitation Email. Please wait...');
       $('.progress-overlay').fadeIn(200);
       $.ajax({
         url: url,
