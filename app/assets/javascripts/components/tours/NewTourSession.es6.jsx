@@ -15,6 +15,7 @@ class NewTourSession extends React.Component {
       // Show Progress
       $('.progress-message').text('Creating Tour Session. Please wait...');
       $('.progress-overlay').fadeIn(200);
+      
       $.ajax({
         url: postUrl,
         type: "POST",
@@ -33,10 +34,9 @@ class NewTourSession extends React.Component {
     });
   }
 
-  componentWillUnmount() {
-  }
-
   render () {
+    // Set Min Date to Today
+    var today = new Date().toJSON().slice(0,10);
     return (
       <div>
         <div>
@@ -52,7 +52,7 @@ class NewTourSession extends React.Component {
               </div>
             <div className="row">
               <div className="input-field col s6">
-                <input id="tour_session[start_date]"
+                <input id="tour_session[start_date]" min={today} defaultValue={today}
                        name="tour_session[start_date]" type="date"
                        className="datepicker validate"/>
               </div>
