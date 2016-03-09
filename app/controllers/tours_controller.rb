@@ -40,7 +40,7 @@ class ToursController < ApplicationController
 			{
 				id: session.id,
 				name: session.name,
-				start_date: session.start_date,
+				start_date: session.start_date.to_formatted_s(:long_ordinal),
 				duration: session.duration,
 				passphrase: session.passphrase,
 				delete_url: delete_tour_session_path(session),
