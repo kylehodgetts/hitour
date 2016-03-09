@@ -17,12 +17,16 @@ class NewDatumAudience extends React.Component {
     var postUrl = this.props.createDatumAudienceUrl;
     $('#datumAudienceForm').on('submit',function(e){
       e.preventDefault();
+      // Show Progress
+      $('.progress-message').text('Assigning Audience to Media. Please wait...');
+      $('.progress-overlay').fadeIn(200);
       $.ajax({
         url: postUrl,
         type: "POST",
         data: $(this).serialize(),
         dataType: "json",
         success: function(data){
+          $('.progress-overlay').fadeOut();
           Materialize.toast(data, 3000, 'rounded');
         }.bind(this),
         error: function(err){

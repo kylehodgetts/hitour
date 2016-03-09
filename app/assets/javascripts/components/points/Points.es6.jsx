@@ -4,7 +4,7 @@ class Points extends React.Component {
     return (
       <div>
         <GenericList getUrl={this.props.getUrl} />
-        <form id="pointForm" className="col s12" encType="multipart/form-data" action={this.props.postUrl} method="post" >
+        <form id="pointForm" onSubmit={this.showProgressBar}  className="col s12" encType="multipart/form-data" action={this.props.postUrl} method="post" >
           <div className="row">
             <div className="input-field col s12">
                 <input id="point[name]" type="text" name="name" className="validate" required/>
@@ -33,6 +33,10 @@ class Points extends React.Component {
         </form>
       </div>
     );
+  }
+  showProgressBar() {
+    $('.progress-message').text('Creating Point and uploading image...');
+    $('.progress-overlay').fadeIn(200);
   }
 }
 

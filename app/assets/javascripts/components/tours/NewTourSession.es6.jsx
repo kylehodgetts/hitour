@@ -12,12 +12,16 @@ class NewTourSession extends React.Component {
     var postUrl = this.props.new_tour_session_url;
     $('#tourSessionForm').on('submit',function(e){
       e.preventDefault();
+      // Show Progress
+      $('.progress-message').text('Creating Tour Session. Please wait...');
+      $('.progress-overlay').fadeIn(200);
       $.ajax({
         url: postUrl,
         type: "POST",
         data: $(this).serialize(),
         dataType: "json",
         success: function(data){
+          $('.progress-overlay').fadeOut();
           Materialize.toast(data, 3000, 'rounded');
           $('#tourSessionForm')[0].reset();
         }.bind(this),
