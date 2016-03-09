@@ -1,10 +1,13 @@
 class Data extends React.Component {
-
   render () {
     return (
       <div>
+        <AjaxProgressBar
+          formName="data"
+          progressMessage="Uploading Media"
+        />
         <GenericList getUrl={this.props.getUrl} />
-        <form id="datumForm" className="col s12" encType="multipart/form-data" action={this.props.postUrl} method="post" >
+        <form onSubmit={this.showProgressBar} id="datumForm" className="col s12" encType="multipart/form-data" action={this.props.postUrl} method="post" >
                   <div className="row">
             <div className="input-field col s12">
                 <input id="datum[title]" type="text" name="title" className="validate" required/>
@@ -33,6 +36,12 @@ class Data extends React.Component {
         </form>
       </div>
     );
+  }
+  showProgressBar() {
+    $('.progress-data').css('display','block');
+  }
+  closeProgressBar() {
+    $('.progress-data').css('display','none');
   }
 }
 

@@ -8,15 +8,22 @@ class AjaxProgressBar extends React.Component {
       width: '100%',
       height: '100%',
       backgroundColor: 'hsla(224,100%,0%,0.62)',
-      zIndex: '100000 !important'
+      zIndex: '100000 !important',
+      display: 'none',
+      top: 0,
+      left: 0
     }
     var centerProgress = {
       display: 'block',
       textAlign: 'center',
       marginTop: '20%'
     }
+    var progressMessage = {
+      color: 'white',
+      fontSize: '20px'
+    }
     return (
-      <div classNameName="fullscreenProgress" style={style}>
+      <div className={"progress-"+this.props.formName} style={style}>
         <div className="valign-wrapper" style={centerProgress}>
           <div className="valign">
             <div className="preloader-wrapper big active">
@@ -30,7 +37,7 @@ class AjaxProgressBar extends React.Component {
                  </div>
                </div>
              </div>
-            <p>{this.props.progressMessage}</p>
+            <p style={progressMessage}>{this.props.progressMessage}</p>
           </div>
         </div>
       </div>
@@ -40,5 +47,6 @@ class AjaxProgressBar extends React.Component {
 
 AjaxProgressBar.displayName = "AjaxProgressBar";
 AjaxProgressBar.propTypes = {
-  progressMessage: React.PropTypes.string.isRequired
+  progressMessage: React.PropTypes.string.isRequired,
+  formName: React.PropTypes.string.isRequired
 }
