@@ -16,6 +16,9 @@ class NewPointDatum extends React.Component {
     );
     var postUrl = this.props.new_point_datum_url;
     $('#pointDatumForm').on('submit',function(e){
+      // Show Progress
+      $('.progress-message').text('Adding media to point. Please wait.');
+      $('.progress-overlay').fadeIn(200);
       e.preventDefault();
       $.ajax({
         url: postUrl,
@@ -23,6 +26,7 @@ class NewPointDatum extends React.Component {
         data: $(this).serialize(),
         dataType: "json",
         success: function(data){
+          $('.progress-overlay').fadeOut();
           Materialize.toast(data, 3000, 'rounded');
         }.bind(this),
         error: function(err){

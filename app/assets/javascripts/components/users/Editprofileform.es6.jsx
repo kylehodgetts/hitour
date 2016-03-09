@@ -3,12 +3,16 @@ class Editprofileform extends React.Component {
     var patchUrl = this.props.patchUrl;
     $('#updateForm').on('submit',function(e){
       e.preventDefault();
+      // Show Progress
+      $('.progress-message').text('Updating password. Please wait...');
+      $('.progress-overlay').fadeIn(200);
       $.ajax({
         url: patchUrl,
         type: "POST",
         dataType: "json",
         data: $(this).serialize(),
         success: function(data){
+          $('.progress-overlay').fadeOut();
           Materialize.toast(data, 3000, 'rounded');
         },
         error: function(err){

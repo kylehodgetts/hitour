@@ -46,11 +46,15 @@ class SingleTour extends React.Component {
   handleDeleteDataFromServer(deleteUrl, e) {
     e.preventDefault();
     if(confirm("Are you sure you wish to delete this record")) {
+      // Show Progress
+      $('.progress-message').text('Deleting record. Please wait.');
+      $('.progress-overlay').fadeIn(200);
       $.ajax({
         url: deleteUrl,
         type: "DELETE",
         dataType: "json",
         success: function(data){
+          $('.progress-overlay').fadeOut();
           Materialize.toast(data, 3000, 'rounded');
         }.bind(this),
         error: function(err){
@@ -63,11 +67,15 @@ class SingleTour extends React.Component {
 
   handlePostDataToServer(rankUrl, e) {
     e.preventDefault();
+    // Show Progress
+    $('.progress-message').text('Updating rank. Please wait...');
+    $('.progress-overlay').fadeIn(200);
     $.ajax({
       url: rankUrl,
       type: "POST",
       dataType: "json",
       success: function(data){
+        $('.progress-overlay').fadeOut();
         Materialize.toast(data, 3000, 'rounded');
       }.bind(this),
       error: function(err){

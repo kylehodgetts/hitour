@@ -2,7 +2,7 @@ class Loginform extends React.Component {
   render () {
     return (
       <div className="row">
-        <form className="col s12" method="post">
+        <form onSubmit={this.showProgressBar} className="col s12" method="post">
           <div className="row">
             <div className="input-field col s12">
               <input name="email" id="email" type="email"
@@ -29,6 +29,10 @@ class Loginform extends React.Component {
         </form>
       </div>
     );
+  }
+  showProgressBar() {
+    $('.progress-message').text('Logging in...');
+    $('.progress-overlay').fadeIn(200);
   }
 }
 
