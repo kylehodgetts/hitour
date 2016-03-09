@@ -1,6 +1,7 @@
 class Navbar extends React.Component {
   componentDidMount() {
     $(".button-collapse").sideNav();
+    $(".dropdown-button").dropdown();
   }
 
   renderNavList() {
@@ -21,18 +22,28 @@ class Navbar extends React.Component {
     return (
       <nav>
         <div className="nav-wrapper  blue darken-1">
-          <ul className="right hide-on-med-and-down">
+          <ul id="dropdownUser" className="dropdown-content">
             {this.props.currentUser &&
               <li>
                 <a href={"/users/"+this.props.currentUser.id}>
-                  {this.props.currentUser.email}
+                  Manage Profile
                 </a>
               </li>
             }
-            <NavlistItem
-              url={this.props.logoutPath}
-              name="Logout"
-            />
+            <li className="divider"></li>
+            <li>
+              <a href={this.props.logoutPath}>
+                Logout
+              </a>
+            </li>
+          </ul>
+          <ul className="right hide-on-med-and-down">
+            <li>
+              <a className="dropdown-button" href="#!"
+                data-activates="dropdownUser">{this.props.currentUser.email}
+                <i className="material-icons right">arrow_drop_down</i>
+            </a>
+            </li>
           </ul>
           <a href={this.props.rootPath} id="logo" className="brand-logo center">hiTour</a>
           <a href="#" data-activates="mobile-nav" className="button-collapse"><i className="material-icons">menu</i></a>
