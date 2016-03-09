@@ -35,9 +35,14 @@ class AudiencesController < ApplicationController
   end
 
   def destroy
-    audience = Audience.find(params[:id])
-    audience.destroy
-    render json: ['Successfully deleted audience'], status: 200
+    if Tour.find_by(audience_id: params[:id])
+      render json: ['Cannot delete Audience while a Tour has it assigned'],
+             status: 200
+    else
+      DataAudience.where(audience_id: params[:id]).destroy_all
+      Audience.destroy(params[:id])
+      render json: ['Successfully deleted audience'], status: 200
+    end
   end
 
   private
