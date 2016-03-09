@@ -15,6 +15,7 @@ class NewTourSession extends React.Component {
       // Show Progress
       $('.progress-message').text('Creating Tour Session. Please wait...');
       $('.progress-overlay').fadeIn(200);
+      
       $.ajax({
         url: postUrl,
         type: "POST",
@@ -31,9 +32,6 @@ class NewTourSession extends React.Component {
         }.bind(this)
       });
     });
-  }
-
-  componentWillUnmount() {
   }
 
   render () {
