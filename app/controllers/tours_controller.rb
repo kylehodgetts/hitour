@@ -20,6 +20,7 @@ class ToursController < ApplicationController
 	end
 
 	def show
+		delete_expired_sessions
 		@tour = Tour.includes(:tour_sessions).find(params[:id])
 		@audiences = Audience.all
 		@audience = Audience.find(@tour.audience_id)
@@ -39,7 +40,7 @@ class ToursController < ApplicationController
 			{
 				id: session.id,
 				name: session.name,
-				start_date: session.start_date,
+				start_date: session.start_date.to_formatted_s(:long_ordinal),
 				duration: session.duration,
 				passphrase: session.passphrase,
 				delete_url: delete_tour_session_path(session),
@@ -100,5 +101,9 @@ class ToursController < ApplicationController
 
 	def tour_params
 		params.require(:tour).permit(:name, :audience_id, :notes)
+	end
+
+	def delete_expired_sessions
+		TourSession.destroy_all(['start_date + duration < ?', Date.current])
 	end
 end
