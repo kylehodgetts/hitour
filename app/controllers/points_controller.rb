@@ -53,8 +53,8 @@ class PointsController < ApplicationController
 	end
 
 	def destroy
-		@point = Point.find(params[:id])
-		@point.destroy
+		TourPoint.where(point_id: params[:id]).destroy_all
+		Point.destroy(params[:id])
 		render json: ['Succesfully deleted point']
 	end
 
