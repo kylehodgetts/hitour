@@ -1,20 +1,13 @@
 class NavlistItem extends React.Component {
   render () {
-    if(this.props.currentPage != undefined
-    && this.props.currentPage == this.props.name){
-      return(
-        <li className="active">
-          <a href={this.props.url}>{this.props.name}</a>
-        </li>
-      );
-    }else{
-      return(
-        <li>
-          <a href={this.props.url}>{this.props.name}</a>
-        </li>
-      );
-    }
-
+    var active = "";
+    {this.props.currentPage == this.props.name &&
+    (active = "active")}
+    return(
+      <li className={active}>
+        <a href={this.props.url}>{this.props.name}</a>
+      </li>
+    );
   }
 }
 
