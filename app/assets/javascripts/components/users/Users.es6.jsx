@@ -2,13 +2,15 @@ class Users extends React.Component {
   componentDidMount() {
     var postURL = this.props.postUrl;
     $('#userForm').on('submit',function(e){
-      console.log($(this).serialize());
       e.preventDefault();
+      $('.progress-message').text('Creating User. Please wait...');
+      $('.progress-overlay').fadeIn(200);
       $.ajax({
         url: postURL,
         type: "POST",
         data: $(this).serialize(),
         success: function(data){
+          $('.progress-overlay').fadeOut();
           Materialize.toast(data, 3000, 'rounded');
           $('#userForm').trigger("reset");
         },

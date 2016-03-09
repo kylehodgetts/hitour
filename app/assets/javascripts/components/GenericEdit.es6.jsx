@@ -36,11 +36,15 @@ class GenericEdit extends React.Component {
     var newValue = document.getElementById(newKey).value;
     var formData = {};
     formData[newKey] = newValue;
+    // Show Progress
+    $('.progress-message').text('Updating record. Please wait...');
+    $('.progress-overlay').fadeIn(200);
     $.ajax({
       url: postURL,
       type: "PATCH",
       data: formData,
       success: function(data){
+        $('.progress-overlay').fadeOut();
         Materialize.toast(data, 3000, 'rounded');
         this.setState({
           value: newValue,

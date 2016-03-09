@@ -49,12 +49,16 @@ class SinglePoint extends React.Component {
 
   handleDeleteDataFromServer(deleteUrl, e) {
     e.preventDefault();
-    if(confirm("Are you sure you wish to delete this record")) {
+    if(confirm("Are you sure you wish to delete this point")) {
+      // Show Progress
+      $('.progress-message').text('Deleting Point');
+      $('.progress-overlay').fadeIn(200);
       $.ajax({
         url: deleteUrl,
         type: "DELETE",
         dataType: "json",
         success: function(data){
+          $('.progress-overlay').fadeOut();
           Materialize.toast(data, 3000, 'rounded');
           console.log("Success " + data);
         }.bind(this),
@@ -68,11 +72,15 @@ class SinglePoint extends React.Component {
 
   handlePostDataToServer(rankUrl, e) {
     e.preventDefault();
+    // Show Progress
+    $('.progress-message').text('Updating rank.');
+    $('.progress-overlay').fadeIn(200);
     $.ajax({
       url: rankUrl,
       type: "POST",
       dataType: "json",
       success: function(data){
+        $('.progress-overlay').fadeOut();
         Materialize.toast(data, 3000, 'rounded');
         console.log("Success " + data);
       }.bind(this),

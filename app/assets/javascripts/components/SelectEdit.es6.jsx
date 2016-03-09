@@ -39,11 +39,15 @@ class SelectEdit extends React.Component {
     var newValueId = elem.options[elem.selectedIndex].id;
     var formData = {};
     formData[newKey] = newValueId;
+    // Show Progress
+    $('.progress-message').text('Updating Record. Please wait...');
+    $('.progress-overlay').fadeIn(200);
     $.ajax({
       url: postURL,
       type: "PATCH",
       data: formData,
       success: function(data){
+        $('.progress-overlay').fadeOut();
         Materialize.toast(data, 3000, 'rounded');
         this.setState({
           selected: value,
