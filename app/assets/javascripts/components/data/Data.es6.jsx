@@ -2,10 +2,6 @@ class Data extends React.Component {
   render () {
     return (
       <div>
-        <AjaxProgressBar
-          formName="data"
-          progressMessage="Uploading Media"
-        />
         <GenericList getUrl={this.props.getUrl} />
         <form onSubmit={this.showProgressBar} id="datumForm" className="col s12" encType="multipart/form-data" action={this.props.postUrl} method="post" >
                   <div className="row">
@@ -38,10 +34,8 @@ class Data extends React.Component {
     );
   }
   showProgressBar() {
-    $('.progress-data').css('display','block');
-  }
-  closeProgressBar() {
-    $('.progress-data').css('display','none');
+    $('.progress-message').text('Uploading Media');
+    $('.progress-overlay').fadeIn(200);
   }
 }
 

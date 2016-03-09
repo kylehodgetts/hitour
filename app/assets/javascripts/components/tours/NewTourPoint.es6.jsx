@@ -17,12 +17,16 @@ class NewTourPoint extends React.Component {
     var postUrl = this.props.new_tour_point_url;
     $('#tourPointForm').on('submit',function(e){
       e.preventDefault();
+      // Show Progress
+      $('.progress-message').text('Adding Point to Tour. Please wait...');
+      $('.progress-overlay').fadeIn(200);
       $.ajax({
         url: postUrl,
         type: "POST",
         data: $(this).serialize(),
         dataType: "json",
         success: function(data){
+          $('.progress-overlay').fadeOut();
           Materialize.toast(data, 3000, 'rounded');
         }.bind(this),
         error: function(err){

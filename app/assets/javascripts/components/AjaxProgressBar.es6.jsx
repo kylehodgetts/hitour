@@ -23,7 +23,7 @@ class AjaxProgressBar extends React.Component {
       fontSize: '20px'
     }
     return (
-      <div className={"progress-"+this.props.formName} style={style}>
+      <div className="progress-overlay" style={style}>
         <div className="valign-wrapper" style={centerProgress}>
           <div className="valign">
             <div className="preloader-wrapper big active">
@@ -37,7 +37,7 @@ class AjaxProgressBar extends React.Component {
                  </div>
                </div>
              </div>
-            <p style={progressMessage}>{this.props.progressMessage}</p>
+            <p style={progressMessage} className="progress-message">Please wait...</p>
           </div>
         </div>
       </div>
@@ -46,7 +46,3 @@ class AjaxProgressBar extends React.Component {
 }
 
 AjaxProgressBar.displayName = "AjaxProgressBar";
-AjaxProgressBar.propTypes = {
-  progressMessage: React.PropTypes.string.isRequired,
-  formName: React.PropTypes.string.isRequired
-}
