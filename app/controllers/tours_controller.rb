@@ -43,7 +43,8 @@ class ToursController < ApplicationController
 				duration: session.duration,
 				passphrase: session.passphrase,
 				delete_url: delete_tour_session_path(session),
-				update_url: update_tour_session_path(session)
+				update_url: update_tour_session_path(session),
+				email_url: tour_session_invitation_path(session)
 			}
 		end
 		@tour_points = [] if @tour_points.nil?

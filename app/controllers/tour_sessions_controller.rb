@@ -34,7 +34,9 @@ class TourSessionsController < ApplicationController
 
   def send_email
     tour_session = TourSession.find(params[:id])
-    render json: session_invitation(params[:email], tour_session)
+    response = session_invitation(params[:email], tour_session)
+    return render json: ['Succesfully sent email'] if response.code == 200
+    render json: ['Something went wrong']
   end
 
   def session_invitation(to, tour_session)
