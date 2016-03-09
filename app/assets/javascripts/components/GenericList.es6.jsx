@@ -46,7 +46,7 @@ class GenericList extends React.Component {
           Materialize.toast('There was an issue deleting. Please contact admin.', 3000, 'rounded');
           console.log(err);
         }.bind(this)
-      });  
+      });
     }
   }
 
