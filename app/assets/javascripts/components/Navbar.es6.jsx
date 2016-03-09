@@ -21,16 +21,22 @@ class Navbar extends React.Component {
     return (
       <nav>
         <div className="nav-wrapper  blue darken-1">
-          <ul className="left hide-on-med-and-down">
-          {this.props.currentUser &&
-            <li><a href={"/users/"+this.props.currentUser.id}>
-              {this.props.currentUser.email}
-            </a></li>
-          }
+          <ul className="right hide-on-med-and-down">
+            {this.props.currentUser &&
+              <li>
+                <a href={"/users/"+this.props.currentUser.id}>
+                  {this.props.currentUser.email}
+                </a>
+              </li>
+            }
+            <NavlistItem
+              url={this.props.logoutPath}
+              name="Logout"
+            />
           </ul>
           <a href={this.props.rootPath} id="logo" className="brand-logo center">hiTour</a>
           <a href="#" data-activates="mobile-nav" className="button-collapse"><i className="material-icons">menu</i></a>
-          <ul className="right hide-on-med-and-down">
+          <ul className="left hide-on-med-and-down">
             <Navlist
               loggedIn = {this.props.loggedIn}
               currentPage = {this.props.currentPage}
@@ -39,12 +45,12 @@ class Navbar extends React.Component {
               dataPath = {this.props.dataPath}
               audiencesPath = {this.props.audiencesPath}
               usersPath = {this.props.usersPath}
-              logoutPath = {this.props.logoutPath}
             />
           </ul>
           <ul className="side-nav" id="mobile-nav">
           <Navlist
             loggedIn = {this.props.loggedIn}
+            currentPage = {this.props.currentPage}
             currentUser = {this.props.currentUser}
             toursPath = {this.props.toursPath}
             pointsPath = {this.props.pointsPath}

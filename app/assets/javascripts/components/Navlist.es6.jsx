@@ -22,9 +22,11 @@ class Navlist extends React.Component {
         <NavlistItem url={this.props.usersPath}
                      name="Users"
                      currentPage={this.props.currentPage}/>
-        <NavlistItem url={this.props.logoutPath}
-                     name="Logout"
-                     currentPage={this.props.currentPage}/>
+        {this.props.logoutPath &&
+          <NavlistItem url={this.props.logoutPath}
+                       name="Logout"
+                       currentPage={this.props.currentPage}/>
+        }
         </div>
       );
     }
@@ -46,5 +48,5 @@ Navlist.propTypes = {
   dataPath: React.PropTypes.string.isRequired,
   audiencesPath: React.PropTypes.string.isRequired,
   usersPath: React.PropTypes.string.isRequired,
-  logoutPath: React.PropTypes.string.isRequired
+  logoutPath: React.PropTypes.string
 }
