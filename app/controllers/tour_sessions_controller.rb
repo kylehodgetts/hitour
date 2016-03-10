@@ -66,8 +66,11 @@ class TourSessionsController < ApplicationController
     <b>SN#{tour_session.passphrase}</b> into the mobile app."
     session_info = "<p>The contents of the tour will be available for
     <b>#{tour_session.duration} days </b>starting on <b>#{date}</b>.</p>"
-    svg = RQRCode::QRCode.new('SN' + tour_session.passphrase).as_svg
-    message + session_info + svg
+    qr_content = 'SN' + tour_session.passphrase
+    src = 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data='
+    src += qr_content
+    image = "<img src='#{src}'></img>'"
+    message + session_info + image
   end
 
   private
