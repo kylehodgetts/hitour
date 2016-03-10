@@ -116,6 +116,14 @@ class SingleTour extends React.Component {
               <i className="material-icons dp48 left">view_agenda</i>Tour Sessions</a>
           </div>
         </div>
+        <div className="row">
+          {this.state.tourSessions &&
+          this.state.tourSessions.length > 0 &&
+            <SessionEmail
+                tourSessions={this.state.tourSessions}
+            />
+          }
+        </div>
         <h4>Points</h4>
         <div className="collection">
           {this.state.points.map(function(point) {
