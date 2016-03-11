@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160311155657) do
+ActiveRecord::Schema.define(version: 20160311161638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,7 +44,10 @@ ActiveRecord::Schema.define(version: 20160311155657) do
   create_table "feedbacks", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "tour_id"
   end
+
+  add_index "feedbacks", ["tour_id"], name: "index_feedbacks_on_tour_id", using: :btree
 
   create_table "point_data", force: :cascade do |t|
     t.integer  "point_id"
@@ -72,16 +75,6 @@ ActiveRecord::Schema.define(version: 20160311155657) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "tour_feedbacks", force: :cascade do |t|
-    t.integer  "tour_id"
-    t.integer  "feedback_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "tour_feedbacks", ["feedback_id"], name: "index_tour_feedbacks_on_feedback_id", using: :btree
-  add_index "tour_feedbacks", ["tour_id"], name: "index_tour_feedbacks_on_tour_id", using: :btree
 
   create_table "tour_points", force: :cascade do |t|
     t.integer  "tour_id"
