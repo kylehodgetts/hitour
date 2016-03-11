@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160311161638) do
+ActiveRecord::Schema.define(version: 20160311172125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(version: 20160311161638) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "tour_id"
+    t.integer  "rating"
+    t.text     "comment"
   end
 
   add_index "feedbacks", ["tour_id"], name: "index_feedbacks_on_tour_id", using: :btree
