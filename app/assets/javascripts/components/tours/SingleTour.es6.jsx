@@ -21,6 +21,13 @@ class SingleTour extends React.Component {
     $('.modal-trigger').leanModal();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    var check = JSON.stringify(prevState) === JSON.stringify(this.state);
+    if(!check || this.state.tour == []){
+      $('.collapsible').collapsible();
+    }
+  }
+
   componentWillUnmount() {
     this.interval && clearInterval(this.interval);
     this.interval = false;
