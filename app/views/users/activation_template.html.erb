@@ -1,0 +1,7 @@
+<p>Dear Reciepient,</p>
+<p>You requested an account be created for the email: <b><%= @user.email %>.</b></p>
+<p>In order to activate your account please click <a href=<%= ('"'+@url+'"').html_safe %> >here</a> and use the temporary password
+  <b><%= @user.password%></b></p>
+<p>Please set your own password after activation.</p>
+<p>Kind Regards,</p>
+<p>The HiTour Team</p>
