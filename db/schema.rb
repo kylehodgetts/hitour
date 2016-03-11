@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160302172455) do
+ActiveRecord::Schema.define(version: 20160311161638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(version: 20160302172455) do
   add_index "data_audiences", ["audience_id"], name: "index_data_audiences_on_audience_id", using: :btree
   add_index "data_audiences", ["datum_id", "audience_id"], name: "index_data_audiences_on_datum_id_and_audience_id", unique: true, using: :btree
   add_index "data_audiences", ["datum_id"], name: "index_data_audiences_on_datum_id", using: :btree
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "tour_id"
+  end
+
+  add_index "feedbacks", ["tour_id"], name: "index_feedbacks_on_tour_id", using: :btree
 
   create_table "point_data", force: :cascade do |t|
     t.integer  "point_id"
