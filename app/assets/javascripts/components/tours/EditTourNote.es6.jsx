@@ -50,7 +50,6 @@ class TourNote extends React.Component{
       dataType: "json",
       cache: false,
       success: function(data){
-        console.log(data);
         this.setState({
           tour: data[0]["tour"],
           notes: data[0]["tour"]["notes"]
