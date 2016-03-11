@@ -68,12 +68,6 @@ class TourNote extends React.Component{
     return (
       <div>
           <div className="row">
-            <div className="input-field col s12">
-              <h5>Tour Notes</h5>
-              <p>All notes written here, will be available on the PDF.</p>
-            </div>
-          </div>
-          <div className="row">
             <div className="quill-wrapper">
               <div id="toolbar" className="toolbar ql-snow">
                 <span className="ql-format-group">

@@ -116,6 +116,22 @@ class SingleTour extends React.Component {
               <i className="material-icons dp48 left">view_agenda</i>Tour Sessions</a>
           </div>
         </div>
+        <div className="row">
+          <ul className="collapsible" data-collapsible="accordion">
+            <li>
+              <div className="collapsible-header"><i className="material-icons">speaker_notes</i>Tour Notes - All notes written here, will be available in the PDF.</div>
+              <div className="collapsible-body">
+                <div className="container">
+                  <TourNote
+                    initialValue={this.props.tourNote}
+                    tourUrl={this.props.showUrl}
+                    updateTourPath={this.props.update_tour_url}
+                    />
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
         <h4>Points</h4>
         <div className="collection">
           {this.state.points.map(function(point) {
@@ -144,16 +160,15 @@ class SingleTour extends React.Component {
             );
           }, this)}
         </div>
-        <NewTourPoint
-          tour_id={this.props.tour_id}
-          points_url={this.props.points_url}
-          new_tour_point_url={this.props.new_tour_point_url}
-          />
-        <TourNote
-          initialValue={this.props.tourNote}
-          tourUrl={this.props.showUrl}
-          updateTourPath={this.props.update_tour_url}
-          />
+        <div className="row">
+          <NewTourPoint
+            tour_id={this.props.tour_id}
+            points_url={this.props.points_url}
+            new_tour_point_url={this.props.new_tour_point_url}
+            />
+        </div>
+
+
         <div id="sessionModal" className="modal" style={{maxHeight: '800px'}}>
           <div className="modal-content">
             <h4>Tour Sessions</h4>
