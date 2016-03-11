@@ -116,14 +116,6 @@ class SingleTour extends React.Component {
               <i className="material-icons dp48 left">view_agenda</i>Tour Sessions</a>
           </div>
         </div>
-        <div className="row">
-          {this.state.tourSessions &&
-          this.state.tourSessions.length > 0 &&
-            <SessionEmail
-                tourSessions={this.state.tourSessions}
-            />
-          }
-        </div>
         <h4>Points</h4>
         <div className="collection">
           {this.state.points.map(function(point) {
@@ -166,7 +158,7 @@ class SingleTour extends React.Component {
           <div className="modal-content">
             <h4>Tour Sessions</h4>
             <ul className="collection" style={{
-              height: '200px',
+              height: '140px',
               overflow: 'hidden',
               overflowY: 'scroll'
             }}>
@@ -195,7 +187,14 @@ class SingleTour extends React.Component {
                 );
               }, this)}
             </ul>
-
+            <div className="row">
+              {this.state.tourSessions &&
+              this.state.tourSessions.length > 0 &&
+                <SessionEmail
+                    tourSessions={this.state.tourSessions}
+                />
+              }
+            </div>
             <NewTourSession
               tour_id={this.props.tour_id}
               new_tour_session_url={this.props.new_tour_session_url}
