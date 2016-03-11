@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe TourSessionsController, type: :controller do
+  render_views
   def create_tour
     Audience.delete_all
     Tour.delete_all
@@ -31,6 +32,18 @@ RSpec.describe TourSessionsController, type: :controller do
           expect(tour_session).to be_truthy
           # Check that a passphrase was generated
           expect(tour_session.passphrase).not_to eq nil
+        end
+      end
+      describe 'session email' do
+        it 'should send an email regarding tour session' do
+          tour = create_tour
+          tour_session = TourSession.create(tour_id: tour.id,
+                                            name: 'Test Tour Session',
+                                            start_date: Date.current,
+                                            duration: 10,
+                                            passphrase: 'Hello')
+          post :send_email, id: tour_session.id, email: 'dev@mail.com'
+          expect(response.body).to eq '["Succesfully sent email"]'
         end
       end
       context 'with invalid' do

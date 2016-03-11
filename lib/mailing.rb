@@ -1,4 +1,4 @@
-class Mailing
+class Mailing < ApplicationController
 
 	def initialize(user, baseUrl)
 		@user = user
