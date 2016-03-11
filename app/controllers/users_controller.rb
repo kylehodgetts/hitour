@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  require 'mailing'
   before_action :authenticate_user!
 
   def index
@@ -24,9 +23,19 @@ class UsersController < ApplicationController
     params[:user][:password] = SecureRandom.hex(25)
     @user = User.new(user_params)
     @user.activated = false
-    mailing_invitation = Mailing.new(@user, request.original_url)
-    mailing_invitation.user_invitation
-    render json: ['Added user!'], status: 200 if @user.save
+    send_activation_email
+    render json: ['Activation email sent!'], status: 200 if @user.save
+  end
+
+  def send_activation_email
+    @url = request.original_url
+    email = SendGrid::Mail.new do |m|
+     m.to      = @user.email
+     m.from    = 'services@Hitour.com'
+     m.subject = 'HiTour - Account Activation'
+     m.html = render_to_string(action: 'activation_template', layout: false)
+    end
+    sendgrid.send(email)
   end
 
   def update

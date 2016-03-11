@@ -1,5 +1,5 @@
 @import "base/globals.scss";
-@import "components.css.scss";
+@import "components.scss";
 
 .point-box{
 
@@ -17,4 +17,9 @@
 .toast{
 	background-color: #0097a7;
 	color: white;
+}
+
+.collapsible {
+	margin-left: 12px;
+  margin-right: 12px;
 }

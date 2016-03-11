@@ -20,6 +20,12 @@ class ApplicationController < ActionController::Base
                                     params[:access_key].eql?(ENV['ACCESS_KEY'])
   end
 
+  def sendgrid
+    SendGrid::Client.new do |c|
+      c.api_key = ENV['SENDGRID_ACCESS_KEY']
+    end
+  end
+
   def api_response(items)
     respond_to do |format|
       format.html

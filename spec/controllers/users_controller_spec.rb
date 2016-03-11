@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
+  render_views
   describe 'GET #create' do
     before(:each) do
       User.delete(User.find_by(email: 'kyle@gmail.com'))
@@ -17,7 +18,7 @@ RSpec.describe UsersController, type: :controller do
       before(:each) do
         # MUST create a user session to access controller
         create_user_session
-        User.delete(User.find_by(email:'someone@gmail.com'))
+        User.delete(User.find_by(email: 'someone@gmail.com'))
         post :create, user:
           {
             email: 'someone@gmail.com'
@@ -27,9 +28,9 @@ RSpec.describe UsersController, type: :controller do
       describe 'add an unactivated user' do
         it 'should have a password of size 60 and the user should be saved' do
           expect(@user.password_digest.length).to eq 60
-          expect(response).to have_http_status  '200'
+          expect(response).to have_http_status '200'
           parsed_body = JSON.parse(response.body)
-          expect(parsed_body[0]).to eq('Added user!')
+          expect(parsed_body[0]).to eq('Activation email sent!')
         end
       end
   end

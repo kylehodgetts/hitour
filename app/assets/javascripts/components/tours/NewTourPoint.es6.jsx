@@ -66,9 +66,8 @@ class NewTourPoint extends React.Component {
   render () {
     return (
       <div>
-        <div>
-          <span>Add a Point</span>
-          <form id="tourPointForm">
+          <form id="tourPointForm" className="col s12">
+            <p>Add a Point</p>
             <input value={this.props.tour_id} type="hidden" name="tour_point[tour_id]" />
             <div className="row">
               <div className="input-field col s12">
@@ -87,7 +86,6 @@ class NewTourPoint extends React.Component {
               <i className="material-icons">add</i>
             </button>
           </form>
-        </div>
       </div>
     );
   }
