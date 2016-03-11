@@ -18,7 +18,7 @@ class Mailing
 	     m.subject = 'HiTour! Content management system password reset.'
 	     m.html =  welcomeHtml+emailHtml+passwordHtml+directionHtml
     	 end
-    	$sendgrid.send(email)
+    	sendgrid.send(email)
     end
 
     #Sends an invitation to a user
@@ -34,6 +34,6 @@ class Mailing
 	     m.subject = 'HiTour - Email Activation'
 	     m.html =  welcomeHtml+emailHtml+passwordHtml+directionHtml
 	     end
-	    $sendgrid.send(email)
+	    sendgrid.send(email)
     end
 end
