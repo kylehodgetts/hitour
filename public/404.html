@@ -5,63 +5,159 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
   body {
-    background-color: #EFEFEF;
-    color: #2E2F30;
+    background-color: #FFFFFF;
+    /*color: #2E2F30;*/
     text-align: center;
     font-family: arial, sans-serif;
     margin: 0;
+    background-image: url("http://c2.staticflickr.com/4/3803/12180408503_0ad5dc58de_h.jpg");
   }
 
+  ul {
+    list-style-type: none;
+
+    overflow: hidden;
+ list-style: none;
+  padding: 0;
+  width: 100%;
+  margin: 0 auto;
+    background-color: #333;
+}
+
+li {
+
+    float: middle;
+    border-right:1px;
+}
+
+li:last-child {
+    border-right: none;
+}
+
+li a {
+  font-size: 2.1rem;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #1E88E5;
+}
   div.dialog {
-    width: 95%;
+    /*opacity: 0.5;*/
+    background: white;
+    width: 60%;
     max-width: 33em;
     margin: 4em auto 0;
-  }
-
-  div.dialog > div {
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #BBB;
-    border-top: #B00100 solid 4px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
-    background-color: white;
+    border-radius: 30px 30px 30px 30px;
+    border: 8px 5px 5px 8px solid #CCC;
+    border-color: #2196F3 ;
+    border-top: solid #2196F3 16px;
+    border-bottom: solid #2196F3 12px;
+    height:100%;
     padding: 7px 12% 0;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
+    /*box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);*/
   }
 
-  h1 {
-    font-size: 100%;
-    color: #730E15;
-    line-height: 1.5em;
+
+  #title {
+    margin-top: 10%;
   }
 
-  div.dialog > p {
-    margin: 0 0 1em;
-    padding: 1em;
-    background-color: #F7F7F7;
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #999;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top-color: #DADADA;
-    color: #666;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
+  h1{
+    font-size: 400%;
+    color: #2196F3 !important;
+  }
+
+  h2{
+    color: #213F55 !important;
+
+  }
+  h3 {
+    color: #213F55 !important;
+  }
+
+  h1,h2,h3 {
+    border-color: #ff0000 #0000ff;
+  }
+  img,h1 {
+      display:inline-block;
+      margin: 0px;
+      vertical-align: middle;
+  }
+  #redirect {
+    font-size: 150%;
+    color: #2196F3;
+     /*text-decoration: none*/
+      /*!important;*/
+  }
+  a:active {
+    background-color: yellow;
+}
+  .buttonHelp {
+    position: absolute;
+    right:    8px;
+    bottom:   10px;
+  	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #4593c7), color-stop(1, #45aeff));
+  	background:-moz-linear-gradient(top, #20e655 5%, #45aeff 100%);
+  	background:-webkit-linear-gradient(top, #20e655 5%, #20e655 100%);
+  	background:-o-linear-gradient(top, #20e655 5%, #20e655 100%);
+  	background:-ms-linear-gradient(top, #20e655 5%, #20e655 100%);
+  	background:linear-gradient(to bottom, #20e655 5%, #20e655 100%);
+  	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4593c7', endColorstr='#45aeff',GradientType=0);
+  	background-color:#20e655;
+  	-moz-border-radius:26px;
+  	-webkit-border-radius:26px;
+  	border-radius:26px;
+  	display:inline-block;
+  	cursor:pointer;
+  	color:#ffffff;
+  	font-family:Trebuchet MS;
+  	font-size:17px;
+  	padding:17px 31px;
+  	text-decoration:none;
+  	text-shadow:0px 1px 50px #000000;
+  }
+  #capsule {
+    background-color: white;
+    opacity: 0.9;
+    border-radius: 20px 20px 20px 20px;
+    border: 5px solid #2196F3;
+    margin-top: 100px;
+    width: 50%;
+    height: 50%;
+    padding-bottom: 20px;
+    margin-left:auto;
+      margin-right:auto;
+    display: inline-block;
+    -webkit-box-shadow: 0px 0px 139px 32px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 139px 32px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 139px 32px rgba(0,0,0,0.75);
   }
   </style>
 </head>
-
 <body>
   <!-- This file lives in public/404.html -->
-  <div class="dialog">
-    <div>
-      <h1>The page you were looking for doesn't exist.</h1>
-      <p>You may have mistyped the address or the page may have moved.</p>
+  <ul>
+    <li><a class="active" href="./">hiTour</a></li>
+  </ul>
+  <div id="capsule">
+    <div id="title">
+      <h1> Oops </h1>
+      <img style="width:70px;height:70px;"src="https://hitourbucket.s3-us-west-2.amazonaws.com/e391bcc0fd613c70779741b0b33ab9b4.jpg" />
     </div>
-    <p>If you are the application owner check the logs for more information.</p>
+    <h2> It seems like you have reached the wrong page! </h2>
+    <div class="dialog">
+    <h3> Go back to: <a id="redirect" href="./">Main menu</a></h3>
+    </div>
   </div>
+  <a href="mailto:support@hitour.com?subject=I'm having issues using hiTour cms" class="buttonHelp">Need Assistance?</a>
 </body>
 </html>
