@@ -80,12 +80,14 @@ Rails.application.routes.draw do
 
   # Quiz
   post '/quiz', to: 'quiz#create', as: :create_quiz
+  delete '/quiz/:id', to: 'quiz#destroy', as: :delete_quiz
 
   # Question
   post '/question', to: 'question#create', as: :create_question
-
+  delete '/question/:id', to: 'question#destroy', as: :delete_question
   # Answer
   post '/answer', to: 'answer#create', as: :create_answer
+  delete '/answer/:id', to: 'answer#destroy', as: :delete_answer
 
   # API
   namespace :api do
