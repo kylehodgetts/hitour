@@ -6,6 +6,7 @@ class SingleTour extends React.Component {
       audience: [],
       points: [],
       tourSessions: [],
+      feedbacks: [],
       pollInterval: this.props.pollInterval || 2000,
       intervalId: 0
     };
@@ -44,7 +45,8 @@ class SingleTour extends React.Component {
           tour: data[0]["tour"],
           audience: data[0]["audience"],
           points: data[0]["points"],
-          tourSessions: data[0]["tour_sessions"]
+          tourSessions: data[0]["tour_sessions"],
+          feedbacks: data[0]["feedbacks"]
         });
       }.bind(this)
     });
@@ -134,6 +136,20 @@ class SingleTour extends React.Component {
                     tourUrl={this.props.showUrl}
                     updateTourPath={this.props.update_tour_url}
                     />
+                </div>
+              </div>
+            </li>
+          </ul>
+          <ul className="collapsible" data-collapsible="accordion">
+            <li>
+              <div className="collapsible-header"><i className="material-icons">speaker_notes</i>Tour Feedback.</div>
+              <div className="collapsible-body">
+                <div className="container">
+                  {this.state.feedbacks &&
+                    <Feedback
+                      feedbacks={this.state.feedbacks}
+                    />
+                  }
                 </div>
               </div>
             </li>
