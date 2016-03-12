@@ -17,7 +17,6 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 ENV["RAILS_ENV"] ||= 'test'
-ENV['SENDGRID_ACCESS_KEY'] = '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'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 RSpec.configure do |config|
