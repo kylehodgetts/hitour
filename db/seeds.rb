@@ -121,5 +121,21 @@ TourSession.create(tour_id: tour1.id, name: 'New machine presentation', start_da
 TourSession.create(tour_id: tour2.id, name: 'Tour with 2nd year students', start_date: Date.current + 3, duration: 5, passphrase: 'Penguins123')
 TourSession.create(tour_id: tour2.id, name: 'Tour with final year students', start_date: Date.current + 5, duration: 14, passphrase: 'OMG768')
 
+# For Quiz
+quiz = Quiz.create(name:'The Best Quiz')
+TourQuiz.create(tour_id: tour2.id, quiz_id: quiz.id)
+question1 = Question.create(quiz_id: quiz.id, description:'Who am I?', rank: 0)
+answer = Answer.create(question_id:question1.id,value:'Kyle',is_correct: false)
+answer2 = Answer.create(question_id:question1.id,value:'Tahmidul',is_correct: true)
+answer3 = Answer.create(question_id:question1.id,value:'Dom',is_correct: false)
+answer4 = Answer.create(question_id:question1.id,value:'Chockler',is_correct: false)
+
+question2 = Question.create(quiz_id: quiz.id, description:'What is your best module?', rank: 1)
+answer = Answer.create(question_id:question2.id,value:'OSC',is_correct: false)
+answer2 = Answer.create(question_id:question2.id,value:'FC2',is_correct: false)
+answer3 = Answer.create(question_id:question2.id,value:'PLD',is_correct: false)
+answer4 = Answer.create(question_id:question2.id,value:'SEG',is_correct: true)
+
+
 # User Related Stuff
 User.create(email: 'dev@mail.com', password: 'password', activated: true)
