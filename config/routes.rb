@@ -75,6 +75,7 @@ Rails.application.routes.draw do
   delete '/tour_sessions/:id', to: 'tour_sessions#destroy', as: :delete_tour_session
   post '/tour_sessions/email/:id', to: 'tour_sessions#send_email', as: :tour_session_invitation
 
+  resources :feedback
   # API
   namespace :api do
     get ':access_key/:passphrase', to: 'api#single_tour'
