@@ -30,10 +30,23 @@
 	height: 40px;
 }
 
-.star-selected{
-	color: yellow;
+.star{
+	color: #DDDDDD;
+	font-size: 45px !important;
 }
 
-.star:hover{
-	color: yellow;
+.start-container{
+	text-align: center;
 }
+
+.star-selected{
+	color: #FFDF88;
+}
+
+.star-hover{
+	color: #FFDF88;
+}
+
+// .star:hover{
+// 	color: #FFDF88;
+// }
