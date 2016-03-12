@@ -5,5 +5,6 @@ class Tour < ActiveRecord::Base
 	has_many :tour_points
 	has_many :tour_sessions
 	has_many :feedbacks
+	has_one :quiz, through: :tour_quizzes
 	auto_strip_attributes :name, squish: true
 end
