@@ -19,6 +19,19 @@ RSpec.describe FeedbackController, type: :controller do
         # Check it was added to database
         expect(Feedback.all.size).to eq 1
       end
+      it 'with invalid parameters ' do
+        # Create a tour session
+        tour = create_tour
+        post :create, feedback: {
+          tour_id: tour.id,
+          comment: 'Amazing Tour',
+          rating: '-1'
+        }
+        # Check response is correct
+        expect(response.body).to eq '["Rating is not included in the list"]'
+        # Check it was added to database
+        expect(Feedback.all.size).to eq 0
+      end
     end
   end
 end
