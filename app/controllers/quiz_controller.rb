@@ -15,11 +15,14 @@ class QuizController < ApplicationController
 
   def create
     quiz = Quiz.new(quiz_params)
-    if quiz.save
+    quiz.save
+    if quiz.errors.full_messages.empty?
       render json: ['Succesfully created quiz']
     else
       render json: [quiz.errors.full_messages.first]
     end
+  rescue ActiveRecord::RecordNotUnique
+	  render json: ['That name has already been used.']
   end
 
   def update
