@@ -1,6 +1,5 @@
 class NewFeedback extends React.Component{
   componentDidMount () {
-    // this.starListener();
     var postUrl = this.props.postUrl;
     $('#feedbackForm').on('submit',function(e){
       e.preventDefault();
