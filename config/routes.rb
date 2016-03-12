@@ -75,7 +75,6 @@ Rails.application.routes.draw do
   delete '/tour_sessions/:id', to: 'tour_sessions#destroy', as: :delete_tour_session
   post '/tour_sessions/email/:id', to: 'tour_sessions#send_email', as: :tour_session_invitation
 
-  resources :feedbacks
   delete '/feedback/:id', to: 'feedback#destroy', as: :delete_feedback
   post '/feedback', to: 'feedback#create', as: :create_feedback
 
