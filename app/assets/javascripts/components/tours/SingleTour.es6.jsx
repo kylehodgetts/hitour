@@ -144,7 +144,7 @@ class SingleTour extends React.Component {
             <li>
               <div className="collapsible-header"><i className="material-icons">speaker_notes</i>Tour Feedback.</div>
               <div className="collapsible-body">
-                <div className="container">
+                <div className="row" style={{padding:'10px'}}>
                   {this.state.feedbacks &&
                     <Feedback
                       feedbacks={this.state.feedbacks}

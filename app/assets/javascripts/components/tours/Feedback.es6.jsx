@@ -24,23 +24,21 @@ class Feedback extends React.Component{
   render () {
     var _this = this;
     return (
-      <div>
-        <div className="collection">
+        <ul className="collection">
           {this.props.feedbacks.map(function(feedback) {
             return (
-              <div key={feedback.id} className="collection-item">
-                <div>
-                  <span>{feedback.comment} Rating: {feedback.rating}</span>
-                  <a href={feedback.delete_url} className="secondary-content"
-                             onClick={_this.handleDeleteDataFromServer.bind(this, feedback.delete_url)}>
-                  <i className=" blue-text material-icons">delete_forever</i>
-                  </a>
-                </div>
-              </div>
+              <li key={feedback.id} className="collection-item avatar">
+                <i className="material-icons circle blue">chat_bubble_outline</i>
+                <span className="title">Rating: {feedback.rating}</span>
+                <p style={{padding:'0'}}>{feedback.comment}</p>
+                <a href={feedback.delete_url} className="secondary-content"
+                           onClick={_this.handleDeleteDataFromServer.bind(this, feedback.delete_url)}>
+                <i className=" blue-text material-icons">delete_forever</i>
+                </a>
+              </li>
             );
           }, this)}
-        </div>
-      </div>
+        </ul>
     );
   }
 }
