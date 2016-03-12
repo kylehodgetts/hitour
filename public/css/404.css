@@ -1,0 +1,145 @@
+body {
+  background-color: #00BCD4;
+  /*color: #2E2F30;*/
+  text-align: center;
+  font-family: arial, sans-serif;
+  margin: 0;
+}
+
+ul {
+  list-style-type: none;
+
+  overflow: hidden;
+list-style: none;
+padding: 0;
+width: 100%;
+margin: 0 auto;
+  background-color: #333;
+}
+
+li {
+
+  float: middle;
+  border-right:1px;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+font-size: 2.1rem;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #1E88E5;
+}
+
+
+#title {
+  margin-top: 10%;
+}
+
+img{
+    display:inline-block;
+    margin: 0px;
+    vertical-align: middle;
+}
+
+#redirect {
+  vertical-align: middle;
+  text-align: center;
+  font-size: 250%;
+  color: #2196F3;
+  text-decoration: none !important;
+}
+a:active {
+  background-color: yellow;
+}
+.buttonHelp {
+  position: absolute;
+  right:    13px;
+  bottom:   20px;
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #4593c7), color-stop(1, #45aeff));
+  background:-moz-linear-gradient(top, #20e655 5%, #45aeff 100%);
+  background:-webkit-linear-gradient(top, #20e655 5%, #20e655 100%);
+  background:-o-linear-gradient(top, #20e655 5%, #20e655 100%);
+  background:-ms-linear-gradient(top, #20e655 5%, #20e655 100%);
+  background:linear-gradient(to bottom, #20e655 5%, #20e655 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#4593c7', endColorstr='#45aeff',GradientType=0);
+  background-color:#20e655;
+  -moz-border-radius:26px;
+  -webkit-border-radius:26px;
+  border-radius:26px;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-family:Trebuchet MS;
+  font-size:17px;
+  padding:17px 31px;
+  text-decoration:none;
+  text-shadow:0px 1px 50px #000000;
+}
+#capsule {
+  background-color: white;
+  border-radius: 20px 20px 20px 20px;
+  border: 5px solid #2196F3;
+  margin-top: 20px;
+
+  width: 20em;
+  height: 5em;
+  padding-bottom: 10px;
+  margin-left:auto;
+    margin-right:auto;
+  display: inline-block;
+}
+
+
+.rotate {
+    margin: 20px;
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: 4000ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spin;
+    -moz-animation-duration: 4000ms;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-name: spin;
+    -ms-animation-duration: 4000ms;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+
+    animation-name: spin;
+    animation-duration: 4000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@-ms-keyframes spin {
+    from { -ms-transform: rotate(0deg); }
+    to { -ms-transform: rotate(360deg); }
+}
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
