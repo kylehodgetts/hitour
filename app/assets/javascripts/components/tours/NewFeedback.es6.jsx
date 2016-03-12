@@ -21,6 +21,19 @@ class NewFeedback extends React.Component{
         }
       });
     });
+    $('.star').on('click',function(e){
+      var allStars = $('.star');
+      allStars.removeClass('star-selected');
+      console.log(this);
+      var currentIndex = allStars.index(this);
+      for(var i = 0;i <= currentIndex;i++){
+        var star = allStars.eq(i);
+        star.addClass('star-selected');
+      }
+      //Set the Hidden input
+      $(this).parent().parent().find('input').val(currentIndex+1);
+      console.log(allStars.index(this));
+    });
   }
 
   render () {
@@ -28,13 +41,15 @@ class NewFeedback extends React.Component{
       <div>
         <form id="feedbackForm" className="col s12" style={{border:'1px solid black'}}>
           <h3>Add Feedback</h3>
+          <div className="row col s12">
+            <p className="star-rating"><span className="star material-icons">star_rate</span></p>
+            <p className="star-rating"><span className="star material-icons">star_rate</span></p>
+            <p className="star-rating"><span className="star material-icons">star_rate</span></p>
+            <p className="star-rating"><span className="star material-icons">star_rate</span></p>
+            <p className="star-rating"><span className="star material-icons">star_rate</span></p>
+            <input type="hidden" name="feedback[rating]"/>
+        </div>
           <input type="hidden" name="feedback[tour_id]" value={this.props.tourId}></input>
-          <div className="row">
-            <p className="range-field col s12">
-              <label>Rating (Out of 5)</label>
-              <input type="range" id="feedback[rating]" name="feedback[rating]" min="0" max="5"/>
-            </p>
-          </div>
           <div className="row">
             <div className="input-field col s12">
               <textarea id="feedback[comment]" className="materialize-textarea" name="feedback[comment]"></textarea>
