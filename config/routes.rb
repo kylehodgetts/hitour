@@ -82,7 +82,10 @@ Rails.application.routes.draw do
   post '/quiz', to: 'quiz#create', as: :create_quiz
 
   # Question
-  post '/question', to: 'question#create', as: :question
+  post '/question', to: 'question#create', as: :create_question
+
+  # Answer
+  post '/answer', to: 'answer#create', as: :create_answer
 
   # API
   namespace :api do
