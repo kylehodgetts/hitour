@@ -53,9 +53,18 @@ class ToursController < ApplicationController
 		  tour: 				 @tour,
 		  audience:			 @audience,
 		  points:  			 @tour_points,
-			tour_sessions: @tour_sessions
+			tour_sessions: @tour_sessions,
+			feedbacks: tour_feedbacks
 		]
 		api_response(items)
+	end
+
+	def tour_feedbacks
+		@tour.feedbacks.map do |feedback|
+			feedback.as_json.merge(
+					delete_url: delete_feedback_path(feedback)
+			)
+		end
 	end
 
 	def pdf
