@@ -3,21 +3,23 @@
 <head>
   <title>The page you were looking for doesn't exist (404)</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" type="text/css" href="./css/404.css">
+  <link rel="stylesheet" type="text/css" href="./css/error.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="./js/render.js"></script>
 </head>
 <body>
-  <!-- This file lives in public/404.html -->
-  <ul>
-    <li><a class="active" href="./">hiTour</a></li>
-  </ul>
-
+  <nav>
+    <ul>
+      <li><a class="active" href="./">hiTour</a></li>
+    </ul>
+  </nav>
   <div id="title">
-    <img style="width:400px;height:200px"src="./images/404img.png"/>
+    <h1>404</h1>
     <img class="rotate" style="width:70px;height:70px;"src="./images/compass.png" />
   </div>
-    <div id="capsule">
-    <h3><a id="redirect" href="./">Main menu</a></h3>
-    </div>
-  <a href="mailto:support@hitour.com?subject=I'm having issues using hiTour cms" class="buttonHelp">Need Assistance?</a>
+  <h3 id="warning">The page you have requested does not exist.</h3>
+  <div id="capsule">
+    <h3><a id="redirect" href="./">Go back to the homepage</a></h3>
+  </div>
 </body>
 </html>
