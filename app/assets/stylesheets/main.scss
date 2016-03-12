@@ -23,3 +23,26 @@
 	margin-left: 12px;
   margin-right: 12px;
 }
+
+.star-rating{
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+}
+
+.star{
+	color: #DDDDDD;
+	font-size: 45px !important;
+}
+
+.start-container{
+	text-align: center;
+}
+
+.star-selected{
+	color: #FFDF88;
+}
+
+.star-hover{
+	color: #FFDF88;
+}
