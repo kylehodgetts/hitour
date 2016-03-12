@@ -128,7 +128,7 @@ class SingleTour extends React.Component {
         <div className="row">
           <ul className="collapsible" data-collapsible="accordion">
             <li>
-              <div className="collapsible-header"><i className="material-icons">speaker_notes</i>Tour Notes - All notes written here, will be available in the PDF.</div>
+              <div className="collapsible-header"><i className="material-icons">description</i>Tour Notes - All notes written here, will be available in the PDF.</div>
               <div className="collapsible-body">
                 <div className="container">
                   <TourNote

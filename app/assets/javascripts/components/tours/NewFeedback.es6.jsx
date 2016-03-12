@@ -26,12 +26,13 @@ class NewFeedback extends React.Component{
   render () {
     return (
       <div>
-        <form id="feedbackForm" className="col s12">
+        <form id="feedbackForm" className="col s12" style={{border:'1px solid black'}}>
+          <h3>Add Feedback</h3>
           <input type="hidden" name="feedback[tour_id]" value={this.props.tourId}></input>
           <div className="row">
-            <p className="range-field">
-              <input type="range" id="feedback[rating]" name="feedback[rating]" min="0" max="5"/>
+            <p className="range-field col s12">
               <label>Rating (Out of 5)</label>
+              <input type="range" id="feedback[rating]" name="feedback[rating]" min="0" max="5"/>
             </p>
           </div>
           <div className="row">
