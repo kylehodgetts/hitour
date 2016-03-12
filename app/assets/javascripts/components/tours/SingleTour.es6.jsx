@@ -191,6 +191,13 @@ class SingleTour extends React.Component {
             />
         </div>
 
+        <div className="row">
+          <NewFeedback
+            tourId={this.props.tour_id}
+            postUrl={this.props.feedbackPostUrl}
+          />
+        </div>
+
 
         <div id="sessionModal" className="modal" style={{maxHeight: '800px'}}>
           <div className="modal-content">
@@ -258,5 +265,6 @@ SingleTour.propTypes = {
   pdfUrl: React.PropTypes.string.isRequired,
   audiences: React.PropTypes.array,
   new_tour_session_url: React.PropTypes.string.isRequired,
-  tourNote: React.PropTypes.string.isRequired
+  tourNote: React.PropTypes.string.isRequired,
+  feedbackPostUrl: React.PropTypes.string.isRequired
 }

@@ -62,7 +62,7 @@ class ToursController < ApplicationController
 	def tour_feedbacks
 		@tour.feedbacks.map do |feedback|
 			feedback.as_json.merge(
-					delete_url: feedback_path(feedback[:id])
+					delete_url: delete_feedback_path(feedback)
 			)
 		end
 	end

@@ -30,7 +30,7 @@ class Feedback extends React.Component{
             return (
               <div key={feedback.id} className="collection-item">
                 <div>
-                  <span>{feedback.comment}</span>
+                  <span>{feedback.comment} Rating: {feedback.rating}</span>
                   <a href={feedback.delete_url} className="secondary-content"
                              onClick={_this.handleDeleteDataFromServer.bind(this, feedback.delete_url)}>
                   <i className=" blue-text material-icons">delete_forever</i>

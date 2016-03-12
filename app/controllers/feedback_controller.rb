@@ -1,7 +1,11 @@
 class FeedbackController < ApplicationController
   def create
     feedback = Feedback.new(feedback_params)
-    render json: ['Succesfully saved feedback'] if feedback.save
+    if feedback.save
+      render json: ['Succesfully saved feedback']
+    else
+      render json: [feedback.errors.full_messages.first]
+    end
   end
 
   def destroy
