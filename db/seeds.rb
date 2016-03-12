@@ -98,11 +98,18 @@ PointDatum.create(point_id: point5.id, datum_id: datum10.id, rank: '2')
 
 # Tours - With Point assignments
 tour1 = Tour.create(name: 'Imaging Tour: A-Level', audience_id: alevel.id, notes: 'THIS IS A TEST NOTE')
+Feedback.create(tour_id: tour1.id, comment: 'Amazing Tour!!!', rating: 4)
+Feedback.create(tour_id: tour1.id,
+comment: 'This tour changed my life. I will never look at human bodies in the same way again', rating: 1)
 TourPoint.create(tour_id: tour1.id, point_id: point1.id, rank: '1')
 TourPoint.create(tour_id: tour1.id, point_id: point2.id, rank: '2')
 TourPoint.create(tour_id: tour1.id, point_id: point3.id, rank: '3')
 
 tour2 = Tour.create(name: 'Imaging Tour: University', audience_id: uni_student.id, notes: 'THIS IS A TEST NOTE')
+Feedback.create(tour_id: tour2.id, comment: 'This tour was terrible!!!', rating: 1)
+Feedback.create(tour_id: tour2.id, comment: 'Had a terrible time. Would never go again!!', rating: 2)
+Feedback.create(tour_id: tour2.id,
+comment: 'Tour was good, but explanations were not clear. Please provide more clealer explanations of points and also speak more clearly.', rating: 1)
 TourPoint.create(tour_id: tour2.id, point_id: point4.id, rank: '1')
 TourPoint.create(tour_id: tour2.id, point_id: point5.id, rank: '2')
 TourPoint.create(tour_id: tour2.id, point_id: point2.id, rank: '3')
