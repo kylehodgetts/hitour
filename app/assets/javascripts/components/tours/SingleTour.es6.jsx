@@ -6,6 +6,7 @@ class SingleTour extends React.Component {
       audience: [],
       points: [],
       tourSessions: [],
+      feedbacks: [],
       pollInterval: this.props.pollInterval || 2000,
       intervalId: 0
     };
@@ -44,7 +45,8 @@ class SingleTour extends React.Component {
           tour: data[0]["tour"],
           audience: data[0]["audience"],
           points: data[0]["points"],
-          tourSessions: data[0]["tour_sessions"]
+          tourSessions: data[0]["tour_sessions"],
+          feedbacks: data[0]["feedbacks"]
         });
       }.bind(this)
     });
@@ -126,7 +128,7 @@ class SingleTour extends React.Component {
         <div className="row">
           <ul className="collapsible" data-collapsible="accordion">
             <li>
-              <div className="collapsible-header"><i className="material-icons">speaker_notes</i>Tour Notes - All notes written here, will be available in the PDF.</div>
+              <div className="collapsible-header"><i className="material-icons">description</i>Tour Notes - All notes written here, will be available in the PDF.</div>
               <div className="collapsible-body">
                 <div className="container">
                   <TourNote
@@ -134,6 +136,20 @@ class SingleTour extends React.Component {
                     tourUrl={this.props.showUrl}
                     updateTourPath={this.props.update_tour_url}
                     />
+                </div>
+              </div>
+            </li>
+          </ul>
+          <ul className="collapsible" data-collapsible="accordion">
+            <li>
+              <div className="collapsible-header"><i className="material-icons">speaker_notes</i>Tour Feedback.</div>
+              <div className="collapsible-body">
+                <div className="row" style={{padding:'10px'}}>
+                  {this.state.feedbacks &&
+                    <Feedback
+                      feedbacks={this.state.feedbacks}
+                    />
+                  }
                 </div>
               </div>
             </li>
@@ -173,6 +189,13 @@ class SingleTour extends React.Component {
             points_url={this.props.points_url}
             new_tour_point_url={this.props.new_tour_point_url}
             />
+        </div>
+
+        <div className="row">
+          <NewFeedback
+            tourId={this.props.tour_id}
+            postUrl={this.props.feedbackPostUrl}
+          />
         </div>
 
 
@@ -242,5 +265,6 @@ SingleTour.propTypes = {
   pdfUrl: React.PropTypes.string.isRequired,
   audiences: React.PropTypes.array,
   new_tour_session_url: React.PropTypes.string.isRequired,
-  tourNote: React.PropTypes.string.isRequired
+  tourNote: React.PropTypes.string.isRequired,
+  feedbackPostUrl: React.PropTypes.string.isRequired
 }

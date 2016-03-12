@@ -13,6 +13,15 @@ def create_user_session
   @user.save
   session[:user_id] = @user.id
 end
+def create_tour
+  Audience.delete_all
+  Tour.delete_all
+  alevel = Audience.create(name: 'A-Level Student')
+  tour = Tour.create(name: 'Imaging Tour: A-Level',
+                     audience_id: alevel.id)
+  TourSession.delete_all
+  tour
+end
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
