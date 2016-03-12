@@ -81,6 +81,9 @@ Rails.application.routes.draw do
   # Quiz
   post '/quiz', to: 'quiz#create', as: :create_quiz
 
+  # Question
+  post '/question', to: 'question#create', as: :question
+
   # API
   namespace :api do
     get ':access_key/:passphrase', to: 'api#single_tour'
