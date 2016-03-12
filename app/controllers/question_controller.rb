@@ -1,4 +1,9 @@
 class QuestionController < ApplicationController
+  def show
+    question = Question.includes(:answers).find(params[:id])
+    api_response(question)
+  end
+
   def create
     params[:rank] = max_rank
     question = Question.params(question_params)

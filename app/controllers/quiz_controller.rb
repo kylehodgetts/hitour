@@ -1,4 +1,18 @@
 class QuizController < ApplicationController
+  def index
+    @quiz = Quiz.includes(:questions).map do |quiz|
+      quiz.as_json.merge(
+        questions: quiz.questions.as_json
+      )
+    end
+    api_response(@quiz)
+  end
+
+  def show
+    @quiz = Quiz.includes(:questions).find(params[:id])
+    api_response(@quiz)
+  end
+
   def create
     quiz = Quiz.new(quiz_params)
     if quiz.save
