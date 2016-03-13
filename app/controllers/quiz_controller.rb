@@ -2,7 +2,7 @@ class QuizController < ApplicationController
   def index
     @quiz = Quiz.includes(:questions).map do |quiz|
       quiz.as_json.merge(
-        questions: quiz.questions.as_json
+        show_url: quiz_path(quiz)
       )
     end
     api_response(@quiz)
