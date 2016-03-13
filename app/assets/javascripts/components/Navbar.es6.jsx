@@ -57,6 +57,7 @@ class Navbar extends React.Component {
               pointsPath = {this.props.pointsPath}
               dataPath = {this.props.dataPath}
               audiencesPath = {this.props.audiencesPath}
+              quizzesPath = {this.props.quizzesPath}
               usersPath = {this.props.usersPath}
             />
           </ul>
@@ -69,6 +70,7 @@ class Navbar extends React.Component {
             pointsPath = {this.props.pointsPath}
             dataPath = {this.props.dataPath}
             audiencesPath = {this.props.audiencesPath}
+            quizzesPath = {this.props.quizzesPath}
             usersPath = {this.props.usersPath}
             logoutPath = {this.props.logoutPath}
           />
@@ -90,5 +92,6 @@ Navbar.propTypes = {
   audiencesPath: React.PropTypes.string.isRequired,
   usersPath: React.PropTypes.string.isRequired,
   logoutPath: React.PropTypes.string.isRequired,
+  quizzesPath: React.PropTypes.string.isRequired,
   currentPage: React.PropTypes.string
 }
