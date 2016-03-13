@@ -22,13 +22,14 @@ class UsersController < ApplicationController
   def create
     params[:user][:password] = SecureRandom.hex(25)
     @user = User.new(user_params)
+    @user.temporarypassword = SecureRandom.hex(25)
     @user.activated = false
     send_activation_email
     render json: ['Activation email sent!'], status: 200 if @user.save
   end
 
   def send_activation_email
-    @url = request.original_url
+    @url = root_url
     email = SendGrid::Mail.new do |m|
      m.to      = @user.email
      m.from    = 'services@Hitour.com'
