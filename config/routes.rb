@@ -79,15 +79,18 @@ Rails.application.routes.draw do
   post '/feedback', to: 'feedback#create', as: :create_feedback
 
   # Quiz
-  post '/quiz', to: 'quiz#create', as: :create_quiz
-  delete '/quiz/:id', to: 'quiz#destroy', as: :delete_quiz
-
+  post '/quizzes', to: 'quiz#create', as: :create_quiz
+  delete '/quizzes/:id', to: 'quiz#destroy', as: :delete_quiz
+  get '/quizzes/show/:id', to: 'quiz#show', as: :quiz
+  get '/quizzes', to: 'quiz#index', as: :quizzes
   # Question
-  post '/question', to: 'question#create', as: :create_question
-  delete '/question/:id', to: 'question#destroy', as: :delete_question
+  post '/questions', to: 'question#create', as: :create_question
+  delete '/questions/:id', to: 'question#destroy', as: :delete_question
+  get '/questions', to: 'question#index', as: :questions
+
   # Answer
-  post '/answer', to: 'answer#create', as: :create_answer
-  delete '/answer/:id', to: 'answer#destroy', as: :delete_answer
+  post '/answers', to: 'answer#create', as: :create_answer
+  delete '/answers/:id', to: 'answer#destroy', as: :delete_answer
 
   # API
   namespace :api do

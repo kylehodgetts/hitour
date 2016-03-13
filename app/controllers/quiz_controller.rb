@@ -10,7 +10,28 @@ class QuizController < ApplicationController
 
   def show
     @quiz = Quiz.includes(:questions).find(params[:id])
+    questions = quiz_questions
+    @quiz = @quiz.as_json
+    @quiz['questions'] = questions
     api_response(@quiz)
+  end
+
+  def quiz_questions
+    @quiz.questions.map do |question|
+      question.as_json.merge(
+        delete_url: delete_question_path(question[:id]),
+        answers: answers(question[:id])
+      )
+    end
+  end
+
+  def answers(question_id)
+    answers = Answer.where(question_id: question_id)
+    answers.map do |answer|
+      answer.as_json.merge(
+        delete_url: delete_answer_path(answer[:id])
+      )
+    end
   end
 
   def create
