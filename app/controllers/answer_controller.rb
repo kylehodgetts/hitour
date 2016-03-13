@@ -30,6 +30,8 @@ class AnswerController < ApplicationController
         a.save
       end
     end
+    answer.is_correct = true if Answer.where(question_id: question_id).size == 1
+    answer.save
   end
 
   def destroy

@@ -5,16 +5,15 @@ RSpec.describe AnswerController, type: :controller do
     Answer.delete_all
   end
   describe 'POST #create' do
-    it 'should add answer to question' do
+    it 'should add answer and set to true since only 1 answer' do
       question = create_question
       post :create, answer: {
         question_id: question.id,
-        value: 'It is a machine',
-        is_correct: false
+        value: 'It is a machine'
       }
       answer = Answer.where(question_id: question.id)
       expect(answer.exists?).to be_truthy
-      expect(answer.first.is_correct).not_to be_truthy
+      expect(answer.first.is_correct).to be_truthy
     end
     it 'should update other answers to be incorrect' do
       question = create_question
