@@ -68,7 +68,7 @@ Rails.application.routes.draw do
   #Password reset
   get 'password_reset', to: 'password_reset#new', as: :password_reset
   post 'password_reset', to: 'password_reset#create', as: :add_password_reset
-
+  get 'password_reset/:temporarypassword/activate/', to: 'password_reset#activate', as: :activate_password_reset
   # Tour sessions
   post '/tour_sessions', to: 'tour_sessions#create', as: :create_tour_session
   patch '/tour_sessions/:id', to: 'tour_sessions#update', as: :update_tour_session
