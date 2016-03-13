@@ -12,7 +12,6 @@ RSpec.describe AnswerController, type: :controller do
         value: 'It is a machine',
         is_correct: false
       }
-      # expect(response.body).to eq '["Succesfully added answer"]'
       answer = Answer.where(question_id: question.id)
       expect(answer.exists?).to be_truthy
       expect(answer.first.is_correct).not_to be_truthy
