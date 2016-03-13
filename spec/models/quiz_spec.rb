@@ -27,7 +27,7 @@ RSpec.describe Quiz, type: :model do
       end
     end
   end
-  context 'Modifying Questions to a quiz' do
+  context 'Modifying Questions in a quiz' do
     before :all do
       @question_1 = Question.create(rank: 1, description: 'Test')
       @question_2 = Question.create(rank: 2, description: 'Other Test')
