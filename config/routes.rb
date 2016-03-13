@@ -83,6 +83,7 @@ Rails.application.routes.draw do
   delete '/quizzes/:id', to: 'quiz#destroy', as: :delete_quiz
   get '/quizzes/show/:id', to: 'quiz#show', as: :quiz
   get '/quizzes', to: 'quiz#index', as: :quizzes
+  get '/quizzes/template', to: 'quiz#template'
   # Question
   post '/questions', to: 'question#create', as: :create_question
   delete '/questions/:id', to: 'question#destroy', as: :delete_question
