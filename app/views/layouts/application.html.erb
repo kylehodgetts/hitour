@@ -14,20 +14,22 @@
 
   <body>
     <%= react_component('AjaxProgressBar') %>
-    <%= react_component('Navbar',
-    {
-      loggedIn: current_user ? true : false,
-      currentUser: @current_user,
-      currentPage: content_for?(:title) ? yield(:title) : "hiTour",
-      rootPath: root_path,
-      toursPath: tours_path,
-      pointsPath: points_path,
-      dataPath: data_path,
-      audiencesPath: audiences_path,
-      usersPath: users_path,
-      quizzesPath: quizzes_path,
-      logoutPath: logout_path
-    }) %>
+    <% unless yield(:title) == 'Public Quiz' %>
+      <%= react_component('Navbar',
+      {
+        loggedIn: current_user ? true : false,
+        currentUser: @current_user,
+        currentPage: content_for?(:title) ? yield(:title) : "hiTour",
+        rootPath: root_path,
+        toursPath: tours_path,
+        pointsPath: points_path,
+        dataPath: data_path,
+        audiencesPath: audiences_path,
+        usersPath: users_path,
+        quizzesPath: quizzes_path,
+        logoutPath: logout_path
+      }) %>
+    <% end %>
     <div class="container">
       <%= yield %>
     </div>
