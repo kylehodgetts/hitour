@@ -16,12 +16,12 @@ class PublicQuestion extends React.Component{
         type: "POST",
         data:$(this).serialize(),
         success: function(data){
-          //Disable all inputs
-          $(id).find('input').prop('disabled',true);
           if(data != 'No Answer'){
             this.setState({
               response: data.correct
             });
+            //Disable all inputs
+            $(id).find('input').prop('disabled',true);
           }
         }.bind(_this)
       });

@@ -21,11 +21,26 @@ class QuizController < ApplicationController
 
   def submit_question
     return render json: ['No answer'] if params[:answer].nil?
-    question_id = params[:question][:id]
-    answer_id = params[:answer][:id]
-    answer = Answer.find(answer_id)
-    return render json: { correct: true } if answer.is_correct
-    render json: { correct: false }
+    answer = Answer.find(params[:answer][:id])
+    if answer.is_correct
+      increment_question_correct(params[:question][:id])
+      render json: { correct: true }
+    else
+      increment_question_wrong(params[:question][:id])
+      render json: { correct: false }
+    end
+  end
+
+  def increment_question_correct(question_id)
+    question = Question.find(question_id)
+    current = question.correctly_answered
+    question.update_attribute(:correctly_answered, current + 1)
+  end
+
+  def increment_question_wrong(question_id)
+    question = Question.find(question_id)
+    current = question.wrongly_answered
+    question.update_attribute(:wrongly_answered, current + 1)
   end
 
   def quiz_data(tour_id)
