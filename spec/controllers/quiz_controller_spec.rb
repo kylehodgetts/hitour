@@ -18,7 +18,7 @@ RSpec.describe QuizController, type: :controller do
         post :create, quiz: {
           name: 'Test Quiz'
         }
-        expect(response.body).to eq '["That name has already been used."]'
+        expect(response.body).to eq '["Name has already been taken"]'
       end
     end
   end

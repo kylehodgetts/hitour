@@ -21,9 +21,9 @@ RSpec.describe Question, type: :model do
       end
     end
     describe 'with a missing rank' do
-      it 'should be rejected' do
+      it 'should be accepted' do
         @question = Question.create(description: 'desc')
-        expect(@question.save).to be false
+        expect(@question.save).to be true
       end
     end
     describe 'with a rank less than 1' do

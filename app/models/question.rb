@@ -12,5 +12,6 @@ class Question < ActiveRecord::Base
   def init
       self.correctly_answered ||= 0
       self.wrongly_answered ||= 0
+      self.rank ||= 1
   end
 end
