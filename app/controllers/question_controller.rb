@@ -14,14 +14,6 @@ class QuestionController < ApplicationController
     end
   end
 
-  # Finds Max Rank of all questions
-  # For A particular Quiz
-  def max_rank(quiz_id)
-    rank = Question.where(quiz_id: quiz_id).maximum(:rank)
-    rank = -1 if rank.nil?
-    rank + 1
-  end
-
   def update
     question = Question.find(params[:id])
     if question.update_attributes(question_params)
@@ -40,5 +32,13 @@ class QuestionController < ApplicationController
 
   def question_params
     params.require(:question).permit(:quiz_id, :description, :rank)
+  end
+
+  # Finds Max Rank of all questions
+  # For A particular Quiz
+  def max_rank(quiz_id)
+    rank = Question.where(quiz_id: quiz_id).maximum(:rank)
+    rank = -1 if rank.nil?
+    rank + 1
   end
 end
