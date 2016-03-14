@@ -12,7 +12,7 @@ class QuizController < ApplicationController
 
   def attempt_quiz
     tour_session = TourSession.where(passphrase: params[:id])
-    return render json: ['Invalid Bruv'] unless tour_session.exists?
+    return redirect_error_page(403) unless tour_session.exists?
     @quiz_data = quiz_data(tour_session.first.tour.id)
     @quiz_data = @quiz_data.as_json
     @tour = Tour.find(tour_session.first.tour.id)

@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
                                     params[:access_key].eql?(ENV['ACCESS_KEY'])
   end
 
+  def redirect_error_page(error)
+    redirect_to "#{root_url}#{error}.html", status: error
+  end
+
   def sendgrid
     SendGrid::Client.new do |c|
       c.api_key = ENV['SENDGRID_ACCESS_KEY']
