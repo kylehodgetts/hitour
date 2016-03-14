@@ -1,7 +1,7 @@
 class DataController < ApplicationController
   before_action :authenticate_user!
   before_action :activate_user!
-  
+
   require 'securerandom'
   require 'streamio-ffmpeg'
   require 'fastimage'

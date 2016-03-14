@@ -1,4 +1,6 @@
 require 'rails_helper'
+
+RSpec.describe PasswordResetController, type: :controller do
   describe 'POST Activation (recovery system)' do
     context 'temporary password' do
       before(:each) do
@@ -17,7 +19,7 @@ require 'rails_helper'
     context 'with an invalid recoveryHash' do
       it 'should not establish a session and redirect to the log in page' do
         get :activate, temporarypassword: "wrongHash"
-        expect(response).to redirect_to '/'
+        expect(response).to redirect_to root_path
       end
     end
   end

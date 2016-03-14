@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-
   def index
     if @current_user.activated
       items = User.where.not(id: session[:user_id])
@@ -34,7 +33,6 @@ class UsersController < ApplicationController
   end
 
   def send_activation_email
-    redirect_to update_profile_path(@current_user.id) unless @current_user.activated
     @url = root_url
     email = SendGrid::Mail.new do |m|
      m.to      = @user.email

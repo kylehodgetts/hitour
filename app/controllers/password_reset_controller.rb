@@ -3,7 +3,7 @@ class PasswordResetController < ApplicationController
   	@user = User.find_by_email(params[:email])
     if @user
       reset_password = SecureRandom.hex(25)
-      state = @user.update_attribute(:temporarypassword, reset_password)
+      @user.update_attribute(:temporarypassword, reset_password)
       send_reset_email
     	redirect_to '/'
     else

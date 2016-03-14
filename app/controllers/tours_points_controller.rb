@@ -1,7 +1,7 @@
 class ToursPointsController < ApplicationController
 	before_action :authenticate_user!
 	before_action :activate_user!
-	
+
 	def create
 		tour_id = params[:tour_point][:tour_id]
 		params[:tour_point][:rank] = max_rank(Tour.find(tour_id))

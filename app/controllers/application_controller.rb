@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 
   def activate_user!
     if current_user
-    redirect_to update_profile_path(current_user.id) unless current_user.activated
+      redirect_to update_profile_path(current_user.id) unless current_user.activated
     end
   end
 
