@@ -22,7 +22,7 @@ class Answer extends React.Component{
   render () {
     var _this = this;
     return (
-      <div key={"answer-"+this.props.answer.id} className="collection-item">
+      <div className="collection-item">
         {this.props.answer.value}
         <a id={this.props.answer.id} href="" className="secondary-content"
                      onClick={_this.handleDeleteDataFromServer.bind(this, this.props.answer.delete_url)}>

@@ -74,7 +74,7 @@ class SingleQuiz extends React.Component{
               question.description = question.description.substring(0,25)+"...";
             }
             return (
-              <li key={"question-"+question.id} >
+              <li key={question.id} >
                 <div className="collapsible-header">
                   {question.description}
                   <a href="" className="secondary-content"
@@ -89,7 +89,7 @@ class SingleQuiz extends React.Component{
                 </div>
                 <div className="collapsible-body collection">
                   {question.answers.map(function(answer, index) {
-                    return <Answer answer={answer} />
+                    return <Answer key={answer.id} answer={answer} />
                   })}
                 </div>
               </li>
