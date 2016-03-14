@@ -1,2 +1,3 @@
-<h2>ATTEMPT QUIZ</h2>
-<%= @quiz_data %>
+<%= react_component('PublicQuiz', quizData: @quiz_data,
+                                  tourId: @tour.id,
+                                  feedbackPostUrl: create_feedback_path) %>

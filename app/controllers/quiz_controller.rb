@@ -15,13 +15,27 @@ class QuizController < ApplicationController
     return render json: ['Invalid Bruv'] unless tour_session.exists?
     @quiz_data = quiz_data(tour_session.first.tour.id)
     @quiz_data = @quiz_data.as_json
+    @tour = Tour.find(tour_session.first.tour.id)
+    api_response(@quiz_data)
+  end
+
+  def submit_question
+    return render json: ['No answer'] if params[:answer].nil?
+    question_id = params[:question][:id]
+    answer_id = params[:answer][:id]
+    answer = Answer.find(answer_id)
+    return render json: { correct: true } if answer.is_correct
+    render json: { correct: false }
   end
 
   def quiz_data(tour_id)
     # Find available quizzes - Dominique
     tour_quiz = TourQuiz.where(tour_id: tour_id)
     @quiz = Quiz.find(tour_quiz.first.quiz_id)
-    [tour_quiz, quiz_questions]
+    {
+      quiz: @quiz,
+      questions: quiz_questions
+    }
   end
 
   def show
@@ -68,6 +82,7 @@ class QuizController < ApplicationController
     @quiz.questions.map do |question|
       question.as_json.merge(
         delete_url: delete_question_path(question[:id]),
+        submit_url: submit_question_path,
         answers: answers(question[:id])
       )
     end

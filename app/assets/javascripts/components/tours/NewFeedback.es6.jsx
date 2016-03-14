@@ -39,9 +39,6 @@ class NewFeedback extends React.Component{
               <textarea id="feedback[comment]" placeholder="Leave a comment" className="validate materialize-textarea" name="feedback[comment]"></textarea>
             </div>
           </div>
-          <button type="submit" className="waves-effect waves-light btn blue right">
-            <i className="material-icons left">cloud</i>Save Feedback
-          </button>
         </form>
       </div>
     );
