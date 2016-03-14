@@ -10,7 +10,7 @@ class PublicQuiz extends React.Component{
         </h2>
         <h2 className="quiz-result" style={{display:'none'}}>Thank You!
           {this.props.quizData &&
-            <span>You Scored <span className="total-score">0</span>/{this.props.quizData.questions.length}</span>
+            <span> You Scored <span className="total-score">0</span>/{this.props.quizData.questions.length}</span>
           }
         </h2>
         <p className="quiz-subtitle">Thanks for coming the <b>{this.props.tour.name}</b>. Please fill in the form below. All responses will be kept anonymous</p>
