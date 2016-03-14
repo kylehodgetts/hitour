@@ -27,8 +27,13 @@ class QuizController < ApplicationController
       render json: { correct: true }
     else
       increment_question_wrong(params[:question][:id])
-      render json: { correct: false }
+      answer = correct_answer(params[:question][:id])
+      render json: { correct: false, answer: answer.as_json }
     end
+  end
+
+  def correct_answer(question_id)
+    Answer.where(question_id: question_id, is_correct: true).first
   end
 
   def increment_question_correct(question_id)

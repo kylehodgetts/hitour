@@ -2,7 +2,8 @@ class PublicQuestion extends React.Component{
   constructor (props) {
     super(props);
     this.state =  {
-      response: []
+      response: [],
+      correctAnswer: []
     };
   }
   componentDidMount () {
@@ -16,9 +17,11 @@ class PublicQuestion extends React.Component{
         type: "POST",
         data:$(this).serialize(),
         success: function(data){
+          console.log(data);
           if(data != 'No Answer'){
             this.setState({
-              response: data.correct
+              response: data.correct,
+              correctAnswer: data.answer
             });
             //Disable all inputs
             $(id).find('input').prop('disabled',true);
@@ -28,7 +31,10 @@ class PublicQuestion extends React.Component{
               $('.total-score').text(current+1);
             }
           }
-        }.bind(_this)
+        }.bind(_this),
+        error: function(data){
+          console.log(data);
+        }
       });
     });
   }
@@ -53,7 +59,7 @@ class PublicQuestion extends React.Component{
               <p className="correct-answer">Correct!</p>
             }
             {this.state.response === false &&
-              <p className="wrong-answer">Wrong!</p>
+              <p className="wrong-answer">Wrong. The correct answer was {this.state.correctAnswer.value}</p>
             }
           </form>
         </div>
