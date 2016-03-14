@@ -1,6 +1,7 @@
 class ToursController < ApplicationController
 	include RQRCode
 	before_action :authenticate_user!
+	before_action :activate_user!
 
 	def index
 		items = Tour.includes(:points)

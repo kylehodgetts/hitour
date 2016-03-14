@@ -25,10 +25,10 @@ class SessionsController < ApplicationController
       # Reset the password of the user to the
       # temporary password and remove the previously
       # given temporary password.
+          session[:user_id] = @user.id
           @user.update_attribute(:password, params[:password])
           @user.update_attribute(:temporarypassword, '')
           @user.authenticate(params[:password])
-          session[:user_id] = @user.id
           redirect_to update_profile_path(@user.id)
     else
       redirect_to root_path

@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160311172125) do
+ActiveRecord::Schema.define(version: 20160312212030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answers", force: :cascade do |t|
+    t.integer  "question_id"
+    t.text     "value"
+    t.boolean  "is_correct"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
 
   create_table "audiences", force: :cascade do |t|
     t.string   "name"
@@ -73,6 +83,24 @@ ActiveRecord::Schema.define(version: 20160311172125) do
 
   add_index "points", ["name"], name: "index_points_on_name", using: :btree
 
+  create_table "questions", force: :cascade do |t|
+    t.integer  "rank"
+    t.text     "description"
+    t.integer  "correctly_answered"
+    t.integer  "wrongly_answered"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "quiz_id"
+  end
+
+  add_index "questions", ["quiz_id"], name: "index_questions_on_quiz_id", using: :btree
+
+  create_table "quizzes", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -89,6 +117,16 @@ ActiveRecord::Schema.define(version: 20160311172125) do
   add_index "tour_points", ["point_id"], name: "index_tour_points_on_point_id", using: :btree
   add_index "tour_points", ["tour_id", "point_id"], name: "index_tour_points_on_tour_id_and_point_id", unique: true, using: :btree
   add_index "tour_points", ["tour_id"], name: "index_tour_points_on_tour_id", using: :btree
+
+  create_table "tour_quizzes", force: :cascade do |t|
+    t.integer  "tour_id"
+    t.integer  "quiz_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "tour_quizzes", ["quiz_id"], name: "index_tour_quizzes_on_quiz_id", using: :btree
+  add_index "tour_quizzes", ["tour_id"], name: "index_tour_quizzes_on_tour_id", using: :btree
 
   create_table "tour_sessions", force: :cascade do |t|
     t.integer  "tour_id"

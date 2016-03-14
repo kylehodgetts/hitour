@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token
   helper_method :authenticate_user!, :current_user,
-                :api_authenticate!, :api_response
+                :api_authenticate!, :api_response, :activate_user!
   # Return current user or nil, if a user is not logged in
   def current_user
     @current_user = User.find(session[:user_id]) if session[:user_id]
@@ -13,6 +13,12 @@ class ApplicationController < ActionController::Base
   # If current_user returns nil, redirect to the log in page
   def authenticate_user!
     redirect_to login_path unless current_user
+  end
+
+  def activate_user!
+    if current_user
+    redirect_to update_profile_path(current_user.id) unless current_user.activated
+    end
   end
 
   def api_authenticate!
