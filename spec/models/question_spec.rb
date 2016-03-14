@@ -76,6 +76,14 @@ RSpec.describe Question, type: :model do
         expect(@question.answers.first).to eq @correct_answer
       end
     end
+    describe 'adding an answer with the same value as a previous answer
+                                                    to the question' do
+      it 'should be rejected' do
+        @question.answers << @correct_answer
+        @question.answers << @correct_answer
+        expect(@question.answers.second).to eq nil
+      end
+    end
     describe 'removing an answer from a question' do
       it 'will remove the association between the question and answer' do
         @question.answers.delete(@correct_answer)

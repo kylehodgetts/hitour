@@ -3,6 +3,7 @@ class Question < ActiveRecord::Base
   after_initialize :init
   has_many :answers
   after_initialize :init
+  has_many :answers, -> { distinct }
   validates :rank, presence: :true,
                    numericality: { greater_than_or_equal_to: 1 }
 

@@ -20,6 +20,14 @@ RSpec.describe Quiz, type: :model do
         expect(@quiz.save).to be false
       end
     end
+    describe 'with a name that is already being used' do
+      it 'should be rejected' do
+        @quiz = Quiz.create(name: 'A Quiz')
+        expect(@quiz.save).to be true
+        @quiz_2 = Quiz.create(name: @quiz.name)
+        expect(@quiz_2.save).to be false
+      end
+    end
     describe 'with a valid name value' do
       it 'should be accepted' do
         @quiz = Quiz.create(name: 'A Quiz')
