@@ -78,6 +78,22 @@ Rails.application.routes.draw do
   delete '/feedback/:id', to: 'feedback#destroy', as: :delete_feedback
   post '/feedback', to: 'feedback#create', as: :create_feedback
 
+  # Quiz
+  post '/quizzes', to: 'quiz#create', as: :create_quiz
+  delete '/quizzes/:id', to: 'quiz#destroy', as: :delete_quiz
+  get '/quizzes/show/:id', to: 'quiz#show', as: :quiz
+  get '/quizzes', to: 'quiz#index', as: :quizzes
+  get '/quizzes/template', to: 'quiz#template'
+  get '/quizzes/answered_template', to: 'quiz#template_answered'
+  # Question
+  post '/questions', to: 'question#create', as: :create_question
+  delete '/questions/:id', to: 'question#destroy', as: :delete_question
+  get '/questions', to: 'question#index', as: :questions
+
+  # Answer
+  post '/answers', to: 'answer#create', as: :create_answer
+  delete '/answers/:id', to: 'answer#destroy', as: :delete_answer
+
   # API
   namespace :api do
     get ':access_key/:passphrase', to: 'api#single_tour'

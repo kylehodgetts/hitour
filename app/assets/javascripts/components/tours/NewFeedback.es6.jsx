@@ -28,8 +28,7 @@ class NewFeedback extends React.Component{
   render () {
     return (
       <div>
-        <form id="feedbackForm" className="col s12" style={{border:'1px solid black'}}>
-          <h3>Add Feedback</h3>
+        <form id="feedbackForm" className="col s12">
           <input type="hidden" name="feedback[tour_id]" value={this.props.tourId}></input>
           <StarRating
             formName="feedback[rating]"
@@ -37,8 +36,7 @@ class NewFeedback extends React.Component{
           />
           <div className="row">
             <div className="input-field col s12">
-              <textarea id="feedback[comment]" className="validate materialize-textarea" name="feedback[comment]"></textarea>
-              <label htmlFor="feedback[comment]" className="active">Comment</label>
+              <textarea id="feedback[comment]" placeholder="Leave a comment" className="validate materialize-textarea" name="feedback[comment]"></textarea>
             </div>
           </div>
           <button type="submit" className="waves-effect waves-light btn blue right">

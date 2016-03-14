@@ -19,6 +19,9 @@ class Navlist extends React.Component {
         <NavlistItem url={this.props.audiencesPath}
                      name="Audiences"
                      currentPage={this.props.currentPage}/>
+        <NavlistItem url={this.props.quizzesPath}
+                     name="Quizzes"
+                     currentPage={this.props.currentPage}/>
         <NavlistItem url={this.props.usersPath}
                      name="Users"
                      currentPage={this.props.currentPage}/>
