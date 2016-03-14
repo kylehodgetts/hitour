@@ -46,6 +46,7 @@ class QuizController < ApplicationController
   def quiz_data(tour_id)
     # Find available quizzes - Dominique
     tour_quiz = TourQuiz.where(tour_id: tour_id)
+    return unless tour_quiz.exists?
     @quiz = Quiz.find(tour_quiz.first.quiz_id)
     {
       quiz: @quiz,

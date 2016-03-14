@@ -3,10 +3,18 @@ class PublicQuiz extends React.Component{
     var _this = this;
     return (
       <div>
-        <h2 className="quiz-title">{this.props.quizData.quiz.name}</h2>
-        <h2 className="quiz-result" style={{display:'none'}}>Thank You! You Scored <span className="total-score">0</span>/{this.props.quizData.questions.length}</h2>
-        <p className="quiz-subtitle">Thanks for coming the <b>{this.props.tour.name}</b>. Please fill in the quiz below. All responses will be kept anonymous</p>
-        {this.props.quizData.questions.map(function(question, index) {
+        <h2 className="quiz-title">
+          {this.props.quizData && this.props.quizData.quiz.name ||
+            <span>Please leave feedback below.</span>
+          }
+        </h2>
+        <h2 className="quiz-result" style={{display:'none'}}>Thank You!
+          {this.props.quizData &&
+            <span>You Scored <span className="total-score">0</span>/{this.props.quizData.questions.length}</span>
+          }
+        </h2>
+        <p className="quiz-subtitle">Thanks for coming the <b>{this.props.tour.name}</b>. Please fill in the form below. All responses will be kept anonymous</p>
+        {this.props.quizData && this.props.quizData.questions.map(function(question, index) {
           return <PublicQuestion key={question.id} questionData={question} index={index} />
         })}
         <div className="row">
@@ -37,14 +45,14 @@ class PublicQuiz extends React.Component{
     //Show Quiz Result Title
     $('.quiz-result').show();
     var totalForms = $('.question-form').trigger('submit');
-    $('.quiz-subtitle').text('You answers and feedback have been submitted! Please review your answers below.')
+    $('.quiz-subtitle').text('You can now close this page!')
   }
 }
 
 PublicQuiz.displayName = "Public Quiz";
 PublicQuiz.propTypes = {
   tour: React.PropTypes.object.isRequired,
-  quizData: React.PropTypes.object.isRequired,
+  quizData: React.PropTypes.object,
   tourId: React.PropTypes.number.isRequired,
   feedbackPostUrl: React.PropTypes.string.isRequired
 }
