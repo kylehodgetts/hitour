@@ -22,6 +22,12 @@ def create_tour
   TourSession.delete_all
   tour
 end
+def create_question
+  Quiz.delete_all
+  Question.delete_all
+  quiz = Quiz.create(name:'This is a quiz')
+  question = Question.create(quiz_id:quiz.id, description: 'Test question description', rank:0)
+end
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end

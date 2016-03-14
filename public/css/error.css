@@ -8,15 +8,15 @@ body {
 
 nav{
   position: relative;
- height: 5%;
+  height: 5%;
 }
 ul {
   list-style-type: none;
   overflow: hidden;
-list-style: none;
-padding: 0;
-width: 100%;
-margin: 0 auto;
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  margin: 0 auto;
   background-color: #333;
 }
 
@@ -36,7 +36,7 @@ li a {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-    font-size: 1.5em;
+  font-size: 1.5em;
 }
 
 li a:hover:not(.active) {
@@ -74,20 +74,21 @@ img, h1{
 }
 
 #capsule {
-
   background-color: #2196F3;
   border-radius: 20px 20px 20px 20px;
   border: 5px solid #2196F3;
   margin-top: 40px;
-
   width: 40em;
   height: 5em;
   padding-bottom: 10px;
   margin-left:auto;
-    margin-right:auto;
+  margin-right:auto;
   display: inline-block;
 }
 
+#redirect, #capsule {
+  cursor:pointer !important;
+}
 #warning {
   color: #EFB25C;
   font-size: 20px;

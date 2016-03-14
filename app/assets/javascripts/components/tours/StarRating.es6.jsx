@@ -9,7 +9,7 @@ class StarRating extends React.Component{
         <div className="row" style={{marginBottom:'0'}}>
           <div className="col s12 start-container">
             <label>Tour Rating:</label><br/>
-              {[...Array(this.props.numberOfStars)].map((x, i) =>
+              {[...Array(this.props.numberOfStars)].map((_,i) =>
                 <p key={"star-"+i} className="star-rating"><span className="star material-icons">star_rate</span></p>
               )}
             <input type="hidden" name={this.props.formName} className="validate"/>
