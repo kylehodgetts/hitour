@@ -22,6 +22,11 @@ class PublicQuestion extends React.Component{
             });
             //Disable all inputs
             $(id).find('input').prop('disabled',true);
+            //Increment if correct
+            if(data.correct){
+              var current = parseInt($('.total-score').text());
+              $('.total-score').text(current+1);
+            }
           }
         }.bind(_this)
       });
@@ -34,7 +39,7 @@ class PublicQuestion extends React.Component{
       <div className="row">
         <div className="card-panel">
           <form className="question-form" id={this.props.questionData.id+"question-form"}>
-            <p>{this.props.questionData.description}</p>
+            <p>{this.props.index + 1}. <b>{this.props.questionData.description}</b></p>
             <input type="hidden" name="question[id]" value={this.props.questionData.id} />
             {this.props.questionData.answers.map(function(answer, index) {
               return (
@@ -59,5 +64,6 @@ class PublicQuestion extends React.Component{
 
 PublicQuestion.displayName = "Public Question";
 PublicQuestion.propTypes = {
-  questionData: React.PropTypes.object.isRequired
+  questionData: React.PropTypes.object.isRequired,
+  index: React.PropTypes.number.isRequired
 }
