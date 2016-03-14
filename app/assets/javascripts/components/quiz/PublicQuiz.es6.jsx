@@ -25,6 +25,7 @@ class PublicQuiz extends React.Component{
     );
   }
   submitAllForms () {
+    $('#feedbackForm').trigger('submit');
     //Scroll to top
     $("html, body").animate({ scrollTop: 0 }, "slow");
     //Hide Button
