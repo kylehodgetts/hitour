@@ -85,6 +85,7 @@ Rails.application.routes.draw do
   get '/quizzes', to: 'quiz#index', as: :quizzes
   get '/quizzes/template', to: 'quiz#template'
   get '/quizzes/answered_template', to: 'quiz#template_answered'
+  get '/quizzes/attempt_quiz/:id', to: 'quiz#attempt_quiz', as: :attempt_quiz
   # Question
   post '/questions', to: 'question#create', as: :create_question
   delete '/questions/:id', to: 'question#destroy', as: :delete_question

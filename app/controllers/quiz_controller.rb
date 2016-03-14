@@ -10,6 +10,20 @@ class QuizController < ApplicationController
     api_response(@quiz)
   end
 
+  def attempt_quiz
+    tour_session = TourSession.where(passphrase: params[:id])
+    return render json: ['Invalid Bruv'] unless tour_session.exists?
+    @quiz_data = quiz_data(tour_session.first.tour.id)
+    @quiz_data = @quiz_data.as_json
+  end
+
+  def quiz_data(tour_id)
+    # Find available quizzes - Dominique
+    tour_quiz = TourQuiz.where(tour_id: tour_id)
+    @quiz = Quiz.find(tour_quiz.first.quiz_id)
+    [tour_quiz, quiz_questions]
+  end
+
   def show
     @quiz = Quiz.includes(:questions).find(params[:id])
     questions = quiz_questions
