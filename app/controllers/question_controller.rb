@@ -38,7 +38,7 @@ class QuestionController < ApplicationController
   # For A particular Quiz
   def max_rank(quiz_id)
     rank = Question.where(quiz_id: quiz_id).maximum(:rank)
-    rank = -1 if rank.nil?
+    rank = 0 if rank.nil?
     rank + 1
   end
 end

@@ -15,19 +15,19 @@ RSpec.describe QuestionController, type: :controller do
         expect(response.body).to eq '["Succesfully created question"]'
         question = Question.find_by(quiz_id: @quiz.id)
         expect(question.description).to eq 'What is an MRI machine?'
-        expect(question.rank).to eq 0
+        expect(question.rank).to eq 1
       end
-      it 'should add question with rank of 1' do
+      it 'should add question with rank of 2' do
         Question.create(quiz_id: @quiz.id,
                         description: 'Testing',
-                        rank: 0)
+                        rank: 1)
         post :create, question: {
           quiz_id: @quiz.id,
           description: 'What?'
         }
         expect(response.body).to eq '["Succesfully created question"]'
         question = Question.find_by(description: 'What?')
-        expect(question.rank).to eq 1
+        expect(question.rank).to eq 2
       end
     end
   end
