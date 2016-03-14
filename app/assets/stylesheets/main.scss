@@ -46,3 +46,16 @@
 .star-hover{
 	color: #FFDF88;
 }
+
+.correct-answer{
+	background-color: yellow;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.wrong-answer{
+	background-color: red;
+	border-radius: 5px;
+	padding: 5px;
+	color: white;
+}
