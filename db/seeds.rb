@@ -124,13 +124,13 @@ TourSession.create(tour_id: tour2.id, name: 'Tour with final year students', sta
 # For Quiz
 quiz = Quiz.create(name:'The Best Quiz')
 TourQuiz.create(tour_id: tour2.id, quiz_id: quiz.id)
-question1 = Question.create(quiz_id: quiz.id, description:'Who am I?', rank: 0)
+question1 = Question.create(quiz_id: quiz.id, description:'Who am I?', rank: 1)
 answer = Answer.create(question_id:question1.id,value:'Kyle',is_correct: false)
 answer2 = Answer.create(question_id:question1.id,value:'Tahmidul',is_correct: true)
 answer3 = Answer.create(question_id:question1.id,value:'Dom',is_correct: false)
 answer4 = Answer.create(question_id:question1.id,value:'Chockler',is_correct: false)
 
-question2 = Question.create(quiz_id: quiz.id, description:'What is your best module?', rank: 1)
+question2 = Question.create(quiz_id: quiz.id, description:'What is your best module?', rank: 2)
 answer = Answer.create(question_id:question2.id,value:'OSC',is_correct: false)
 answer2 = Answer.create(question_id:question2.id,value:'FC2',is_correct: false)
 answer3 = Answer.create(question_id:question2.id,value:'PLD',is_correct: false)
