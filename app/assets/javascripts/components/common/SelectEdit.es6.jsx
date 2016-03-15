@@ -32,33 +32,19 @@ class SelectEdit extends React.Component {
   }
 
   handlePost() {
-    var postURL = this.props.postUrl;
+    var postUrl = this.props.postUrl;
     var newKey = this.props.attributeName;
     var elem = document.getElementById(newKey);
     var value = elem.options[elem.selectedIndex].value;
     var newValueId = elem.options[elem.selectedIndex].id;
     var formData = {};
     formData[newKey] = newValueId;
-    // Show Progress
-    $('.progress-message').text('Updating Record. Please wait...');
-    $('.progress-overlay').fadeIn(200);
-    $.ajax({
-      url: postURL,
-      type: "PATCH",
-      data: formData,
-      success: function(data){
-        $('.progress-overlay').fadeOut();
-        Materialize.toast(data, 3000, 'rounded');
-        this.setState({
-          selected: value,
-          editing: false
-        });
-      }.bind(this),
-      error: function(err){
-        console.log(err);
-        Materialize.toast('Error updating entry!', 3000, 'rounded');
-      }
-    });
+    DataUtil.handleUpdateDataToServer(postUrl,formData,'Updating Record. Please wait...',function(data){
+      this.setState({
+        selected: value,
+        editing: false
+      });
+    }.bind(this));
   }
 
   renderEditableSelected() {

@@ -26,36 +26,22 @@ class GenericEdit extends React.Component {
   handleOnChange(e) {
     if (e.which == 13 || e.keyCode == 13) {
       e.preventDefault();
-      this.handlePost();
+      this.handlePost.bind(this);
     }
   }
 
   handlePost() {
-    var postURL = this.props.postUrl;
+    var postUrl = this.props.postUrl;
     var newKey = this.props.attributeName;
     var newValue = document.getElementById(newKey).value;
     var formData = {};
     formData[newKey] = newValue;
-    // Show Progress
-    $('.progress-message').text('Updating record. Please wait...');
-    $('.progress-overlay').fadeIn(200);
-    $.ajax({
-      url: postURL,
-      type: "PATCH",
-      data: formData,
-      success: function(data){
-        $('.progress-overlay').fadeOut();
-        Materialize.toast(data, 3000, 'rounded');
-        this.setState({
-          value: newValue,
-          editing: false
-        });
-      }.bind(this),
-      error: function(err){
-        console.log(err);
-        Materialize.toast('Error updating entry!', 3000, 'rounded');
-      }
-    });
+    DataUtil.handleUpdateDataToServer(postUrl,formData,"Updating Record...",function(data){
+      this.setState({
+        value: newValue,
+        editing: false
+      });
+    }.bind(this));
   }
 
   renderSetTitle() {

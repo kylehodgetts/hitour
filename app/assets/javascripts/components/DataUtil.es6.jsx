@@ -6,20 +6,17 @@ class DataUtil {
       type: "GET",
       cache: false,
       success: function(data) {
-        console.log(data);
         this.setState({data: data});
       }.bind(this)
     });
   }
 
   static handleCustomLoadDataFromServer(url,cb) {
-    console.log(url);
     $.ajax({
       url: url,
       type: "GET",
       cache: false,
       success: function(data) {
-        console.log(data);
         cb(data);
       }
     });
@@ -42,6 +39,26 @@ class DataUtil {
       },
       error: function(err){
         console.log(err);
+      }
+    });
+  }
+
+  static handleUpdateDataToServer(url,formData,message,cb) {
+    // Show Progress
+    $('.progress-message').text(message);
+    $('.progress-overlay').fadeIn(200);
+    $.ajax({
+      url: url,
+      type: "PATCH",
+      data: formData,
+      success: function(data){
+        $('.progress-overlay').fadeOut();
+        Materialize.toast(data, 3000, 'rounded');
+        cb(data);
+      },
+      error: function(err){
+        console.log(err);
+        Materialize.toast(err, 3000, 'rounded');
       }
     });
   }

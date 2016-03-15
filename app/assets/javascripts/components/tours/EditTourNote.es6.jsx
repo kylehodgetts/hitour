@@ -29,21 +29,7 @@ class TourNote extends React.Component{
     var newNote = editor.getHTML();
     var formData = {};
     formData["tour[notes]"] = newNote;
-    // Show Progress
-    $('.progress-message').text('Updating Tour Notes. Please wait...');
-    $('.progress-overlay').fadeIn(200);
-    $.ajax({
-      url: this.props.updateTourPath,
-      type: "PATCH",
-      data: formData,
-      success: function(data){
-        $('.progress-overlay').fadeOut();
-        Materialize.toast(data, 3000, 'rounded');
-      }.bind(this),
-      error: function(err){
-        Materialize.toast(err, 3000, 'rounded');
-      }
-    });
+    DataUtil.handleUpdateDataToServer(this.props.updateTourPath,formData,"Updating Tour Notes...",function(){});
   }
 
   render () {
