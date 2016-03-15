@@ -5,7 +5,7 @@ class PasswordResetController < ApplicationController
       reset_password = SecureRandom.hex(25)
       @user.update_attribute(:temporarypassword, reset_password)
       send_reset_email
-    	redirect_to '/'
+    	redirect_to root_url
     else
       redirect_to password_reset_path
     end
@@ -24,9 +24,9 @@ class PasswordResetController < ApplicationController
 
   def activate
   	@user = User.find_by_temporarypassword(params[:temporarypassword])
-    redirect_to root_url unless @user
-    session[:user_id] = nil
-    if @user && !@user.temporarypassword.empty?
+    if !@user
+      redirect_to root_url
+    elsif !@user.temporarypassword.empty?
       @user.authenticate(@user.password)
       @user.update_attribute(:temporarypassword, '')
       session[:user_id] = @user.id

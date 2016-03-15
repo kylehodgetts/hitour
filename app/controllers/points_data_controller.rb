@@ -1,6 +1,5 @@
 class PointsDataController < ApplicationController
-	before_action :authenticate_user!
-	before_action :activate_user!
+	before_action :authenticate_activate_user!
 
 	def create
 		point = Point.find(params[:point_datum][:point_id])

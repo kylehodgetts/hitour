@@ -12,9 +12,7 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(params[:password])
       # Create a user session and redirect to main page
       session[:user_id] = @user.id
-      if !@user.temporarypassword.empty?
-        @user.update_attribute(:temporarypassword, '')
-      end
+      @user.update_attribute(:temporarypassword, '') unless @user.temporarypassword.empty?
       if !@user.activated
         redirect_to update_profile_path(@user.id)
       else
