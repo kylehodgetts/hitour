@@ -96,8 +96,8 @@ class ToursController < ApplicationController
 
 	def create
 		@tour = Tour.new(tour_params)
-		return redirect_to @tour if @tour.save
-		redirect_to new_tour_path
+		return render json: ['Successfully created tour'] if @tour.save
+		render json: ['Couldnt create tour']
 	end
 
 		private
