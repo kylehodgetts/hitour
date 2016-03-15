@@ -42,21 +42,6 @@ class NewDatumAudience extends React.Component {
     clearInterval(this.interval);
   }
 
-  handleLoadDataFromServer() {
-    //Get All Data
-    $.ajax({
-      url: this.props.audiencesUrl,
-      type: "GET",
-      dataType: "json",
-      cache: false,
-      success: function(data){
-        this.setState({
-          audiences: data
-        });
-      }.bind(this)
-    });
-  }
-
   render () {
     return (
       <div>
