@@ -1,18 +1,21 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-
   def index
-    items = User.where.not(id: session[:user_id])
-    @users = []
-    items.each do |item|
-      @users << {
-        id: item.id,
-        data: item.email,
-        delete_url: delete_user_path(item),
-        activated: item.activated
-      }
+    if @current_user.activated
+      items = User.where.not(id: session[:user_id])
+      @users = []
+      items.each do |item|
+        @users << {
+          id: item.id,
+          data: item.email,
+          delete_url: delete_user_path(item),
+          activated: item.activated
+        }
+      end
+      api_response(@users)
+    else
+      redirect_to update_profile_path(@current_user.id)
     end
-    api_response(@users)
   end
 
   def show
@@ -20,15 +23,18 @@ class UsersController < ApplicationController
   end
 
   def create
+    redirect_path = update_profile_path(@current_user.id)
+    redirect_to redirect_path unless @current_user.activated
     params[:user][:password] = SecureRandom.hex(25)
     @user = User.new(user_params)
+    @user.temporarypassword = SecureRandom.hex(25)
     @user.activated = false
     send_activation_email
     render json: ['Activation email sent!'], status: 200 if @user.save
   end
 
   def send_activation_email
-    @url = request.original_url
+    @url = root_url
     email = SendGrid::Mail.new do |m|
      m.to      = @user.email
      m.from    = 'services@Hitour.com'
@@ -52,6 +58,8 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    redirect_path = update_profile_path(@current_user.id)
+    redirect_to redirect_path unless @current_user.activated
     user = User.find(params[:id])
     user.delete
     render json: ['Successfully deleted user'], status: 200

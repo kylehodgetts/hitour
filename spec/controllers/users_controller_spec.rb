@@ -24,6 +24,7 @@ RSpec.describe UsersController, type: :controller do
             email: 'someone@gmail.com'
           }
         @user = User.find_by(email: 'someone@gmail.com')
+        @user.activated = true
       end
       describe 'add an unactivated user' do
         it 'should have a password of size 60 and the user should be saved' do

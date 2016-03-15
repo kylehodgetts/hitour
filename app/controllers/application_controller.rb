@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   # If current_user returns nil, redirect to the log in page
+  # Required when the user does not need to be activated but only authenticated
   def authenticate_user!
     redirect_to login_path unless current_user
   end

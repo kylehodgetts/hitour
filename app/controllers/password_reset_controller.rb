@@ -28,4 +28,22 @@ class PasswordResetController < ApplicationController
     end
     sendgrid.send(email)
   end
+
+  def activate
+  	@user = User.find_by_temporarypassword(params[:temporarypassword])
+   if !@user
+     redirect_to root_url
+   elsif !@user.temporarypassword.empty?
+     @user.authenticate(@user.password)
+     @user.update_attribute(:temporarypassword, '')
+     session[:user_id] = @user.id
+     redirect_to update_profile_path(@user.id)
+   end
+  end
+
+  private
+
+  def temporary_password_params
+  params.require(:user).permit(:temporarypassword)
+  end
 end

@@ -9,7 +9,7 @@ require 'rspec/rails'
 def create_user_session
   # Create User, in order to create session
   User.delete(User.find_by(email: 'dev@mail.com'))
-  @user = User.create(email:"dev@mail.com",password: 'password')
+  @user = User.create(email:"dev@mail.com",password: 'password',activated:true)
   @user.save
   session[:user_id] = @user.id
 end
