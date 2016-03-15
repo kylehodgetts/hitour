@@ -15,6 +15,16 @@ class FeedbackController < ApplicationController
     end
   end
 
+  def data
+    feedbacks = Feedback.where(tour_id: params[:tour_id]).group(:rating).count
+    feedbacks = feedbacks.as_json
+    feedbacks.keys.each do |key|
+      feedbacks['Rating ' + key] = feedbacks[key]
+      feedbacks.delete(key)
+    end
+    render json: feedbacks.as_json
+  end
+
   # Destroy the Feedback record whose id matches
   # the given id
   def destroy

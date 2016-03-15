@@ -24,6 +24,9 @@ gem 'fastimage'
 # For Text Editor
 gem 'quill-rails', '~> 0.1.0'
 
+# Graphing library
+gem 'chartkick'
+
 gem 'rails', '4.2.3'
 gem 'pg'
 gem 'sass-rails', '~> 5.0'

@@ -9,3 +9,7 @@
 									new_tour_session_url: create_tour_session_path,
 									tourNote: @tour.notes,
 									feedbackPostUrl: create_feedback_path ) %>
+<div class="row">
+	<h2>Feedback Statistics</h2>
+	<%= pie_chart feedback_data_path(@tour['id'], width: '800px', height: '500px', xtitle: 'Ratings', ytitle: 'Ratings') %>
+</div>
