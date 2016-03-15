@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe AnswerController, type: :controller do
   before(:each) do
     Answer.delete_all
+    create_user_session
   end
   describe 'POST #create' do
     it 'should add answer and set to true since only 1 answer' do

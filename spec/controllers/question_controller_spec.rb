@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe QuestionController, type: :controller do
+  before(:each) do
+    create_user_session
+  end
   describe 'POST #create' do
     before(:each) do
       # Create Quiz

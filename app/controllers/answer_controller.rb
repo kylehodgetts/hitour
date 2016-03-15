@@ -2,6 +2,7 @@
 # Controller reponsible for creating and mutating answer
 # records
 class AnswerController < ApplicationController
+  before_action :authenticate_user!
   # Create an Answer record using the answer params passed
   # from the request
   def create

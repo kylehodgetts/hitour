@@ -1,4 +1,5 @@
 class QuizController < ApplicationController
+  before_action :authenticate_user!
   def index
     @quiz = Quiz.includes(:questions).map do |quiz|
       quiz.as_json.merge(
@@ -48,23 +49,5 @@ class QuizController < ApplicationController
 
   def quiz_params
     params.require(:quiz).permit(:name)
-  end
-
-  def quiz_questions
-    @quiz.questions.map do |question|
-      question.as_json.merge(
-        delete_url: delete_question_path(question[:id]),
-        answers: answers(question[:id])
-      )
-    end
-  end
-
-  def answers(question_id)
-    answers = Answer.where(question_id: question_id)
-    answers.map do |answer|
-      answer.as_json.merge(
-        delete_url: delete_answer_path(answer[:id])
-      )
-    end
   end
 end
