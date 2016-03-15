@@ -89,7 +89,20 @@ class SingleQuiz extends React.Component{
                 </div>
                 <div className="collapsible-body collection">
                   <div className="collection-item">
-                    Correct answers: 1 Incorrect Answers: 2
+                    <table className="centered striped">
+                      <thead>
+                        <tr>
+                          <th data-field="id">Correctly Answered</th>
+                          <th data-field="name">Incorrectly Answered</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>{question.correctly_answered}</td>
+                          <td>{question.wrongly_answered}</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                   {question.answers.map(function(answer, index) {
                     return <Answer key={answer.id} answer={answer} />
