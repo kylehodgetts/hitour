@@ -10,9 +10,21 @@ class DataShow extends React.Component {
   }
 
   componentDidMount() {
-    this.handleLoadDataFromServer();
+    // this.handleLoadDataFromServer();
+    var _this = this;
+    DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.getUrl+".json",function(data){
+      this.setState({
+        datum: data["datum"],
+        audiences: data["datum_audiences"]
+      });
+    }.bind(this));
     this.interval = setInterval(
-      this.handleLoadDataFromServer.bind(this),
+      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.getUrl+".json",function(data){
+        this.setState({
+          datum: data["datum"],
+          audiences: data["datum_audiences"]
+        });
+      }.bind(this)),
       this.state.pollInterval
     );
   }
@@ -20,43 +32,6 @@ class DataShow extends React.Component {
   componentWillUnmount() {
     this.interval && clearInterval(this.interval);
     this.interval = false;
-  }
-
-  handleLoadDataFromServer() {
-    //Get All Information about datum
-    $.ajax({
-      url: this.props.getUrl,
-      type: "GET",
-      dataType: "json",
-      cache: false,
-      success: function(data){
-        this.setState({
-          datum: data["datum"],
-          audiences: data["datum_audiences"]
-        });
-      }.bind(this)
-    });
-  }
-
-  handleDeleteDataFromServer(deleteUrl, e) {
-    e.preventDefault();
-    if(confirm("Are you sure you wish to delete this record")) {
-      // Show Progress
-      $('.progress-message').text('Deassigning Audience from Media.');
-      $('.progress-overlay').fadeIn(200);
-      $.ajax({
-        url: deleteUrl,
-        type: "DELETE",
-        success: function(data){
-          $('.progress-overlay').fadeOut();
-          Materialize.toast(data, 3000, 'rounded');
-        }.bind(this),
-        error: function(err){
-          Materialize.toast('There was an issue deleting. Please contact admin.', 3000, 'rounded');
-          console.log(err);
-        }.bind(this)
-      });
-    }
   }
 
   render () {
@@ -94,7 +69,7 @@ class DataShow extends React.Component {
                       <div>
                         {audience.data}
                         <a id={audience.id} href="" className="secondary-content" key={audience.id}
-                                     onClick={_this.handleDeleteDataFromServer.bind(this, audience.delete_url)}>
+                                     onClick={DataUtil.handleDeleteDataFromServer.bind(this, audience.delete_url,"Are you sure you want to delete this audience?")}>
                           <i className=" blue-text material-icons">delete_forever</i>
                         </a>
                       </div>

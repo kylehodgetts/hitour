@@ -2,24 +2,11 @@ class Audience extends React.Component {
 
   componentDidMount() {
     var postURL = this.props.postUrl;
+    var _this = this;
     $('#audienceForm').on('submit',function(e){
       e.preventDefault();
-      // Show Progress
-      $('.progress-message').text('Creating Audience');
-      $('.progress-overlay').fadeIn(200);
-      $.ajax({
-        url: postURL,
-        type: "POST",
-        data: $(this).serialize(),
-        success: function(data){
-          $('.progress-overlay').fadeOut();
-          Materialize.toast('Succesfully created new audience!', 3000, 'rounded');
-          $('#audienceForm')[0].reset();
-        },
-        error: function(err){
-          console.log(err);
-        }
-      });
+      console.log("WICKED!!!");
+      DataUtil.handlePostToServer(postURL,$(this).serialize(),'Creating Audience',e);
     });
   }
 

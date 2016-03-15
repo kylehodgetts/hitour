@@ -9,31 +9,14 @@ class NewPointDatum extends React.Component {
   }
 
   componentDidMount() {
-    this.handleLoadDataFromServer();
+    DataUtil.handleLoadDataFromServer.bind(this,this.props.data_url+".json");
     this.interval = setInterval(
-      this.handleLoadDataFromServer.bind(this),
+      DataUtil.handleLoadDataFromServer.bind(this,this.props.data_url+".json"),
       this.state.pollInterval
     );
     var postUrl = this.props.new_point_datum_url;
     $('#pointDatumForm').on('submit',function(e){
-      // Show Progress
-      $('.progress-message').text('Adding media to point. Please wait.');
-      $('.progress-overlay').fadeIn(200);
-      e.preventDefault();
-      $.ajax({
-        url: postUrl,
-        type: "POST",
-        data: $(this).serialize(),
-        dataType: "json",
-        success: function(data){
-          $('.progress-overlay').fadeOut();
-          Materialize.toast(data, 3000, 'rounded');
-        }.bind(this),
-        error: function(err){
-          Materialize.toast(err, 3000, 'rounded');
-          console.log(err);
-        }.bind(this)
-      });
+      DataUtil.handlePostToServer(postUrl,$(this).serialize(),'Adding media to point. Please wait.',e);
     });
   }
 
@@ -46,21 +29,6 @@ class NewPointDatum extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.interval);
-  }
-
-  handleLoadDataFromServer() {
-    //Get All Data
-    $.ajax({
-      url: this.props.data_url,
-      type: "GET",
-      dataType: "json",
-      cache: false,
-      success: function(data){
-        this.setState({
-          data: data
-        });
-      }.bind(this)
-    });
   }
 
   render () {

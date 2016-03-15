@@ -9,48 +9,15 @@ class GenericList extends React.Component {
   }
 
   componentDidMount() {
-    this.handleLoadDataFromServer();
+    DataUtil.handleLoadDataFromServer.bind(this,this.props.getUrl),
     this.interval = setInterval(
-      this.handleLoadDataFromServer.bind(this),
+      DataUtil.handleLoadDataFromServer.bind(this,this.props.getUrl),
       this.state.pollInterval
     );
   }
 
   componentWillUnmount() {
     clearInterval(this.interval);
-  }
-
-  handleLoadDataFromServer() {
-    $.ajax({
-      url: this.props.getUrl,
-      type: "GET",
-      cache: false,
-      success: function(data){
-        this.setState({
-          data: data
-        });
-      }.bind(this)
-    });
-  }
-
-  handleDeleteDataFromServer(deleteUrl, e) {
-    e.preventDefault();
-    if(confirm("Are you sure you wish to delete this record")) {
-      $('.progress-message').text('Deleting Record. Please wait...');
-      $('.progress-overlay').fadeIn(200);
-      $.ajax({
-        url: deleteUrl,
-        type: "DELETE",
-        success: function(data){
-          $('.progress-overlay').fadeOut();
-          Materialize.toast(data, 3000, 'rounded');
-        }.bind(this),
-        error: function(err){
-          Materialize.toast('There was an issue deleting. Please contact admin.', 3000, 'rounded');
-          console.log(err);
-        }.bind(this)
-      });
-    }
   }
 
   renderVerified(item) {
@@ -84,7 +51,7 @@ class GenericList extends React.Component {
               <div>
                 {item.data}
                 <a id={item.id} href="" className="secondary-content" key={i}
-                             onClick={_this.handleDeleteDataFromServer.bind(this, item.delete_url)}>
+                             onClick={DataUtil.handleDeleteDataFromServer.bind(this, item.delete_url,"Are you sure you want to delete this record?")}>
                   <i className=" blue-text material-icons">delete_forever</i>
                 </a>
                 {item.show_url &&
