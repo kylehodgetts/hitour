@@ -43,7 +43,7 @@ class QuizController < ApplicationController
   end
 
   def increment_question_correct(question_id)
-    unless session[question_id.to_sym].nil?
+    if session[question_id.to_sym].nil?
       question = Question.find(question_id)
       current = question.correctly_answered
       question.update_attribute(:correctly_answered, current + 1)
@@ -51,7 +51,7 @@ class QuizController < ApplicationController
   end
 
   def increment_question_wrong(question_id)
-    unless session[question_id.to_sym].nil?
+    if session[question_id.to_sym].nil?
       question = Question.find(question_id)
       current = question.wrongly_answered
       question.update_attribute(:wrongly_answered, current + 1)

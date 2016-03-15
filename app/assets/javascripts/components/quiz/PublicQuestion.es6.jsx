@@ -15,6 +15,7 @@ class PublicQuestion extends React.Component{
       $.ajax({
         url:postUrl,
         type: "POST",
+        async: false,
         data:$(this).serialize(),
         success: function(data){
           console.log(data);
