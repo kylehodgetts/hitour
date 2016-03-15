@@ -88,6 +88,9 @@ class SingleQuiz extends React.Component{
                   }
                 </div>
                 <div className="collapsible-body collection">
+                  <div className="collection-item">
+                    Correct answers: 1 Incorrect Answers: 2
+                  </div>
                   {question.answers.map(function(answer, index) {
                     return <Answer key={answer.id} answer={answer} />
                   })}
