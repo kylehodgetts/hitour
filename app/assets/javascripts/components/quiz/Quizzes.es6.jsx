@@ -1,25 +1,10 @@
 class Quizzes extends React.Component {
   componentDidMount() {
-    var postURL = this.props.postUrl;
+    var postUrl = this.props.postUrl;
     $('#quizForm').on('submit',function(e){
       e.preventDefault();
-      $('.progress-message').text('Creating Quiz. Please wait...');
-      $('.progress-overlay').fadeIn(200);
-      $.ajax({
-        url: postURL,
-        type: "POST",
-        data: $(this).serialize(),
-        success: function(data){
-          $('.progress-overlay').fadeOut();
-          Materialize.toast(data, 3000, 'rounded');
-          $('#quizForm').trigger("reset");
-        },
-        error: function(err){
-          console.log("Error" + err);
-          console.log(err);
-          Materialize.toast('ERR: Succesfully added new quiz!', 3000, 'rounded');
-        }
-      });
+      DataUtil.handlePostToServer(postUrl,$(this).serialize(),'Creating Quiz. Please wait...',e);
+      $('#quizForm').trigger("reset");
     });
   }
 
