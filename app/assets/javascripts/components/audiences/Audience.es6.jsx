@@ -14,7 +14,7 @@ class Audience extends React.Component {
         success: function(data){
           $('.progress-overlay').fadeOut();
           Materialize.toast('Succesfully created new audience!', 3000, 'rounded');
-          $('#audienceForm').trigger("reset");
+          $('#audienceForm')[0].reset();
         },
         error: function(err){
           console.log(err);
