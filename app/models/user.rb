@@ -1,3 +1,5 @@
+# Version 1.0
+# User model that models a user of the Content Management System
 class User < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   has_secure_password

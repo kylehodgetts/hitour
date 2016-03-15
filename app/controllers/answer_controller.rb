@@ -1,4 +1,9 @@
+# Version 1.0
+# Controller reponsible for creating and mutating answer
+# records
 class AnswerController < ApplicationController
+  # Create an Answer record using the answer params passed
+  # from the request
   def create
     answer = Answer.new(answer_params)
     question_id = params[:answer][:question_id]
@@ -10,6 +15,8 @@ class AnswerController < ApplicationController
     end
   end
 
+  # Update the answer whose id matches that
+  # given in the parameter
   def update
     answer = Answer.find(params[:id])
     if answer.update_attributes(answer_params)
@@ -17,6 +24,21 @@ class AnswerController < ApplicationController
     else
       render json: [answer.errors.full_messages.first]
     end
+  end
+
+  # Destroy the Answer record whose id
+  # matches that in the parameter
+  def destroy
+    Answer.find(params[:id]).delete
+    render json: ['Deleted Answer']
+  end
+
+  private
+
+  # Require a parameter of type answer and permit
+  # the given attributes
+  def answer_params
+    params.require(:answer).permit(:question_id, :value, :is_correct)
   end
 
   # This will make sure other answers
@@ -32,16 +54,5 @@ class AnswerController < ApplicationController
     end
     answer.is_correct = true if Answer.where(question_id: question_id).size == 1
     answer.save
-  end
-
-  def destroy
-    Answer.find(params[:id]).delete
-    render json: ['Deleted Answer']
-  end
-
-  private
-
-  def answer_params
-    params.require(:answer).permit(:question_id, :value, :is_correct)
   end
 end

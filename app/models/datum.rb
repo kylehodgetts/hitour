@@ -1,3 +1,6 @@
+# Version 1.0
+# Datum model that can belong to numerous points on different tours
+# Datums can have multiple audiences
 class Datum < ActiveRecord::Base
 	validates :title, presence: :true, uniqueness: true
 	validates :description, presence: :true
