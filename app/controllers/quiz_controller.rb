@@ -11,17 +11,6 @@ class QuizController < ApplicationController
     api_response(@quiz)
   end
 
-  def quiz_data(tour_id)
-    # Find available quizzes - Dominique
-    tour_quiz = TourQuiz.where(tour_id: tour_id)
-    return unless tour_quiz.exists?
-    @quiz = Quiz.find(tour_quiz.first.quiz_id)
-    {
-      quiz: @quiz,
-      questions: quiz_questions
-    }
-  end
-
   def show
     @quiz = Quiz.includes(:questions).find(params[:id])
     questions = quiz_questions
@@ -60,24 +49,5 @@ class QuizController < ApplicationController
 
   def quiz_params
     params.require(:quiz).permit(:name)
-  end
-
-  def quiz_questions
-    @quiz.questions.map do |question|
-      question.as_json.merge(
-        delete_url: delete_question_path(question[:id]),
-        submit_url: submit_question_path,
-        answers: answers(question[:id])
-      )
-    end
-  end
-
-  def answers(question_id)
-    answers = Answer.where(question_id: question_id)
-    answers.map do |answer|
-      answer.as_json.merge(
-        delete_url: delete_answer_path(answer[:id])
-      )
-    end
   end
 end

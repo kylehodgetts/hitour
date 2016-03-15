@@ -85,4 +85,37 @@ class ApplicationController < ActionController::Base
   rescue
     return false
   end
+
+  # Retrieves quiz data for a particular tour
+  def quiz_data(tour_id)
+    # Find available quizzes - Dominique
+    tour_quiz = TourQuiz.where(tour_id: tour_id)
+    return unless tour_quiz.exists?
+    @quiz = Quiz.find(tour_quiz.first.quiz_id)
+    {
+      quiz: @quiz,
+      questions: quiz_questions
+    }
+  end
+
+  # Retrieves all questions for a quiz
+  def quiz_questions
+    @quiz.questions.map do |question|
+      question.as_json.merge(
+        delete_url: delete_question_path(question[:id]),
+        submit_url: submit_question_path,
+        answers: answers(question[:id])
+      )
+    end
+  end
+
+  # Retrieves all answers for a question
+  def answers(question_id)
+    answers = Answer.where(question_id: question_id)
+    answers.map do |answer|
+      answer.as_json.merge(
+        delete_url: delete_answer_path(answer[:id])
+      )
+    end
+  end
 end

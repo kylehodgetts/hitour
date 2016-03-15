@@ -46,36 +46,4 @@ class PublicQuizController < ApplicationController
       question.update_attribute(:wrongly_answered, current + 1)
     end
   end
-
-  def quiz_data(tour_id)
-    # Find available quizzes - Dominique
-    tour_quiz = TourQuiz.where(tour_id: tour_id)
-    return unless tour_quiz.exists?
-    @quiz = Quiz.find(tour_quiz.first.quiz_id)
-    {
-      quiz: @quiz,
-      questions: quiz_questions
-    }
-  end
-
-  private
-
-  def quiz_questions
-    @quiz.questions.map do |question|
-      question.as_json.merge(
-        delete_url: delete_question_path(question[:id]),
-        submit_url: submit_question_path,
-        answers: answers(question[:id])
-      )
-    end
-  end
-
-  def answers(question_id)
-    answers = Answer.where(question_id: question_id)
-    answers.map do |answer|
-      answer.as_json.merge(
-        delete_url: delete_answer_path(answer[:id])
-      )
-    end
-  end
 end
