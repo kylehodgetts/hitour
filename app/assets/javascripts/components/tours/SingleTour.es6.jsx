@@ -191,14 +191,6 @@ class SingleTour extends React.Component {
             />
         </div>
 
-        <div className="row">
-          <NewFeedback
-            tourId={this.props.tour_id}
-            postUrl={this.props.feedbackPostUrl}
-          />
-        </div>
-
-
         <div id="sessionModal" className="modal" style={{maxHeight: '800px'}}>
           <div className="modal-content">
             <h4>Tour Sessions</h4>
