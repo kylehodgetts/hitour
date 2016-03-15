@@ -67,7 +67,13 @@ class SingleQuiz extends React.Component{
     var _this = this;
     return (
       <div>
-        <h2>{this.state.quiz.name}</h2>
+        {this.state.quiz.name &&
+          <GenericEdit
+              value={this.state.quiz.name}
+              postUrl={this.props.postQuizUrl}
+              attributeName="quiz[name]"
+          />
+        }
         <ul className="collapsible" data-collapsible="accordion">
           {this.state.questions.map(function(question, i) {
             if(question.description.length > 25 && $(document).width() <= 350){
@@ -136,6 +142,7 @@ class SingleQuiz extends React.Component{
 SingleQuiz.displayName = "Single Quiz";
 SingleQuiz.propTypes = {
   getUrl: React.PropTypes.string.isRequired,
+  postQuizUrl: React.PropTypes.string.isRequired,
   postQuestionUrl: React.PropTypes.string.isRequired,
   pollInterval: React.PropTypes.number
 };

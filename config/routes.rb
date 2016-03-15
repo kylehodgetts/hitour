@@ -80,6 +80,7 @@ Rails.application.routes.draw do
 
   # Quiz
   post '/quizzes', to: 'quiz#create', as: :create_quiz
+  patch '/quizzes/:id', to: 'quiz#update', as: :update_quiz
   delete '/quizzes/:id', to: 'quiz#destroy', as: :delete_quiz
   get '/quizzes/show/:id', to: 'quiz#show', as: :quiz
   get '/quizzes', to: 'quiz#index', as: :quizzes
