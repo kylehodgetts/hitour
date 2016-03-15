@@ -22,7 +22,7 @@ class PointsDataController < ApplicationController
 	def increase_rank
 		point_datum = PointDatum.find(params[:id])
 		if update_rank(point_datum, point_datum.rank + 1)
-			render json: ["Succesfully increased rank to #{point_datum.rank}"]
+			render json: ["Succesfully moved #{point_datum.datum.title} down"]
 		else
 			render json: ['Couldnt increase rank']
 		end
@@ -31,7 +31,7 @@ class PointsDataController < ApplicationController
 	def decrease_rank
 		point_datum = PointDatum.find(params[:id])
 		if update_rank(point_datum, point_datum.rank - 1)
-			render json: ["Succesfully decreased rank to #{point_datum.rank}"]
+			render json: ["Succesfully moved #{point_datum.datum.title} up"]
 		else
 			render json: ['Couldnt decrease rank']
 		end

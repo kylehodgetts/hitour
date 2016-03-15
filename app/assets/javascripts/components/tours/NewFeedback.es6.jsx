@@ -13,7 +13,7 @@ class NewFeedback extends React.Component{
         success: function(data) {
           $('.progress-overlay').fadeOut();
           $('.star').eq(0).trigger('click');
-          $('#feedbackForm').trigger('reset');
+          $('#feedbackForm')[0].reset();
           Materialize.toast('Succesfully submitted feedback and quiz', 3000, 'rounded');
         },
         error: function(data) {

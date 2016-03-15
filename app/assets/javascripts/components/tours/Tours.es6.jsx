@@ -19,6 +19,7 @@ class Tours extends React.Component {
         data: $(this).serialize(),
         success: function(data){
           $('.progress-overlay').fadeOut();
+          $('#tourForm')[0].reset();
           Materialize.toast('Succesfully created new tour!', 3000, 'rounded');
           $('#tourForm').trigger("reset");
         },
