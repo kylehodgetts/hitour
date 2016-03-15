@@ -9,31 +9,22 @@ class NewTourPoint extends React.Component {
   }
 
   componentDidMount() {
-    this.handleLoadDataFromServer();
+    DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.points_url,function(data){
+      this.setState({
+        points: data
+      });
+    }.bind(this));
     this.interval = setInterval(
-      this.handleLoadDataFromServer.bind(this),
+      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.points_url,function(data){
+        this.setState({
+          points: data
+        });
+      }.bind(this)),
       this.state.pollInterval
     );
     var postUrl = this.props.new_tour_point_url;
     $('#tourPointForm').on('submit',function(e){
-      e.preventDefault();
-      // Show Progress
-      $('.progress-message').text('Adding Point to Tour. Please wait...');
-      $('.progress-overlay').fadeIn(200);
-      $.ajax({
-        url: postUrl,
-        type: "POST",
-        data: $(this).serialize(),
-        dataType: "json",
-        success: function(data){
-          $('.progress-overlay').fadeOut();
-          Materialize.toast(data, 3000, 'rounded');
-        }.bind(this),
-        error: function(err){
-          Materialize.toast(err, 3000, 'rounded');
-          console.log(err);
-        }.bind(this)
-      });
+      DataUtil.handlePostToServer(postUrl,$(this).serialize(),'Adding Point to Tour. Please wait...',e);
     });
   }
 
@@ -46,21 +37,6 @@ class NewTourPoint extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.interval);
-  }
-
-  handleLoadDataFromServer() {
-    //Get All Points
-    $.ajax({
-      url: this.props.points_url,
-      type: "GET",
-      dataType: "json",
-      cache: false,
-      success: function(data){
-        this.setState({
-          points: data
-        });
-      }.bind(this)
-    });
   }
 
   render () {

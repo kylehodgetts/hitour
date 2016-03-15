@@ -7,26 +7,11 @@ class Tours extends React.Component {
   }
 
   componentDidMount() {
-    var postURL = this.props.postUrl;
+    var postUrl = this.props.postUrl;
     $('#tourForm').on('submit',function(e){
       e.preventDefault();
-      // Show Progress
-      $('.progress-message').text('Creating Tour. Please wait...');
-      $('.progress-overlay').fadeIn(200);
-      $.ajax({
-        url: postURL,
-        type: "POST",
-        data: $(this).serialize(),
-        success: function(data){
-          $('.progress-overlay').fadeOut();
-          $('#tourForm')[0].reset();
-          Materialize.toast('Succesfully created new tour!', 3000, 'rounded');
-          $('#tourForm').trigger("reset");
-        },
-        error: function(err){
-          console.log(err);
-        }
-      });
+      DataUtil.handlePostToServer(postUrl,$(this).serialize(),'Creating Tour. Please wait...',e);
+      $('#tourForm')[0].reset();
     });
     $('select').material_select();
   }
