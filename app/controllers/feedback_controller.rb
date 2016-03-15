@@ -14,6 +14,11 @@ class FeedbackController < ApplicationController
     end
   end
 
+  def data
+    feedbacks = Feedback.where(tour_id: params[:tour_id]).group(:rating).count
+    api_response(feedbacks)
+  end
+
   # Destroy the Feedback record whose id matches
   # the given id
   def destroy
