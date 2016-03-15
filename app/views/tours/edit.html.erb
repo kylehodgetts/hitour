@@ -1,7 +1,0 @@
-<h2>Edit <%= @tour.name %></h2>
-<%= form_for (@tour),:url => {:action => "update"} do |f| %>
-<%= f.text_field :name %>
-<%= f.select :audience_id,options_for_select(@audience_options),:selected => @tour.audience.id %>
-<%= f.submit %>
-<% end %>
-<%= link_to 'Add New Audience', new_audience_path %>

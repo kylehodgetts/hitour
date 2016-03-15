@@ -1,3 +1,6 @@
+# Version 1.0
+# ApplicationController for methods that will be used as
+# part of child class Controllers
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -20,12 +23,15 @@ class ApplicationController < ActionController::Base
                                     params[:access_key].eql?(ENV['ACCESS_KEY'])
   end
 
+  # Instantiate a new SendGrid client
   def sendgrid
     SendGrid::Client.new do |c|
       c.api_key = ENV['SENDGRID_ACCESS_KEY']
     end
   end
 
+  # Return appriate reponses for the
+  # requested types
   def api_response(items)
     respond_to do |format|
       format.html
@@ -36,6 +42,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Upload a file to AWS with the given file extension
+  # and from the given file path
   def upload_to_s3(file_extension, file_path)
     s3 = Aws::S3::Resource.new
     obj = s3.bucket('hitourbucket').object(SecureRandom.hex + file_extension)
@@ -50,6 +58,11 @@ class ApplicationController < ActionController::Base
     analayse_video(file_path)
   end
 
+  # Analyse the video to determine the extension
+  # If mp4, compress the video
+  # else assign mp4 as the file path and then recursively
+  # call method
+  # **AVI videos are too large for storage on S3**
   def analayse_video(file_path)
     movie = FFMPEG::Movie.new(file_path)
     # Max Size of 60MB in bytes
@@ -75,6 +88,8 @@ class ApplicationController < ActionController::Base
     url
   end
 
+  # Return true if given file is an image File
+  # Return false otherwise
   def image?(file_path)
     FastImage.size(file_path, raise_on_failure: true)
     return true

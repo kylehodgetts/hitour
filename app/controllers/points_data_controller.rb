@@ -53,15 +53,14 @@ class PointsDataController < ApplicationController
 	def update_rank(point_datum, new_rank)
 		updated = false
 		PointDatum.where(point_id: point_datum.point.id).each do |pd|
-			if pd.rank == new_rank
-				pd.rank = point_datum.rank
-				point_datum.rank = new_rank
-				pd.save
-				point_datum.save
-				updated = true
-				break
-			end
+			next if pd.rank != new_rank
+			pd.rank = point_datum.rank
+			point_datum.rank = new_rank
+			pd.save
+			point_datum.save
+			updated = true
+			break
 		end
-		return updated
+		updated
 	end
 end
