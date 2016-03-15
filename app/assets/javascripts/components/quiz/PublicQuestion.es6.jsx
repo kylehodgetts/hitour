@@ -51,7 +51,12 @@ class PublicQuestion extends React.Component{
             {this.props.questionData.answers.map(function(answer, index) {
               return (
                 <p key={answer.id}>
-                  <input name="answer[id]" type="radio" id={"answer-"+answer.id} value={answer.id} required/>
+                  <input name="answer[id]"
+                         type="radio"
+                         id={"answer-"+answer.id}
+                         value={answer.id}
+                         defaultChecked = {index == 0}
+                         required/>
                   <label htmlFor={"answer-"+answer.id}>{answer.value}</label>
                 </p>
               );
