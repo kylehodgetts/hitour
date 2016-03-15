@@ -65,15 +65,15 @@ DataAudience.create(datum_id: datum10.id, audience_id: uni_student.id)
 
 # Points
 point1 = Point.create(name: 'Fluoroscopy', description: 'This is a test description',
-url: 'https://s3-us-west-2.amazonaws.com/hitourbucket/ExampleData/MRI/MRI.JPG')
+url: 'https://s3-us-west-2.amazonaws.com/hitourbucket/ExampleData/PointPhoto/fluroscopy.jpg')
 point2 = Point.create(name: 'Angiography', description: 'This is a test description',
-url: 'https://s3-us-west-2.amazonaws.com/hitourbucket/ExampleData/MRI/MRI.JPG')
+url: 'https://s3-us-west-2.amazonaws.com/hitourbucket/ExampleData/PointPhoto/angiography.jpg')
 point3 = Point.create(name: 'Intravenous Urograms (IVU)', description: 'This is a test description',
-url: 'https://s3-us-west-2.amazonaws.com/hitourbucket/ExampleData/MRI/MRI.JPG')
+url: 'https://s3-us-west-2.amazonaws.com/hitourbucket/ExampleData/PointPhoto/Intravenous+Urograms.png')
 point4 = Point.create(name: 'Magnetic Resonance Imaging (MRI)', description: 'This is a test description',
-url: 'https://s3-us-west-2.amazonaws.com/hitourbucket/ExampleData/MRI/MRI.JPG')
+url: 'https://s3-us-west-2.amazonaws.com/hitourbucket/ExampleData/PointPhoto/Magnetic+Resonance+Imaging+(MRI).jpg')
 point5 = Point.create(name: 'Nuclear Medicine', description: 'This is a test description',
-url: 'https://s3-us-west-2.amazonaws.com/hitourbucket/ExampleData/MRI/MRI.JPG')
+url: 'https://s3-us-west-2.amazonaws.com/hitourbucket/ExampleData/PointPhoto/NuclearMed.jpg')
 
 # Point Data
 # For Point 1
@@ -124,13 +124,13 @@ TourSession.create(tour_id: tour2.id, name: 'Tour with final year students', sta
 # For Quiz
 quiz = Quiz.create(name:'The Best Quiz')
 TourQuiz.create(tour_id: tour2.id, quiz_id: quiz.id)
-question1 = Question.create(quiz_id: quiz.id, description:'Who am I?', rank: 0)
+question1 = Question.create(quiz_id: quiz.id, description:'Who am I?', rank: 1)
 answer = Answer.create(question_id:question1.id,value:'Kyle',is_correct: false)
 answer2 = Answer.create(question_id:question1.id,value:'Tahmidul',is_correct: true)
 answer3 = Answer.create(question_id:question1.id,value:'Dom',is_correct: false)
 answer4 = Answer.create(question_id:question1.id,value:'Chockler',is_correct: false)
 
-question2 = Question.create(quiz_id: quiz.id, description:'What is your best module?', rank: 1)
+question2 = Question.create(quiz_id: quiz.id, description:'What is your best module?', rank: 2)
 answer = Answer.create(question_id:question2.id,value:'OSC',is_correct: false)
 answer2 = Answer.create(question_id:question2.id,value:'FC2',is_correct: false)
 answer3 = Answer.create(question_id:question2.id,value:'PLD',is_correct: false)

@@ -1,8 +1,8 @@
 class TourSessionsController < ApplicationController
   before_action :authenticate_user!
   def create
-    # Generate random passphrase
-    params[:tour_session][:passphrase] = RandomWord.nouns.next
+    # Generate random passphrase if not given
+    generate_passphrase
     begin
       tour_session = TourSession.new(tour_session_params)
       tour_session.save
@@ -14,6 +14,13 @@ class TourSessionsController < ApplicationController
 		rescue ActiveRecord::RecordNotUnique
 			 render json: ['Please select a different tour or different start date']
 		end
+  end
+
+  def generate_passphrase
+    if params[:tour_session][:passphrase].nil?
+      random_word = RandomWord.nouns.next + SecureRandom.hex(3)
+      params[:tour_session][:passphrase] = random_word
+    end
   end
 
   def update

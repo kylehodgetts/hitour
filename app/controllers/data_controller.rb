@@ -21,6 +21,7 @@ class DataController < ApplicationController
       datum['show_url'] = datum_path(item)
       @data << datum
     end
+    @audiences = Audience.all
     api_response(@data)
   end
 
@@ -68,6 +69,11 @@ class DataController < ApplicationController
                        description: params[:description],
                        url: params[:url])
     @datum.save
+    # Add Initial Audience to Datum
+    if params[:datum]
+      DataAudience.new(datum_id: @datum.id,
+                       audience_id: params[:datum][:audience]).save
+    end
     flash[:success] = "Media (#{params[:title]}) succesfully uploaded"
     redirect_to data_path
   end

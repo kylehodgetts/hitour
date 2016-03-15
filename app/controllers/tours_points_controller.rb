@@ -28,7 +28,7 @@ class ToursPointsController < ApplicationController
 	def increase_rank
 		tour_point = TourPoint.find(params[:id])
 		if update_rank(tour_point, tour_point.rank + 1)
-			render json: ["Succesfully increased rank to #{tour_point.rank}"]
+			render json: ["Succesfully moved #{tour_point.point.name} down"]
 		else
 			render json: ['No change in rank']
 		end
@@ -37,7 +37,7 @@ class ToursPointsController < ApplicationController
 	def decrease_rank
 		tour_point = TourPoint.find(params[:id])
 		if update_rank(tour_point, tour_point.rank - 1)
-			render json: ["Succesfully decreased rank to #{tour_point.rank}"]
+			render json: ["Succesfully moved #{tour_point.point.name} up"]
 		else
 			render json: ['Couldnt update rank']
 		end

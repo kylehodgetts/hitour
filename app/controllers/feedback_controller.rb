@@ -2,6 +2,7 @@
 # Feedback Controller responsible for creating and deleting
 # feedback records
 class FeedbackController < ApplicationController
+  before_action :authenticate_user!, except: :create
   # Create a feedback record with the given parameters
   # Render a successful response if save is successful
   # Else respond with the ActiveRecord error message

@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe FeedbackController, type: :controller do
   describe 'POST #create' do
     before(:each) do
-      create_user_session
       Feedback.delete_all
     end
     describe 'create feedback' do

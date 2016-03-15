@@ -1,9 +1,12 @@
 class Data extends React.Component {
+  componentDidMount () {
+    $('.audienceSelector').material_select();
+  }
   render () {
     return (
       <div>
         <GenericList getUrl={this.props.getUrl} />
-        <form onSubmit={this.showProgressBar} id="datumForm" className="col s12" encType="multipart/form-data" action={this.props.postUrl} method="post" >
+        <form style={{marginBottom: '100px'}} onSubmit={this.showProgressBar} id="datumForm" className="col s12" encType="multipart/form-data" action={this.props.postUrl} method="post" >
                   <div className="row">
             <div className="input-field col s12">
                 <input id="datum[title]" type="text" name="title" className="validate" required/>
@@ -25,6 +28,19 @@ class Data extends React.Component {
               <input className="file-path validate" type="text" placeholder="Upload your file here" />
             </div>
           </div>
+          <div className="row">
+            <div className="input-field col s12">
+              <select id="datum[audience]" className="audienceSelector" name="datum[audience]">
+                {this.props.audiences.map(function(audience) {
+                  return (
+                    <option value={audience.id} key={audience.id} >{audience.name}</option>
+                  );
+                }, this)}
+              </select>
+              <label htmlFor="datum[audience]">Initial Audience Datum is available to:</label>
+            </div>
+          </div>
+          <label>Note: More Audiences can be added later</label>
           <button className="btn right blue waves-effect waves-light"
                   type="submit" name="action">Submit
             <i className="material-icons right">send</i>
@@ -42,5 +58,6 @@ class Data extends React.Component {
 Data.displayName = "Data";
 Data.propTypes = {
   getUrl: React.PropTypes.string.isRequired,
-  postUrl: React.PropTypes.string.isRequired
+  postUrl: React.PropTypes.string.isRequired,
+  audiences: React.PropTypes.array.isRequired
 }
