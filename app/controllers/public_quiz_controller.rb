@@ -2,6 +2,7 @@ class PublicQuizController < ApplicationController
   def attempt_quiz
     tour_session = TourSession.where(passphrase: params[:id])
     return redirect_error_page(403) unless tour_session.exists?
+    session[:tour_session] = tour_session.first.id
     @quiz_data = quiz_data(tour_session.first.tour.id)
     @quiz_data = @quiz_data.as_json
     @tour = Tour.find(tour_session.first.tour.id)
@@ -9,6 +10,7 @@ class PublicQuizController < ApplicationController
   end
 
   def submit_question
+    return render json: ['No Tour Session'] if session[:tour_session].nil?
     return render json: ['No answer'] if params[:answer].nil?
     answer = Answer.find(params[:answer][:id])
     question_id = params[:question][:id]

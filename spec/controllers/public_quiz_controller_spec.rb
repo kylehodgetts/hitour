@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe PublicQuizController, type: :controller do
   render_views
   def create_tour_session(tour_id)
+    TourSession.delete_all
     TourSession.create(
       tour_id: tour_id,
       name: 'TourName',
@@ -14,11 +15,13 @@ RSpec.describe PublicQuizController, type: :controller do
     before(:each) do
       Quiz.delete_all
       TourQuiz.delete_all
+      session.clear
     end
     describe 'public quiz page' do
       it 'should be able to access quiz page' do
         quiz = Quiz.create(name: 'Test Quiz')
         tour = create_tour
+        session[:tour_session] = create_tour_session(tour.id)
         TourQuiz.create(quiz_id: quiz.id, tour_id: tour.id)
         tour_session = create_tour_session(tour.id)
         get :attempt_quiz, id: tour_session.passphrase
@@ -38,6 +41,8 @@ RSpec.describe PublicQuizController, type: :controller do
       Answer.delete_all
       TourQuiz.delete_all
       session.clear
+      tour = create_tour
+      session[:tour_session] = create_tour_session(tour.id)
     end
     describe 'with correct answer' do
       it 'should accept answer and update question frequency' do
