@@ -225,12 +225,9 @@ class SingleTour extends React.Component {
               }, this)}
             </ul>
             <div className="row">
-              {this.state.tourSessions &&
-              this.state.tourSessions.length > 0 &&
                 <SessionEmail
-                    tourSessions={this.state.tourSessions}
+                    tourSessionsUrl={this.props.showUrl}
                 />
-              }
             </div>
             <NewTourSession
               tour_id={this.props.tour_id}
