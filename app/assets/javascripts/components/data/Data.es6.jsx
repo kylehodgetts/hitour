@@ -25,6 +25,20 @@ class Data extends React.Component {
               <input className="file-path validate" type="text" placeholder="Upload your file here" />
             </div>
           </div>
+          <p>Initial Audience Datum is available to:</p>
+          {this.props.audiences.map(function(audience, index) {
+            return (
+              <p key={index}>
+                <input value={audience.id}
+                       defaultChecked = {index == 0}
+                       name="datum[audience]"
+                       type="radio"
+                       id={"audience-"+audience.id}/>
+                <label htmlFor={"audience-"+audience.id}>{audience.name}</label>
+              </p>
+            )
+          })}
+          <label>Note: More Audiences can be added later</label>
           <button className="btn right blue waves-effect waves-light"
                   type="submit" name="action">Submit
             <i className="material-icons right">send</i>
@@ -42,5 +56,6 @@ class Data extends React.Component {
 Data.displayName = "Data";
 Data.propTypes = {
   getUrl: React.PropTypes.string.isRequired,
-  postUrl: React.PropTypes.string.isRequired
+  postUrl: React.PropTypes.string.isRequired,
+  audiences: React.PropTypes.object.isRequired
 }
