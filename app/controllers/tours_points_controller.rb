@@ -60,14 +60,13 @@ class ToursPointsController < ApplicationController
 	def update_rank(tour_point, new_rank)
 		updated = false
 		TourPoint.where(tour_id: tour_point.tour.id).each do |tp|
-			if tp.rank == new_rank
-				tp.rank = tour_point.rank
-				tour_point.rank = new_rank
-				tp.save
-				tour_point.save
-				updated = true
-				break
-			end
+			next if tp.rank != new_rank
+			tp.rank = tour_point.rank
+			tour_point.rank = new_rank
+			tp.save
+			tour_point.save
+			updated = true
+			break
 		end
 		updated
 	end

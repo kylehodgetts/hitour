@@ -5,10 +5,10 @@ class PasswordResetController < ApplicationController
   # Create a SecureRandom hex password and assign it as the given users
   # temporary password
   def create
-    user = User.find_by_email(params[:email])
-    if user
+    @user = User.find_by_email(params[:email])
+    if @user
       reset_password = SecureRandom.hex(25)
-      user.update_attribute(:temporarypassword, reset_password)
+      @user.update_attribute(:temporarypassword, reset_password)
       send_reset_email
       redirect_to root_path
     else
