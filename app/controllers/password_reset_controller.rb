@@ -31,14 +31,14 @@ class PasswordResetController < ApplicationController
 
   def activate
   	@user = User.find_by_temporarypassword(params[:temporarypassword])
-    if !@user
-      redirect_to root_url
-    elsif !@user.temporarypassword.empty?
-      @user.authenticate(@user.password)
-      @user.update_attribute(:temporarypassword, '')
-      session[:user_id] = @user.id
-      redirect_to update_profile_path(@user.id)
-    end
+   if !@user
+     redirect_to root_url
+   elsif !@user.temporarypassword.empty?
+     @user.authenticate(@user.password)
+     @user.update_attribute(:temporarypassword, '')
+     session[:user_id] = @user.id
+     redirect_to update_profile_path(@user.id)
+   end
   end
 
   private
