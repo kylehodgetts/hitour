@@ -105,8 +105,24 @@ class SingleQuiz extends React.Component{
                     </table>
                   </div>
                   {question.answers.map(function(answer, index) {
-                    return <Answer key={answer.id} answer={answer} />
+                    return (<Answer key={answer.id} answer={answer} />);
                   })}
+                  <form className="collection-item" id="answerForm">
+                    <label htmlFor="answer[value]">Answer</label>
+                    <input type="text" name="answer[value]" />
+                      <div className="switch">
+                        <label>
+                          Incorrect
+                          <input type="checkbox" />
+                          <span className="lever"></span>
+                          Correct
+                        </label>
+                      </div>
+                    <button className="btn right blue waves-effect waves-light"
+                            type="submit" name="action">Submit
+                      <i className="material-icons right">send</i>
+                    </button>
+                  </form>
                 </div>
               </li>
             );

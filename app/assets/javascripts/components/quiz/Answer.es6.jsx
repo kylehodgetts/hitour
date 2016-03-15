@@ -28,11 +28,6 @@ class Answer extends React.Component{
                      onClick={_this.handleDeleteDataFromServer.bind(this, this.props.answer.delete_url)}>
           <i className=" blue-text material-icons">delete_forever</i>
         </a>
-        {this.props.answer.show_url &&
-          <a id={this.props.answer.id} href={this.props.answer.show_url} className="secondary-content">
-            <i className=" blue-text material-icons">launch</i>
-          </a>
-        }
       </div>
     );
   }
