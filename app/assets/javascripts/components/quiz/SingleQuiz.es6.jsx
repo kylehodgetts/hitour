@@ -14,6 +14,27 @@ class SingleQuiz extends React.Component{
       this.handleLoadDataFromServer.bind(this),
       this.state.pollInterval
     );
+    var postURL = this.props.postQuestionUrl;
+    $('#questionForm').on('submit', function(e){
+      e.preventDefault();
+      $('.progress-message').text('Creating Question. Please wait...');
+      $('.progress-overlay').fadeIn(200);
+      $.ajax({
+        url: postURL,
+        type: "POST",
+        data: $(this).serialize(),
+        success: function(data){
+          $('.progress-overlay').fadeOut();
+          Materialize.toast(data, 3000, 'rounded');
+          $('#questionForm').trigger("reset");
+        },
+        error: function(err){
+          console.log("Error" + err);
+          console.log(err);
+          Materialize.toast('ERR: Succesfully added new question!', 3000, 'rounded');
+        }
+      });
+    });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -134,6 +155,14 @@ class SingleQuiz extends React.Component{
             );
           }, this)}
         </ul>
+        <form id="questionForm">
+          <label htmlFor="question[description]">Question</label>
+          <input type="text" name="question[description]" id="question[description]" />
+          <button className="btn right blue waves-effect waves-light"
+                  type="submit" name="action">Submit
+            <i className="material-icons right">send</i>
+          </button>
+        </form>
       </div>
     )
   }
