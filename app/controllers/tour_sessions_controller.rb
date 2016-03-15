@@ -18,7 +18,8 @@ class TourSessionsController < ApplicationController
 
   def generate_passphrase
     if params[:tour_session][:passphrase].nil?
-      RandomWord.nouns.next + SecureRandom.hex(3)
+      random_word = RandomWord.nouns.next + SecureRandom.hex(3)
+      params[:tour_session][:passphrase] = random_word
     end
   end
 
