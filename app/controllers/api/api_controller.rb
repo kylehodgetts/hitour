@@ -11,6 +11,7 @@ module Api
         response[:tour_session] = tour_session
         tour = Tour.find(tour_session[:tour_id]).as_json.symbolize_keys
         tour.delete(:notes)
+        tour[:quiz_url] = attempt_quiz_url(tour_session.passphrase)
         response[:tours] = tour
         populate_tour_reponse(response[:tours])
         render json: response
