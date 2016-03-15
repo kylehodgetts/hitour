@@ -83,10 +83,9 @@ Rails.application.routes.draw do
   delete '/quizzes/:id', to: 'quiz#destroy', as: :delete_quiz
   get '/quizzes/show/:id', to: 'quiz#show', as: :quiz
   get '/quizzes', to: 'quiz#index', as: :quizzes
-  get '/quizzes/template', to: 'quiz#template'
-  get '/quizzes/answered_template', to: 'quiz#template_answered'
-  get '/quizzes/attempt_quiz/:id', to: 'quiz#attempt_quiz', as: :attempt_quiz
-  post '/quizzes/submit_question', to: 'quiz#submit_question', as: :submit_question
+
+  get '/quizzes/attempt_quiz/:id', to: 'public_quiz#attempt_quiz', as: :attempt_quiz
+  post '/quizzes/submit_question', to: 'public_quiz#submit_question', as: :submit_question
 
   # Question
   post '/questions', to: 'question#create', as: :create_question
