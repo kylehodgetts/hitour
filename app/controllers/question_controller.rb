@@ -1,5 +1,6 @@
 class QuestionController < ApplicationController
   before_action :authenticate_user!
+
   def show
     question = Question.includes(:answers).find(params[:id])
     api_response(question)

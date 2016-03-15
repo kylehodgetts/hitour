@@ -1,5 +1,6 @@
 class TourSessionsController < ApplicationController
   before_action :authenticate_user!
+
   def create
     # Generate random passphrase if not given
     generate_passphrase
