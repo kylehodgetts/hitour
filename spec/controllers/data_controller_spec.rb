@@ -26,7 +26,9 @@ RSpec.describe DataController, type: :controller do
       Datum.delete_all
     end
     it 'should upload image to amazon s3 and return a url' do
+      audience = Audience.create(name: 'Adult')
       post :create,
+           datum: { audience: audience.id },
            file: fixture_file_upload('/files/test_image.jpg', 'image/jpg'),
            title: 'Test Data Upload',
            description: 'This is a test data upload'
@@ -34,6 +36,10 @@ RSpec.describe DataController, type: :controller do
       expect(Datum.all.size).to eq 1
       datum = Datum.find_by(title: 'Test Data Upload')
       expect(datum.url.include?('http')).to eq true
+      # Should have assigned Audience
+      datum_audience = DataAudience.where(datum_id: datum.id,
+                                          audience_id: audience.id)
+      expect(datum_audience.exists?).to be_truthy
     end
   end
 end

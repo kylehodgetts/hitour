@@ -70,8 +70,10 @@ class DataController < ApplicationController
                        url: params[:url])
     @datum.save
     # Add Initial Audience to Datum
-    DataAudience.new(datum_id: @datum.id,
-                     audience_id: params[:datum][:audience]).save
+    if params[:datum]
+      DataAudience.new(datum_id: @datum.id,
+                       audience_id: params[:datum][:audience]).save
+    end
     flash[:success] = "Media (#{params[:title]}) succesfully uploaded"
     redirect_to data_path
   end
