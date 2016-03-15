@@ -86,9 +86,10 @@ RSpec.describe SessionsController, type: :controller do
                             temporarypassword: 'workingpass')
         @user.save
       end
-      it 'should establish a session,remove temporary password and redirect to update profile' do
+      it 'should establish a session,remove temporary password and redirect to
+                                                              update profile' do
         expect(@user.temporarypassword).to eq('workingpass')
-         get :create,email: 'phileas.hocquard@gmail.com',password: 'workingpass'
+        get :create, email: 'phileas.hocquard@gmail.com', password: 'workingpass'
         expect(response).to redirect_to update_profile_path(@user.id)
         expect(session[:user_id]).to eq(@user.id)
         # Refetch user for updated attributes

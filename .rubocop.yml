@@ -22,3 +22,5 @@ Style/Tab:
   Enabled: false
 Style/IndentationWidth:
   Enabled: false
+Metrics/MethodLength:
+  Enabled: false
