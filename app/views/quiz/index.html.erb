@@ -1,3 +1,4 @@
 <h2>Quizzes</h2>
 <% title 'Quizzes' %>
-<%= react_component('GenericList', getUrl: quizzes_path + '.json') %>
+<%= react_component('Quizzes', getUrl: quizzes_path + '.json',
+                               postUrl: create_quiz_path) %>
