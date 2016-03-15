@@ -26,6 +26,7 @@ class Data extends React.Component {
             </div>
           </div>
           <p>Initial Audience Datum is available to:</p>
+          <div style={{height:'200px', overflowY:'scroll'}}>
           {this.props.audiences.map(function(audience, index) {
             return (
               <p key={index}>
@@ -38,6 +39,7 @@ class Data extends React.Component {
               </p>
             )
           })}
+          </div>
           <label>Note: More Audiences can be added later</label>
           <button className="btn right blue waves-effect waves-light"
                   type="submit" name="action">Submit
@@ -57,5 +59,5 @@ Data.displayName = "Data";
 Data.propTypes = {
   getUrl: React.PropTypes.string.isRequired,
   postUrl: React.PropTypes.string.isRequired,
-  audiences: React.PropTypes.object.isRequired
+  audiences: React.PropTypes.array.isRequired
 }
