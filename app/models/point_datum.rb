@@ -1,3 +1,7 @@
+# Version 1.0
+# Point Datum model that models the relationship
+# between a Point and Datum.
+# Rank corresponds to the order the datum appears in the point
 class PointDatum < ActiveRecord::Base
 	belongs_to :point
 	belongs_to :datum

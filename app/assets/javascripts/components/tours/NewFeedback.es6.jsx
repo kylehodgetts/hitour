@@ -4,7 +4,7 @@ class NewFeedback extends React.Component{
     $('#feedbackForm').on('submit',function(e){
       e.preventDefault();
       // Show Progress
-      $('.progress-message').text('Uploading Feedback. Please wait...');
+      $('.progress-message').text('Submitting Quiz and Feedback data. Please wait...');
       $('.progress-overlay').fadeIn(200);
       $.ajax({
         url: '/feedback',
@@ -14,7 +14,7 @@ class NewFeedback extends React.Component{
           $('.progress-overlay').fadeOut();
           $('.star').eq(0).trigger('click');
           $('#feedbackForm').trigger('reset');
-          Materialize.toast(data, 3000, 'rounded');
+          Materialize.toast('Succesfully submitted feedback and quiz', 3000, 'rounded');
         },
         error: function(data) {
           console.log(data);
@@ -39,9 +39,6 @@ class NewFeedback extends React.Component{
               <textarea id="feedback[comment]" placeholder="Leave a comment" className="validate materialize-textarea" name="feedback[comment]"></textarea>
             </div>
           </div>
-          <button type="submit" className="waves-effect waves-light btn blue right">
-            <i className="material-icons left">cloud</i>Save Feedback
-          </button>
         </form>
       </div>
     );

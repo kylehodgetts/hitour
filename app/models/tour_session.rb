@@ -1,8 +1,12 @@
+# Version 1.0
+# Tour Session model that models the relationship between a Tour
+# and a Tour Session.
 class TourSession < ActiveRecord::Base
   PASSPHRASE_REGEX = /\A[A-z0-9]{5,}+\z/i
   belongs_to :tour
 
   validates :name, presence: :true
+  # Ensure passphrase matches the given regex pattern
   validates :passphrase, presence: true,
                          format: { with: PASSPHRASE_REGEX }
   validates :tour_id, presence: true

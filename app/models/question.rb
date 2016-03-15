@@ -1,3 +1,6 @@
+# Version 1.0
+# Question model that models a question that appears on Quizzes
+# Questions have collections of answers and belong to a single quiz
 class Question < ActiveRecord::Base
   belongs_to :quiz
   after_initialize :init

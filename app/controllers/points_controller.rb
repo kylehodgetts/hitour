@@ -72,7 +72,7 @@ class PointsController < ApplicationController
 		file_extension = File.extname(file_path)
 		params[:url] = analyse_upload(file_path, file_extension)
 		@point = Point.new(name: params[:name],
-		  								 description: params[:description],
+											 description: params[:description],
 		  								 url: params[:url])
 		@point.save
 		flash[:success] = "Point (#{params[:name]}) succesfully created and uploaded"

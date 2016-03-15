@@ -1,10 +1,16 @@
+# Version 1.0
+# Data Controller responsible for RESTful actions
+# with respect to Data records
 class DataController < ApplicationController
   before_action :authenticate_activate_user!
 
+  # Require libraries
   require 'securerandom'
   require 'streamio-ffmpeg'
   require 'fastimage'
 
+  # Return all data records formatted
+  # for the response
   def index
     @data = []
     items = Datum.all
@@ -18,6 +24,9 @@ class DataController < ApplicationController
     api_response(@data)
   end
 
+  # Show a given piece of data whose id matches that
+  # provided in the params, including its audiences that it is
+  # available to.
   def show
     @datum = Datum.includes(:audiences).find(params[:id])
     datum_audiences = DataAudience.where(datum_id: params[:id]).map do |da|
@@ -31,6 +40,8 @@ class DataController < ApplicationController
     api_response(items)
   end
 
+  # Update a given datum whose id matches that given in the params
+  # Return a successful response if datum is updated successfully
   def update
     @datum = Datum.find(params[:id])
     if @datum.update_attributes(datum_params)
@@ -40,10 +51,12 @@ class DataController < ApplicationController
     end
   end
 
+  # Prepare a new datum
   def new
     @data = Datum.new
   end
 
+  # Save a new datum to the database
   def create
     # Redirect back since no file provided
     return redirect_to data_path if params[:file].nil?
@@ -59,6 +72,8 @@ class DataController < ApplicationController
     redirect_to data_path
   end
 
+  # Destroy a given datum whose id matches
+  # that given in the params
   def destroy
     @datum = Datum.find(params[:id])
     @datum.destroy
@@ -67,6 +82,7 @@ class DataController < ApplicationController
 
   private
 
+  # Require a record of type Datum and permit the given attributes
   def datum_params
     params.require(:datum).permit(:title, :description, :url)
   end

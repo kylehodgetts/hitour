@@ -1,3 +1,6 @@
+# Version 1.0
+# Tour model that models a Tour with a collection of ordered Points
+# A tour is available to one audience
 class Tour < ActiveRecord::Base
 	validates :name, presence: :true, uniqueness: true
 	belongs_to :audience

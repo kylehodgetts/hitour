@@ -1,6 +1,11 @@
+# Version 1.0
+# Audiences Controller responsible for RESTful actions
+# with respect to the Audience Records
 class AudiencesController < ApplicationController
   before_action :authenticate_activate_user!
 
+  # Return all audiences to view with the responsible
+  # response format
   def index
     items = Audience.all
     @audiences = []
@@ -13,28 +18,15 @@ class AudiencesController < ApplicationController
     api_response(@audiences)
   end
 
-  def show
-    @audience = Audience.find(params[:id])
-  end
-
-  def update
-    @audience = Audience.find(params[:id])
-    if @audience.update_attributes(audience_params)
-      redirect_to @audience
-    else
-      redirect_to edit_audience_path
-    end
-  end
-
+  # Create an audience with the given parameters
+  # If the record is saved, redirect to the index action
   def create
     @audience = Audience.new(audience_params)
-    if @audience.save
-      redirect_to audiences_path
-    else
-      redirect_to new_audience_path
-    end
+    redirect_to audiences_path if @audience.save
   end
 
+  # Destroy an audience with the given ID
+  # Only if no tour references this record as its audience
   def destroy
     if Tour.find_by(audience_id: params[:id])
       render json: ['Cannot delete Audience while a Tour has it assigned'],
@@ -48,6 +40,7 @@ class AudiencesController < ApplicationController
 
   private
 
+  # Require a record of time audience with the name attribute
   def audience_params
     params.require(:audience).permit(:name)
   end

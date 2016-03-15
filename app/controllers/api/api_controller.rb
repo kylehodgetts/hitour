@@ -1,9 +1,13 @@
+# Version 1.0
+# Module containing one controller class reponsible
+# for returning json reponses to valid queries
 module Api
   class ApiController < ApplicationController
     before_action :api_authenticate!
 
     # Start the reponse building process for a queried tour
     # Remove the notes for the tour as they aren't needed
+    # rubocop:disable Metrics/MethodLength
     def single_tour
       tour_session = TourSession.find_by passphrase: params[:passphrase]
       if tour_session
@@ -11,6 +15,7 @@ module Api
         response[:tour_session] = tour_session
         tour = Tour.find(tour_session[:tour_id]).as_json.symbolize_keys
         tour.delete(:notes)
+        tour[:quiz_url] = attempt_quiz_url(tour_session.passphrase)
         response[:tours] = tour
         populate_tour_reponse(response[:tours])
         render json: response
