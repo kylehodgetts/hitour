@@ -21,9 +21,12 @@ class QuizController < ApplicationController
 
   def submit_question
     return render json: ['No answer'] if params[:answer].nil?
-    session[:questions] ||= []
     answer = Answer.find(params[:answer][:id])
     question_id = params[:question][:id]
+    analayse_answer(question_id, answer)
+  end
+
+  def analayse_answer(question_id, answer)
     if answer.is_correct
       increment_question_correct(question_id)
       render json: { correct: true }
@@ -32,7 +35,7 @@ class QuizController < ApplicationController
       answer = Answer.where(question_id: question_id, is_correct: true).first
       render json: { correct: false, answer: answer.as_json }
     end
-    session[:questions] << question_id
+    session[question_id.to_sym] = 'Answered'
   end
 
   def correct_answer(question_id)
@@ -40,7 +43,7 @@ class QuizController < ApplicationController
   end
 
   def increment_question_correct(question_id)
-    unless session[:questions].include?question_id
+    unless session[question_id.to_sym].nil?
       question = Question.find(question_id)
       current = question.correctly_answered
       question.update_attribute(:correctly_answered, current + 1)
@@ -48,7 +51,7 @@ class QuizController < ApplicationController
   end
 
   def increment_question_wrong(question_id)
-    unless session[:questions].include?question_id
+    unless session[question_id.to_sym].nil?
       question = Question.find(question_id)
       current = question.wrongly_answered
       question.update_attribute(:wrongly_answered, current + 1)
