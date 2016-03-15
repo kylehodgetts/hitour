@@ -1,5 +1,5 @@
 class ToursPointsController < ApplicationController
-	before_action :authenticate_activate_user!
+	before_action :authenticate_user!
 
 	def create
 		tour_id = params[:tour_point][:tour_id]

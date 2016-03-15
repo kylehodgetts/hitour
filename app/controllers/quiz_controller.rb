@@ -1,5 +1,5 @@
 class QuizController < ApplicationController
-  before_action :authenticate_activate_user!
+  before_action :authenticate_user!
   def index
     @quiz = Quiz.includes(:questions).map do |quiz|
       quiz.as_json.merge(

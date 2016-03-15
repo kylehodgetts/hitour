@@ -1,6 +1,6 @@
 class PointsController < ApplicationController
 	include RQRCode
-	before_action :authenticate_activate_user!
+	before_action :authenticate_user!
 
 	def index
 		@points = Point.includes(:data)

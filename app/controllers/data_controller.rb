@@ -2,7 +2,7 @@
 # Data Controller responsible for RESTful actions
 # with respect to Data records
 class DataController < ApplicationController
-  before_action :authenticate_activate_user!
+  before_action :authenticate_user!
 
   # Require libraries
   require 'securerandom'

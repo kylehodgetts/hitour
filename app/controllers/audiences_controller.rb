@@ -2,7 +2,7 @@
 # Audiences Controller responsible for RESTful actions
 # with respect to the Audience Records
 class AudiencesController < ApplicationController
-  before_action :authenticate_activate_user!
+  before_action :authenticate_user!
 
   # Return all audiences to view with the responsible
   # response format

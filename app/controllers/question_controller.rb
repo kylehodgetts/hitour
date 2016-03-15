@@ -1,5 +1,5 @@
 class QuestionController < ApplicationController
-  before_action :authenticate_activate_user!
+  before_action :authenticate_user!
 
   def show
     question = Question.includes(:answers).find(params[:id])

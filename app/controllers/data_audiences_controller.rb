@@ -2,7 +2,7 @@
 # Data Audience Controller responsible for creating and maintaining
 # Data Audience relationships
 class DataAudiencesController < ApplicationController
-  before_action :authenticate_activate_user!
+  before_action :authenticate_user!
 
   # Create a new Data Audience pair denoting that a data
   # is available to a given audience
