@@ -23,6 +23,7 @@ class SessionEmail extends React.Component {
         dataType: "json",
         success: function(data) {
           $('.progress-overlay').fadeOut();
+          $('#sessionEmailForm')[0].reset();
           Materialize.toast(data, 3000, 'rounded');
         }.bind(this),
         error: function(err) {
