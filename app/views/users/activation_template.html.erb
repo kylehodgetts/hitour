@@ -1,5 +1,5 @@
 <p>Dear Recipient,</p>
-<p>You requested an account be created for the email: <b><%= @user.email %>.</b></p>
+<p>An account has been made for the email: <b><%= @user.email %>.</b></p> on hiTour
 <p>Please click <a href=<%= ('"'+@url[0..-2]+password_reset_path+"/"+@user.temporarypassword+"/activate"'"').html_safe %> >here</a> </p>
 <p>Please set your password after activation.</p>
 <p>Kind Regards,</p>
