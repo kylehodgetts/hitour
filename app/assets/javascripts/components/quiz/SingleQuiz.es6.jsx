@@ -36,12 +36,6 @@ class SingleQuiz extends React.Component{
     var check = JSON.stringify(prevState) === JSON.stringify(this.state);
     if(!check || this.state.question == []){
       $('.collapsible').collapsible();
-      var answerUrl = this.props.postAnswerUrl;
-      $('#answerForm').unbind('submit').on('submit',function(e){
-        e.preventDefault();
-        DataUtil.handlePostToServer(answerUrl,$(this).serialize(),'Adding Answer. Please wait...',e);
-        $('#answerForm').trigger("reset");
-      });
     }
   }
 
@@ -100,7 +94,7 @@ class SingleQuiz extends React.Component{
                   {question.answers.map(function(answer, index) {
                     return (<Answer key={answer.id} answer={answer} />);
                   })}
-                  <form className="collection-item" id="answerForm">
+                  <form action="#" className="collection-item answerForm">
                     <input type="hidden" name="answer[question_id]" value={question.id} />
                     <label htmlFor="answer[value]">Answer</label>
                     <input type="text" name="answer[value]" />
@@ -113,6 +107,7 @@ class SingleQuiz extends React.Component{
                       <i className="material-icons right">send</i>
                     </button>
                   </form>
+                  {this._attachAnswerListener(this.props.postAnswerUrl)}
                 </div>
               </li>
             );
@@ -131,6 +126,15 @@ class SingleQuiz extends React.Component{
         }
       </div>
     )
+  }
+
+  _attachAnswerListener (answerUrl) {
+    //Attaches listener to form, to submit answer
+    $('.answerForm').unbind('submit').on('submit',function(e){
+      e.preventDefault();
+      DataUtil.handlePostToServer(answerUrl,$(this).serialize(),'Adding Answer. Please wait...',e);
+      $('.answerForm').trigger("reset");
+    });
   }
 }
 
