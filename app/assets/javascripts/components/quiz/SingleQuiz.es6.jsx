@@ -36,6 +36,12 @@ class SingleQuiz extends React.Component{
     var check = JSON.stringify(prevState) === JSON.stringify(this.state);
     if(!check || this.state.question == []){
       $('.collapsible').collapsible();
+      var answerUrl = this.props.postAnswerUrl;
+      $('#answerForm').unbind('submit').on('submit',function(e){
+        e.preventDefault();
+        DataUtil.handlePostToServer(answerUrl,$(this).serialize(),'Adding Answer. Please wait...',e);
+        $('#answerForm').trigger("reset");
+      });
     }
   }
 
@@ -95,15 +101,18 @@ class SingleQuiz extends React.Component{
                     return (<Answer key={answer.id} answer={answer} />);
                   })}
                   <form className="collection-item" id="answerForm">
+                    <input type="hidden" name="answer[question_id]" value={question.id} />
                     <label htmlFor="answer[value]">Answer</label>
                     <input type="text" name="answer[value]" />
-                      <div className="switch">
-                        <label>
-                          Incorrect
-                          <input type="checkbox" />
-                          <span className="lever"></span>
-                          Correct
-                        </label>
+                      <div className="input-field col s12">
+                        <p>
+                          <input type="radio" id="answer[correct]" name="answer[is_correct]" value={"true"} defaultChecked = {0 == 0}/>
+                          <label htmlFor="answer[correct]">Wrong</label>
+                        </p>
+                        <p>
+                          <input type="radio" id="answer[wrong]" name="answer[is_correct]" value={"false"} />
+                          <label htmlFor="answer[wrong]">Correct</label>
+                        </p>
                       </div>
                     <button className="btn right blue waves-effect waves-light"
                             type="submit" name="action">Submit
@@ -136,5 +145,6 @@ SingleQuiz.propTypes = {
   getUrl: React.PropTypes.string.isRequired,
   postQuizUrl: React.PropTypes.string.isRequired,
   postQuestionUrl: React.PropTypes.string.isRequired,
+  postAnswerUrl: React.PropTypes.string.isRequired,
   pollInterval: React.PropTypes.number
 };
