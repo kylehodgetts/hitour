@@ -115,14 +115,17 @@ class SingleQuiz extends React.Component{
             );
           }, this)}
         </ul>
-        <form id="questionForm">
-          <label htmlFor="question[description]">Question</label>
-          <input type="text" name="question[description]" id="question[description]" />
-          <button className="btn right blue waves-effect waves-light"
-                  type="submit" name="action">Submit
-            <i className="material-icons right">send</i>
-          </button>
-        </form>
+        {this.state.quiz &&
+          <form id="questionForm">
+            <input type="hidden" name="question[quiz_id]" value={this.state.quiz.id} />
+            <label htmlFor="question[description]">Question</label>
+            <input type="text" name="question[description]" id="question[description]" />
+            <button className="btn right blue waves-effect waves-light"
+                    type="submit" name="action">Submit
+              <i className="material-icons right">send</i>
+            </button>
+          </form>
+        }
       </div>
     )
   }
