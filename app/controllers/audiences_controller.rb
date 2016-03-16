@@ -22,7 +22,8 @@ class AudiencesController < ApplicationController
   # If the record is saved, redirect to the index action
   def create
     @audience = Audience.new(audience_params)
-    redirect_to audiences_path if @audience.save
+    return render json: ['Successfully created audience'] if @audience.save
+    render json: ['Couldnt create audience']
   end
 
   # Destroy an audience with the given ID
