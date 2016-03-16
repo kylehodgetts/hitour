@@ -62,7 +62,7 @@ class SingleQuiz extends React.Component{
             }
             return (
               <li key={question.id} >
-                <div className="collapsible-header">
+                <div className="collapsible-header green lighten-4">
                   {question.description}
                   <a href="" className="secondary-content"
                                onClick={DataUtil.handleDeleteDataFromServer.bind(this, question.delete_url,"Are you sure you want to delete this question?")}>
@@ -94,17 +94,19 @@ class SingleQuiz extends React.Component{
                   {question.answers.map(function(answer, index) {
                     return (<Answer key={answer.id} answer={answer} />);
                   })}
-                  <form action="#" className="collection-item answerForm">
+                  <form action="#" className="collection-item col s12 answerForm" style={{marginBottom:'50px'}}>
                     <input type="hidden" name="answer[question_id]" value={question.id} />
-                    <label htmlFor="answer[value]">Answer</label>
-                    <input type="text" name="answer[value]" />
-                        <p>
-                          <input type="checkbox" id={"answer[correct]"+question.id} className="filled-in" name="answer[is_correct]" value={"true"}/>
-                          <label htmlFor={"answer[correct]"+question.id}>Is correct?</label>
-                        </p>
-                    <button className="btn right blue waves-effect waves-light"
-                            type="submit" name="action">Submit
-                      <i className="material-icons right">send</i>
+                    <div className="input-field col s12">
+                      <label htmlFor="answer[value]">Answer</label>
+                      <input type="text" name="answer[value]" />
+                    </div>
+                    <div className="input-field col s12">
+                      <input type="checkbox" id={"answer[correct]"+question.id} className="filled-in" name="answer[is_correct]" value={"true"}/>
+                      <label htmlFor={"answer[correct]"+question.id}>Is correct?</label>
+                    </div>
+                    <button className="btn-floating btn-large waves-effect waves-light blue right"
+                            type="submit" name="action">
+                            <i className="material-icons">add</i>
                     </button>
                   </form>
                   {this._attachAnswerListener(this.props.postAnswerUrl)}
