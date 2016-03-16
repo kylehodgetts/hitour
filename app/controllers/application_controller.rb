@@ -127,7 +127,7 @@ class ApplicationController < ActionController::Base
 
   # Retrieves all answers for a question
   def answers(question_id)
-    answers = Answer.where(question_id: question_id)
+    answers = Answer.where(question_id: question_id).order(:id)
     answers.map do |answer|
       answer.as_json.merge(
         delete_url: delete_answer_path(answer[:id]),
