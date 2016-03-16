@@ -62,17 +62,12 @@ class SingleQuiz extends React.Component{
             }
             return (
               <li key={question.id} >
-                <div className="collapsible-header green lighten-4">
+                <div className="collapsible-header grey lighten-3">
                   {question.description}
                   <a href="" className="secondary-content"
                                onClick={DataUtil.handleDeleteDataFromServer.bind(this, question.delete_url,"Are you sure you want to delete this question?")}>
                     <i className=" blue-text material-icons">delete_forever</i>
                   </a>
-                  {question.show_url &&
-                    <a id={item.id} href={question.show_url} className="secondary-content">
-                      <i className=" blue-text material-icons">launch</i>
-                    </a>
-                  }
                 </div>
                 <div className="collapsible-body collection">
                   <div className="collection-item">
