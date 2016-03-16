@@ -31,6 +31,26 @@ class QuizController < ApplicationController
 	  render json: ['That name has already been used.']
   end
 
+  def add_tour_quiz
+    tour = Tour.find(params[:tour][:id])
+    quiz = Quiz.find(params[:quiz][:id])
+    tour_quiz = TourQuiz.create(tour_id: tour.id, quiz_id: quiz.id)
+    if tour_quiz
+      render json: ['Added quiz']
+    else
+      render json: [tour_quiz.errors.full_messages.first]
+    end
+  end
+
+  def remove_tour_quiz
+    tour_quiz = TourQuiz.find(params[:id])
+    if tour_quiz
+      render json: ['Removed Quiz']
+    else
+      render json: [tour_quiz.errors.full_messages.first]
+    end
+  end
+
   def update
     quiz = Quiz.find(params[:id])
     if quiz.update_attributes(quiz_params)

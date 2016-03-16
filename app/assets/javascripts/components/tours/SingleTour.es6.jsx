@@ -7,6 +7,7 @@ class SingleTour extends React.Component {
       points: [],
       tourSessions: [],
       feedbacks: [],
+      quizzes: [],
       pollInterval: this.props.pollInterval || 2000,
       intervalId: 0
     };
@@ -19,7 +20,8 @@ class SingleTour extends React.Component {
         audience: data[0]["audience"],
         points: data[0]["points"],
         tourSessions: data[0]["tour_sessions"],
-        feedbacks: data[0]["feedbacks"]
+        feedbacks: data[0]["feedbacks"],
+        quizzes: data[0]["quizzes"]
       });
     }.bind(this));
     this.interval = setInterval(
@@ -29,7 +31,8 @@ class SingleTour extends React.Component {
           audience: data[0]["audience"],
           points: data[0]["points"],
           tourSessions: data[0]["tour_sessions"],
-          feedbacks: data[0]["feedbacks"]
+          feedbacks: data[0]["feedbacks"],
+          quizzes: data[0]["quizzes"]
         });
       }.bind(this)),
       this.state.pollInterval
@@ -166,6 +169,15 @@ class SingleTour extends React.Component {
             new_tour_point_url={this.props.new_tour_point_url}
             />
         </div>
+        <div className="row">
+          {this.state.quizzes &&
+            <NewTourQuiz
+              tourId={this.props.tour_id}
+              quizzes={this.state.quizzes}
+              postUrl={this.props.postTourQuizUrl}
+              />
+          }
+        </div>
 
         <div id="sessionModal" className="modal" style={{maxHeight: '800px'}}>
           <div className="modal-content">
@@ -230,6 +242,7 @@ SingleTour.propTypes = {
   pdfUrl: React.PropTypes.string.isRequired,
   audiences: React.PropTypes.array,
   new_tour_session_url: React.PropTypes.string.isRequired,
-  tourNote: React.PropTypes.string.isRequired,
-  feedbackPostUrl: React.PropTypes.string.isRequired
+  tourNote: React.PropTypes.string,
+  feedbackPostUrl: React.PropTypes.string.isRequired,
+  postTourQuizUrl: React.PropTypes.string.isRequired
 }

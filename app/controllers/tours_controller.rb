@@ -28,10 +28,12 @@ class ToursController < ApplicationController
 		@tour_points = [] if @tour_points.nil?
 		items = [
 		  tour: 				 @tour,
+			 currentQuiz:  TourQuiz.where(tour_id: @tour.id).first,
 		  audience:			 @audience,
 		  points:  			 @tour_points,
 			 tour_sessions: @tour_sessions,
-			 feedbacks: tour_feedbacks
+			 feedbacks: tour_feedbacks,
+			 quizzes: Quiz.all.as_json
 		]
 		api_response(items)
 	end
