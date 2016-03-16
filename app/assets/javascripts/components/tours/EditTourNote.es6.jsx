@@ -86,7 +86,7 @@ class TourNote extends React.Component{
 
 TourNote.displayName = "TourNote";
 TourNote.propTypes = {
-  initialValue: React.PropTypes.string.isRequired,
+  initialValue: React.PropTypes.string,
   tourUrl: React.PropTypes.string.isRequired,
   updateTourPath: React.PropTypes.string.isRequired,
   pollInterval: React.PropTypes.number

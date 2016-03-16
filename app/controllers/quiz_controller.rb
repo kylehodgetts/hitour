@@ -35,7 +35,7 @@ class QuizController < ApplicationController
     tour = Tour.find(params[:tour][:id])
     quiz = Quiz.find(params[:quiz][:id])
     tour_quiz = TourQuiz.create(tour_id: tour.id, quiz_id: quiz.id)
-    if tour_quiz
+    if tour_quiz.errors.full_messages.first.nil?
       render json: ['Added quiz']
     else
       render json: [tour_quiz.errors.full_messages.first]
