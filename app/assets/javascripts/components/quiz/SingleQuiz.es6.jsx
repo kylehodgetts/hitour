@@ -104,16 +104,10 @@ class SingleQuiz extends React.Component{
                     <input type="hidden" name="answer[question_id]" value={question.id} />
                     <label htmlFor="answer[value]">Answer</label>
                     <input type="text" name="answer[value]" />
-                      <div className="input-field col s12">
                         <p>
-                          <input type="radio" id="answer[correct]" name="answer[is_correct]" value={"true"} defaultChecked = {0 == 0}/>
-                          <label htmlFor="answer[correct]">Wrong</label>
+                          <input type="checkbox" id={"answer[correct]"+question.id} className="filled-in" name="answer[is_correct]" value={"true"}/>
+                          <label htmlFor={"answer[correct]"+question.id}>Is correct?</label>
                         </p>
-                        <p>
-                          <input type="radio" id="answer[wrong]" name="answer[is_correct]" value={"false"} />
-                          <label htmlFor="answer[wrong]">Correct</label>
-                        </p>
-                      </div>
                     <button className="btn right blue waves-effect waves-light"
                             type="submit" name="action">Submit
                       <i className="material-icons right">send</i>

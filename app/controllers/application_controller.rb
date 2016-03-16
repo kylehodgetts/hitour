@@ -130,7 +130,8 @@ class ApplicationController < ActionController::Base
     answers = Answer.where(question_id: question_id)
     answers.map do |answer|
       answer.as_json.merge(
-        delete_url: delete_answer_path(answer[:id])
+        delete_url: delete_answer_path(answer[:id]),
+        make_correct_url: answer_make_correct_path(answer[:id])
       )
     end
   end

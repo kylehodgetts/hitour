@@ -96,6 +96,7 @@ Rails.application.routes.draw do
   # Answer
   post '/answers', to: 'answer#create', as: :create_answer
   delete '/answers/:id', to: 'answer#destroy', as: :delete_answer
+  post '/answers/:id', to: 'answer#make_correct', as: :answer_make_correct
 
   # API
   namespace :api do
