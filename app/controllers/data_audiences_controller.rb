@@ -4,17 +4,6 @@
 class DataAudiencesController < ApplicationController
   before_action :authenticate_user!
 
-  # Create a new Data Audience pair denoting that a data
-  # is available to a given audience
-  def new
-    @data_audience = DataAudience.new
-    @data_options = []
-    @data_options << [params[:datum_title], params[:datum_id]]
-    @audience_options = Audience.all.map do |audience|
-			[audience.name, audience.id]
-    end
-  end
-
   # Save a Data Audience pair to the database
   # Raise a RecordNotUnique exception if a relationship already exists
   # between a given data and audience
