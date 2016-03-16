@@ -13,6 +13,7 @@ def create_user_session
   @user.save
   session[:user_id] = @user.id
 end
+
 def create_tour
   Audience.delete_all
   Tour.delete_all
@@ -22,6 +23,7 @@ def create_tour
   TourSession.delete_all
   tour
 end
+
 def create_question
   Quiz.delete_all
   Question.delete_all
