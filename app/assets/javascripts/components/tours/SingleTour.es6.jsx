@@ -8,6 +8,7 @@ class SingleTour extends React.Component {
       tourSessions: [],
       feedbacks: [],
       quizzes: [],
+      currentQuiz: [],
       pollInterval: this.props.pollInterval || 2000,
       intervalId: 0
     };
@@ -21,7 +22,8 @@ class SingleTour extends React.Component {
         points: data[0]["points"],
         tourSessions: data[0]["tour_sessions"],
         feedbacks: data[0]["feedbacks"],
-        quizzes: data[0]["quizzes"]
+        quizzes: data[0]["quizzes"],
+        currentQuiz: data[0]["currentQuiz"]
       });
     }.bind(this));
     this.interval = setInterval(
@@ -32,7 +34,8 @@ class SingleTour extends React.Component {
           points: data[0]["points"],
           tourSessions: data[0]["tour_sessions"],
           feedbacks: data[0]["feedbacks"],
-          quizzes: data[0]["quizzes"]
+          quizzes: data[0]["quizzes"],
+          currentQuiz: data[0]["currentQuiz"]
         });
       }.bind(this)),
       this.state.pollInterval
@@ -92,6 +95,13 @@ class SingleTour extends React.Component {
               postUrl={this.props.update_tour_url}
               attributeName="tour[audience_id]"
             />
+          }
+          {this.state.currentQuiz.name &&
+            <p>
+              <a href="#" onClick={DataUtil.handleDeleteDataFromServer.bind(this, this.state.currentQuiz.delete_url,"Are you sure you want to remove this quiz from this tour?")}>
+                Remove {this.state.currentQuiz.name}
+              </a>
+            </p>
           }
         </div>
         <div className="row">

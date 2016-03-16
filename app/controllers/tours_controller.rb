@@ -28,7 +28,7 @@ class ToursController < ApplicationController
 		@tour_points = [] if @tour_points.nil?
 		items = [
 		  tour: 				 @tour,
-			 currentQuiz:  TourQuiz.where(tour_id: @tour.id).first,
+			 currentQuiz:  quiz_data(@tour.id),
 		  audience:			 @audience,
 		  points:  			 @tour_points,
 			 tour_sessions: @tour_sessions,
@@ -36,6 +36,14 @@ class ToursController < ApplicationController
 			 quizzes: Quiz.all.as_json
 		]
 		api_response(items)
+	end
+
+	def quiz_data(tour_id)
+		tour_quiz = TourQuiz.where(tour_id: tour_id).first
+		return [] if tour_quiz.nil?
+		Quiz.find(tour_quiz.quiz_id).as_json.merge(
+				delete_url: remove_tour_quiz_path(tour_quiz[:id])
+		)
 	end
 
 	def tour_sessions(tour)

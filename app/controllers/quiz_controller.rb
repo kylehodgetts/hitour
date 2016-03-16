@@ -43,7 +43,7 @@ class QuizController < ApplicationController
   end
 
   def remove_tour_quiz
-    tour_quiz = TourQuiz.find(params[:id])
+    tour_quiz = TourQuiz.find(params[:id]).delete
     if tour_quiz
       render json: ['Removed Quiz']
     else
