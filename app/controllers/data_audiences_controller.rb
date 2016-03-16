@@ -20,12 +20,10 @@ class DataAudiencesController < ApplicationController
   # Destroy a Data Audience pair whose relationship record
   # matches the given id.
   def destroy
-  	@data_audience = DataAudience.find(params[:id])
-  	if @data_audience.destroy
-  		render json: ['Succesfully deleted link between data and audience']
-  	else
-  		render json: ['Couldnt delete link between data and audience']
-  	end
+    DataAudience.find(params[:id]).destroy
+    render json: ['Succesfully deleted link between data and audience']
+  rescue ActiveRecord::RecordNotFound
+  	render json: ['Couldnt delete link between data and audience']
   end
 
   private

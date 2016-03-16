@@ -1,6 +1,5 @@
 class DataUtil {
   static handleLoadDataFromServer(url) {
-    console.log(url);
     $.ajax({
       url: url,
       type: "GET",
