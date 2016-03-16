@@ -7,7 +7,7 @@ class StarRating extends React.Component{
     return(
       <div>
         <div className="row" style={{marginBottom:'0'}}>
-          <div className="col s12 start-container">
+          <div className="col s12 start-container" style={{overflowX:'hidden'}}>
             <label>Tour Rating:</label><br/>
               {[...Array(this.props.numberOfStars)].map((_,i) =>
                 <p key={"star-"+i} className="star-rating"><span className="star material-icons">star_rate</span></p>
