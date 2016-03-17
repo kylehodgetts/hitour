@@ -21,9 +21,7 @@ Rails.application.routes.draw do
   delete '/data_audiences/:id', to: 'data_audiences#destroy', as: :delete_datum_audience
 
   # Audiences
-  get '/audiences', to: 'audiences#index', as: :audiences
-  post '/audiences', to: 'audiences#create', as: :create_audience
-  delete '/audiences/:id', to: 'audiences#destroy', as: :delete_audience
+  resources :audiences, only: [:index, :create, :destroy]
 
   # Tours
   get '/tours', to: 'tours#index', as: :tours
