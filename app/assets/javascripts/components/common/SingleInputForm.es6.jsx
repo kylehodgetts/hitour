@@ -4,7 +4,7 @@ class SingleInputForm extends React.Component {
     var dataType = this.props.dataType;
     var id = '#' + dataType + 'Form';
     var message = 'Creating ' + dataType + '. Please wait...';
-    $(id).on('submit',function(e){
+    $(id).on('submit', function(e){
       e.preventDefault();
       DataUtil.handlePostToServer(postUrl, $(this).serialize(), message, e);
       $(id).trigger("reset");
