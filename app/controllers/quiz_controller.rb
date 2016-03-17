@@ -17,17 +17,6 @@ class QuizController < ApplicationController
     api_response(@quiz)
   end
 
-  # Show a single Quiz whose id matches that
-  # given in the params
-  # Return the quiz with its collection of questions
-  def show
-    @quiz = Quiz.includes(:questions).find(params[:id])
-    questions = quiz_questions
-    @quiz = @quiz.as_json
-    @quiz['questions'] = questions
-    api_response(@quiz)
-  end
-
   # Create a Quiz record, saving it to the database
   # Return a success message, if record is saved
   # Otherwise, return an error message
@@ -40,7 +29,38 @@ class QuizController < ApplicationController
       render json: [quiz.errors.full_messages.first]
     end
   rescue ActiveRecord::RecordNotUnique
-	  render json: ['That name has already been used.']
+    render json: ['That name has already been used.']
+  end
+
+  # Show a single Quiz whose id matches that
+  # given in the params
+  # Return the quiz with its collection of questions
+  def show
+    @quiz = Quiz.includes(:questions).find(params[:id])
+    questions = quiz_questions
+    @quiz = @quiz.as_json
+    @quiz['questions'] = questions
+    api_response(@quiz)
+  end
+
+  # Update a given quiz whose id matches that
+  # given in the params
+  # Return a success message, if record is updated
+  # Otherwise, return an error message
+  def update
+    quiz = Quiz.find(params[:id])
+    if quiz.update_attributes(quiz_params)
+      render json: ['Successfully updated Quiz'], status: 200
+    else
+      render json: [quiz.errors.full_messages.first]
+    end
+  end
+
+  # Destroy the quiz whose id matches that
+  # given in the params
+  def destroy
+    Quiz.find(params[:id]).destroy
+    render json: ['Deleted quiz']
   end
 
   # Add the current quiz whose id matches that
@@ -70,26 +90,6 @@ class QuizController < ApplicationController
     else
       render json: [tour_quiz.errors.full_messages.first]
     end
-  end
-
-  # Update a given quiz whose id matches that
-  # given in the params
-  # Return a success message, if record is updated
-  # Otherwise, return an error message
-  def update
-    quiz = Quiz.find(params[:id])
-    if quiz.update_attributes(quiz_params)
-      render json: ['Successfully updated Quiz'], status: 200
-    else
-      render json: [quiz.errors.full_messages.first]
-    end
-  end
-
-  # Destroy the quiz whose id matches that
-  # given in the params
-  def destroy
-    Quiz.find(params[:id]).destroy
-    render json: ['Deleted quiz']
   end
 
   private

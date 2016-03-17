@@ -18,15 +18,6 @@ class AnswerController < ApplicationController
     end
   end
 
-  def make_correct
-    answer = Answer.find(params[:id])
-    question_id = answer.question_id
-    answer.is_correct = true
-    answer.save
-    update_answers(question_id, answer.id)
-    render json: ['Succesfully set answer to correct']
-  end
-
   # Update the answer whose id matches that
   # given in the parameter
   def update
@@ -49,6 +40,15 @@ class AnswerController < ApplicationController
       answers.first.save if answers.exists?
     end
     render json: ['Deleted Answer']
+  end
+
+  def make_correct
+    answer = Answer.find(params[:id])
+    question_id = answer.question_id
+    answer.is_correct = true
+    answer.save
+    update_answers(question_id, answer.id)
+    render json: ['Succesfully set answer to correct']
   end
 
   private

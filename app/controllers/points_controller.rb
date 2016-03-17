@@ -25,6 +25,30 @@ class PointsController < ApplicationController
 		api_response(@points_json)
 	end
 
+	# Create a Point record, saving it to the database
+	# Ensure point has a cover photo file
+	# Analyse the file uploaded to ensure it's of the
+	# required format
+	def create
+		# Redirect back since no file provided
+		return redirect_to points_path if params[:file].nil?
+		# Extract file_name and file_path
+		file_path = params[:file].path
+		# Make sure the file is an image
+		unless image?(file_path)
+			flash[:failure] = 'File provided is not an image'
+			return redirect_to points_path
+		end
+		file_extension = File.extname(file_path)
+		params[:url] = analyse_upload(file_path, file_extension)
+		@point = Point.new(name: params[:name],
+																description: params[:description],
+															 url: params[:url])
+		@point.save
+		flash[:success] = "Point (#{params[:name]}) succesfully created and uploaded"
+		redirect_to points_path
+	end
+
 	# Show data for a particular point whose id matches that given in
 	# the params
 	# Include Urls to mutate rank and delete record
@@ -69,30 +93,6 @@ class PointsController < ApplicationController
 		TourPoint.where(point_id: params[:id]).destroy_all
 		Point.destroy(params[:id])
 		render json: ['Succesfully deleted point']
-	end
-
-	# Create a Point record, saving it to the database
-	# Ensure point has a cover photo file
-	# Analyse the file uploaded to ensure it's of the
-	# required format
-	def create
-		# Redirect back since no file provided
-		return redirect_to points_path if params[:file].nil?
-		# Extract file_name and file_path
-		file_path = params[:file].path
-		# Make sure the file is an image
-		unless image?(file_path)
-			flash[:failure] = 'File provided is not an image'
-			return redirect_to points_path
-		end
-		file_extension = File.extname(file_path)
-		params[:url] = analyse_upload(file_path, file_extension)
-		@point = Point.new(name: params[:name],
-											          description: params[:description],
-		  								         url: params[:url])
-		@point.save
-		flash[:success] = "Point (#{params[:name]}) succesfully created and uploaded"
-		redirect_to points_path
 	end
 
 		private
