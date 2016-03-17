@@ -1,6 +1,12 @@
+# Version 1.0
+# Points Data Controller responsible for creating and maintaining
+# Point Data relationships
 class PointsDataController < ApplicationController
 	before_action :authenticate_user!
 
+	# Save a Point Data pair to the database
+	# Raise a RecordNotUnique exception if a relationship already exists
+	# between a given data and audience
 	def create
 		point = Point.find(params[:point_datum][:point_id])
 		params[:point_datum][:rank] = max_rank(point)
@@ -13,12 +19,18 @@ class PointsDataController < ApplicationController
 		end
 	end
 
+	# Destroy a Point Data pair whose relationship record
+	# matches the given id.
 	def destroy
 	  	@point_datum = PointDatum.find(params[:id])
 	  	@point_datum.destroy
 				render json: ['Succesfully deleted datum from point']
 	end
 
+	# Increase the rank of the Point Datum by 1
+	# which will decrease the Point Datum below by 1
+	# The effect will the Datum will appear one slot later
+	# in the point
 	def increase_rank
 		point_datum = PointDatum.find(params[:id])
 		if update_rank(point_datum, point_datum.rank + 1)
@@ -28,6 +40,10 @@ class PointsDataController < ApplicationController
 		end
 	end
 
+	# Decrease the rank of the Point Datum by 1
+	# which will increase the Point Datum above by 1
+	# The effect will the Datum will appear one slot earlier
+	# in the point
 	def decrease_rank
 		point_datum = PointDatum.find(params[:id])
 		if update_rank(point_datum, point_datum.rank - 1)
@@ -39,6 +55,7 @@ class PointsDataController < ApplicationController
 
 		private
 
+	# Require a record of type Point Datum and permit the given attributes
 	def point_datum_params
 		params.require(:point_datum).permit(:point_id, :datum_id, :rank)
 	end
@@ -51,6 +68,8 @@ class PointsDataController < ApplicationController
 		rank.to_i + 1
 	end
 
+	# Assigns the given point datum the given rank
+	# returns true if the record is updated, false otherwise
 	def update_rank(point_datum, new_rank)
 		updated = false
 		PointDatum.where(point_id: point_datum.point.id).each do |pd|
