@@ -25,6 +25,27 @@ class DataController < ApplicationController
     api_response(@data)
   end
 
+  # Save a new datum to the database
+  def create
+    # Redirect back since no file provided
+    return redirect_to data_path if params[:file].nil?
+    # Extract file_name and file_path
+    file_path = params[:file].path
+    file_extension = File.extname(file_path)
+    params[:url] = analyse_upload(file_path, file_extension)
+    @datum = Datum.new(title: params[:title],
+                       description: params[:description],
+                       url: params[:url])
+    @datum.save
+    # Add Initial Audience to Datum
+    if params[:datum]
+      DataAudience.new(datum_id: @datum.id,
+                       audience_id: params[:datum][:audience]).save
+    end
+    flash[:success] = "Media (#{params[:title]}) succesfully uploaded"
+    redirect_to data_path
+  end
+
   # Show a given piece of data whose id matches that
   # provided in the params, including its audiences that it is
   # available to.
@@ -50,32 +71,6 @@ class DataController < ApplicationController
     else
       render json: ['Unable to update media ' + params[:datum][:title]]
     end
-  end
-
-  # Prepare a new datum
-  def new
-    @data = Datum.new
-  end
-
-  # Save a new datum to the database
-  def create
-    # Redirect back since no file provided
-    return redirect_to data_path if params[:file].nil?
-    # Extract file_name and file_path
-    file_path = params[:file].path
-    file_extension = File.extname(file_path)
-    params[:url] = analyse_upload(file_path, file_extension)
-    @datum = Datum.new(title: params[:title],
-                       description: params[:description],
-                       url: params[:url])
-    @datum.save
-    # Add Initial Audience to Datum
-    if params[:datum]
-      DataAudience.new(datum_id: @datum.id,
-                       audience_id: params[:datum][:audience]).save
-    end
-    flash[:success] = "Media (#{params[:title]}) succesfully uploaded"
-    redirect_to data_path
   end
 
   # Destroy a given datum whose id matches
