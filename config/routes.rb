@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'tours#index'
   get 'tours_audiences/new'
 
+  resources :users, except: [:new, :edit]
   resources :audiences, only: [:index, :create, :destroy]
   resources :points, except: [:new, :edit]
   resources :data, except: [:new, :edit]
@@ -31,13 +32,6 @@ Rails.application.routes.draw do
   get 'login', to: 'sessions#new', as: :login
   post 'login', to: 'sessions#create'
   get 'logout', to: 'sessions#destroy', as: :logout
-
-  # Users
-  resources :users
-  get '/users', to: 'users#index'
-  post '/users', to: 'users#create', as: :create_user
-  post '/users/:id', to: 'users#update', as: :update_profile
-  delete '/users/:id', to: 'users#destroy', as: :delete_user
 
   #Password reset
   get 'password_reset', to: 'password_reset#new', as: :password_reset

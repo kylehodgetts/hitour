@@ -37,13 +37,13 @@ class PasswordResetController < ApplicationController
      @user.authenticate(@user.password)
      @user.update_attribute(:temporarypassword, '')
      session[:user_id] = @user.id
-     redirect_to update_profile_path(@user.id)
+     redirect_to user_path(@user.id)
    end
   end
 
   private
 
   def temporary_password_params
-  params.require(:user).permit(:temporarypassword)
+    params.require(:user).permit(:temporarypassword)
   end
 end
