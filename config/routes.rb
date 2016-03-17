@@ -10,6 +10,16 @@ Rails.application.routes.draw do
   resources :tours, except: [:new, :edit]
   get '/tours/:id/pdf', to: 'tours#pdf', as: :tour_pdf
 
+  # Quiz
+  resources :quiz, except: [:new, :edit]
+  # post '/quizzes', to: 'quiz#create', as: :create_quiz
+  # patch '/quizzes/:id', to: 'quiz#update', as: :update_quiz
+  # delete '/quizzes/:id', to: 'quiz#destroy', as: :delete_quiz
+  # get '/quizzes/show/:id', to: 'quiz#show', as: :quiz
+  # get '/quizzes', to: 'quiz#index', as: :quizzes
+  post '/quizzes/add_tour_quiz', to: 'quiz#add_tour_quiz', as: :add_tour_quiz
+  delete '/quizzes/remove_tour_quiz/:id', to: 'quiz#remove_tour_quiz', as: :remove_tour_quiz
+
   # Tours Points
   post '/tour_points', to: 'tours_points#create', as: :create_tour_point
   post '/tour_points/increase_rank/:id',to: 'tours_points#increase_rank', as: :increase_tour_point
@@ -45,15 +55,6 @@ Rails.application.routes.draw do
 
   delete '/feedback/:id', to: 'feedback#destroy', as: :delete_feedback
   post '/feedback', to: 'feedback#create', as: :create_feedback
-
-  # Quiz
-  post '/quizzes', to: 'quiz#create', as: :create_quiz
-  patch '/quizzes/:id', to: 'quiz#update', as: :update_quiz
-  delete '/quizzes/:id', to: 'quiz#destroy', as: :delete_quiz
-  get '/quizzes/show/:id', to: 'quiz#show', as: :quiz
-  get '/quizzes', to: 'quiz#index', as: :quizzes
-  post '/quizzes/add_tour_quiz', to: 'quiz#add_tour_quiz', as: :add_tour_quiz
-  delete '/quizzes/remove_tour_quiz/:id', to: 'quiz#remove_tour_quiz', as: :remove_tour_quiz
 
 
   get '/quizzes/attempt_quiz/:id', to: 'public_quiz#attempt_quiz', as: :attempt_quiz
