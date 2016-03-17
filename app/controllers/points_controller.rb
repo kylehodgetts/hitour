@@ -1,5 +1,5 @@
 # Version 1.0
-# Points Controller response for creating and manipulating
+# Points Controller responsible for creating and manipulating
 # point records that appear in tours
 class PointsController < ApplicationController
 	include RQRCode
