@@ -17,7 +17,7 @@ class DataController < ApplicationController
     items.each do |item|
       datum = item.as_json
       datum['data'] = item.title
-      datum['delete_url'] = delete_datum_path(item)
+      datum['delete_url'] = datum_path(item)
       datum['show_url'] = datum_path(item)
       @data << datum
     end

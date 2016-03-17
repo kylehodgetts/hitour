@@ -2,22 +2,13 @@ Rails.application.routes.draw do
   root 'tours#index'
   get 'tours_audiences/new'
 
-  # Points
+  resources :audiences, only: [:index, :create, :destroy]
   resources :points, except: [:new, :edit]
-  
-  # Data
-  get '/data', to: 'data#index', as: :data
-  get '/data/show/:id', to: 'data#show', as: :datum
-  post '/data', to: 'data#create', as: :create_datum
-  patch '/data/:id', to: 'data#update', as: :update_datum
-  delete '/data/:id', to: 'data#destroy', as: :delete_datum
+  resources :data, except: [:new, :edit]
 
   # Data Audiences
   post '/data_audiences', to: 'data_audiences#create', as: :create_datum_audience
   delete '/data_audiences/:id', to: 'data_audiences#destroy', as: :delete_datum_audience
-
-  # Audiences
-  resources :audiences, only: [:index, :create, :destroy]
 
   # Tours
   get '/tours', to: 'tours#index', as: :tours
