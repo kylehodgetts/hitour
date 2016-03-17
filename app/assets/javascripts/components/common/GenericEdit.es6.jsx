@@ -26,7 +26,7 @@ class GenericEdit extends React.Component {
   handleOnChange(e) {
     if (e.which == 13 || e.keyCode == 13) {
       e.preventDefault();
-      this.handlePost.bind(this);
+      this.handlePost();
     }
   }
 
