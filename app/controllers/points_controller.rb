@@ -18,7 +18,7 @@ class PointsController < ApplicationController
 			@points_json << {
 			  id: item.id,
 			  data: item.name,
-			  delete_url: delete_point_path(item),
+			  delete_url: point_path(item),
 			  show_url: point_path(item)
 			}
 		end
