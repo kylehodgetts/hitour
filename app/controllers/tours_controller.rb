@@ -36,6 +36,8 @@ class ToursController < ApplicationController
 		@tour_points = tour_points(params[:id])
 		@tour_sessions = tour_sessions(@tour)
 		@tour_points = [] if @tour_points.nil?
+		average = @tour.feedbacks.average(:rating)
+		average.round(2) if average
 		items = [
 		  tour: 				 @tour,
 			 currentQuiz:  quiz_data(@tour.id),
@@ -43,6 +45,7 @@ class ToursController < ApplicationController
 		  points:  			 @tour_points,
 			 tour_sessions: @tour_sessions,
 			 feedbacks: tour_feedbacks,
+			 feedbackAverage: average,
 			 quizzes: Quiz.all.as_json
 		]
 		api_response(items)
@@ -76,6 +79,7 @@ class ToursController < ApplicationController
 	def tour_feedbacks
 		@tour.feedbacks.map do |feedback|
 			feedback.as_json.merge(
+					created_at: feedback.created_at.to_formatted_s(:long),
 					delete_url: delete_feedback_path(feedback)
 			)
 		end
