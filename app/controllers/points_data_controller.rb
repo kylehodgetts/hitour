@@ -6,8 +6,11 @@ class PointsDataController < ApplicationController
 		params[:point_datum][:rank] = max_rank(point)
 		begin
 			@point_datum = PointDatum.new(point_datum_params)
-			@point_datum.save
-			render json: ['Succesfully added media to point']
+			if @point_datum.save
+				render json: ['Succesfully added media to point']
+			else
+	      render json: [@point_datum.errors.full_messages.first]
+			end
 		rescue ActiveRecord::RecordNotUnique
 			render json: ['This media has already been added to this point']
 		end
@@ -15,6 +18,13 @@ class PointsDataController < ApplicationController
 
 	def destroy
 	  	@point_datum = PointDatum.find(params[:id])
+			 # Update ranks of other tour_points
+			 PointDatum.where(point_id: @point_datum.point.id).each do |pd|
+ 				if pd.rank.to_i > @point_datum.rank.to_i
+ 					pd.rank = pd.rank - 1
+ 					pd.save
+ 				end
+ 			end
 	  	@point_datum.destroy
 				render json: ['Succesfully deleted datum from point']
 	end
@@ -45,9 +55,9 @@ class PointsDataController < ApplicationController
 
 	# Returns the max rank for
 	# Specific Point
-	def max_rank(point_id)
-		point = Point.find(point_id)
-		rank = PointDatum.where('point_id' => point.id).maximum('rank')
+	def max_rank(point)
+		point = Point.find(point.id)
+		rank = PointDatum.where(point_id: point.id).maximum(:rank)
 		rank.to_i + 1
 	end
 

@@ -30,6 +30,16 @@ def create_question
   quiz = Quiz.create(name:'This is a quiz')
   question = Question.create(quiz_id:quiz.id, description: 'Test question description', rank:0)
 end
+def create_point
+  Point.create(name: 'Test Point',
+               description: 'Description',
+               url: 'https://s3-us-west-2.amazonaws.com/hitourbucket/Notes.txt')
+end
+def create_datum
+  Datum.create(title: RandomWord.nouns.next + SecureRandom.hex(3),
+               description: 'Description',
+               url: 'https://s3-us-west-2.amazonaws.com/hitourbucket/Notes.txt')
+end
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
