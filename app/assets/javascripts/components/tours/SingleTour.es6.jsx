@@ -9,6 +9,7 @@ class SingleTour extends React.Component {
       feedbacks: [],
       quizzes: [],
       currentQuiz: [],
+      feedbackAverage: [],
       pollInterval: this.props.pollInterval || 2000,
       intervalId: 0
     };
@@ -21,6 +22,7 @@ class SingleTour extends React.Component {
         audience: data[0]["audience"],
         points: data[0]["points"],
         tourSessions: data[0]["tour_sessions"],
+        feedbackAverage: data[0]["feedbackAverage"],
         feedbacks: data[0]["feedbacks"],
         quizzes: data[0]["quizzes"],
         currentQuiz: data[0]["currentQuiz"]
@@ -33,6 +35,7 @@ class SingleTour extends React.Component {
           audience: data[0]["audience"],
           points: data[0]["points"],
           tourSessions: data[0]["tour_sessions"],
+          feedbackAverage: data[0]["feedbackAverage"],
           feedbacks: data[0]["feedbacks"],
           quizzes: data[0]["quizzes"],
           currentQuiz: data[0]["currentQuiz"]
@@ -133,6 +136,22 @@ class SingleTour extends React.Component {
             <li>
               <div className="collapsible-header"><i className="material-icons">speaker_notes</i>Tour Feedback.</div>
               <div className="collapsible-body">
+                <div className="collection-item">
+                  <table className="centered striped">
+                    <thead>
+                      <tr>
+                        <th data-field="id">Total Feedbacks</th>
+                        <th data-field="name">Average Rating</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{this.state.feedbacks && this.state.feedbacks.length}</td>
+                        <td>{this.state.feedbacks && this.state.feedbackAverage}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
                 <div className="row" style={{padding:'10px'}}>
                   {this.state.feedbacks &&
                     <Feedback
