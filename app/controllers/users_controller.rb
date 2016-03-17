@@ -1,5 +1,11 @@
+# Version 1.0
+# Users Controller responsible for creating and manipulating
+# user records that denote real users of the CMS
 class UsersController < ApplicationController
   before_action :authenticate_user!
+
+  # Prepare all user records for response via the
+  # hiTour API
   def index
     if @current_user.activated
       items = User.where.not(id: session[:user_id])
@@ -18,10 +24,14 @@ class UsersController < ApplicationController
     end
   end
 
+  # Show the profile page of the user
   def show
     redirect_to root_path unless @current_user.id == params[:id].to_i
   end
 
+  # Create a User record, saving it to the database
+  # Send user an activation email to set up account
+  # Return a success message, if email is sent
   def create
     redirect_path = update_profile_path(@current_user.id)
     redirect_to redirect_path unless @current_user.activated
@@ -33,6 +43,8 @@ class UsersController < ApplicationController
     render json: ['Activation email sent!'], status: 200 if @user.save
   end
 
+  # Prepare activation email to send to a newly
+  # added user
   def send_activation_email
     @url = root_url
     email = SendGrid::Mail.new do |m|
@@ -44,6 +56,10 @@ class UsersController < ApplicationController
     sendgrid.send(email)
   end
 
+  # Update a given user whose id matches that
+  # given in the params
+  # Return a success message, if record is updated
+  # Otherwise, return an error message
   def update
     @user = User.find(params['id'])
     password_params = params['user']
@@ -57,6 +73,8 @@ class UsersController < ApplicationController
     end
   end
 
+  # Destroy the user whose id matches that
+  # given in the params
   def destroy
     redirect_path = update_profile_path(@current_user.id)
     redirect_to redirect_path unless @current_user.activated
@@ -67,6 +85,7 @@ class UsersController < ApplicationController
 
   private
 
+  # Require a record of type User and permit the given attributes
   def user_params
     params.require(:user).permit(:email, :password, :activated)
   end

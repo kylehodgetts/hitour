@@ -6,7 +6,7 @@ class PointsDataController < ApplicationController
 
 	# Save a Point Data pair to the database
 	# Raise a RecordNotUnique exception if a relationship already exists
-	# between a given data and audience
+	# between a given Point and Datum
 	def create
 		point = Point.find(params[:point_datum][:point_id])
 		params[:point_datum][:rank] = max_rank(point)
