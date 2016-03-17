@@ -4,12 +4,7 @@ Rails.application.routes.draw do
 
   # Points
   resources :points, except: [:new, :edit]
-  # get '/points', to: 'points#index', as: :points
-  # get '/points/show/:id', to: 'points#show', as: :point
-  # patch '/points/:id', to: 'points#update', as: :update_point
-  # post '/points', to: 'points#create', as: :create_point
-  # delete '/points/:id', to: 'points#destroy', as: :delete_point
-
+  
   # Data
   get '/data', to: 'data#index', as: :data
   get '/data/show/:id', to: 'data#show', as: :datum
