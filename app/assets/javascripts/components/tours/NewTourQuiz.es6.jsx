@@ -2,7 +2,7 @@ class NewTourQuiz extends React.Component {
   componentDidMount() {
     var postQuizUrl = this.props.postUrl;
     $('#tourQuizForm').on('submit',function(e){
-      DataUtil.handlePostToServer(postQuizUrl,$(this).serialize(),'Adding Quiz to Point',e);
+      DataUtil.handlePostToServer(postQuizUrl,$(this).serialize(),'Adding Quiz to Tour',e);
     });
   }
 
