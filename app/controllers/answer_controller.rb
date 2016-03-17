@@ -42,6 +42,9 @@ class AnswerController < ApplicationController
     render json: ['Deleted Answer']
   end
 
+  # Make the given answer, whose id matches
+  # that given in the parameters, the correct answer
+  # for its associated question
   def make_correct
     answer = Answer.find(params[:id])
     question_id = answer.question_id
