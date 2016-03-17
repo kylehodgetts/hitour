@@ -2,6 +2,7 @@ class SingleTour extends React.Component {
   constructor (props) {
     super(props);
     this.state =  {
+      loading: true,
       tour: [],
       audience: [],
       points: [],
@@ -18,6 +19,7 @@ class SingleTour extends React.Component {
   componentDidMount() {
     DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.showUrl,function(data){
       this.setState({
+        loading: false,
         tour: data[0]["tour"],
         audience: data[0]["audience"],
         points: data[0]["points"],
@@ -31,6 +33,7 @@ class SingleTour extends React.Component {
     this.interval = setInterval(
       DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.showUrl,function(data){
         this.setState({
+          loading: false,
           tour: data[0]["tour"],
           audience: data[0]["audience"],
           points: data[0]["points"],
@@ -81,6 +84,9 @@ class SingleTour extends React.Component {
 
   render () {
     var _this = this;
+    if(this.state.loading){
+      return <BlankLoading />;
+    }else
     return (
       <div>
         <div>
