@@ -2,6 +2,7 @@ class Audience extends React.Component {
   render () {
     return (
       <div>
+        <h2>Audiences</h2>
         <GenericList getUrl={this.props.getUrl} />
         <SingleInputForm
           postUrl={this.props.postUrl}

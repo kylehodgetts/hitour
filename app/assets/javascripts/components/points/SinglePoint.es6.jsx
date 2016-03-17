@@ -82,7 +82,7 @@ class SinglePoint extends React.Component {
             {this.state.pointData.map(function(pointData) {
               return (
                 <li key={pointData.id}>
-                  <div className="collapsible-header">
+                  <div className="collapsible-header grey lighten-5">
                     {pointData.rank+". "+pointData.title}
                     <a id={pointData.id} href={pointData.delete_url}
                        className="secondary-content" key={pointData.id}
