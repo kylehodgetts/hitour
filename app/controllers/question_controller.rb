@@ -1,10 +1,8 @@
+# Version 1.0
+# Question Controller responsible for creating and manipulating
+# question records that appear in Quizzes
 class QuestionController < ApplicationController
   before_action :authenticate_user!
-
-  def show
-    question = Question.includes(:answers).find(params[:id])
-    api_response(question)
-  end
 
   def create
     params[:question][:rank] = max_rank(params[:question][:quiz_id])
