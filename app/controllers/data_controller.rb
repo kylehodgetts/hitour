@@ -25,11 +25,6 @@ class DataController < ApplicationController
     api_response(@data)
   end
 
-  # Prepare a new datum
-  def new
-    @data = Datum.new
-  end
-
   # Save a new datum to the database
   def create
     # Redirect back since no file provided
