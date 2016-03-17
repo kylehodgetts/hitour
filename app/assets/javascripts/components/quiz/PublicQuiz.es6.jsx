@@ -1,6 +1,12 @@
 class PublicQuiz extends React.Component{
   render () {
     var _this = this;
+    var buttonStyle = {
+      display: 'block',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      marginBottom: '15%'
+    }
     return (
       <div>
         <h2 className="quiz-title">
@@ -8,7 +14,7 @@ class PublicQuiz extends React.Component{
             <span>Please leave feedback below.</span>
           }
         </h2>
-        <h2 className="quiz-result" style={{display:'none'}}>Thank You!
+        <h2 className="quiz-result center-align" style={{display:'none'}}>Thank You!<br />
           {this.props.quizData &&
             <span> You Scored <span className="total-score">0</span>/{this.props.quizData.questions.length}</span>
           }
@@ -25,7 +31,7 @@ class PublicQuiz extends React.Component{
             />
           </div>
         </div>
-        <button className="submitAllButton waves-effect waves-light btn blue center-block"
+        <button style={buttonStyle} className="submitAllButton waves-effect waves-light btn blue center-block"
           onClick={_this.submitAllForms.bind(this)}>
           <i className="material-icons left">cloud</i>Submit Answers
         </button>
@@ -45,7 +51,7 @@ class PublicQuiz extends React.Component{
     //Show Quiz Result Title
     $('.quiz-result').show();
     var totalForms = $('.question-form').trigger('submit');
-    $('.quiz-subtitle').text('You can now close this page!')
+    $('.quiz-subtitle').text('');
   }
 }
 
