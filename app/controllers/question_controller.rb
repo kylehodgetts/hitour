@@ -1,11 +1,12 @@
+# Version 1.0
+# Question Controller responsible for creating and manipulating
+# question records that appear in Quizzes
 class QuestionController < ApplicationController
   before_action :authenticate_user!
 
-  def show
-    question = Question.includes(:answers).find(params[:id])
-    api_response(question)
-  end
-
+  # Create a Question record, saving it to the database
+  # Return a success message, if record is saved
+  # Otherwise, return an error message
   def create
     params[:question][:rank] = max_rank(params[:question][:quiz_id])
     question = Question.new(question_params)
@@ -16,6 +17,10 @@ class QuestionController < ApplicationController
     end
   end
 
+  # Update a given question whose id matches that
+  # given in the params
+  # Return a success message, if record is updated
+  # Otherwise, return an error message
   def update
     question = Question.find(params[:id])
     if question.update_attributes(question_params)
@@ -25,6 +30,8 @@ class QuestionController < ApplicationController
     end
   end
 
+  # Destroy the question whose id matches that
+  # given in the params
   def destroy
     Question.find(params[:id]).delete
     render json: ['Deleted question']
@@ -32,6 +39,7 @@ class QuestionController < ApplicationController
 
   private
 
+  # Require a record of type Question and permit the given attributes
   def question_params
     params.require(:question).permit(:quiz_id, :description, :rank)
   end

@@ -7,15 +7,37 @@ class SingleTour extends React.Component {
       points: [],
       tourSessions: [],
       feedbacks: [],
+      quizzes: [],
+      currentQuiz: [],
       pollInterval: this.props.pollInterval || 2000,
       intervalId: 0
     };
   }
 
   componentDidMount() {
-    this.handleLoadDataFromServer();
+    DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.showUrl,function(data){
+      this.setState({
+        tour: data[0]["tour"],
+        audience: data[0]["audience"],
+        points: data[0]["points"],
+        tourSessions: data[0]["tour_sessions"],
+        feedbacks: data[0]["feedbacks"],
+        quizzes: data[0]["quizzes"],
+        currentQuiz: data[0]["currentQuiz"]
+      });
+    }.bind(this));
     this.interval = setInterval(
-      this.handleLoadDataFromServer.bind(this),
+      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.showUrl,function(data){
+        this.setState({
+          tour: data[0]["tour"],
+          audience: data[0]["audience"],
+          points: data[0]["points"],
+          tourSessions: data[0]["tour_sessions"],
+          feedbacks: data[0]["feedbacks"],
+          quizzes: data[0]["quizzes"],
+          currentQuiz: data[0]["currentQuiz"]
+        });
+      }.bind(this)),
       this.state.pollInterval
     );
     // Initialise Modal
@@ -32,46 +54,6 @@ class SingleTour extends React.Component {
   componentWillUnmount() {
     this.interval && clearInterval(this.interval);
     this.interval = false;
-  }
-
-  handleLoadDataFromServer() {
-    $.ajax({
-      url: this.props.showUrl,
-      type: "GET",
-      dataType: "json",
-      cache: false,
-      success: function(data){
-        this.setState({
-          tour: data[0]["tour"],
-          audience: data[0]["audience"],
-          points: data[0]["points"],
-          tourSessions: data[0]["tour_sessions"],
-          feedbacks: data[0]["feedbacks"]
-        });
-      }.bind(this)
-    });
-  }
-
-  handleDeleteDataFromServer(deleteUrl, e) {
-    e.preventDefault();
-    if(confirm("Are you sure you wish to delete this record")) {
-      // Show Progress
-      $('.progress-message').text('Deleting record. Please wait.');
-      $('.progress-overlay').fadeIn(200);
-      $.ajax({
-        url: deleteUrl,
-        type: "DELETE",
-        dataType: "json",
-        success: function(data){
-          $('.progress-overlay').fadeOut();
-          Materialize.toast(data, 3000, 'rounded');
-        }.bind(this),
-        error: function(err){
-          Materialize.toast('There was an issue deleting. Please contact admin.', 3000, 'rounded');
-          console.log(err);
-        }.bind(this)
-      });
-    }
   }
 
   handlePostDataToServer(rankUrl, e) {
@@ -113,6 +95,13 @@ class SingleTour extends React.Component {
               postUrl={this.props.update_tour_url}
               attributeName="tour[audience_id]"
             />
+          }
+          {this.state.currentQuiz.name &&
+            <p>
+              <a href="#" onClick={DataUtil.handleDeleteDataFromServer.bind(this, this.state.currentQuiz.delete_url,"Are you sure you want to remove this quiz from this tour?")}>
+                Remove {this.state.currentQuiz.name}
+              </a>
+            </p>
           }
         </div>
         <div className="row">
@@ -166,7 +155,7 @@ class SingleTour extends React.Component {
                 <div>
                   <span>{point.name}</span>
                   <a id={point.id} href={point.delete_url} className="secondary-content" key={point.id}
-                             onClick={_this.handleDeleteDataFromServer.bind(this, point.delete_url)}>
+                             onClick={DataUtil.handleDeleteDataFromServer.bind(this, point.delete_url,"Are you sure you want to delete this point from this tour?")}>
                   <i className=" blue-text material-icons">delete_forever</i>
                   </a>
                   <a id={point.id} href={point.show_url} className="secondary-content">
@@ -190,6 +179,15 @@ class SingleTour extends React.Component {
             new_tour_point_url={this.props.new_tour_point_url}
             />
         </div>
+        <div className="row">
+          {this.state.quizzes &&
+            <NewTourQuiz
+              tourId={this.props.tour_id}
+              quizzes={this.state.quizzes}
+              postUrl={this.props.postTourQuizUrl}
+              />
+          }
+        </div>
 
         <div id="sessionModal" className="modal" style={{maxHeight: '800px'}}>
           <div className="modal-content">
@@ -208,7 +206,7 @@ class SingleTour extends React.Component {
                       <span><b> Duration:</b> {session.duration} days</span>
                         <p> Passphrase:
                           <a id={session.id} href={session.delete_url} className="secondary-content"
-                                     onClick={_this.handleDeleteDataFromServer.bind(this, session.delete_url)}>
+                                     onClick={DataUtil.handleDeleteDataFromServer.bind(this, session.delete_url,"Are you sure you want to delete this session?")}>
                           <i className=" blue-text material-icons">delete_forever</i>
                           </a>
                         </p>
@@ -254,6 +252,7 @@ SingleTour.propTypes = {
   pdfUrl: React.PropTypes.string.isRequired,
   audiences: React.PropTypes.array,
   new_tour_session_url: React.PropTypes.string.isRequired,
-  tourNote: React.PropTypes.string.isRequired,
-  feedbackPostUrl: React.PropTypes.string.isRequired
+  tourNote: React.PropTypes.string,
+  feedbackPostUrl: React.PropTypes.string.isRequired,
+  postTourQuizUrl: React.PropTypes.string.isRequired
 }

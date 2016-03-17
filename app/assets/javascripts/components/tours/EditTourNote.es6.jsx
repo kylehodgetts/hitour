@@ -9,7 +9,12 @@ class TourNote extends React.Component{
   }
 
   componentDidMount () {
-    this.handleLoadDataFromServer();
+    DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.tourUrl,function(data){
+      this.setState({
+        tour: data[0]["tour"],
+        notes: data[0]["tour"]["notes"]
+      });
+    }.bind(this));
     // Initialise the editor
     editor = new Quill('#editor',{
       theme: 'snow'
@@ -24,38 +29,7 @@ class TourNote extends React.Component{
     var newNote = editor.getHTML();
     var formData = {};
     formData["tour[notes]"] = newNote;
-    // Show Progress
-    $('.progress-message').text('Updating Tour Notes. Please wait...');
-    $('.progress-overlay').fadeIn(200);
-    $.ajax({
-      url: this.props.updateTourPath,
-      type: "PATCH",
-      data: formData,
-      success: function(data){
-        $('.progress-overlay').fadeOut();
-        Materialize.toast(data, 3000, 'rounded');
-        this.handleLoadDataFromServer();
-      }.bind(this),
-      error: function(err){
-        Materialize.toast(err, 3000, 'rounded');
-      }
-    });
-  }
-
-  handleLoadDataFromServer() {
-    var url = this.props.tourUrl;
-    $.ajax({
-      url: url,
-      type: "GET",
-      dataType: "json",
-      cache: false,
-      success: function(data){
-        this.setState({
-          tour: data[0]["tour"],
-          notes: data[0]["tour"]["notes"]
-        });
-      }.bind(this)
-    });
+    DataUtil.handleUpdateDataToServer(this.props.updateTourPath,formData,"Updating Tour Notes...",function(){});
   }
 
   render () {
@@ -112,7 +86,7 @@ class TourNote extends React.Component{
 
 TourNote.displayName = "TourNote";
 TourNote.propTypes = {
-  initialValue: React.PropTypes.string.isRequired,
+  initialValue: React.PropTypes.string,
   tourUrl: React.PropTypes.string.isRequired,
   updateTourPath: React.PropTypes.string.isRequired,
   pollInterval: React.PropTypes.number

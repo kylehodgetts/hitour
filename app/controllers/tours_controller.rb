@@ -1,7 +1,13 @@
+# Version 1.0
+# Tours Controller responsible for creating and manipulating
+# tour records
 class ToursController < ApplicationController
+	include ToursHelper
 	include RQRCode
 	before_action :authenticate_user!
 
+	# Prepare all tour records for response via the
+	# hiTour API
 	def index
 		items = Tour.includes(:points)
 		@tours = []
@@ -18,6 +24,10 @@ class ToursController < ApplicationController
 		api_response(@tours)
 	end
 
+	# Show data for a particular tour whose id matches that given in
+	# the params
+	# Include associations for the tour
+	# Delete all expired sessions
 	def show
 		delete_expired_sessions
 		@tour = Tour.includes(:tour_sessions).find(params[:id])
@@ -28,14 +38,28 @@ class ToursController < ApplicationController
 		@tour_points = [] if @tour_points.nil?
 		items = [
 		  tour: 				 @tour,
+			 currentQuiz:  quiz_data(@tour.id),
 		  audience:			 @audience,
 		  points:  			 @tour_points,
 			 tour_sessions: @tour_sessions,
-			 feedbacks: tour_feedbacks
+			 feedbacks: tour_feedbacks,
+			 quizzes: Quiz.all.as_json
 		]
 		api_response(items)
 	end
 
+	# Return all the quiz data for a given tour_id
+	# return an empty array if the tour does not have
+	# an associated quiz
+	def quiz_data(tour_id)
+		tour_quiz = TourQuiz.where(tour_id: tour_id).first
+		return [] if tour_quiz.nil?
+		Quiz.find(tour_quiz.quiz_id).as_json.merge(
+				delete_url: remove_tour_quiz_path(tour_quiz[:id])
+		)
+	end
+
+	# Fetches all the tour sessions for a given tour
 	def tour_sessions(tour)
 		tour.tour_sessions.map do |session|
 			session.as_json.merge(
@@ -47,6 +71,8 @@ class ToursController < ApplicationController
 		end
 	end
 
+	# Fetches all the tour feedback records submitted
+	# for the given tour
 	def tour_feedbacks
 		@tour.feedbacks.map do |feedback|
 			feedback.as_json.merge(
@@ -55,6 +81,7 @@ class ToursController < ApplicationController
 		end
 	end
 
+	# Render a PDF of all the tours data
 	def pdf
 		@tour = Tour.find(params[:id])
 		@audience = Audience.find(@tour.audience_id)
@@ -62,6 +89,7 @@ class ToursController < ApplicationController
 		render pdf: @tour.name.to_s
 	end
 
+	# Fetches all the Points for a given tour
 	def tour_points(tour_id)
 		TourPoint.where(tour_id: tour_id).order(:rank).map do |tp|
 			{
@@ -80,6 +108,10 @@ class ToursController < ApplicationController
 		end
 	end
 
+	# Update a given tour whose id matches that
+	# given in the params
+	# Return a success message, if record is updated
+	# Otherwise, return an error message
 	def update
 		@tour = Tour.find(params[:id])
 		if @tour.update_attributes(tour_params)
@@ -89,24 +121,26 @@ class ToursController < ApplicationController
 		end
 	end
 
+	# Destroy the tour whose id matches that
+	# given in the params
 	def destroy
 		Tour.find(params[:id]).destroy
 		render json: ['Successfully deleted tour'], status: 200
 	end
 
+	# Create a Tour record, saving it to the database
+	# Return a success message, if record is saved
+	# Otherwise, return an error message
 	def create
 		@tour = Tour.new(tour_params)
-		return redirect_to @tour if @tour.save
-		redirect_to new_tour_path
+		return render json: ['Successfully created tour'] if @tour.save
+		render json: ['Couldnt create tour']
 	end
 
 		private
 
+	# Require a record of type Tour and permit the given attributes
 	def tour_params
 		params.require(:tour).permit(:name, :audience_id, :notes)
-	end
-
-	def delete_expired_sessions
-		TourSession.destroy_all(['start_date + duration < ?', Date.current])
 	end
 end

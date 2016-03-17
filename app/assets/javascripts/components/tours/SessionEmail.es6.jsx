@@ -9,28 +9,24 @@ class SessionEmail extends React.Component {
   }
 
   componentDidMount() {
-    this.handleLoadDataFromServer();
-    this.interval = setInterval(this.handleLoadDataFromServer.bind(this), this.state.pollInterval);
+    DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.tourSessionsUrl,function(data){
+      this.setState({
+        tourSessions: data[0]["tour_sessions"]
+      });
+    }.bind(this));
+    this.interval = setInterval(
+      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.tourSessionsUrl,function(data){
+        this.setState({
+          tourSessions: data[0]["tour_sessions"]
+        });
+      }.bind(this)),
+      this.state.pollInterval
+    );
     $('#sessionEmailForm').on('submit', function(e) {
       e.preventDefault();
       var url = $(this).find('select').val();
-      $('.progress-message').text('Sending Tour Invitation Email. Please wait...');
-      $('.progress-overlay').fadeIn(200);
-      $.ajax({
-        url: url,
-        type: "POST",
-        data: $(this).serialize(),
-        dataType: "json",
-        success: function(data) {
-          $('.progress-overlay').fadeOut();
-          $('#sessionEmailForm')[0].reset();
-          Materialize.toast(data, 3000, 'rounded');
-        }.bind(this),
-        error: function(err) {
-          Materialize.toast(err, 3000, 'rounded');
-          console.log(err);
-        }.bind(this)
-      });
+      DataUtil.handlePostToServer(url,$(this).serialize(),'Assigning Audience to Media. Please wait...',e);
+      $('#sessionEmailForm')[0].reset();
     });
   }
 
@@ -44,20 +40,6 @@ class SessionEmail extends React.Component {
 
   componentWillUnmount() {
     this.interval && clearInterval(this.interval);
-  }
-
-  handleLoadDataFromServer() {
-    $.ajax({
-      url: this.props.tourSessionsUrl,
-      type: "GET",
-      dataType: "json",
-      cache: false,
-      success: function(data) {
-        this.setState({
-          tourSessions: data[0]["tour_sessions"]
-        });
-      }.bind(this)
-    });
   }
 
   render() {

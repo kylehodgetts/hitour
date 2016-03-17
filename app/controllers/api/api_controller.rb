@@ -2,6 +2,7 @@
 # Module containing one controller class reponsible
 # for returning json reponses to valid queries
 module Api
+  # Class responsible for handling API Queries
   class ApiController < ApplicationController
     before_action :api_authenticate!
 

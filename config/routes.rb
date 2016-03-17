@@ -17,8 +17,6 @@ Rails.application.routes.draw do
   delete '/data/:id', to: 'data#destroy', as: :delete_datum
 
   # Data Audiences
-  get '/data_audiences', to: 'data_audiences#new'
-  get '/data_audiences/new', to: 'data_audiences#new', as: :new_data_audience
   post '/data_audiences', to: 'data_audiences#create', as: :create_datum_audience
   delete '/data_audiences/:id', to: 'data_audiences#destroy', as: :delete_datum_audience
 
@@ -80,9 +78,13 @@ Rails.application.routes.draw do
 
   # Quiz
   post '/quizzes', to: 'quiz#create', as: :create_quiz
+  patch '/quizzes/:id', to: 'quiz#update', as: :update_quiz
   delete '/quizzes/:id', to: 'quiz#destroy', as: :delete_quiz
   get '/quizzes/show/:id', to: 'quiz#show', as: :quiz
   get '/quizzes', to: 'quiz#index', as: :quizzes
+  post '/quizzes/add_tour_quiz', to: 'quiz#add_tour_quiz', as: :add_tour_quiz
+  delete '/quizzes/remove_tour_quiz/:id', to: 'quiz#remove_tour_quiz', as: :remove_tour_quiz
+
 
   get '/quizzes/attempt_quiz/:id', to: 'public_quiz#attempt_quiz', as: :attempt_quiz
   post '/quizzes/submit_question', to: 'public_quiz#submit_question', as: :submit_question
@@ -95,6 +97,7 @@ Rails.application.routes.draw do
   # Answer
   post '/answers', to: 'answer#create', as: :create_answer
   delete '/answers/:id', to: 'answer#destroy', as: :delete_answer
+  post '/answers/:id', to: 'answer#make_correct', as: :answer_make_correct
 
   # API
   namespace :api do

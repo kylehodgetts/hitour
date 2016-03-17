@@ -2,26 +2,9 @@ class NewFeedback extends React.Component{
   componentDidMount () {
     var postUrl = this.props.postUrl;
     $('#feedbackForm').on('submit',function(e){
-      e.preventDefault();
-      // Show Progress
-      $('.progress-message').text('Submitting Quiz and Feedback data. Please wait...');
-      $('.progress-overlay').fadeIn(200);
-      $.ajax({
-        url: '/feedback',
-        type: "POST",
-        data: $(this).serialize(),
-        success: function(data) {
-          $('.progress-overlay').fadeOut();
-          $('.star').eq(0).trigger('click');
-          $('#feedbackForm')[0].reset();
-          Materialize.toast('Succesfully submitted feedback and quiz', 3000, 'rounded');
-        },
-        error: function(data) {
-          console.log(data);
-          $('.progress-overlay').fadeOut();
-          Materialize.toast(data, 3000, 'rounded');
-        }
-      });
+      DataUtil.handlePostToServer(postUrl,$(this).serialize(),'Submitting Quiz and Feedback data. Please wait...',e);
+      $('.star').eq(0).trigger('click');
+      $('#feedbackForm')[0].reset();
     });
   }
 

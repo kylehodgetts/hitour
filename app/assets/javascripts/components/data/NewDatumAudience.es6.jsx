@@ -9,31 +9,25 @@ class NewDatumAudience extends React.Component {
   }
 
   componentDidMount() {
-    this.handleLoadDataFromServer();
+    DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.audiencesUrl+".json",function(data){
+      this.setState({
+        audiences: data
+      });
+    }.bind(this));
+    // this.handleLoadDataFromServer();
     this.interval = setInterval(
-      this.handleLoadDataFromServer.bind(this),
+      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.audiencesUrl+".json",function(data){
+        this.setState({
+          audiences: data
+        });
+      }.bind(this)),
       this.state.pollInterval
     );
     var postUrl = this.props.createDatumAudienceUrl;
     $('#datumAudienceForm').on('submit',function(e){
       e.preventDefault();
-      // Show Progress
-      $('.progress-message').text('Assigning Audience to Media. Please wait...');
-      $('.progress-overlay').fadeIn(200);
-      $.ajax({
-        url: postUrl,
-        type: "POST",
-        data: $(this).serialize(),
-        dataType: "json",
-        success: function(data){
-          $('.progress-overlay').fadeOut();
-          Materialize.toast(data, 3000, 'rounded');
-        }.bind(this),
-        error: function(err){
-          Materialize.toast(err, 3000, 'rounded');
-          console.log(err);
-        }.bind(this)
-      });
+      DataUtil.handlePostToServer(postUrl,$(this).serialize(),'Assigning Audience to Media. Please wait...',e);
+      $('#datumAudienceForm')[0].reset();
     });
   }
 
@@ -46,21 +40,6 @@ class NewDatumAudience extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.interval);
-  }
-
-  handleLoadDataFromServer() {
-    //Get All Data
-    $.ajax({
-      url: this.props.audiencesUrl,
-      type: "GET",
-      dataType: "json",
-      cache: false,
-      success: function(data){
-        this.setState({
-          audiences: data
-        });
-      }.bind(this)
-    });
   }
 
   render () {

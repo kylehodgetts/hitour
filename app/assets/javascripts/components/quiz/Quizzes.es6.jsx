@@ -1,12 +1,10 @@
-class Audience extends React.Component {
-
+class Quizzes extends React.Component {
   componentDidMount() {
-    var postURL = this.props.postUrl;
-    var _this = this;
-    $('#audienceForm').on('submit',function(e){
+    var postUrl = this.props.postUrl;
+    $('#quizForm').on('submit',function(e){
       e.preventDefault();
-      console.log("WICKED!!!");
-      DataUtil.handlePostToServer(postURL,$(this).serialize(),'Creating Audience',e);
+      DataUtil.handlePostToServer(postUrl,$(this).serialize(),'Creating Quiz. Please wait...',e);
+      $('#quizForm').trigger("reset");
     });
   }
 
@@ -14,9 +12,9 @@ class Audience extends React.Component {
     return (
       <div>
         <GenericList getUrl={this.props.getUrl} />
-        <form id="audienceForm">
-          <label htmlFor="audience[name]">Audience Name</label>
-          <input type="text" name="audience[name]" />
+        <form id="quizForm">
+          <label htmlFor="quiz[name]">Quiz Name</label>
+          <input type="text" name="quiz[name]" id="quiz[name]" />
           <button className="btn right blue waves-effect waves-light"
                   type="submit" name="action">Submit
             <i className="material-icons right">send</i>
@@ -27,8 +25,8 @@ class Audience extends React.Component {
   }
 }
 
-Audience.displayName = "Audience";
-Audience.propTypes = {
+Quizzes.displayName = "Quizzes";
+Quizzes.propTypes = {
   getUrl: React.PropTypes.string.isRequired,
   postUrl: React.PropTypes.string.isRequired
 }

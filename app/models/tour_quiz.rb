@@ -6,6 +6,6 @@ class TourQuiz < ActiveRecord::Base
   belongs_to :quiz
 
   # Enforces the presence of both a Tour and Quiz
-  validates :tour, presence: :true
+  validates :tour, presence: :true, uniqueness: true
   validates :quiz, presence: :true
 end

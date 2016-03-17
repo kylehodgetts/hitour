@@ -10,9 +10,23 @@ class SinglePoint extends React.Component {
   }
 
   componentDidMount() {
-    this.handleLoadDataFromServer();
+    DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.getUrl,function(data){
+      var qrCode = $(data.qr_code);
+      $('.point-qr-holder').html(qrCode);
+      this.setState({
+        point: data.point,
+        pointData: data.point_data
+      });
+    }.bind(this));
     this.interval = setInterval(
-      this.handleLoadDataFromServer.bind(this),
+      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.getUrl,function(data){
+        var qrCode = $(data.qr_code);
+        $('.point-qr-holder').html(qrCode);
+        this.setState({
+          point: data.point,
+          pointData: data.point_data
+        });
+      }.bind(this)),
       this.state.pollInterval
     );
   }
@@ -27,68 +41,6 @@ class SinglePoint extends React.Component {
   componentWillUnmount() {
     this.interval && clearInterval(this.interval);
     this.interval = false;
-  }
-
-  handleLoadDataFromServer() {
-    //Get All Point and Data
-    $.ajax({
-      url: this.props.getUrl,
-      type: "GET",
-      dataType: "json",
-      cache: false,
-      success: function(data){
-        var qrCode = $(data.qr_code);
-        $('.point-qr-holder').html(qrCode);
-        this.setState({
-          point: data.point,
-          pointData: data.point_data
-        });
-      }.bind(this)
-    });
-  }
-
-  handleDeleteDataFromServer(deleteUrl, e) {
-    e.preventDefault();
-    if(confirm("Are you sure you wish to delete this point")) {
-      // Show Progress
-      $('.progress-message').text('Deleting Point');
-      $('.progress-overlay').fadeIn(200);
-      $.ajax({
-        url: deleteUrl,
-        type: "DELETE",
-        dataType: "json",
-        success: function(data){
-          $('.progress-overlay').fadeOut();
-          Materialize.toast(data, 3000, 'rounded');
-          console.log("Success " + data);
-        }.bind(this),
-        error: function(err){
-          Materialize.toast('There was an issue deleting. Please contact admin.', 3000, 'rounded');
-          console.log(err);
-        }.bind(this)
-      });
-    }
-  }
-
-  handlePostDataToServer(rankUrl, e) {
-    e.preventDefault();
-    // Show Progress
-    $('.progress-message').text('Updating rank.');
-    $('.progress-overlay').fadeIn(200);
-    $.ajax({
-      url: rankUrl,
-      type: "POST",
-      dataType: "json",
-      success: function(data){
-        $('.progress-overlay').fadeOut();
-        Materialize.toast(data, 3000, 'rounded');
-        console.log("Success " + data);
-      }.bind(this),
-      error: function(err){
-        Materialize.toast('There was an issue updating rank. Please contact admin.', 3000, 'rounded');
-        console.log(err);
-      }.bind(this)
-    });
   }
 
   render() {
@@ -134,7 +86,7 @@ class SinglePoint extends React.Component {
                     {pointData.rank+". "+pointData.title}
                     <a id={pointData.id} href={pointData.delete_url}
                        className="secondary-content" key={pointData.id}
-                       onClick={_this.handleDeleteDataFromServer.bind(this, pointData.delete_url)}>
+                       onClick={DataUtil.handleDeleteDataFromServer.bind(this, pointData.delete_url,"Are you sure you want to delete this datum from this point?")}>
                     <i className=" blue-text material-icons">delete_forever</i>
                     </a>
                     <a id={pointData.id} href={pointData.datum_show_url}
@@ -142,12 +94,12 @@ class SinglePoint extends React.Component {
                       <i className=" blue-text material-icons">launch</i>
                     </a>
                     <a id={pointData.id} href="#"
-                       onClick={_this.handlePostDataToServer.bind(this, pointData.decrease_url)}
+                       onClick={DataUtil.handlePostToServer.bind(this,pointData.decrease_url,null,'Updating rank')}
                        className="secondary-content">
                       <i className=" blue-text material-icons">call_made</i>
                     </a>
                     <a id={pointData.id} href="#"
-                       onClick={_this.handlePostDataToServer.bind(this, pointData.increase_url)}
+                       onClick={DataUtil.handlePostToServer.bind(this,pointData.increase_url,null,'Updating rank')}
                        className="secondary-content">
                       <i className=" blue-text material-icons">call_received</i>
                     </a>
