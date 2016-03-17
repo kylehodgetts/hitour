@@ -14,7 +14,7 @@ class ToursController < ApplicationController
 		items.each do |item|
 			@tours << item.as_json.merge(
 			  data: item.name,
-			  delete_url: delete_tour_path(item),
+			  delete_url: tour_path(item),
 			  show_url: tour_path(item)
 			)
 		end
@@ -46,6 +46,35 @@ class ToursController < ApplicationController
 			 quizzes: Quiz.all.as_json
 		]
 		api_response(items)
+	end
+
+	# Create a Tour record, saving it to the database
+	# Return a success message, if record is saved
+	# Otherwise, return an error message
+	def create
+		@tour = Tour.new(tour_params)
+		return render json: ['Successfully created tour'] if @tour.save
+		render json: ['Couldnt create tour']
+	end
+
+	# Update a given tour whose id matches that
+	# given in the params
+	# Return a success message, if record is updated
+	# Otherwise, return an error message
+	def update
+		@tour = Tour.find(params[:id])
+		if @tour.update_attributes(tour_params)
+			render json: ['Successfully updated tour'], status: 200 if @tour.save
+		else
+			render json: ['Unable to update tour']
+		end
+	end
+
+	# Destroy the tour whose id matches that
+	# given in the params
+	def destroy
+		Tour.find(params[:id]).destroy
+		render json: ['Successfully deleted tour'], status: 200
 	end
 
 	# Return all the quiz data for a given tour_id
@@ -106,35 +135,6 @@ class ToursController < ApplicationController
 				 url: tp.point.url
 			}
 		end
-	end
-
-	# Update a given tour whose id matches that
-	# given in the params
-	# Return a success message, if record is updated
-	# Otherwise, return an error message
-	def update
-		@tour = Tour.find(params[:id])
-		if @tour.update_attributes(tour_params)
-			render json: ['Successfully updated tour'], status: 200 if @tour.save
-		else
-			render json: ['Unable to update tour']
-		end
-	end
-
-	# Destroy the tour whose id matches that
-	# given in the params
-	def destroy
-		Tour.find(params[:id]).destroy
-		render json: ['Successfully deleted tour'], status: 200
-	end
-
-	# Create a Tour record, saving it to the database
-	# Return a success message, if record is saved
-	# Otherwise, return an error message
-	def create
-		@tour = Tour.new(tour_params)
-		return render json: ['Successfully created tour'] if @tour.save
-		render json: ['Couldnt create tour']
 	end
 
 		private
