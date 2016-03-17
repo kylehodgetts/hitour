@@ -10,6 +10,7 @@ class PasswordResetController < ApplicationController
       reset_password = SecureRandom.hex(25)
       @user.update_attribute(:temporarypassword, reset_password)
       send_reset_email
+      flash[:error] = 'A password reset email has been sent!'
       redirect_to root_path
     else
       redirect_to password_reset_path
