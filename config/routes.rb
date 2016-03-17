@@ -9,8 +9,9 @@ Rails.application.routes.draw do
   get '/tours/:id/pdf', to: 'tours#pdf', as: :tour_pdf
 
   # Data Audiences
-  post '/data_audiences', to: 'data_audiences#create', as: :create_datum_audience
-  delete '/data_audiences/:id', to: 'data_audiences#destroy', as: :delete_datum_audience
+  resources :data_audiences, only: [:create, :destroy]
+  # post '/data_audiences', to: 'data_audiences#create', as: :create_datum_audience
+  # delete '/data_audiences/:id', to: 'data_audiences#destroy', as: :delete_datum_audience
 
 
   # Tours Points
