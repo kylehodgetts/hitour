@@ -1,5 +1,5 @@
 <% title 'Quizzes' %>
 <%= react_component('SingleQuiz', getUrl: quiz_path(@quiz['id']) + '.json',
                                   postQuizUrl: quiz_path(@quiz['id']),
-                                  postQuestionUrl: create_question_path,
+                                  postQuestionUrl: question_index_path,
                                   postAnswerUrl: create_answer_path) %>

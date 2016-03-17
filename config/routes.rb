@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :quiz, except: [:new, :edit]
   post '/quizzes/add_tour_quiz', to: 'quiz#add_tour_quiz', as: :add_tour_quiz
   delete '/quizzes/remove_tour_quiz/:id', to: 'quiz#remove_tour_quiz', as: :remove_tour_quiz
+  resources :question, only: [:index, :create, :destroy]
 
   # Tours Points
   post '/tour_points', to: 'tours_points#create', as: :create_tour_point
@@ -52,12 +53,6 @@ Rails.application.routes.draw do
 
   get '/quizzes/attempt_quiz/:id', to: 'public_quiz#attempt_quiz', as: :attempt_quiz
   post '/quizzes/submit_question', to: 'public_quiz#submit_question', as: :submit_question
-
-  # Question
-  post '/questions', to: 'question#create', as: :create_question
-  delete '/questions/:id', to: 'question#destroy', as: :delete_question
-  get '/questions', to: 'question#index', as: :questions
-
   # Answer
   post '/answers', to: 'answer#create', as: :create_answer
   delete '/answers/:id', to: 'answer#destroy', as: :delete_answer
