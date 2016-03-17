@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   root 'tours#index'
-  get 'tours_audiences/new'
 
   resources :users, except: [:new, :edit]
   resources :audiences, only: [:index, :create, :destroy]
@@ -13,6 +12,10 @@ Rails.application.routes.draw do
   post '/quizzes/add_tour_quiz', to: 'quiz#add_tour_quiz', as: :add_tour_quiz
   delete '/quizzes/remove_tour_quiz/:id', to: 'quiz#remove_tour_quiz', as: :remove_tour_quiz
   resources :question, only: [:index, :create, :destroy]
+  get '/quizzes/attempt_quiz/:id', to: 'public_quiz#attempt_quiz', as: :attempt_quiz
+  post '/quizzes/submit_question', to: 'public_quiz#submit_question', as: :submit_question
+  resources :answer, only: [:create, :destroy]
+  post '/answers/:id', to: 'answer#make_correct', as: :answer_make_correct
 
   # Tours Points
   post '/tour_points', to: 'tours_points#create', as: :create_tour_point
@@ -47,16 +50,9 @@ Rails.application.routes.draw do
   delete '/tour_sessions/:id', to: 'tour_sessions#destroy', as: :delete_tour_session
   post '/tour_sessions/email/:id', to: 'tour_sessions#send_email', as: :tour_session_invitation
 
-  delete '/feedback/:id', to: 'feedback#destroy', as: :delete_feedback
-  post '/feedback', to: 'feedback#create', as: :create_feedback
-
-
-  get '/quizzes/attempt_quiz/:id', to: 'public_quiz#attempt_quiz', as: :attempt_quiz
-  post '/quizzes/submit_question', to: 'public_quiz#submit_question', as: :submit_question
-  # Answer
-  post '/answers', to: 'answer#create', as: :create_answer
-  delete '/answers/:id', to: 'answer#destroy', as: :delete_answer
-  post '/answers/:id', to: 'answer#make_correct', as: :answer_make_correct
+  resources :feedback, only: [:create, :destroy]
+  # delete '/feedback/:id', to: 'feedback#destroy', as: :delete_feedback
+  # post '/feedback', to: 'feedback#create', as: :create_feedback
 
   # API
   namespace :api do
