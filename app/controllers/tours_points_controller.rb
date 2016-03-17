@@ -70,7 +70,7 @@ class ToursPointsController < ApplicationController
 	# Specific Tour
 	def max_rank(tour_id)
 		tour = Tour.find(tour_id)
-		rank = TourPoint.where('tour_id' => tour.id).maximum('rank')
+		rank = TourPoint.where(tour_id: tour.id).maximum(:rank)
 		rank.to_i + 1
 	end
 
