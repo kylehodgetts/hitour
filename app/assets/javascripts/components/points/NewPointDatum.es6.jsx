@@ -2,6 +2,7 @@ class NewPointDatum extends React.Component {
   constructor (props) {
     super(props);
     this.state =  {
+      loading: true,
       data: [],
       pollInterval: this.props.pollInterval || 2000,
       intervalId: 0
@@ -9,29 +10,34 @@ class NewPointDatum extends React.Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
     DataUtil.handleLoadDataFromServer.bind(this,this.props.data_url+".json");
     this.interval = setInterval(
       DataUtil.handleLoadDataFromServer.bind(this,this.props.data_url+".json"),
       this.state.pollInterval
     );
-    var postUrl = this.props.new_point_datum_url;
-    $('#pointDatumForm').on('submit',function(e){
-      DataUtil.handlePostToServer(postUrl,$(this).serialize(),'Adding media to point. Please wait.',e);
-    });
   }
 
   componentDidUpdate(prevProps, prevState) {
     var check = JSON.stringify(prevState) === JSON.stringify(this.state);
     if(!check || this.state.data == []){
-      $('select').material_select();
+      $('.pointDatumSelect').material_select();
+      var postUrl = this.props.new_point_datum_url;
+      $('#pointDatumForm').unbind('submit').on('submit',function(e){
+        DataUtil.handlePostToServer(postUrl,$(this).serialize(),'Adding media to point. Please wait.',e);
+      });
     }
   }
 
   componentWillUnmount() {
+    this.mounted = false;
     clearInterval(this.interval);
   }
 
   render () {
+    if(this.state.loading){
+      return <BlankLoading />
+    }
     return (
       <div>
         <div>
@@ -39,7 +45,7 @@ class NewPointDatum extends React.Component {
             <input value={this.props.point_id} type="hidden" name="point_datum[point_id]" />
             <div className="row">
               <div className="input-field col s12">
-                <select name="point_datum[datum_id]">
+                <select name="point_datum[datum_id]" className="pointDatumSelect">
                   {this.state.data.map(function(datum) {
                     return (
                       <option value={datum.id} key={datum.id} >{datum.data}</option>
