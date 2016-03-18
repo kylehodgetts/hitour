@@ -4,20 +4,6 @@ class Navbar extends React.Component {
     $(".dropdown-button").dropdown();
   }
 
-  renderNavList() {
-    return (
-      <Navlist
-        loggedIn = {this.props.loggedIn}
-        toursPath = {this.props.toursPath}
-        pointsPath = {this.props.pointsPath}
-        dataPath = {this.props.dataPath}
-        audiencesPath = {this.props.audiencesPath}
-        usersPath = {this.props.usersPath}
-        logoutPath = {this.props.logoutPath}
-      />
-    );
-  }
-
   render () {
     return (
       <nav>
@@ -63,6 +49,7 @@ class Navbar extends React.Component {
           </ul>
           <ul className="side-nav" id="mobile-nav">
           <Navlist
+            forMobile = "true"
             loggedIn = {this.props.loggedIn}
             currentPage = {this.props.currentPage}
             currentUser = {this.props.currentUser}

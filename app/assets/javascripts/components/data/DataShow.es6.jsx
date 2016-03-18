@@ -65,7 +65,7 @@ class DataShow extends React.Component {
               <div className="datum-audiences collection">
                 {this.state.audiences.map(function(audience) {
                   return (
-                    <div key={audience.id} className="collection-item">
+                    <div key={audience.id} className="collection-item grey lighten-5">
                       <div>
                         {audience.data}
                         <a id={audience.id} href="" className="secondary-content" key={audience.id}

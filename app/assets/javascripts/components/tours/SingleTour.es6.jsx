@@ -176,7 +176,7 @@ class SingleTour extends React.Component {
               point.name = point.name.substring(0,18)+"...";
             }
             return (
-              <div key={point.id} className="collection-item">
+              <div key={point.id} className="collection-item grey lighten-5">
                 <div>
                   <span>{point.name}</span>
                   <a id={point.id} href={point.delete_url} className="secondary-content" key={point.id}
@@ -203,8 +203,6 @@ class SingleTour extends React.Component {
             points_url={this.props.points_url}
             new_tour_point_url={this.props.new_tour_point_url}
             />
-        </div>
-        <div className="row">
           {this.state.quizzes &&
             <NewTourQuiz
               tourId={this.props.tour_id}

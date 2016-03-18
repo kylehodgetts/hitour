@@ -76,35 +76,47 @@ class SinglePoint extends React.Component {
             </div>
           </div>
         </div>
-        <div className="card-panel">
-          <h4>Media attached to point</h4>
+        <div>
+          <h4>Attached Media</h4>
           <ul className="collapsible" data-collapsible="accordion">
             {this.state.pointData.map(function(pointData) {
+              var fontSize = '24px';
+              var textSize = '20px';
+              if($(document).width() <= 350){
+                // Decrease font size due to screen size
+                fontSize = '14px';
+                textSize = '10px';
+                var title = pointData.title;
+                if(pointData.title.length > 8 && $(document).width() <= 350){
+                  pointData.title = pointData.title.substring(0,6)+"...";
+                }
+              }
               return (
                 <li key={pointData.id}>
-                  <div className="collapsible-header">
-                    {pointData.rank+". "+pointData.title}
+                  <div className="collapsible-header grey lighten-5">
+                    <span style={{fontSize:textSize}}>{pointData.rank+". "+pointData.title}</span>
                     <a id={pointData.id} href={pointData.delete_url}
                        className="secondary-content" key={pointData.id}
                        onClick={DataUtil.handleDeleteDataFromServer.bind(this, pointData.delete_url,"Are you sure you want to delete this datum from this point?")}>
-                    <i className=" blue-text material-icons">delete_forever</i>
+                    <i style={{fontSize:fontSize}} className="blue-text material-icons">delete_forever</i>
                     </a>
                     <a id={pointData.id} href={pointData.datum_show_url}
                        className="secondary-content">
-                      <i className=" blue-text material-icons">launch</i>
+                      <i style={{fontSize:fontSize}} className=" blue-text material-icons">launch</i>
                     </a>
                     <a id={pointData.id} href="#"
                        onClick={DataUtil.handlePostToServer.bind(this,pointData.decrease_url,null,'Updating rank')}
                        className="secondary-content">
-                      <i className=" blue-text material-icons">call_made</i>
+                      <i style={{fontSize:fontSize}} className=" blue-text material-icons">call_made</i>
                     </a>
                     <a id={pointData.id} href="#"
                        onClick={DataUtil.handlePostToServer.bind(this,pointData.increase_url,null,'Updating rank')}
                        className="secondary-content">
-                      <i className=" blue-text material-icons">call_received</i>
+                      <i style={{fontSize:fontSize}} className=" blue-text material-icons">call_received</i>
                     </a>
                   </div>
                   <div className="collapsible-body">
+                      <h5 className="center-align">{title}</h5>
                       <p>{pointData.description}</p>
                      <DataViewer url={pointData.url} data_id={pointData.id} />
                   </div>
