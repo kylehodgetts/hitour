@@ -23,20 +23,15 @@ Rails.application.routes.draw do
 
   # Tours Points
   post '/tour_points', to: 'tours_points#create', as: :create_tour_point
+  delete '/tours_points/:id', to: 'tours_points#destroy', as: :delete_tour_point
   post '/tour_points/increase_rank/:id',to: 'tours_points#increase_rank', as: :increase_tour_point
   post '/tour_points/decrease_rank/:id',to: 'tours_points#decrease_rank', as: :decrease_tour_point
-  delete '/tours_points/:id', to: 'tours_points#destroy', as: :delete_tour_point
 
   # Points Data
   post '/point_data', to: 'points_data#create', as: :create_point_datum
   delete '/points_data/:id', to: 'points_data#destroy', as: :delete_points_data
-  patch '/points_data/:id', to: 'points_data#update', as: :update_points_datum
   post '/points_data/increase_rank/:id',to: 'points_data#increase_rank', as: :increase_point_datum
   post '/points_data/decrease_rank/:id',to: 'points_data#decrease_rank', as: :decrease_point_datum
-
-  # Tours Audiences
-  get '/tours_audiences/new', to: 'tours_audiences#new', as: :new_tours_audience
-  post '/tour_audiences', to: 'tours_audiences#create'
 
   # Session handling
   get 'register', to: 'users#new', as: :register
