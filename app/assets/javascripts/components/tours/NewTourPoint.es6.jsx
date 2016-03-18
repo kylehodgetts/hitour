@@ -30,16 +30,16 @@ class NewTourPoint extends React.Component {
       }.bind(this)),
       this.state.pollInterval
     );
-    var postUrl = this.props.new_tour_point_url;
-    $('#tourPointForm').on('submit',function(e){
-      DataUtil.handlePostToServer(postUrl,$(this).serialize(),'Adding Point to Tour. Please wait...',e);
-    });
   }
 
   componentDidUpdate(prevProps, prevState) {
     var check = JSON.stringify(prevState) === JSON.stringify(this.state);
     if(!check || this.state.data == []){
       $('.materialSelect').material_select();
+      var postUrl = this.props.new_tour_point_url;
+      $('#tourPointForm').unbind('submit').on('submit',function(e){
+        DataUtil.handlePostToServer(postUrl,$(this).serialize(),'Adding Point to Tour. Please wait...',e);
+      });
     }
   }
 
