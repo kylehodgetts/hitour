@@ -2,6 +2,7 @@ class NewDatumAudience extends React.Component {
   constructor (props) {
     super(props);
     this.state =  {
+      loading: true,
       audiences: [],
       pollInterval: this.props.pollInterval || 2000,
       intervalId: 0
@@ -11,6 +12,7 @@ class NewDatumAudience extends React.Component {
   componentDidMount() {
     DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.audiencesUrl+".json",function(data){
       this.setState({
+        loading: false,
         audiences: data
       });
     }.bind(this));
@@ -18,23 +20,24 @@ class NewDatumAudience extends React.Component {
     this.interval = setInterval(
       DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.audiencesUrl+".json",function(data){
         this.setState({
+          loading: false,
           audiences: data
         });
       }.bind(this)),
       this.state.pollInterval
     );
-    var postUrl = this.props.createDatumAudienceUrl;
-    $('#datumAudienceForm').on('submit',function(e){
-      e.preventDefault();
-      DataUtil.handlePostToServer(postUrl,$(this).serialize(),'Assigning Audience to Media. Please wait...',e);
-      $('#datumAudienceForm')[0].reset();
-    });
   }
 
   componentDidUpdate(prevProps, prevState) {
     var check = JSON.stringify(prevState) === JSON.stringify(this.state);
     if(!check || this.state.data == []){
       $('select').material_select();
+      var postUrl = this.props.createDatumAudienceUrl;
+      $('#datumAudienceForm').unbind('submit').on('submit',function(e){
+        e.preventDefault();
+        DataUtil.handlePostToServer(postUrl,$(this).serialize(),'Assigning Audience to Media. Please wait...',e);
+        $('#datumAudienceForm')[0].reset();
+      });
     }
   }
 
@@ -43,6 +46,9 @@ class NewDatumAudience extends React.Component {
   }
 
   render () {
+    if(this.state.loading){
+      return <BlankLoading />;
+    }else
     return (
       <div>
         <div>

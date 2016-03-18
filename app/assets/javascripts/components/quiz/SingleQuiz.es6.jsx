@@ -2,6 +2,7 @@ class SingleQuiz extends React.Component{
   constructor (props) {
     super(props);
     this.state =  {
+      loading: true,
       quiz: [],
       questions: [],
       pollInterval: this.props.pollInterval || 2000
@@ -11,6 +12,7 @@ class SingleQuiz extends React.Component{
   componentDidMount() {
     DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.getUrl,function(data){
       this.setState({
+        loading: false,
         quiz: data,
         questions: data["questions"]
       });
@@ -18,6 +20,7 @@ class SingleQuiz extends React.Component{
     this.interval = setInterval(
       DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.getUrl,function(data){
         this.setState({
+          loading: false,
           quiz: data,
           questions: data["questions"]
         });
@@ -46,6 +49,9 @@ class SingleQuiz extends React.Component{
 
   render () {
     var _this = this;
+    if(this.state.loading){
+      return <BlankLoading />;
+    }else
     return (
       <div>
         {this.state.quiz.name &&

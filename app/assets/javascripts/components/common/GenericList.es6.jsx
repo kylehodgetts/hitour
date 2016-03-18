@@ -2,6 +2,7 @@ class GenericList extends React.Component {
   constructor (props) {
     super(props);
     this.state =  {
+      loading: true,
       data: [],
       pollInterval: this.props.pollInterval || 1000,
       intervalId: 0
@@ -42,6 +43,9 @@ class GenericList extends React.Component {
   }
   render () {
     var _this = this;
+    if(this.state.loading){
+      return <BlankLoading />;
+    }else
     return (
       <div className="collection">
         {this.state.data.map(function(item, i) {

@@ -6,7 +6,7 @@ class DataUtil {
       cache: false,
       success: function(data) {
         if(this.mounted){
-          this.setState({data: data});
+          this.setState({data: data, loading: false});
         }
       }.bind(this)
     });

@@ -2,6 +2,7 @@ class DataShow extends React.Component {
   constructor (props) {
     super(props);
     this.state =  {
+      loading: true,
       datum: [],
       audiences: [],
       pollInterval: this.props.pollInterval || 2000,
@@ -14,6 +15,7 @@ class DataShow extends React.Component {
     var _this = this;
     DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.getUrl+".json",function(data){
       this.setState({
+        loading: false,
         datum: data["datum"],
         audiences: data["datum_audiences"]
       });
@@ -21,6 +23,7 @@ class DataShow extends React.Component {
     this.interval = setInterval(
       DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.getUrl+".json",function(data){
         this.setState({
+          loading: false,
           datum: data["datum"],
           audiences: data["datum_audiences"]
         });
@@ -36,6 +39,9 @@ class DataShow extends React.Component {
 
   render () {
     var _this = this;
+    if(this.state.loading){
+      return <BlankLoading />;
+    }else
     return (
       <div className="row">
         <div className="col s10 m8 offset-s1 offset-m2">
