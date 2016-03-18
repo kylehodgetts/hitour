@@ -17,21 +17,9 @@ class SingleTour extends React.Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
     DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.showUrl,function(data){
-      this.setState({
-        loading: false,
-        tour: data[0]["tour"],
-        audience: data[0]["audience"],
-        points: data[0]["points"],
-        tourSessions: data[0]["tour_sessions"],
-        feedbackAverage: data[0]["feedbackAverage"],
-        feedbacks: data[0]["feedbacks"],
-        quizzes: data[0]["quizzes"],
-        currentQuiz: data[0]["currentQuiz"]
-      });
-    }.bind(this));
-    this.interval = setInterval(
-      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.showUrl,function(data){
+      if(this.mounted){
         this.setState({
           loading: false,
           tour: data[0]["tour"],
@@ -43,6 +31,23 @@ class SingleTour extends React.Component {
           quizzes: data[0]["quizzes"],
           currentQuiz: data[0]["currentQuiz"]
         });
+      }
+    }.bind(this));
+    this.interval = setInterval(
+      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.showUrl,function(data){
+        if(this.mounted){
+          this.setState({
+            loading: false,
+            tour: data[0]["tour"],
+            audience: data[0]["audience"],
+            points: data[0]["points"],
+            tourSessions: data[0]["tour_sessions"],
+            feedbackAverage: data[0]["feedbackAverage"],
+            feedbacks: data[0]["feedbacks"],
+            quizzes: data[0]["quizzes"],
+            currentQuiz: data[0]["currentQuiz"]
+          });
+        }
       }.bind(this)),
       this.state.pollInterval
     );
@@ -58,6 +63,7 @@ class SingleTour extends React.Component {
   }
 
   componentWillUnmount() {
+    this.mounted = false;
     this.interval && clearInterval(this.interval);
     this.interval = false;
   }

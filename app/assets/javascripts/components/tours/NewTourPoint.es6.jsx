@@ -9,16 +9,21 @@ class NewTourPoint extends React.Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
     DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.points_url,function(data){
-      this.setState({
-        points: data
-      });
-    }.bind(this));
-    this.interval = setInterval(
-      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.points_url,function(data){
+      if(this.mounted){
         this.setState({
           points: data
         });
+      }
+    }.bind(this));
+    this.interval = setInterval(
+      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.points_url,function(data){
+        if(this.mounted){
+          this.setState({
+            points: data
+          });
+        }
       }.bind(this)),
       this.state.pollInterval
     );
@@ -36,6 +41,7 @@ class NewTourPoint extends React.Component {
   }
 
   componentWillUnmount() {
+    this.mounted = false;
     clearInterval(this.interval);
   }
 
