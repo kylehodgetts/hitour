@@ -13,7 +13,7 @@ RSpec.describe PasswordResetController, type: :controller do
       it 'should establish a session and redirect to manage user profile' do
         post :activate, temporarypassword: 'qweqwejhiq9qwqw83124'
         expect(session[:user_id]).to eq(@user.id)
-        expect(response).to redirect_to update_profile_path(@user.id)
+        expect(response).to redirect_to user_path(@user.id)
       end
     end
     context 'with an invalid recoveryHash' do

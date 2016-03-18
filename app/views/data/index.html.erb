@@ -6,5 +6,5 @@
   <% end %>
 </script>
 <%= react_component('Data', getUrl: data_path + '.json',
-                                postUrl: create_datum_path,
-                                audiences: @audiences) %>
+                            postUrl: data_path,
+                            audiences: @audiences) %>

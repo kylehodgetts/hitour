@@ -14,13 +14,13 @@ class UsersController < ApplicationController
         @users << {
           id: item.id,
           data: item.email,
-          delete_url: delete_user_path(item),
+          delete_url: user_path(item),
           activated: item.activated
         }
       end
       api_response(@users)
     else
-      redirect_to update_profile_path(@current_user.id)
+      redirect_to user_path(@current_user.id)
     end
   end
 
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   # Send user an activation email to set up account
   # Return a success message, if email is sent
   def create
-    redirect_path = update_profile_path(@current_user.id)
+    redirect_path = user_path(@current_user.id)
     redirect_to redirect_path unless @current_user.activated
     params[:user][:password] = SecureRandom.hex(25)
     @user = User.new(user_params)
@@ -41,19 +41,6 @@ class UsersController < ApplicationController
     @user.activated = false
     send_activation_email
     render json: ['Activation email sent!'], status: 200 if @user.save
-  end
-
-  # Prepare activation email to send to a newly
-  # added user
-  def send_activation_email
-    @url = root_url
-    email = SendGrid::Mail.new do |m|
-     m.to      = @user.email
-     m.from    = 'services@Hitour.com'
-     m.subject = 'HiTour - Account Activation'
-     m.html = render_to_string(action: 'activation_template', layout: false)
-    end
-    sendgrid.send(email)
   end
 
   # Update a given user whose id matches that
@@ -76,11 +63,24 @@ class UsersController < ApplicationController
   # Destroy the user whose id matches that
   # given in the params
   def destroy
-    redirect_path = update_profile_path(@current_user.id)
+    redirect_path = user_path(@current_user.id)
     redirect_to redirect_path unless @current_user.activated
     user = User.find(params[:id])
     user.delete
     render json: ['Successfully deleted user'], status: 200
+  end
+
+  # Prepare activation email to send to a newly
+  # added user
+  def send_activation_email
+    @url = root_url
+    email = SendGrid::Mail.new do |m|
+     m.to      = @user.email
+     m.from    = 'services@Hitour.com'
+     m.subject = 'HiTour - Account Activation'
+     m.html = render_to_string(action: 'activation_template', layout: false)
+    end
+    sendgrid.send(email)
   end
 
   private
