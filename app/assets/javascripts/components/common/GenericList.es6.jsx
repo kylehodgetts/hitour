@@ -47,7 +47,7 @@ class GenericList extends React.Component {
             item.data = item.data.substring(0,25)+"...";
           }
           return (
-            <div key={item.id} className="collection-item">
+            <div key={item.id} className="collection-item grey lighten-5">
               <div>
                 {item.data}
                 <a id={item.id} href="" className="secondary-content" key={i}

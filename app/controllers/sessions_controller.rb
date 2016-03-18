@@ -16,9 +16,11 @@ class SessionsController < ApplicationController
     if @user
       password = params[:password]
       # If the user is not nil and the given password matches
-      create_user_session if @user.authenticate(password)
-      set_temporary_password if password.eql? @user.temporarypassword
+      return create_user_session if @user.authenticate(password)
+      return set_temporary_password if password.eql? @user.temporarypassword
+      redirect_to root_path
     end
+    flash[:error] = 'Invalid username or password'
   end
 
   # Destroy user session
