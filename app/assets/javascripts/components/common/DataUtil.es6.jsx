@@ -5,7 +5,9 @@ class DataUtil {
       type: "GET",
       cache: false,
       success: function(data) {
-        this.setState({data: data});
+        if(this.mounted){
+          this.setState({data: data});
+        }
       }.bind(this)
     });
   }

@@ -9,6 +9,7 @@ class GenericList extends React.Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
     DataUtil.handleLoadDataFromServer.bind(this,this.props.getUrl),
     this.interval = setInterval(
       DataUtil.handleLoadDataFromServer.bind(this,this.props.getUrl),
@@ -17,6 +18,7 @@ class GenericList extends React.Component {
   }
 
   componentWillUnmount() {
+    this.mounted = false;
     clearInterval(this.interval);
   }
 
