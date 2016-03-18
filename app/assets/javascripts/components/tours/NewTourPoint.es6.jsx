@@ -2,6 +2,7 @@ class NewTourPoint extends React.Component {
   constructor (props) {
     super(props);
     this.state =  {
+      loading: true,
       points: [],
       pollInterval: this.props.pollInterval || 2000,
       intervalId: 0
@@ -13,6 +14,7 @@ class NewTourPoint extends React.Component {
     DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.points_url,function(data){
       if(this.mounted){
         this.setState({
+          loading: false,
           points: data
         });
       }
@@ -21,6 +23,7 @@ class NewTourPoint extends React.Component {
       DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.points_url,function(data){
         if(this.mounted){
           this.setState({
+            loading: false,
             points: data
           });
         }
@@ -46,6 +49,9 @@ class NewTourPoint extends React.Component {
   }
 
   render () {
+    if(this.state.loading){
+      return <div className="col s6"><BlankLoading /></div>;
+    }else
     return (
       <div className="col s6">
         <div className="card-panel">
