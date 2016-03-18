@@ -66,7 +66,7 @@ RSpec.describe SessionsController, type: :controller do
         post :create, email: 'kyle@gmail.com',
                       password: 'password'
         expect(session[:user_id]).to eq(@user.id)
-        expect(response).to redirect_to update_profile_path(@user.id)
+        expect(response).to redirect_to user_path(@user.id)
       end
     end
     context 'with an invalid user' do
@@ -91,7 +91,7 @@ RSpec.describe SessionsController, type: :controller do
         expect(@user.temporarypassword).to eq('workingpass')
         get :create, email: 'phileas.hocquard@gmail.com',
                      password: 'workingpass'
-        expect(response).to redirect_to update_profile_path(@user.id)
+        expect(response).to redirect_to user_path(@user.id)
         expect(session[:user_id]).to eq(@user.id)
         # Refetch user for updated attributes
         @user = User.find(@user.id)

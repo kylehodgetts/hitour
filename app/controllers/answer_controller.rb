@@ -18,17 +18,6 @@ class AnswerController < ApplicationController
     end
   end
 
-  # Update the answer whose id matches that
-  # given in the parameter
-  def update
-    answer = Answer.find(params[:id])
-    if answer.update_attributes(answer_params)
-      render json: ['Updated answer!']
-    else
-      render json: [answer.errors.full_messages.first]
-    end
-  end
-
   # Destroy the Answer record whose id
   # matches that in the parameter
   def destroy
