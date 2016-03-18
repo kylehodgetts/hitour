@@ -13,7 +13,7 @@ class AudiencesController < ApplicationController
       @audiences << {
         id: item.id,
         data: item.name,
-        delete_url: delete_audience_path(item) }
+        delete_url: audience_path(item) }
     end
     api_response(@audiences)
   end

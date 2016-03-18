@@ -39,7 +39,7 @@ class SessionsController < ApplicationController
     if @user.activated
       redirect_to root_path
     else
-      redirect_to update_profile_path(@user.id)
+      redirect_to user_path(@user.id)
     end
   end
 
@@ -52,6 +52,6 @@ class SessionsController < ApplicationController
     @user.update_attribute(:temporarypassword, '')
     @user.authenticate(params[:password])
     session[:user_id] = @user.id
-    redirect_to update_profile_path(@user.id)
+    redirect_to user_path(@user.id)
   end
 end

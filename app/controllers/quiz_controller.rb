@@ -10,7 +10,7 @@ class QuizController < ApplicationController
     @quiz = Quiz.includes(:questions).map do |quiz|
       quiz.as_json.merge(
         data: quiz.name,
-        delete_url: delete_quiz_path(quiz),
+        delete_url: quiz_path(quiz),
         show_url: quiz_path(quiz)
       )
     end
