@@ -10,20 +10,25 @@ class SingleQuiz extends React.Component{
   }
 
   componentDidMount() {
+    this.mounted = true;
     DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.getUrl,function(data){
-      this.setState({
-        loading: false,
-        quiz: data,
-        questions: data["questions"]
-      });
-    }.bind(this));
-    this.interval = setInterval(
-      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.getUrl,function(data){
+      if(this.mounted){
         this.setState({
           loading: false,
           quiz: data,
           questions: data["questions"]
         });
+      }
+    }.bind(this));
+    this.interval = setInterval(
+      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.getUrl,function(data){
+        if(this.mounted){
+          this.setState({
+            loading: false,
+            quiz: data,
+            questions: data["questions"]
+          });
+        }
       }.bind(this)),
       this.state.pollInterval
     );
@@ -43,6 +48,7 @@ class SingleQuiz extends React.Component{
   }
 
   componentWillUnmount() {
+    this.mounted = false;
     this.interval && clearInterval(this.interval);
     this.interval = false;
   }

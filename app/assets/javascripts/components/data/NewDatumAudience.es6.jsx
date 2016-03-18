@@ -10,19 +10,24 @@ class NewDatumAudience extends React.Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
     DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.audiencesUrl+".json",function(data){
-      this.setState({
-        loading: false,
-        audiences: data
-      });
-    }.bind(this));
-    // this.handleLoadDataFromServer();
-    this.interval = setInterval(
-      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.audiencesUrl+".json",function(data){
+      if(this.mounted){
         this.setState({
           loading: false,
           audiences: data
         });
+      }
+    }.bind(this));
+    // this.handleLoadDataFromServer();
+    this.interval = setInterval(
+      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.audiencesUrl+".json",function(data){
+        if(this.mounted){
+          this.setState({
+            loading: false,
+            audiences: data
+          });
+        }
       }.bind(this)),
       this.state.pollInterval
     );
@@ -42,6 +47,7 @@ class NewDatumAudience extends React.Component {
   }
 
   componentWillUnmount() {
+    this.mounted = false;
     clearInterval(this.interval);
   }
 
