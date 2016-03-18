@@ -62,26 +62,6 @@ class SingleTour extends React.Component {
     this.interval = false;
   }
 
-  handlePostDataToServer(rankUrl, e) {
-    e.preventDefault();
-    // Show Progress
-    $('.progress-message').text('Updating rank. Please wait...');
-    $('.progress-overlay').fadeIn(200);
-    $.ajax({
-      url: rankUrl,
-      type: "POST",
-      dataType: "json",
-      success: function(data){
-        $('.progress-overlay').fadeOut();
-        Materialize.toast(data, 3000, 'rounded');
-      }.bind(this),
-      error: function(err){
-        Materialize.toast('There was an issue updating rank. Please contact admin.', 3000, 'rounded');
-        console.log(err);
-      }.bind(this)
-    });
-  }
-
   render () {
     var _this = this;
     if(this.state.loading){
@@ -186,10 +166,10 @@ class SingleTour extends React.Component {
                   <a id={point.id} href={point.show_url} className="secondary-content">
                     <i className=" blue-text material-icons">launch</i>
                   </a>
-                  <a id={point.id} href="#" onClick={_this.handlePostDataToServer.bind(this, point.increase_url)}  className="secondary-content">
+                  <a id={point.id} href="#" onClick={DataUtil.handlePostToServer.bind(this, point.increase_url,null,"Updating Rank. Please wait....")} className="secondary-content">
                     <i className=" blue-text material-icons">call_received</i>
                   </a>
-                  <a id={point.id} href="#" onClick={_this.handlePostDataToServer.bind(this, point.decrease_url)} className="secondary-content">
+                  <a id={point.id} href="#" onClick={DataUtil.handlePostToServer.bind(this, point.decrease_url,null,"Updating Rank. Please wait....")} className="secondary-content">
                     <i className=" blue-text material-icons">call_made</i>
                   </a>
                 </div>
