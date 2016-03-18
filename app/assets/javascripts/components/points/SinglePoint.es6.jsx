@@ -2,6 +2,7 @@ class SinglePoint extends React.Component {
   constructor (props) {
     super(props);
     this.state =  {
+      loading: true,
       point: [],
       pointData: [],
       pollInterval: this.props.pollInterval || 2000,
@@ -14,6 +15,7 @@ class SinglePoint extends React.Component {
       var qrCode = $(data.qr_code);
       $('.point-qr-holder').html(qrCode);
       this.setState({
+        loading: false,
         point: data.point,
         pointData: data.point_data
       });
@@ -23,6 +25,7 @@ class SinglePoint extends React.Component {
         var qrCode = $(data.qr_code);
         $('.point-qr-holder').html(qrCode);
         this.setState({
+          loading: false,
           point: data.point,
           pointData: data.point_data
         });
@@ -45,6 +48,9 @@ class SinglePoint extends React.Component {
 
   render() {
     var _this = this;
+    if(this.state.loading){
+      return <BlankLoading />;
+    }else
     return (
       <div>
         <div className="card large point-card">
