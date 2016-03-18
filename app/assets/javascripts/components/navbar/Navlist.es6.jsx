@@ -3,7 +3,6 @@ class Navlist extends React.Component {
   render () {
     if(this.props.loggedIn) {
       var iconClass = "nav-icon";
-      console.log(this.props.forMobile);
       if(this.props.forMobile){
         iconClass = "";
       }

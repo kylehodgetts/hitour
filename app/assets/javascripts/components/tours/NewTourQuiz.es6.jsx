@@ -1,6 +1,5 @@
 class NewTourQuiz extends React.Component {
   componentDidMount() {
-    console.log("HELLO");
     $('.quizSelect').material_select();
     var postQuizUrl = this.props.postUrl;
     $('#tourQuizForm').on('submit',function(e){
@@ -9,7 +8,6 @@ class NewTourQuiz extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState){
-    console.log("HELLO");
     var check = JSON.stringify(prevProps) === JSON.stringify(this.props);
     if(!check || this.props == []){
       $('.quizSelect').material_select('destroy');

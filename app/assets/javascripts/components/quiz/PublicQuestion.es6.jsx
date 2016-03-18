@@ -18,7 +18,6 @@ class PublicQuestion extends React.Component{
         async: false,
         data:$(this).serialize(),
         success: function(data){
-          console.log(data);
           if(data != 'No Answer'){
             this.setState({
               response: data.correct,
