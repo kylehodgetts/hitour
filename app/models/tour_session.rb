@@ -8,7 +8,8 @@ class TourSession < ActiveRecord::Base
   validates :name, presence: :true
   # Ensure passphrase matches the given regex pattern
   validates :passphrase, presence: true,
-                         format: { with: PASSPHRASE_REGEX }
+                         format: { with: PASSPHRASE_REGEX },
+                         uniqueness: true
   validates :tour_id, presence: true
   validates :start_date, presence: true
   validates_date :start_date, on_or_after: -> { Date.current }

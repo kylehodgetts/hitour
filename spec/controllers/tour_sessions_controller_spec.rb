@@ -90,6 +90,26 @@ RSpec.describe TourSessionsController, type: :controller do
             expect(response.body).to eq expected
           end
         end
+        describe 'duplicate passphrase' do
+          it 'should indicate passphrase already taken' do
+            tour = create_tour
+            TourSession.create(tour_id: tour.id,
+                               name: 'Testing',
+                               start_date: Date.current,
+                               duration: '20',
+                               passphrase: 'Passphrase')
+            # Create a tour session
+            post :create, tour_session: {
+              tour_id: tour.id,
+              name: 'TourName',
+              start_date: Date.current + 1,
+              passphrase: 'Passphrase',
+              duration: '20'
+            }
+            expected = ['Passphrase has already been taken'].to_json
+            expect(response.body).to eq expected
+          end
+        end
       end
   end
   describe 'PATCH #update' do
@@ -126,6 +146,26 @@ RSpec.describe TourSessionsController, type: :controller do
             passphrase: ''
           }
           expect(response.body).to eq ['Passphrase can\'t be blank'].to_json
+        end
+      end
+      describe 'updating to a passphrase that is already taken' do
+        it 'should reject' do
+          tour = create_tour
+          TourSession.create(tour_id: tour.id,
+                             name: 'Testing',
+                             start_date: Date.current,
+                             duration: '20',
+                             passphrase: 'Passphrase')
+          tour_session = TourSession.create(tour_id: tour.id,
+                                            name: 'Test Tour Session',
+                                            start_date: Date.current + 1,
+                                            duration: 10,
+                                            passphrase: 'Hello')
+          post :update, id: tour_session.id, tour_session: {
+            passphrase: 'Passphrase'
+          }
+          expected = ['Passphrase has already been taken'].to_json
+          expect(response.body).to eq expected
         end
       end
   end
