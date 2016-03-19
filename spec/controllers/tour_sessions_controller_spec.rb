@@ -148,7 +148,7 @@ RSpec.describe TourSessionsController, type: :controller do
           post :update, id: tour_session.id, tour_session: {
             passphrase: ''
           }
-          expect(response.body).to eq ['Passphrase can\'t be blank'].to_json
+          expect(response.body).to eq ['Error: Passphrase can\'t be blank'].to_json
         end
       end
       describe 'updating a passhrase of tour session with past start date' do
@@ -184,7 +184,7 @@ RSpec.describe TourSessionsController, type: :controller do
           post :update, id: tour_session.id, tour_session: {
             passphrase: 'Passphrase'
           }
-          expected = ['Passphrase has already been taken'].to_json
+          expected = ['Error: Passphrase has already been taken'].to_json
           expect(response.body).to eq expected
         end
       end
