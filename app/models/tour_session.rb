@@ -3,12 +3,14 @@
 # and a Tour Session.
 class TourSession < ActiveRecord::Base
   PASSPHRASE_REGEX = /\A[A-z0-9]{5,}+\z/i
+  message = 'Phrase must contain at least 5 characters [A-z][0-9]'
   belongs_to :tour
 
   validates :name, presence: :true
   # Ensure passphrase matches the given regex pattern
   validates :passphrase, presence: true,
-                         format: { with: PASSPHRASE_REGEX },
+                         format: { with: PASSPHRASE_REGEX,
+                                   message: message },
                          uniqueness: true
   validates :tour_id, presence: true
   validates :start_date, presence: true
