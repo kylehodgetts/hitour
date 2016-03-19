@@ -32,7 +32,7 @@ class TourSessionsController < ApplicationController
     if tour_session.update_attributes(tour_session_params)
       render json: ['Successfully updated tour session'], status: 200
     else
-      render json: ['Could not update tour session']
+      render json: [tour_session.errors.full_messages.first]
     end
   end
 
