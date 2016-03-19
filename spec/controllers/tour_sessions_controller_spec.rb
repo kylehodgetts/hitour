@@ -143,7 +143,7 @@ RSpec.describe TourSessionsController, type: :controller do
                                             start_date: Date.current,
                                             duration: 10,
                                             passphrase: 'Hello')
-          tour_session.save(:validate => false)
+          tour_session.save(validate: false)
           tour_session = TourSession.find_by tour_id: tour.id
           post :update, id: tour_session.id, tour_session: {
             passphrase: ''
@@ -159,7 +159,7 @@ RSpec.describe TourSessionsController, type: :controller do
                                             start_date: Date.current - 1,
                                             duration: 10,
                                             passphrase: 'Hello')
-          tour_session.save(:validate => false)
+          tour_session.save(validate: false)
           tour_session = TourSession.find_by tour_id: tour.id
           post :update, id: tour_session.id, tour_session: {
             passphrase: 'Passphrase'
