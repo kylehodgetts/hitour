@@ -37,15 +37,10 @@ class GenericEdit extends React.Component {
     var formData = {};
     formData[newKey] = newValue;
     DataUtil.handleUpdateDataToServer(postUrl,formData,"Updating Record...",function(data){
-      // If what is returned contains error
-      if(data.indexOf('Error') > -1) {
-        this.setState({ editing: false });
-      }
-      else {
-        this.setState({
-          value: newValue,
-          editing: false
-        });
+      this.setState({ editing: false });
+      if(data.indexOf('Error') != -1) {
+        //Since it doesn't contains error - put new value
+        this.setState({ value: newValue });
       }
     }.bind(this));
   }
