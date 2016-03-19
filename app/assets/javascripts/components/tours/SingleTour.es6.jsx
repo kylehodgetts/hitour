@@ -2,6 +2,7 @@ class SingleTour extends React.Component {
   constructor (props) {
     super(props);
     this.state =  {
+      loading: true,
       tour: [],
       audience: [],
       points: [],
@@ -16,21 +17,11 @@ class SingleTour extends React.Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
     DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.showUrl,function(data){
-      this.setState({
-        tour: data[0]["tour"],
-        audience: data[0]["audience"],
-        points: data[0]["points"],
-        tourSessions: data[0]["tour_sessions"],
-        feedbackAverage: data[0]["feedbackAverage"],
-        feedbacks: data[0]["feedbacks"],
-        quizzes: data[0]["quizzes"],
-        currentQuiz: data[0]["currentQuiz"]
-      });
-    }.bind(this));
-    this.interval = setInterval(
-      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.showUrl,function(data){
+      if(this.mounted){
         this.setState({
+          loading: false,
           tour: data[0]["tour"],
           audience: data[0]["audience"],
           points: data[0]["points"],
@@ -40,6 +31,23 @@ class SingleTour extends React.Component {
           quizzes: data[0]["quizzes"],
           currentQuiz: data[0]["currentQuiz"]
         });
+      }
+    }.bind(this));
+    this.interval = setInterval(
+      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.showUrl,function(data){
+        if(this.mounted){
+          this.setState({
+            loading: false,
+            tour: data[0]["tour"],
+            audience: data[0]["audience"],
+            points: data[0]["points"],
+            tourSessions: data[0]["tour_sessions"],
+            feedbackAverage: data[0]["feedbackAverage"],
+            feedbacks: data[0]["feedbacks"],
+            quizzes: data[0]["quizzes"],
+            currentQuiz: data[0]["currentQuiz"]
+          });
+        }
       }.bind(this)),
       this.state.pollInterval
     );
@@ -55,32 +63,16 @@ class SingleTour extends React.Component {
   }
 
   componentWillUnmount() {
+    this.mounted = false;
     this.interval && clearInterval(this.interval);
     this.interval = false;
   }
 
-  handlePostDataToServer(rankUrl, e) {
-    e.preventDefault();
-    // Show Progress
-    $('.progress-message').text('Updating rank. Please wait...');
-    $('.progress-overlay').fadeIn(200);
-    $.ajax({
-      url: rankUrl,
-      type: "POST",
-      dataType: "json",
-      success: function(data){
-        $('.progress-overlay').fadeOut();
-        Materialize.toast(data, 3000, 'rounded');
-      }.bind(this),
-      error: function(err){
-        Materialize.toast('There was an issue updating rank. Please contact admin.', 3000, 'rounded');
-        console.log(err);
-      }.bind(this)
-    });
-  }
-
   render () {
     var _this = this;
+    if(this.state.loading){
+      return <BlankLoading />;
+    }else
     return (
       <div>
         <div>
@@ -180,10 +172,10 @@ class SingleTour extends React.Component {
                   <a id={point.id} href={point.show_url} className="secondary-content">
                     <i className=" blue-text material-icons">launch</i>
                   </a>
-                  <a id={point.id} href="#" onClick={_this.handlePostDataToServer.bind(this, point.increase_url)}  className="secondary-content">
+                  <a id={point.id} href="#" onClick={DataUtil.handlePostToServer.bind(this, point.increase_url,null,"Updating Rank. Please wait....")} className="secondary-content">
                     <i className=" blue-text material-icons">call_received</i>
                   </a>
-                  <a id={point.id} href="#" onClick={_this.handlePostDataToServer.bind(this, point.decrease_url)} className="secondary-content">
+                  <a id={point.id} href="#" onClick={DataUtil.handlePostToServer.bind(this, point.decrease_url,null,"Updating Rank. Please wait....")} className="secondary-content">
                     <i className=" blue-text material-icons">call_made</i>
                   </a>
                 </div>

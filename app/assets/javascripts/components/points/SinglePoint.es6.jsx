@@ -2,6 +2,7 @@ class SinglePoint extends React.Component {
   constructor (props) {
     super(props);
     this.state =  {
+      loading: true,
       point: [],
       pointData: [],
       pollInterval: this.props.pollInterval || 2000,
@@ -10,22 +11,29 @@ class SinglePoint extends React.Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
     DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.getUrl,function(data){
-      var qrCode = $(data.qr_code);
-      $('.point-qr-holder').html(qrCode);
-      this.setState({
-        point: data.point,
-        pointData: data.point_data
-      });
-    }.bind(this));
-    this.interval = setInterval(
-      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.getUrl,function(data){
+      if(this.mounted){
         var qrCode = $(data.qr_code);
         $('.point-qr-holder').html(qrCode);
         this.setState({
+          loading: false,
           point: data.point,
           pointData: data.point_data
         });
+      }
+    }.bind(this));
+    this.interval = setInterval(
+      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.getUrl,function(data){
+        if(this.mounted){
+          var qrCode = $(data.qr_code);
+          $('.point-qr-holder').html(qrCode);
+          this.setState({
+            loading: false,
+            point: data.point,
+            pointData: data.point_data
+          });
+        }
       }.bind(this)),
       this.state.pollInterval
     );
@@ -39,12 +47,16 @@ class SinglePoint extends React.Component {
   }
 
   componentWillUnmount() {
+    this.mounted = false;
     this.interval && clearInterval(this.interval);
     this.interval = false;
   }
 
   render() {
     var _this = this;
+    if(this.state.loading){
+      return <BlankLoading />;
+    }else
     return (
       <div>
         <div className="card large point-card">

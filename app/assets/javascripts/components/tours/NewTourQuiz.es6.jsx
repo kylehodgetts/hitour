@@ -1,5 +1,6 @@
 class NewTourQuiz extends React.Component {
   componentDidMount() {
+    $('.quizSelect').material_select();
     var postQuizUrl = this.props.postUrl;
     $('#tourQuizForm').on('submit',function(e){
       DataUtil.handlePostToServer(postQuizUrl,$(this).serialize(),'Adding Quiz to Tour',e);

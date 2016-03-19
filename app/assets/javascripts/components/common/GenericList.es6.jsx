@@ -2,6 +2,7 @@ class GenericList extends React.Component {
   constructor (props) {
     super(props);
     this.state =  {
+      loading: true,
       data: [],
       pollInterval: this.props.pollInterval || 1000,
       intervalId: 0
@@ -9,6 +10,7 @@ class GenericList extends React.Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
     DataUtil.handleLoadDataFromServer.bind(this,this.props.getUrl),
     this.interval = setInterval(
       DataUtil.handleLoadDataFromServer.bind(this,this.props.getUrl),
@@ -17,6 +19,7 @@ class GenericList extends React.Component {
   }
 
   componentWillUnmount() {
+    this.mounted = false;
     clearInterval(this.interval);
   }
 
@@ -40,6 +43,9 @@ class GenericList extends React.Component {
   }
   render () {
     var _this = this;
+    if(this.state.loading){
+      return <BlankLoading />;
+    }else
     return (
       <div className="collection">
         {this.state.data.map(function(item, i) {
