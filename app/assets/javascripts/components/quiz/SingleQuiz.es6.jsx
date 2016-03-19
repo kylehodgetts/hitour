@@ -32,18 +32,18 @@ class SingleQuiz extends React.Component{
       }.bind(this)),
       this.state.pollInterval
     );
-    var postUrl = this.props.postQuestionUrl;
-    $('#questionForm').on('submit', function(e){
-      e.preventDefault();
-      DataUtil.handlePostToServer(postUrl,$(this).serialize(),'Creating Question. Please wait...',e);
-      $('#questionForm').trigger("reset");
-    });
   }
 
   componentDidUpdate(prevProps, prevState) {
     var check = JSON.stringify(prevState) === JSON.stringify(this.state);
     if(!check || this.state.question == []){
       $('.collapsible').collapsible();
+      var postUrl = this.props.postQuestionUrl;
+      $('#questionForm').unbind('submit').on('submit', function(e){
+        e.preventDefault();
+        DataUtil.handlePostToServer(postUrl,$(this).serialize(),'Creating Question. Please wait...',e);
+        $('#questionForm').trigger("reset");
+      });
     }
   }
 

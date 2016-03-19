@@ -29,10 +29,11 @@ class TourSessionsController < ApplicationController
   # Otherwise, return an error message
   def update
     tour_session = TourSession.find(params[:id])
-    if tour_session.update_attributes(tour_session_params)
+    tour_session.passphrase = params[:tour_session][:passphrase]
+    if tour_session.save
       render json: ['Successfully updated tour session'], status: 200
     else
-      render json: ['Could not update tour session']
+      render json: ['Error: ' + tour_session.errors.full_messages.first]
     end
   end
 

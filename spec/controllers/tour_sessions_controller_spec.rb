@@ -90,10 +90,31 @@ RSpec.describe TourSessionsController, type: :controller do
             expect(response.body).to eq expected
           end
         end
+        describe 'duplicate passphrase' do
+          it 'should indicate passphrase already taken' do
+            tour = create_tour
+            TourSession.create(tour_id: tour.id,
+                               name: 'Testing',
+                               start_date: Date.current,
+                               duration: '20',
+                               passphrase: 'Passphrase')
+            # Create a tour session
+            post :create, tour_session: {
+              tour_id: tour.id,
+              name: 'TourName',
+              start_date: Date.current + 1,
+              passphrase: 'Passphrase',
+              duration: '20'
+            }
+            expected = ['Passphrase has already been taken'].to_json
+            expect(response.body).to eq expected
+          end
+        end
       end
   end
   describe 'PATCH #update' do
       before(:each) do
+        TourSession.delete_all
         # MUST create a user session to access controller
         create_user_session
       end
@@ -117,15 +138,54 @@ RSpec.describe TourSessionsController, type: :controller do
       describe 'with an invalid passphrase' do
         it 'should not update tour session' do
           tour = create_tour
-          tour_session = TourSession.create(tour_id: tour.id,
+          tour_session = TourSession.new(tour_id: tour.id,
                                             name: 'Test Tour Session',
                                             start_date: Date.current,
                                             duration: 10,
                                             passphrase: 'Hello')
+          tour_session.save(validate: false)
+          tour_session = TourSession.find_by tour_id: tour.id
           post :update, id: tour_session.id, tour_session: {
             passphrase: ''
           }
-          expect(response.body).to eq ['Could not update tour session'].to_json
+          expect(response.body).to eq ['Error: Passphrase can\'t be blank'].to_json
+        end
+      end
+      describe 'updating a passhrase of tour session with past start date' do
+        it 'should accept' do
+          tour = create_tour
+          tour_session = TourSession.create(tour_id: tour.id,
+                                            name: 'Test Tour Session',
+                                            start_date: Date.current - 1,
+                                            duration: 10,
+                                            passphrase: 'Hello')
+          tour_session.save(validate: false)
+          tour_session = TourSession.find_by tour_id: tour.id
+          post :update, id: tour_session.id, tour_session: {
+            passphrase: 'Passphrase'
+          }
+          expected = ['Successfully updated tour session'].to_json
+          expect(response.body).to eq expected
+        end
+      end
+      describe 'updating to a passphrase that is already taken' do
+        it 'should reject' do
+          tour = create_tour
+          TourSession.create(tour_id: tour.id,
+                             name: 'Testing',
+                             start_date: Date.current,
+                             duration: '20',
+                             passphrase: 'Passphrase')
+          tour_session = TourSession.create(tour_id: tour.id,
+                                            name: 'Test Tour Session',
+                                            start_date: Date.current + 1,
+                                            duration: 10,
+                                            passphrase: 'Hello')
+          post :update, id: tour_session.id, tour_session: {
+            passphrase: 'Passphrase'
+          }
+          expected = ['Error: Passphrase has already been taken'].to_json
+          expect(response.body).to eq expected
         end
       end
   end

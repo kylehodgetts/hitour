@@ -51,14 +51,14 @@ class SingleTour extends React.Component {
       }.bind(this)),
       this.state.pollInterval
     );
-    // Initialise Modal
-    $('.modal-trigger').leanModal();
   }
 
   componentDidUpdate(prevProps, prevState) {
     var check = JSON.stringify(prevState) === JSON.stringify(this.state);
     if(!check || this.state.tour == []){
       $('.collapsible').collapsible();
+      // Initialise Modal
+      $('.modal-trigger').leanModal();
     }
   }
 

@@ -58,7 +58,7 @@ class DataUtil {
         cb(data);
       },
       error: function(err){
-        console.log(err);
+        $('.progress-overlay').fadeOut();
         Materialize.toast(err, 3000, 'rounded');
       }
     });
