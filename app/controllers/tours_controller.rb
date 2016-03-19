@@ -119,6 +119,7 @@ class ToursController < ApplicationController
 		@tour = Tour.find(params[:id])
 		@audience = Audience.find(@tour.audience_id)
 		@tour_points = tour_points(params[:id])
+		@tour_sessions = tour_sessions(@tour)
 		render pdf: @tour.name.to_s
 	end
 
