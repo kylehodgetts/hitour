@@ -125,7 +125,7 @@ RSpec.describe TourSessionsController, type: :controller do
           post :update, id: tour_session.id, tour_session: {
             passphrase: ''
           }
-          expect(response.body).to eq ['Could not update tour session'].to_json
+          expect(response.body).to eq ['Passphrase can\'t be blank'].to_json
         end
       end
   end
