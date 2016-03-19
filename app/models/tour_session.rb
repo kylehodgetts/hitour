@@ -12,7 +12,7 @@ class TourSession < ActiveRecord::Base
                          uniqueness: true
   validates :tour_id, presence: true
   validates :start_date, presence: true
-  validates_date :start_date, on_or_after: -> { Date.current }
+  validates_date :start_date, on_or_after: -> { Date.current }, on: :create
 
   validates :duration, presence: true,
                        numericality: { only_integer: true,

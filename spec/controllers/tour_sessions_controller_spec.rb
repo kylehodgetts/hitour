@@ -114,6 +114,7 @@ RSpec.describe TourSessionsController, type: :controller do
   end
   describe 'PATCH #update' do
       before(:each) do
+        TourSession.delete_all
         # MUST create a user session to access controller
         create_user_session
       end
@@ -137,15 +138,34 @@ RSpec.describe TourSessionsController, type: :controller do
       describe 'with an invalid passphrase' do
         it 'should not update tour session' do
           tour = create_tour
-          tour_session = TourSession.create(tour_id: tour.id,
+          tour_session = TourSession.new(tour_id: tour.id,
                                             name: 'Test Tour Session',
                                             start_date: Date.current,
                                             duration: 10,
                                             passphrase: 'Hello')
+          tour_session.save(:validate => false)
+          tour_session = TourSession.find_by tour_id: tour.id
           post :update, id: tour_session.id, tour_session: {
             passphrase: ''
           }
           expect(response.body).to eq ['Passphrase can\'t be blank'].to_json
+        end
+      end
+      describe 'updating a passhrase of tour session with past start date' do
+        it 'should accept' do
+          tour = create_tour
+          tour_session = TourSession.create(tour_id: tour.id,
+                                            name: 'Test Tour Session',
+                                            start_date: Date.current - 1,
+                                            duration: 10,
+                                            passphrase: 'Hello')
+          tour_session.save(:validate => false)
+          tour_session = TourSession.find_by tour_id: tour.id
+          post :update, id: tour_session.id, tour_session: {
+            passphrase: 'Passphrase'
+          }
+          expected = ['Successfully updated tour session'].to_json
+          expect(response.body).to eq expected
         end
       end
       describe 'updating to a passphrase that is already taken' do
