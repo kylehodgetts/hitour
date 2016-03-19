@@ -2,6 +2,7 @@ class NewTourPoint extends React.Component {
   constructor (props) {
     super(props);
     this.state =  {
+      loading: true,
       points: [],
       pollInterval: this.props.pollInterval || 2000,
       intervalId: 0
@@ -9,37 +10,48 @@ class NewTourPoint extends React.Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
     DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.points_url,function(data){
-      this.setState({
-        points: data
-      });
+      if(this.mounted){
+        this.setState({
+          loading: false,
+          points: data
+        });
+      }
     }.bind(this));
     this.interval = setInterval(
       DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.points_url,function(data){
-        this.setState({
-          points: data
-        });
+        if(this.mounted){
+          this.setState({
+            loading: false,
+            points: data
+          });
+        }
       }.bind(this)),
       this.state.pollInterval
     );
-    var postUrl = this.props.new_tour_point_url;
-    $('#tourPointForm').on('submit',function(e){
-      DataUtil.handlePostToServer(postUrl,$(this).serialize(),'Adding Point to Tour. Please wait...',e);
-    });
   }
 
   componentDidUpdate(prevProps, prevState) {
     var check = JSON.stringify(prevState) === JSON.stringify(this.state);
     if(!check || this.state.data == []){
       $('.materialSelect').material_select();
+      var postUrl = this.props.new_tour_point_url;
+      $('#tourPointForm').unbind('submit').on('submit',function(e){
+        DataUtil.handlePostToServer(postUrl,$(this).serialize(),'Adding Point to Tour. Please wait...',e);
+      });
     }
   }
 
   componentWillUnmount() {
+    this.mounted = false;
     clearInterval(this.interval);
   }
 
   render () {
+    if(this.state.loading){
+      return <div className="col s6"><BlankLoading /></div>;
+    }else
     return (
       <div className="col s6">
         <div className="card-panel">

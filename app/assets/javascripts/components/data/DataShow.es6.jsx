@@ -2,6 +2,7 @@ class DataShow extends React.Component {
   constructor (props) {
     super(props);
     this.state =  {
+      loading: true,
       datum: [],
       audiences: [],
       pollInterval: this.props.pollInterval || 2000,
@@ -10,32 +11,42 @@ class DataShow extends React.Component {
   }
 
   componentDidMount() {
-    // this.handleLoadDataFromServer();
     var _this = this;
+    this.mounted = true;
     DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.getUrl+".json",function(data){
-      this.setState({
-        datum: data["datum"],
-        audiences: data["datum_audiences"]
-      });
-    }.bind(this));
-    this.interval = setInterval(
-      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.getUrl+".json",function(data){
+      if(this.mounted){
         this.setState({
+          loading: false,
           datum: data["datum"],
           audiences: data["datum_audiences"]
         });
+      }
+    }.bind(this));
+    this.interval = setInterval(
+      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.getUrl+".json",function(data){
+        if(this.mounted){
+          this.setState({
+            loading: false,
+            datum: data["datum"],
+            audiences: data["datum_audiences"]
+          });
+        }
       }.bind(this)),
       this.state.pollInterval
     );
   }
 
   componentWillUnmount() {
+    this.mounted = false;
     this.interval && clearInterval(this.interval);
     this.interval = false;
   }
 
   render () {
     var _this = this;
+    if(this.state.loading){
+      return <BlankLoading />;
+    }else
     return (
       <div className="row">
         <div className="col s10 m8 offset-s1 offset-m2">

@@ -9,16 +9,21 @@ class SessionEmail extends React.Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
     DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.tourSessionsUrl,function(data){
-      this.setState({
-        tourSessions: data[0]["tour_sessions"]
-      });
-    }.bind(this));
-    this.interval = setInterval(
-      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.tourSessionsUrl,function(data){
+      if(this.mounted){
         this.setState({
           tourSessions: data[0]["tour_sessions"]
         });
+      }
+    }.bind(this));
+    this.interval = setInterval(
+      DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.tourSessionsUrl,function(data){
+        if(this.mounted){
+          this.setState({
+            tourSessions: data[0]["tour_sessions"]
+          });
+        }
       }.bind(this)),
       this.state.pollInterval
     );
@@ -39,6 +44,7 @@ class SessionEmail extends React.Component {
   }
 
   componentWillUnmount() {
+    this.mounted = false;
     this.interval && clearInterval(this.interval);
   }
 
