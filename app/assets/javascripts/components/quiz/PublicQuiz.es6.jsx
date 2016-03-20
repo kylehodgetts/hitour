@@ -55,7 +55,7 @@ class PublicQuiz extends React.Component{
   }
 }
 
-PublicQuiz.displayName = "Public Quiz";
+PublicQuiz.displayName = 'Public Quiz';
 PublicQuiz.propTypes = {
   tour: React.PropTypes.object.isRequired,
   quizData: React.PropTypes.object,

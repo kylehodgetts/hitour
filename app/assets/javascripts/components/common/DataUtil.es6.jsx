@@ -2,7 +2,7 @@ class DataUtil {
   static handleLoadDataFromServer(url) {
     $.ajax({
       url: url,
-      type: "GET",
+      type: 'GET',
       cache: false,
       success: function(data) {
         if(this.mounted){
@@ -15,7 +15,7 @@ class DataUtil {
   static handleCustomLoadDataFromServer(url,cb) {
     $.ajax({
       url: url,
-      type: "GET",
+      type: 'GET',
       cache: false,
       success: function(data) {
         cb(data);
@@ -50,7 +50,7 @@ class DataUtil {
     $('.progress-overlay').fadeIn(200);
     $.ajax({
       url: url,
-      type: "PATCH",
+      type: 'PATCH',
       data: formData,
       success: function(data){
         $('.progress-overlay').fadeOut();

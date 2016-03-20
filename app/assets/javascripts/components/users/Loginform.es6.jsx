@@ -48,7 +48,7 @@ class Loginform extends React.Component {
   }
 }
 
-Loginform.displayName = "Loginform";
+Loginform.displayName = 'Loginform';
 Loginform.propTypes = {
   link_path: React.PropTypes.string.isRequired
 }

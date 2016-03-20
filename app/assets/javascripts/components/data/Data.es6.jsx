@@ -55,7 +55,7 @@ class Data extends React.Component {
   }
 }
 
-Data.displayName = "Data";
+Data.displayName = 'Data';
 Data.propTypes = {
   getUrl: React.PropTypes.string.isRequired,
   postUrl: React.PropTypes.string.isRequired,

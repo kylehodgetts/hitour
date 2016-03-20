@@ -22,14 +22,14 @@ class SingleTour extends React.Component {
       if(this.mounted){
         this.setState({
           loading: false,
-          tour: data[0]["tour"],
-          audience: data[0]["audience"],
-          points: data[0]["points"],
-          tourSessions: data[0]["tour_sessions"],
-          feedbackAverage: data[0]["feedbackAverage"],
-          feedbacks: data[0]["feedbacks"],
-          quizzes: data[0]["quizzes"],
-          currentQuiz: data[0]["currentQuiz"]
+          tour: data[0]['tour'],
+          audience: data[0]['audience'],
+          points: data[0]['points'],
+          tourSessions: data[0]['tour_sessions'],
+          feedbackAverage: data[0]['feedbackAverage'],
+          feedbacks: data[0]['feedbacks'],
+          quizzes: data[0]['quizzes'],
+          currentQuiz: data[0]['currentQuiz']
         });
       }
     }.bind(this));
@@ -38,14 +38,14 @@ class SingleTour extends React.Component {
         if(this.mounted){
           this.setState({
             loading: false,
-            tour: data[0]["tour"],
-            audience: data[0]["audience"],
-            points: data[0]["points"],
-            tourSessions: data[0]["tour_sessions"],
-            feedbackAverage: data[0]["feedbackAverage"],
-            feedbacks: data[0]["feedbacks"],
-            quizzes: data[0]["quizzes"],
-            currentQuiz: data[0]["currentQuiz"]
+            tour: data[0]['tour'],
+            audience: data[0]['audience'],
+            points: data[0]['points'],
+            tourSessions: data[0]['tour_sessions'],
+            feedbackAverage: data[0]['feedbackAverage'],
+            feedbacks: data[0]['feedbacks'],
+            quizzes: data[0]['quizzes'],
+            currentQuiz: data[0]['currentQuiz']
           });
         }
       }.bind(this)),
@@ -159,7 +159,7 @@ class SingleTour extends React.Component {
         <div className="collection">
           {this.state.points.map(function(point) {
             if(point.name.length > 18 && $(document).width() <= 350){
-              point.name = point.name.substring(0,18)+"...";
+              point.name = point.name.substring(0,18) + '...';
             }
             return (
               <div key={point.id} className="collection-item grey lighten-5">
@@ -251,7 +251,7 @@ class SingleTour extends React.Component {
   }
 }
 
-SingleTour.displayName = "SingleTour";
+SingleTour.displayName = 'SingleTour';
 SingleTour.propTypes = {
   new_tour_point_url: React.PropTypes.string.isRequired,
   showUrl: React.PropTypes.string.isRequired,

@@ -1,5 +1,4 @@
 class Points extends React.Component {
-
   render () {
     return (
       <div>
@@ -40,7 +39,7 @@ class Points extends React.Component {
   }
 }
 
-Points.displayName = "Points";
+Points.displayName = 'Points';
 Points.propTypes = {
   getUrl: React.PropTypes.string.isRequired,
   postUrl: React.PropTypes.string.isRequired

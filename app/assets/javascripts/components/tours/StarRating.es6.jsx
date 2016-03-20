@@ -44,7 +44,7 @@ class StarRating extends React.Component{
     $('.star').eq(0).trigger('click');
   }
 }
-StarRating.displayName = "Star Rating";
+StarRating.displayName = 'Star Rating';
 StarRating.propTypes = {
   formName: React.PropTypes.string.isRequired,
   numberOfStars: React.PropTypes.number.isRequired

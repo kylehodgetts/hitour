@@ -4,7 +4,7 @@ class Editprofileform extends React.Component {
     $('#updateForm').on('submit',function(e){
       e.preventDefault();
       DataUtil.handlePostToServer(patchUrl,$(this).serialize(),'Updating password. Please wait...',e);
-      $('#updateForm').trigger("reset");
+      $('#updateForm').trigger('reset');
       document.getElementById('password').focus();
     });
   }
@@ -13,8 +13,8 @@ class Editprofileform extends React.Component {
     return (
 
       <div className="row">
-     <h4>&nbsp;&nbsp;{(!(this.props.currentUser.activated)?"Please set your password to activate your account"
-      :"Profile")}</h4>
+     <h4>&nbsp;&nbsp;{(!(this.props.currentUser.activated)?'Please set your password to activate your account'
+      :'Profile')}</h4>
 
         <form id="updateForm" className="col s12" method="post">
           <input type="hidden" name="_method" value="patch" />
@@ -55,7 +55,7 @@ class Editprofileform extends React.Component {
   }
 }
 
-Editprofileform.displayName = "Editprofileform"
+Editprofileform.displayName = 'Editprofileform'
 Editprofileform.propTypes = {
   currentUser: React.PropTypes.object.isRequired,
   patchUrl: React.PropTypes.string.isRequired

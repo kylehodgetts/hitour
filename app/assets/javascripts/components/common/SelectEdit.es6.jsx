@@ -81,7 +81,7 @@ class SelectEdit extends React.Component {
   }
 }
 
-SelectEdit.displayName = "SelectEdit";
+SelectEdit.displayName = 'SelectEdit';
 SelectEdit.propTypes = {
   selected: React.PropTypes.string.isRequired,
   options: React.PropTypes.array.isRequired,

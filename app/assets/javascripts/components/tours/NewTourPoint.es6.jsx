@@ -83,7 +83,7 @@ class NewTourPoint extends React.Component {
   }
 }
 
-NewTourPoint.displayName = "NewTourPoint";
+NewTourPoint.displayName = 'NewTourPoint';
 NewTourPoint.propTypes = {
   new_tour_point_url:React.PropTypes.string.isRequired,
   points_url: React.PropTypes.string.isRequired,

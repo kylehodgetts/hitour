@@ -45,4 +45,4 @@ class AjaxProgressBar extends React.Component {
   }
 }
 
-AjaxProgressBar.displayName = "AjaxProgressBar";
+AjaxProgressBar.displayName = 'AjaxProgressBar';

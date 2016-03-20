@@ -1,7 +1,7 @@
 class Navbar extends React.Component {
   componentDidMount() {
-    $(".button-collapse").sideNav();
-    $(".dropdown-button").dropdown();
+    $('.button-collapse').sideNav();
+    $('.dropdown-button').dropdown();
   }
 
   render () {
@@ -68,7 +68,7 @@ class Navbar extends React.Component {
   }
 }
 
-Navbar.displayName = "Navbar";
+Navbar.displayName = 'Navbar';
 Navbar.propTypes = {
   loggedIn: React.PropTypes.bool.isRequired,
   currentUser: React.PropTypes.object,

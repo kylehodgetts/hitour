@@ -38,9 +38,10 @@ class NewDatumAudience extends React.Component {
     if(!check || this.state.data == []){
       $('select').material_select();
       var postUrl = this.props.createDatumAudienceUrl;
-      $('#datumAudienceForm').unbind('submit').on('submit',function(e){
+      $('#datumAudienceForm').unbind('submit').on('submit', function(e) {
         e.preventDefault();
-        DataUtil.handlePostToServer(postUrl,$(this).serialize(),'Assigning Audience to Media. Please wait...',e);
+        DataUtil.handlePostToServer(postUrl, $(this).serialize(),
+                                    'Assigning Audience to Media. Please wait...', e);
         $('#datumAudienceForm')[0].reset();
       });
     }
@@ -82,7 +83,7 @@ class NewDatumAudience extends React.Component {
   }
 }
 
-NewDatumAudience.displayName = "NewDatumAudience";
+NewDatumAudience.displayName = 'NewDatumAudience';
 NewDatumAudience.propTypes = {
   datumID: React.PropTypes.number.isRequired,
   audiencesUrl: React.PropTypes.string.isRequired,
