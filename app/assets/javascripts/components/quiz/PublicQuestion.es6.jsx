@@ -64,7 +64,7 @@ class PublicQuestion extends React.Component{
               <p className="correct-answer">Correct!</p>
             }
             {this.state.response === false &&
-              <p className="wrong-answer">Wrong. The correct answer was {this.state.correctAnswer.value}</p>
+              <p className="wrong-answer">Wrong. The correct answer was {"'"+this.state.correctAnswer.value+"'"}</p>
             }
           </form>
         </div>

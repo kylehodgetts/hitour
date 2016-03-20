@@ -22,26 +22,99 @@
 		  height: 10px;
 		}
 
-		.center-align{
-			align: center;
+		.center{
+			text-align: center;
 		}
+
+    .underline{
+      text-decoration: underline;
+    }
+
+    .qr-center{
+      display: block;
+      margin-left: 200px;
+    }
+
+    .logo-image{
+      display: block;
+      height: 200px;
+      width: 200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .table{
+      width: 100%;
+    }
+
+    .table td, .table th {
+        padding: 2px;
+        border: 1px solid black;
+    }
 
 		td.black { border-color: #000; }
 		td.white { border-color: #fff; }
 		.page-break { display:block; clear:both; page-break-after:always; }
 	</style>
 	<div class="page-break">
-		<h2 class="center-align"><%= @tour.name %></h2>
-		<h3><%= @audience.name %></h3>
+		<h1 class="center underline"><%= @tour.name %></h1>
+    <img class="logo-image" src="http://s22.postimg.org/mmrmma6yp/round_corners_hi_Tour_Artwork_2x.png" />
+		<h3>Audience: <%= @audience.name %></h3>
+    <% if @average %>
+      <h4 class="underline">Feedback</h4>
+      <h4>Average Rating: <%= @average %>/5</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Feedback</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tour_feedbacks.each do |feedback| %>
+            <tr>
+              <td><%= feedback['created_at'].to_formatted_s(:long) %></td>
+              <td><%= feedback['comment'] %></td>
+              <td><%= feedback['rating'] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+    <% if @tour_sessions.length > 0 %>
+      <h4 class="underline">Tour Sessions</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Session Name</th>
+            <th>Start Date</th>
+            <th>Duration</th>
+            <th>Passphrase</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tour_sessions.each do |session| %>
+            <tr>
+              <td><%= session['name'] %></td>
+              <td><%= session['start_date'].to_formatted_s(:long) %></td>
+              <td><%= session['duration'] %> days</td>
+              <td>SN<%= session['passphrase'] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
 	</div>
   <div class="page-break">
-    <h2 class="center-align">Notes</h2>
-    <%= @tour.notes.html_safe %>
+    <h2 class="center underline">Notes</h2>
+    <%= @tour.notes.html_safe if @tour.notes %>
   </div>
 	<% @tour_points.each do |tp| %>
 		<div class="page-break">
-			<%= tp[:rank].to_s + ". " + tp[:name] %>
-			<%= raw tp[:qr_code].as_html %>
+			<h2 class="center underline"><%= tp[:rank].to_s + ". " + tp[:name] %></h2>
+			<div class="qr-center"><%= raw tp[:qr_code].as_html %></div>
+      <h3 class="center">Alternatively input: POINT-<%= tp[:id] %></h3>
 			<div>
 				<h4>Description</h4>
 				<p><%= tp[:description] %></p>
