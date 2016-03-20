@@ -35,11 +35,19 @@
       margin-left: 200px;
     }
 
-    .session-table{
+    .logo-image{
+      display: block;
+      height: 200px;
+      width: 200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .table{
       width: 100%;
     }
 
-    .session-table td, .session-table th {
+    .table td, .table th {
         padding: 2px;
         border: 1px solid black;
     }
@@ -49,30 +57,54 @@
 		.page-break { display:block; clear:both; page-break-after:always; }
 	</style>
 	<div class="page-break">
-    <h1 class="center underline">Tour</h1>
 		<h1 class="center underline"><%= @tour.name %></h1>
-		<h3>For: <%= @audience.name %></h3>
-    <h4 class="underline">Tour Sessions</h4>
-    <table class="session-table">
-      <thead>
-        <tr>
-          <th>Session Name</th>
-          <th>Start Date</th>
-          <th>Duration</th>
-          <th>Passphrase</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @tour_sessions.each do |session| %>
+    <img class="logo-image" src="http://s22.postimg.org/mmrmma6yp/round_corners_hi_Tour_Artwork_2x.png" />
+		<h3>Audience: <%= @audience.name %></h3>
+    <% if @average %>
+      <h4 class="underline">Feedback</h4>
+      <h4>Average Rating: <%= @average %>/5</h4>
+      <table class="table">
+        <thead>
           <tr>
-            <td><%= session['name'] %></td>
-            <td><%= session['start_date'] %></td>
-            <td><%= session['duration'] %> days</td>
-            <td>SN<%= session['passphrase'] %></td>
+            <th>Date</th>
+            <th>Feedback</th>
+            <th>Rating</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @tour_feedbacks.each do |feedback| %>
+            <tr>
+              <td><%= feedback['created_at'].to_formatted_s(:long) %></td>
+              <td><%= feedback['comment'] %></td>
+              <td><%= feedback['rating'] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+    <% if @tour_sessions.length > 0 %>
+      <h4 class="underline">Tour Sessions</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Session Name</th>
+            <th>Start Date</th>
+            <th>Duration</th>
+            <th>Passphrase</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tour_sessions.each do |session| %>
+            <tr>
+              <td><%= session['name'] %></td>
+              <td><%= session['start_date'].to_formatted_s(:long) %></td>
+              <td><%= session['duration'] %> days</td>
+              <td>SN<%= session['passphrase'] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
 	</div>
   <div class="page-break">
     <h2 class="center underline">Notes</h2>

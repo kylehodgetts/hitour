@@ -37,7 +37,7 @@ class ToursController < ApplicationController
 		@tour_sessions = tour_sessions(@tour)
 		@tour_points = [] if @tour_points.nil?
 		average = @tour.feedbacks.average(:rating)
-		average.round(2) if average
+		average = average.round(2) if average
 		items = [
 		  tour: 				 @tour,
 			 currentQuiz:  quiz_data(@tour.id),
@@ -120,6 +120,9 @@ class ToursController < ApplicationController
 		@audience = Audience.find(@tour.audience_id)
 		@tour_points = tour_points(params[:id])
 		@tour_sessions = tour_sessions(@tour)
+		@tour_feedbacks = tour_feedbacks
+		@average = @tour.feedbacks.average(:rating)
+		@average = @average.round(2) if @average
 		render pdf: @tour.name.to_s
 	end
 
