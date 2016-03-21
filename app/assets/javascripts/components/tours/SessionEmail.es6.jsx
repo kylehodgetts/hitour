@@ -30,7 +30,7 @@ class SessionEmail extends React.Component {
     $('#sessionEmailForm').on('submit', function(e) {
       e.preventDefault();
       var url = $(this).find('select').val();
-      DataUtil.handlePostToServer(url,$(this).serialize(),'Assigning Audience to Media. Please wait...',e);
+      DataUtil.handlePostToServer(url,$(this).serialize(),'Sending email... Please wait...',e);
       $('#sessionEmailForm')[0].reset();
     });
   }
