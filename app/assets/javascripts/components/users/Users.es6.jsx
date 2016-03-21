@@ -14,7 +14,7 @@ class Users extends React.Component {
   }
 }
 
-Users.displayName = "Users";
+Users.displayName = 'Users';
 Users.propTypes = {
   getUrl: React.PropTypes.string.isRequired,
   postUrl: React.PropTypes.string.isRequired

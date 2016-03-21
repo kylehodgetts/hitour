@@ -47,7 +47,7 @@ class NewTourQuiz extends React.Component {
   }
 }
 
-NewTourQuiz.displayName = "NewTourQuiz";
+NewTourQuiz.displayName = 'NewTourQuiz';
 NewTourQuiz.propTypes = {
   tourId: React.PropTypes.number.isRequired,
   quizzes: React.PropTypes.array.isRequired,

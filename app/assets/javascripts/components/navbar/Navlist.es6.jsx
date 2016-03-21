@@ -2,14 +2,14 @@ class Navlist extends React.Component {
 
   render () {
     if(this.props.loggedIn) {
-      var iconClass = "nav-icon";
+      var iconClass = 'nav-icon';
       if(this.props.forMobile){
         iconClass = "";
       }
       return(
         <div>
         {this.props.currentUser &&
-          <li><a href={"/users/"+this.props.currentUser.id}>My Profile</a></li>
+          <li><a href={'/users/' + this.props.currentUser.id}>My Profile</a></li>
         }
         <NavlistItem url={this.props.toursPath}
                      name="Tours"
@@ -58,7 +58,7 @@ class Navlist extends React.Component {
   }
 }
 
-Navlist.displayName = "Navlist";
+Navlist.displayName = 'Navlist';
 Navlist.propTypes = {
   loggedIn: React.PropTypes.bool.isRequired,
   currentPage: React.PropTypes.string,

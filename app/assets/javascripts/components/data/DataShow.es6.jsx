@@ -13,12 +13,12 @@ class DataShow extends React.Component {
   componentDidMount() {
     var _this = this;
     this.mounted = true;
-    DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.getUrl+".json",function(data){
+    DataUtil.handleCustomLoadDataFromServer.bind(this, this.props.getUrl + '.json', function(data) {
       if(this.mounted){
         this.setState({
           loading: false,
-          datum: data["datum"],
-          audiences: data["datum_audiences"]
+          datum: data['datum'],
+          audiences: data['datum_audiences']
         });
       }
     }.bind(this));
@@ -27,8 +27,8 @@ class DataShow extends React.Component {
         if(this.mounted){
           this.setState({
             loading: false,
-            datum: data["datum"],
-            audiences: data["datum_audiences"]
+            datum: data['datum'],
+            audiences: data['datum_audiences']
           });
         }
       }.bind(this)),
@@ -80,7 +80,8 @@ class DataShow extends React.Component {
                       <div>
                         {audience.data}
                         <a id={audience.id} href="" className="secondary-content" key={audience.id}
-                                     onClick={DataUtil.handleDeleteDataFromServer.bind(this, audience.delete_url,"Are you sure you want to delete this audience?")}>
+                                     onClick={DataUtil.handleDeleteDataFromServer.bind(this, audience.delete_url,
+                                                                                       'Are you sure you want to delete this audience?')}>
                           <i className=" blue-text material-icons">delete_forever</i>
                         </a>
                       </div>
@@ -98,7 +99,7 @@ class DataShow extends React.Component {
   }
 }
 
-DataShow.displayName = "DataShow";
+DataShow.displayName = 'DataShow';
 DataShow.propTypes = {
   pollInterval: React.PropTypes.number,
   getUrl: React.PropTypes.string.isRequired,

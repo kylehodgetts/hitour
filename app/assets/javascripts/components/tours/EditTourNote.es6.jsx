@@ -11,8 +11,8 @@ class TourNote extends React.Component{
   componentDidMount () {
     DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.tourUrl,function(data){
       this.setState({
-        tour: data[0]["tour"],
-        notes: data[0]["tour"]["notes"]
+        tour: data[0]['tour'],
+        notes: data[0]['tour']['notes']
       });
     }.bind(this));
     // Initialise the editor
@@ -28,8 +28,8 @@ class TourNote extends React.Component{
   handleUpdateNote () {
     var newNote = editor.getHTML();
     var formData = {};
-    formData["tour[notes]"] = newNote;
-    DataUtil.handleUpdateDataToServer(this.props.updateTourPath,formData,"Updating Tour Notes...",function(){});
+    formData['tour[notes]'] = newNote;
+    DataUtil.handleUpdateDataToServer(this.props.updateTourPath,formData,'Updating Tour Notes...',function(){});
   }
 
   render () {
@@ -84,7 +84,7 @@ class TourNote extends React.Component{
 
 };
 
-TourNote.displayName = "TourNote";
+TourNote.displayName = 'TourNote';
 TourNote.propTypes = {
   initialValue: React.PropTypes.string,
   tourUrl: React.PropTypes.string.isRequired,

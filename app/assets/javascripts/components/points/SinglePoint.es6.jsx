@@ -100,7 +100,7 @@ class SinglePoint extends React.Component {
                 textSize = '10px';
                 var title = pointData.title;
                 if(pointData.title.length > 8 && $(document).width() <= 350){
-                  pointData.title = pointData.title.substring(0,6)+"...";
+                  pointData.title = pointData.title.substring(0,6) + '...';
                 }
               }
               return (
@@ -109,7 +109,8 @@ class SinglePoint extends React.Component {
                     <span style={{fontSize:textSize}}>{pointData.rank+". "+pointData.title}</span>
                     <a id={pointData.id} href={pointData.delete_url}
                        className="secondary-content" key={pointData.id}
-                       onClick={DataUtil.handleDeleteDataFromServer.bind(this, pointData.delete_url,"Are you sure you want to delete this datum from this point?")}>
+                       onClick={DataUtil.handleDeleteDataFromServer.bind(this, pointData.delete_url,
+                                                                         'Are you sure you want to delete this datum from this point?')}>
                     <i style={{fontSize:fontSize}} className="blue-text material-icons">delete_forever</i>
                     </a>
                     <a id={pointData.id} href={pointData.datum_show_url}
@@ -146,7 +147,7 @@ class SinglePoint extends React.Component {
     );
   }
 }
-SinglePoint.displayName = "SinglePoint";
+SinglePoint.displayName = 'SinglePoint';
 SinglePoint.propTypes = {
   pollInterval: React.PropTypes.number,
   qrCode: React.PropTypes.any,

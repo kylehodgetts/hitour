@@ -10,7 +10,8 @@ class Feedback extends React.Component{
                 <span className="title">Rating: {feedback.rating} - <b>{feedback.created_at}</b> </span>
                 <p style={{padding:'0'}}>{feedback.comment}</p>
                 <a href={feedback.delete_url} className="secondary-content"
-                           onClick={DataUtil.handleDeleteDataFromServer.bind(this, feedback.delete_url,"Are you sure you want to delete this feedback?")}>
+                           onClick={DataUtil.handleDeleteDataFromServer.bind(this, feedback.delete_url,
+                                                                             'Are you sure you want to delete this feedback?')}>
                 <i className=" blue-text material-icons">delete_forever</i>
                 </a>
               </li>
@@ -21,7 +22,7 @@ class Feedback extends React.Component{
   }
 }
 
-Feedback.displayName = "Feedback";
+Feedback.displayName = 'Feedback';
 Feedback.propTypes = {
   feedbacks: React.PropTypes.array.isRequired
 }

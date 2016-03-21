@@ -2,7 +2,7 @@ class NavlistItem extends React.Component {
   render () {
     var active = "";
     {this.props.currentPage == this.props.name &&
-    (active = "active")}
+    (active = 'active')}
     return(
       <li className={active}>
         <a style={{fontSize:'12px'}} href={this.props.url}><i style={{fontSize:'12px'}} className={"material-icons left "+this.props.iconClass}>{this.props.icon}</i>{this.props.name}</a>
@@ -11,7 +11,7 @@ class NavlistItem extends React.Component {
   }
 }
 
-NavlistItem.displayName = "NavlistItem";
+NavlistItem.displayName = 'NavlistItem';
 NavlistItem.propTypes = {
   url: React.PropTypes.string.isRequired,
   name: React.PropTypes.string.isRequired,

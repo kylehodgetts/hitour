@@ -16,7 +16,7 @@ class SingleQuiz extends React.Component{
         this.setState({
           loading: false,
           quiz: data,
-          questions: data["questions"]
+          questions: data['questions']
         });
       }
     }.bind(this));
@@ -26,7 +26,7 @@ class SingleQuiz extends React.Component{
           this.setState({
             loading: false,
             quiz: data,
-            questions: data["questions"]
+            questions: data['questions']
           });
         }
       }.bind(this)),
@@ -147,7 +147,7 @@ class SingleQuiz extends React.Component{
   }
 }
 
-SingleQuiz.displayName = "Single Quiz";
+SingleQuiz.displayName = 'Single Quiz';
 SingleQuiz.propTypes = {
   getUrl: React.PropTypes.string.isRequired,
   postQuizUrl: React.PropTypes.string.isRequired,

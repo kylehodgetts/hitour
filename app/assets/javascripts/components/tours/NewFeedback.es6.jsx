@@ -28,7 +28,7 @@ class NewFeedback extends React.Component{
   }
 }
 
-NewFeedback.displayName = "NewFeedback";
+NewFeedback.displayName = 'NewFeedback';
 NewFeedback.propTypes = {
   tourId: React.PropTypes.number.isRequired,
   postUrl: React.PropTypes.string.isRequired

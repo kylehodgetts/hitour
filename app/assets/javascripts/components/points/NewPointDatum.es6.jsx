@@ -11,9 +11,9 @@ class NewPointDatum extends React.Component {
 
   componentDidMount() {
     this.mounted = true;
-    DataUtil.handleLoadDataFromServer.bind(this,this.props.data_url+".json");
+    DataUtil.handleLoadDataFromServer.bind(this,this.props.data_url + '.json');
     this.interval = setInterval(
-      DataUtil.handleLoadDataFromServer.bind(this,this.props.data_url+".json"),
+      DataUtil.handleLoadDataFromServer.bind(this,this.props.data_url + '.json'),
       this.state.pollInterval
     );
   }
@@ -24,7 +24,8 @@ class NewPointDatum extends React.Component {
       $('.pointDatumSelect').material_select();
       var postUrl = this.props.new_point_datum_url;
       $('#pointDatumForm').unbind('submit').on('submit',function(e){
-        DataUtil.handlePostToServer(postUrl,$(this).serialize(),'Adding media to point. Please wait.',e);
+        DataUtil.handlePostToServer(postUrl, $(this).serialize(),
+                                    'Adding media to point. Please wait.', e);
       });
     }
   }
@@ -68,7 +69,7 @@ class NewPointDatum extends React.Component {
   }
 }
 
-NewPointDatum.displayName = "NewPointDatum";
+NewPointDatum.displayName = 'NewPointDatum';
 NewPointDatum.propTypes = {
   new_point_datum_url:React.PropTypes.string.isRequired,
   data_url: React.PropTypes.string.isRequired,

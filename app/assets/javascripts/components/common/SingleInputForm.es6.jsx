@@ -27,7 +27,7 @@ class SingleInputForm extends React.Component {
     );
   }
 }
-SingleInputForm.displayName = "SingleInputForm";
+SingleInputForm.displayName = 'SingleInputForm';
 SingleInputForm.propTypes = {
   postUrl: React.PropTypes.string.isRequired,
   dataType: React.PropTypes.string.isRequired,

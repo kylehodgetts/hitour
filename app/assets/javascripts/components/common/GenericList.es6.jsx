@@ -50,14 +50,15 @@ class GenericList extends React.Component {
       <div className="collection">
         {this.state.data.map(function(item, i) {
           if(item.data.length > 25 && $(document).width() <= 350){
-            item.data = item.data.substring(0,25)+"...";
+            item.data = item.data.substring(0,25)+'...';
           }
           return (
             <div key={item.id} className="collection-item grey lighten-5">
               <div>
                 {item.data}
                 <a id={item.id} href="" className="secondary-content" key={i}
-                             onClick={DataUtil.handleDeleteDataFromServer.bind(this, item.delete_url,"Are you sure you want to delete this record?")}>
+                             onClick={DataUtil.handleDeleteDataFromServer.bind(this, item.delete_url,
+                                                                               'Are you sure you want to delete this record?')}>
                   <i className=" blue-text material-icons">delete_forever</i>
                 </a>
                 {item.show_url &&
@@ -77,7 +78,7 @@ class GenericList extends React.Component {
   }
 }
 
-GenericList.displayName = "List";
+GenericList.displayName = 'List';
 GenericList.propTypes = {
   getUrl: React.PropTypes.string.isRequired,
   pollInterval: React.PropTypes.number,

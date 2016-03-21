@@ -9,7 +9,7 @@ class PublicQuestion extends React.Component{
   componentDidMount () {
     var postUrl = this.props.questionData.submit_url;
     var _this = this;
-    var id = "#"+this.props.questionData.id+'question-form';
+    var id = '#'+this.props.questionData.id + 'question-form';
     $(id).on('submit',function(e){
       e.preventDefault();
       $.ajax({
@@ -73,7 +73,7 @@ class PublicQuestion extends React.Component{
   }
 }
 
-PublicQuestion.displayName = "Public Question";
+PublicQuestion.displayName = 'Public Question';
 PublicQuestion.propTypes = {
   questionData: React.PropTypes.object.isRequired,
   index: React.PropTypes.number.isRequired

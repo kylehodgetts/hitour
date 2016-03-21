@@ -55,7 +55,7 @@ class NewTourSession extends React.Component {
   }
 }
 
-NewTourSession.displayName = "NewTourPoint";
+NewTourSession.displayName = 'NewTourPoint';
 NewTourSession.propTypes = {
   new_tour_session_url:React.PropTypes.string.isRequired,
   pollInterval: React.PropTypes.number,

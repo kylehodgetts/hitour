@@ -13,7 +13,7 @@ class SessionEmail extends React.Component {
     DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.tourSessionsUrl,function(data){
       if(this.mounted){
         this.setState({
-          tourSessions: data[0]["tour_sessions"]
+          tourSessions: data[0]['tour_sessions']
         });
       }
     }.bind(this));
@@ -21,7 +21,7 @@ class SessionEmail extends React.Component {
       DataUtil.handleCustomLoadDataFromServer.bind(this,this.props.tourSessionsUrl,function(data){
         if(this.mounted){
           this.setState({
-            tourSessions: data[0]["tour_sessions"]
+            tourSessions: data[0]['tour_sessions']
           });
         }
       }.bind(this)),
@@ -81,7 +81,7 @@ class SessionEmail extends React.Component {
   }
 }
 
-SessionEmail.displayName = "SessionEmail";
+SessionEmail.displayName = 'SessionEmail';
 SessionEmail.propTypes = {
   tourSessionsUrl: React.PropTypes.string.isRequired,
   pollInterval: React.PropTypes.number

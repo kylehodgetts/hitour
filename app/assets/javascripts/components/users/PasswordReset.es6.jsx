@@ -22,7 +22,7 @@ class PasswordReset extends React.Component {
   }
 }
 
-PasswordReset.displayName = "PasswordReset"
+PasswordReset.displayName = 'PasswordReset'
 PasswordReset.propTypes = {
   link_path: React.PropTypes.string.isRequired
 };

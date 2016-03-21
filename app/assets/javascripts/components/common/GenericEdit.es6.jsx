@@ -36,7 +36,7 @@ class GenericEdit extends React.Component {
     var newValue = document.getElementById(newKey).value;
     var formData = {};
     formData[newKey] = newValue;
-    DataUtil.handleUpdateDataToServer(postUrl,formData,"Updating Record...",function(data){
+    DataUtil.handleUpdateDataToServer(postUrl, formData, 'Updating Record...', function(data) {
       //If Contains Error - Set NewValue to old value
       if(data[0].indexOf('Error') >= 0) {
         newValue = this.state.value;
@@ -80,7 +80,7 @@ class GenericEdit extends React.Component {
   }
 }
 
-GenericEdit.displayName = "GenericEdit";
+GenericEdit.displayName = 'GenericEdit';
 GenericEdit.propTypes = {
   value: React.PropTypes.string.isRequired,
   postUrl: React.PropTypes.string.isRequired,

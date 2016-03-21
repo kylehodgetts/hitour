@@ -20,7 +20,6 @@ comp:
 
 test:
 	rspec
-	# Front end test command
 
 lint:
 	@echo 'Linting...'

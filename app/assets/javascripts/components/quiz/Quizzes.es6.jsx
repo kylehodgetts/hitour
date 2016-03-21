@@ -14,7 +14,7 @@ class Quizzes extends React.Component {
   }
 }
 
-Quizzes.displayName = "Quizzes";
+Quizzes.displayName = 'Quizzes';
 Quizzes.propTypes = {
   getUrl: React.PropTypes.string.isRequired,
   postUrl: React.PropTypes.string.isRequired
