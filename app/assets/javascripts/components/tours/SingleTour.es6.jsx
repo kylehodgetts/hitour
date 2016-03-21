@@ -198,7 +198,7 @@ class SingleTour extends React.Component {
           }
         </div>
 
-        <div id="sessionModal" className="modal" style={{maxHeight: '800px'}}>
+        <div id="sessionModal" className="modal" style={{maxHeight: '800px', height: '85%'}}>
           <div className="modal-content">
             <h4>Tour Sessions</h4>
             <p>Please Note: When entering a passphrase manually into the mobile app, please prefix 'SN' to the passphrase</p>
