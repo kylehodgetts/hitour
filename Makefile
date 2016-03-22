@@ -7,6 +7,7 @@ install:
 	@echo 'Installation successful!'
 
 setup:
+	touch config/application.yml
 	bundle exec rake db:setup
 	bundle exec rake db:migrate
 	@echo 'Setup successful!'
