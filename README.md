@@ -2,7 +2,8 @@
 
 Build Status: ![Circle CI](https://circleci.com/gh/KyleHodgetts/project-run-cms/tree/master.svg?style=svg&circle-token=989dd912291e5b69390dca32f8add4930208ba9f)
 
-You can see a demonstration on how to use the application [here](https://www.youtube.com/watch?v=W2CoXSr3UuM)
+Application Demonstration
+<iframe width="560" height="315" src="https://www.youtube.com/embed/W2CoXSr3UuM" frameborder="0" allowfullscreen></iframe>
 
 ### Team Members
 * [Kyle Hodgetts](https://github.com/KyleHodgetts)
