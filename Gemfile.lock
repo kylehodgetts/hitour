@@ -278,6 +278,3 @@ DEPENDENCIES
   web-console (~> 2.0)
   wicked_pdf
   wkhtmltopdf-binary
-
-BUNDLED WITH
-   1.11.2
