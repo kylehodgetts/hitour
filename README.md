@@ -28,8 +28,8 @@ In order for the application to work as it should, you will need to put your own
 
 You will need to provide you own keys for the following:
 * `AWS_ACCESS_KEY_ID` for Amazon Web Service
-* `AWS_SECRET_ACCESS_KEY` for Amazon Web Serve
-* `SENDGRID_ACCESS_KEY` for sending emails to users and tour particpants
+* `AWS_SECRET_ACCESS_KEY` for Amazon Web Service
+* `SENDGRID_ACCESS_KEY` for sending emails to users and tour participants via the Sendgrid API
 
 To log into the CMS on a local server
   * Email: `dev@mail.com`
