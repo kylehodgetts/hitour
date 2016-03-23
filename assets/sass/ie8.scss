@@ -4,83 +4,132 @@
 @import 'libs/skel';
 
 /*
-	Fractal by HTML5 UP
+	Alpha by HTML5 UP
 	html5up.net | @n33co
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
+
+/* Basic */
+
+	pre, code {
+		position: relative;
+		-ms-behavior: url('assets/js/ie/PIE.htc');
+	}
+
+/* Form */
+
+	input[type="text"],
+	input[type="password"],
+	input[type="email"],
+	select,
+	textarea {
+		position: relative;
+		-ms-behavior: url('assets/js/ie/PIE.htc');
+		line-height: 3em;
+	}
+
+	input[type="checkbox"],
+	input[type="radio"], {
+		opacity: 1;
+		z-index: auto;
+
+		& + label {
+			&:before {
+				display: none;
+			}
+		}
+	}
 
 /* Button */
 
 	input[type="submit"],
 	input[type="reset"],
 	input[type="button"],
-	button,
 	.button {
 		position: relative;
 		-ms-behavior: url('assets/js/ie/PIE.htc');
-		border: solid (_size(border-width) * 2) _palette(border) !important;
 
-		&:hover {
-			border: solid (_size(border-width) * 2) _palette(border) !important;
+		&.alt {
+			border: solid 2px _palette(border);
 		}
+	}
 
-		&.special {
-			border: none !important;
+/* Box */
 
-			&:hover {
-				border: none !important;
+	.box {
+		position: relative;
+		-ms-behavior: url('assets/js/ie/PIE.htc');
+
+		.image {
+			&.featured {
+				margin: 2em 0;
+				width: 100%;
 			}
+		}
+	}
+
+/* Icon */
+
+	.icon {
+		&.major {
+			position: relative;
+			-ms-behavior: url('assets/js/ie/PIE.htc');
 		}
 	}
 
 /* Image */
 
 	.image {
+		position: relative;
 		-ms-behavior: url('assets/js/ie/PIE.htc');
 
 		img {
 			position: relative;
 			-ms-behavior: url('assets/js/ie/PIE.htc');
 		}
-
-		&.phone {
-			&:before, &:after {
-				display: none;
-			}
-
-			.inner {
-				&:before, &:after {
-					display: none;
-				}
-			}
-		}
 	}
 
-/* List */
+/* Header */
 
-	ul {
-		&.icons {
-			li {
-				padding: 0 0 0 1.5em;
+	#header {
+		nav {
+			> ul {
+				> li {
+					a {
+						color: #fff;
+						display: inline-block;
+						text-decoration: none;
+						border: 0;
 
-				&:first-child {
-					padding-left: 0 !important;
-				}
-
-				.icon {
-					&:before {
-						font-size: 24px;
+						&.icon {
+							&:before {
+								color: #fff;
+								margin-right: 0.5em;
+							}
+						}
 					}
 				}
 			}
+		}
 
-			&.major {
-				li {
-					padding: 0 0 0 2.5em;
+		&.alt {
+			color: #fff;
 
-					.icon {
-						&:before {
-							font-size: 48px;
+			nav {
+				> ul {
+					> li {
+						a:not(.button) {
+							&.icon {
+								&:before {
+									color: rgba(255,255,255,0.75);
+								}
+							}
+						}
+
+						&.active {
+							a:not(.button) {
+								background-color: rgba(255,255,255,0.2);
+							}
 						}
 					}
 				}
@@ -88,12 +137,56 @@
 		}
 	}
 
-/* Header */
+	.dropotron {
+		border: solid 1px _palette(border);
 
-	#header {
-		min-height: 0;
+		&.level-0 {
+			margin-top: 0;
 
-		.image {
-			margin: 0 0 (_size(element-margin)) 0;
+			&:before {
+				display: none;
+			}
+		}
+	}
+
+/* Banner */
+
+	#banner {
+		background-attachment:	scroll;
+		background-image:		url('../../images/banner.jpg');
+		background-position:	auto;
+		background-repeat:		no-repeat;
+		background-size:		cover;
+		-ms-behavior: url('assets/js/ie/backgroundsize.min.htc');
+
+		input[type="submit"],
+		input[type="reset"],
+		input[type="button"],
+		.button {
+			border: solid 2px #fff;
+		}
+	}
+
+/* Main */
+
+	#main {
+		position: relative;
+		z-index: 1;
+	}
+
+/* CTA */
+
+	#cta {
+		input[type="text"],
+		input[type="password"],
+		input[type="email"],
+		select,
+		textarea {
+			background: _palette(accent2, bg);
+			border: solid 2px #fff;
+		}
+
+		.formerize-placeholder {
+			color: #fff !important;
 		}
 	}

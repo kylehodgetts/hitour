@@ -1,72 +1,81 @@
 // Misc.
 	$misc: (
+		z-index-base:		10000
 	);
 
 // Duration.
 	$duration: (
+		navPanel:			0.5s,
 		transition:			0.2s
 	);
 
 // Size.
 	$size: (
+		navPanel:			275px,
 		border-radius:		6px,
-		border-width:		1px,
-		element-height:		2.75em,
+		element-height:		3em,
 		element-margin:		2em
 	);
 
 // Font.
 	$font: (
-		family:				(Arial, Helvetica, sans-serif),
-		family-fixed:		('Courier New', monospace),
-		weight:				normal,
-		weight-bold:		bold
+		family:				('Source Sans Pro', sans-serif),
+		family-fixed:		monospace,
+		weight:				300,
+		weight-bold:		400,
 	);
 
 // Palette.
 	$palette: (
-		bg:					#ffffff,
-		fg:					#999999,
-		fg-bold:			#828282,
-		fg-light:			#e0e0e0,
-		border:				#e6e6e6,
-		border-bg:			rgba(144,144,144,0.075),
-		border2:			#d6d6d6,
-		border2-bg:			rgba(144,144,144,0.15),
+		bg:					#f5f5f5,
+		fg:					#777,
+		fg-bold:			#646464,
+		fg-light:			#999,
+		border:				#e5e5e5,
+		border-bg:			#f8f8f8,
+		border2:			#dddddd,
+		border2-bg:			#f0f0f0,
+
+		header: (
+			bg:				#444,
+			fg:				#bbb,
+			fg-bold:		#fff,
+			fg-light:		#999
+		),
 
 		accent1: (
-			bg:				#4696e5,
-			fg:				mix(#4696e5, #ffffff, 25%),
+			bg:				#666,
+			fg:				mix(#666, #ffffff, 25%),
 			fg-bold:		#ffffff,
-			fg-light:		mix(#4696e5, #ffffff, 40%),
-			border:			rgba(255,255,255,0.25),
-			border-bg:		rgba(255,255,255,0.075),
-			border2:		rgba(255,255,255,0.5),
-			border2-bg:		rgba(255,255,255,0.2),
-			invert:			true
+			fg-light:		mix(#666, #ffffff, 40%)
 		),
 
 		accent2: (
-			bg:				#fbfbfb,
-			fg:				#999999,
-			fg-bold:		#828282,
-			fg-light:		#e0e0e0,
-			border:			#e6e6e6,
-			border-bg:		rgba(144,144,144,0.075),
-			border2:		#d6d6d6,
-			border2-bg:		rgba(144,144,144,0.15),
-			invert:			false
+			bg:				#e89980,
+			fg:				mix(#e89980, #ffffff, 25%),
+			fg-bold:		#ffffff,
+			fg-light:		mix(#e89980, #ffffff, 40%)
 		),
 
 		accent3: (
-			bg:				#f7f7f7,
-			fg:				#999999,
-			fg-bold:		#828282,
-			fg-light:		#b0b0b0,
-			border:			#d6d6d6,
-			border-bg:		rgba(144,144,144,0.075),
-			border2:		#c6c6c6,
-			border2-bg:		rgba(144,144,144,0.15),
-			invert:			false
+			bg:				#7fcdb8,
+			fg:				mix(#7fcdb8, #ffffff, 25%),
+			fg-bold:		#ffffff,
+			fg-light:		mix(#7fcdb8, #ffffff, 40%)
+		),
+
+		accent4: (
+			bg:				#90b0ba,
+			fg:				mix(#90b0ba, #ffffff, 25%),
+			fg-bold:		#ffffff,
+			fg-light:		mix(#90b0ba, #ffffff, 40%)
+		),
+
+		accent5: (
+			bg:				#e5cb95,
+			fg:				mix(#e5cb95, #ffffff, 25%),
+			fg-bold:		#ffffff,
+			fg-light:		mix(#e5cb95, #ffffff, 40%)
 		)
+
 	);
