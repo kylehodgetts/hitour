@@ -19,7 +19,7 @@ Build Status:
 * [Ben Temple](https://github.com/ben-temple)
 
 ## Installation Instructions
-We have dedicated a whole document to setting up the application [here]()
+We have dedicated a whole document to setting up the application [here](https://github.com/KyleHodgetts/hitour/wiki/Installation)
 
 ## Running Instructions
 `Disclaimer`: We assume you have followed the installation document
