@@ -1,6 +1,8 @@
 # HiTour Content Management System
 
-Build Status: ![Circle CI](https://circleci.com/gh/KyleHodgetts/project-run-cms/tree/master.svg?style=svg&circle-token=989dd912291e5b69390dca32f8add4930208ba9f)
+Build Status: 
+
+[![Circle CI](https://circleci.com/gh/KyleHodgetts/hitour.svg?style=svg&circle-token=989dd912291e5b69390dca32f8add4930208ba9f)](https://circleci.com/gh/KyleHodgetts/hitour)
 
 **Application Demonstration**
 
