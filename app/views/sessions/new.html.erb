@@ -1,6 +1,0 @@
-<script>
-  <% flash.each do |key, value| %>
-    Materialize.toast(<%= ('"'+value+'"').html_safe %>, 3000, 'rounded');
-  <% end %>
-</script>
-<%= react_component('Loginform', link_path: password_reset_path) %>

@@ -1,8 +1,0 @@
-<p>Dear Recipient,</p>
-<p>An account has been made for the email: <b><%= @user.email %>.</b></p> on hiTour
-<p>Please click <a href=<%= ('"'+@url[0..-2]+password_reset_path+"/"+@user.temporarypassword+"/activate"'"').html_safe %> >here</a> </p>
-<p><b>Please Note: </b>It is extremely important that you set a
-password after clicking the link. If password is not set,
-please click <a href=<%= ('"'+password_reset_url+'"').html_safe %> >here</a> to reset your password.</p>
-<p>Kind Regards,</p>
-<p>The HiTour Team</p>

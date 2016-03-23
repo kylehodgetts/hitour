@@ -1,7 +1,0 @@
-<% title 'Points' %>
-<%= react_component('SinglePoint',pointName: @point.name,
-								  getUrl: point_path+".json",
-								  new_point_datum_url: create_point_datum_path,
-								  data_url: data_path,
-									update_point_url: point_url(@point.id),
-								  point_id: @point.id.to_i ) %>

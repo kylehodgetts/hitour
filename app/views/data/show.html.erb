@@ -1,8 +1,0 @@
-<% title 'Data' %>
-<%= react_component('DataShow',{
-	datumID: @datum.id,
-	audiencesUrl: audiences_path,
-	getUrl: datum_path(@datum),
-	createDatumAudienceUrl: data_audiences_path,
-	update_datum_url: datum_path(@datum.id)
-})%>
