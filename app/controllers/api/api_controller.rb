@@ -5,7 +5,7 @@ module Api
   # Class responsible for handling API Queries
   class ApiController < ApplicationController
     before_action :api_authenticate!
-
+    require 'date'
     # Start the reponse building process for a queried tour
     # Remove the notes for the tour as they aren't needed
     def single_tour
@@ -45,7 +45,13 @@ module Api
       point[:data] = []
       pd = PointDatum.where(point_id: point[:id])
       pd.each { |p_d| populate_data_reponse(tour, point, p_d) }
+      point[:id] = secret_id point
       tour[:points] << point
+    end
+
+    def secret_id(point)
+      time = point[:created_at].to_s.to_datetime
+      point[:id] = point[:id].to_s + time.year.to_s + time.usec.to_s
     end
 
     # Insert array of points data into point reponse
